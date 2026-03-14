@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://unpkg.com/@supabase/supabase-js@2.39.0/dist/umd/supabase.js"></script>
-  <!-- 引入修改後的 cart.js -->
   <script src="cart.js"></script>
   <style>
     /* ========= 全域變數與重置 ========= */
@@ -240,7 +239,8 @@
   </div>
 
   <!-- 佔位 -->
-  <div style="height:72px;"></div>
+  <div style="height:72px;">這些植物，大多來自一個持續多年的屋頂栽培計畫。
+在城市裡，我們嘗試讓植物重新回到生活中。</div>
 
   <!-- 購物車主要內容 -->
   <h1>🌿 人生植物店</h1>
@@ -282,26 +282,30 @@
       { auth: { persistSession: false, detectSessionInUrl: false } }
     );
 
-    // 全域變數（供 cart.js 使用）
     let allProducts = [];
-    window.allProducts = allProducts; // 建立參考
+    window.allProducts = allProducts;
 
-    // 渲染產品列表（包含按鈕禁用邏輯）
+    // 渲染產品列表（包含所有商品，庫存為0也會顯示）
     function renderProducts(products) {
       const list = document.getElementById('product-list');
-      const available = products.filter(p => p.quantity > 0);
-      
-      if (available.length === 0) {
-        list.innerHTML = "<p style='text-align:center;'>目前沒有庫存商品。</p>";
+      if (products.length === 0) {
+        list.innerHTML = "<p style='text-align:center;'>目前沒有商品。</p>";
         return;
       }
 
       const cartItems = Cart.getItems();
 
-      list.innerHTML = available.map(p => {
+      list.innerHTML = products.map(p => {
         const cartItem = cartItems.find(item => item.id === p.id);
         const cartQty = cartItem ? cartItem.quantity : 0;
-        const disabled = cartQty >= p.quantity; // 已達庫存上限
+        const disabled = cartQty >= p.quantity || p.quantity <= 0; // 庫存不足或已達上限
+
+        let buttonText = '加入購物車';
+        if (p.quantity <= 0) {
+          buttonText = '庫存不足';
+        } else if (cartQty >= p.quantity) {
+          buttonText = '已達上限';
+        }
 
         return `
           <div class="product-card">
@@ -311,14 +315,13 @@
             <button class="btn-add" 
                     onclick="Cart.addItem('${p.id}', '${p.name}', ${p.price}, ${p.quantity})"
                     ${disabled ? 'disabled' : ''}>
-              ${disabled ? '已達上限' : '加入購物車'}
+              ${buttonText}
             </button>
           </div>
         `;
       }).join('');
     }
 
-    // 掛到全域
     window.renderProducts = renderProducts;
 
     // 篩選功能
@@ -375,13 +378,12 @@
     async function fetchProducts() {
       const { data } = await mySupabase.from('products').select('*');
       allProducts = data || [];
-      window.allProducts = allProducts; // 同步
+      window.allProducts = allProducts;
       renderProducts(allProducts);
     }
 
     // 導覽列互動
     document.addEventListener('DOMContentLoaded', function () {
-      // 漢堡選單
       var btn = document.getElementById('hamburger');
       var menu = document.getElementById('mobileMenu');
       btn.addEventListener('click', function () {
@@ -394,7 +396,6 @@
           menu.classList.remove('open');
         });
       });
-      // 手機選單手風琴
       menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
         parent.addEventListener('click', function () {
           var id = parent.getAttribute('data-target');
@@ -410,11 +411,9 @@
           }
         });
       });
-      // 滾動陰影
       window.addEventListener('scroll', function () {
         document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
       });
-      // Lucide 圖標
       lucide.createIcons();
     });
 
