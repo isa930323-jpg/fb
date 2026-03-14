@@ -6,9 +6,8 @@ const Cart = {
     addItem: (id, name, price, maxQuantity) => {
         let items = Cart.getItems();
         const existingItem = items.find(item => item.id === id);
-        
-        // 檢查購物車內該商品數量，若已達庫存上限則阻止
         const currentQtyInCart = existingItem ? existingItem.quantity : 0;
+        
         if (currentQtyInCart >= maxQuantity) {
             alert('❌ 此商品庫存不足，無法再新增！');
             return;
@@ -23,8 +22,12 @@ const Cart = {
         localStorage.setItem('myCart', JSON.stringify(items));
         alert('✅ 成功加入購物車！');
         
-        // 更新 UI
+        // 更新購物車 UI
         if (typeof updateCartUI === 'function') updateCartUI();
+        // 重新渲染產品列表，更新按鈕狀態
+        if (typeof window.renderProducts === 'function' && window.allProducts) {
+            window.renderProducts(window.allProducts);
+        }
     },
 
     // 移除商品
@@ -33,6 +36,9 @@ const Cart = {
         items.splice(index, 1);
         localStorage.setItem('myCart', JSON.stringify(items));
         if (typeof updateCartUI === 'function') updateCartUI();
+        if (typeof window.renderProducts === 'function' && window.allProducts) {
+            window.renderProducts(window.allProducts);
+        }
     },
 
     // 計算總金額
