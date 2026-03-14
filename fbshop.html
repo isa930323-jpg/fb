@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>蕨積 · 植物商店</title>
+  <title>蕨積 · 植物商店（分頁版）</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -195,6 +195,38 @@
       width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ddd;
       border-radius: 5px;
     }
+
+    /* 分頁控制區 */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 40px 0;
+    }
+    .pagination button {
+      padding: 8px 20px;
+      background: white;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+    .pagination button:hover:not(:disabled) {
+      background: var(--primary);
+      color: white;
+    }
+    .pagination button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    .page-info {
+      font-size: 0.9rem;
+      color: var(--stone);
+      align-self: center;
+    }
+
     footer {
       border-top: 1px solid rgba(90,122,74,0.15);
       padding: 40px 4vw;
@@ -209,6 +241,14 @@
     }
     .footer-links a:hover { opacity: 1; color: var(--fern); }
     .footer-copy { font-size: 0.75rem; color: var(--stone); letter-spacing: 0.1em; }
+
+    /* 載入中提示 */
+    .loading-more {
+      text-align: center;
+      color: var(--stone);
+      padding: 20px;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
@@ -238,7 +278,7 @@
     </ul>
   </div>
 
-  <!-- 佔位 -->
+  
   <div style="height:72px;">這些植物，大多來自一個持續多年的屋頂栽培計畫。
 在城市裡，我們嘗試讓植物重新回到生活中。</div>
 
@@ -251,7 +291,18 @@
     <button class="filter-btn" onclick="filterProducts('其他植物', this)">其他植物</button>
   </div>
 
-  <div id="product-list">正在載入商品...</div>
+  <!-- 商品列表容器 -->
+  <div id="product-list"></div>
+
+  <!-- 分頁控制（僅電腦版顯示） -->
+  <div class="pagination" id="pagination-controls">
+    <button id="prev-page" onclick="changePage(currentPage - 1)">◀ 上一頁</button>
+    <span class="page-info" id="page-info">第 1 頁</span>
+    <button id="next-page" onclick="changePage(currentPage + 1)">下一頁 ▶</button>
+  </div>
+
+  <!-- 手機版載入中提示（隱藏於電腦版） -->
+  <div class="loading-more" id="loading-more" style="display: none;">載入更多商品中...</div>
 
   <div id="cart-section">
     <h3>🛒 購物清單</h3>
@@ -282,57 +333,160 @@
       { auth: { persistSession: false, detectSessionInUrl: false } }
     );
 
-    let allProducts = [];
-    window.allProducts = allProducts;
+    // 全域變數
+    let allProducts = [];                 // 所有商品（不分頁，用於篩選）
+    let filteredProducts = [];             // 篩選後的商品
+    let currentPage = 1;                   // 目前頁碼（從1開始）
+    let isLoadingMore = false;              // 避免重複載入
+    let hasMoreMobile = true;               // 手機板是否還有更多資料
+    const ITEMS_PER_PAGE = 8;               // 每頁 8 筆
 
-    // 渲染產品列表（包含所有商品，庫存為0也會顯示）
-    function renderProducts(products) {
+    // 判斷是否為手機版（簡易判斷：視窗寬度 ≤ 768px）
+    function isMobile() {
+      return window.innerWidth <= 768;
+    }
+
+    // 渲染商品列表（根據目前模式與頁碼）
+    async function renderProducts() {
       const list = document.getElementById('product-list');
-      if (products.length === 0) {
+      const cartItems = Cart.getItems();
+
+      let productsToRender = filteredProducts;
+
+      if (!isMobile()) {
+        // 電腦版：只顯示當前頁面的 8 筆
+        const start = (currentPage - 1) * ITEMS_PER_PAGE;
+        const end = start + ITEMS_PER_PAGE;
+        productsToRender = filteredProducts.slice(start, end);
+      }
+
+      if (productsToRender.length === 0) {
         list.innerHTML = "<p style='text-align:center;'>目前沒有商品。</p>";
+      } else {
+        list.innerHTML = productsToRender.map(p => {
+          const cartItem = cartItems.find(item => item.id === p.id);
+          const cartQty = cartItem ? cartItem.quantity : 0;
+          const disabled = cartQty >= p.quantity || p.quantity <= 0;
+
+          let buttonText = '加入購物車';
+          if (p.quantity <= 0) {
+            buttonText = '庫存不足';
+          } else if (cartQty >= p.quantity) {
+            buttonText = '已達上限';
+          }
+
+          return `
+            <div class="product-card">
+              <img src="${p.image_url}" style="width:100%; height:180px; object-fit:cover; border-radius:8px;">
+              <h3>${p.name}</h3>
+              <p>庫存: ${p.quantity} | $${p.price}</p>
+              <button class="btn-add" 
+                      onclick="Cart.addItem('${p.id}', '${p.name}', ${p.price}, ${p.quantity})"
+                      ${disabled ? 'disabled' : ''}>
+                ${buttonText}
+              </button>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // 更新分頁資訊（電腦版）
+      if (!isMobile()) {
+        updatePaginationUI();
+      }
+    }
+
+    // 更新分頁按鈕狀態
+    function updatePaginationUI() {
+      const prevBtn = document.getElementById('prev-page');
+      const nextBtn = document.getElementById('next-page');
+      const pageInfo = document.getElementById('page-info');
+      
+      const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE) || 1;
+      pageInfo.innerText = `第 ${currentPage} 頁 / 共 ${totalPages} 頁`;
+
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === totalPages;
+    }
+
+    // 切換頁碼（電腦版專用）
+    function changePage(newPage) {
+      if (isMobile()) return; // 手機板不支援按鈕分頁
+      const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE) || 1;
+      if (newPage < 1 || newPage > totalPages) return;
+      currentPage = newPage;
+      renderProducts();
+    }
+
+    // 手機板：載入更多（無限滾動）
+    async function loadMoreMobile() {
+      if (!isMobile() || isLoadingMore || !hasMoreMobile) return;
+
+      const nextStart = filteredProducts.length; // 已載入的商品數（即下一批的起始索引）
+      if (nextStart >= allProducts.length) {
+        hasMoreMobile = false;
+        document.getElementById('loading-more').style.display = 'none';
         return;
       }
 
-      const cartItems = Cart.getItems();
+      isLoadingMore = true;
+      document.getElementById('loading-more').style.display = 'block';
 
-      list.innerHTML = products.map(p => {
-        const cartItem = cartItems.find(item => item.id === p.id);
-        const cartQty = cartItem ? cartItem.quantity : 0;
-        const disabled = cartQty >= p.quantity || p.quantity <= 0; // 庫存不足或已達上限
-
-        let buttonText = '加入購物車';
-        if (p.quantity <= 0) {
-          buttonText = '庫存不足';
-        } else if (cartQty >= p.quantity) {
-          buttonText = '已達上限';
-        }
-
-        return `
-          <div class="product-card">
-            <img src="${p.image_url}" style="width:100%; height:180px; object-fit:cover; border-radius:8px;">
-            <h3>${p.name}</h3>
-            <p>庫存: ${p.quantity} | $${p.price}</p>
-            <button class="btn-add" 
-                    onclick="Cart.addItem('${p.id}', '${p.name}', ${p.price}, ${p.quantity})"
-                    ${disabled ? 'disabled' : ''}>
-              ${buttonText}
-            </button>
-          </div>
-        `;
-      }).join('');
+      // 從 allProducts 取得下一批商品（依目前篩選類別）
+      const nextBatch = allProducts.slice(nextStart, nextStart + ITEMS_PER_PAGE);
+      
+      // 將新商品加入 filteredProducts（因為手機版會逐步累積）
+      filteredProducts = [...filteredProducts, ...nextBatch];
+      
+      await renderProducts(); // 重新渲染
+      
+      isLoadingMore = false;
+      if (filteredProducts.length >= allProducts.length) {
+        hasMoreMobile = false;
+        document.getElementById('loading-more').style.display = 'none';
+      }
     }
 
-    window.renderProducts = renderProducts;
-
-    // 篩選功能
-    function filterProducts(category, btn) {
+    // 篩選類別
+    async function filterProducts(category, btn) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+
       if (category === '全部') {
-        renderProducts(allProducts);
+        filteredProducts = [...allProducts];
       } else {
-        renderProducts(allProducts.filter(p => p.category === category));
+        filteredProducts = allProducts.filter(p => p.category === category);
       }
+
+      // 重置狀態
+      currentPage = 1;
+      hasMoreMobile = true;
+      
+      // 重新渲染（電腦版自動分頁，手機版只顯示第一批）
+      if (isMobile()) {
+        // 手機版：只載入第一批 8 筆，後續靠滾動
+        filteredProducts = filteredProducts.slice(0, ITEMS_PER_PAGE);
+      }
+      await renderProducts();
+
+      // 隱藏載入中提示
+      document.getElementById('loading-more').style.display = 'none';
+    }
+
+    // 載入所有商品（從 Supabase）
+    async function fetchProducts() {
+      const { data } = await mySupabase.from('products').select('*').order('created_at', { ascending: true }); // 假設有 created_at 欄位，若無可改用 'id'
+      allProducts = data || [];
+      
+      // 預設顯示全部
+      filteredProducts = [...allProducts];
+      
+      if (isMobile()) {
+        // 手機版只顯示第一頁
+        filteredProducts = filteredProducts.slice(0, ITEMS_PER_PAGE);
+      }
+      
+      await renderProducts();
     }
 
     // 更新購物車 UI
@@ -374,13 +528,38 @@
       }
     }
 
-    // 載入商品
-    async function fetchProducts() {
-      const { data } = await mySupabase.from('products').select('*');
-      allProducts = data || [];
-      window.allProducts = allProducts;
-      renderProducts(allProducts);
-    }
+    // 監聽手機板滾動事件
+    window.addEventListener('scroll', () => {
+      if (!isMobile()) return;
+      
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      
+      // 當距離底部小於 200px 時觸發載入更多
+      if (scrollY + windowHeight > documentHeight - 200) {
+        loadMoreMobile();
+      }
+    });
+
+    // 監聽視窗大小變化，切換模式時重新渲染
+    window.addEventListener('resize', () => {
+      // 簡單延遲，避免頻繁重繪
+      clearTimeout(window.resizeTimer);
+      window.resizeTimer = setTimeout(() => {
+        // 重新設定 filteredProducts 根據目前模式
+        if (isMobile()) {
+          // 切到手機板：只保留第一頁
+          filteredProducts = allProducts.slice(0, ITEMS_PER_PAGE);
+          currentPage = 1;
+          hasMoreMobile = true;
+        } else {
+          // 切到電腦板：顯示完整 filteredProducts（但會由 renderProducts 自動分頁）
+          filteredProducts = allProducts; // 假設目前是全部類別，若有篩選需額外處理
+        }
+        renderProducts();
+      }, 300);
+    });
 
     // 導覽列互動
     document.addEventListener('DOMContentLoaded', function () {
