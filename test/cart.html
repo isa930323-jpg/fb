@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>蕨積 · 植物商店（分頁版）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js@2.39.0/dist/umd/supabase.js"></script>
+  <script src="cart.js"></script>
+  <link rel="stylesheet" href="common.css">
+  <style>
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .filter-container { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+    .filter-btn { padding: 8px 16px; border: 1px solid var(--mist); background: white; color: var(--fern); cursor: pointer; border-radius: 4px; transition: 0.3s; }
+    .filter-btn.active { background: var(--moss); color: white; border-color: var(--moss); }
+    #product-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-bottom: 40px; }
+    /* ...此處請貼上您原本 cart.html 內的其餘樣式... */
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+  <div style="height:72px;"></div>
+
+  <main class="container">
+    <h1 style="margin: 40px 0; font-family: 'Noto Serif TC';">植物產品</h1>
+    <div class="filter-container" id="category-filters">
+        <button class="filter-btn active" onclick="filterByCategory('all')">全部</button>
+        <button class="filter-btn" onclick="filterByCategory('鹿角蕨')">鹿角蕨</button>
+        <button class="filter-btn" onclick="filterByCategory('觀葉植物')">觀葉植物</button>
+    </div>
+    <div id="product-list"></div>
+    <div class="pagination" id="pagination"></div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof fetchProducts === 'function') fetchProducts();
+    });
+  </script>
+</body>
+</html>
