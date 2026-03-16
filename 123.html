@@ -583,8 +583,103 @@
       // 如果 lucide 已經存在，先執行一次（但導覽列加載後會再執行一次）
       if (typeof lucide !== 'undefined') lucide.createIcons();
     });
+// 在 DOMContentLoaded 事件中初始化所有功能
+document.addEventListener('DOMContentLoaded', async function () {
+  // 載入共用導覽列
+  try {
+    const response = await fetch('nav.html');
+    const data = await response.text();
+    document.getElementById('nav-placeholder').innerHTML = data;
+    initNav(); // 初始化導覽列功能
+  } catch (err) {
+    console.warn('無法載入導覽列，使用預設內嵌導覽（僅供開發）');
+  }
 
-   
+  // 初始化購物車功能
+  try {
+    // 先載入商品資料
+    await fetchProducts();
+    
+    // 初始化購物車 UI
+    updateCartUI();
+    
+    // 監聽購物車更新事件
+    document.addEventListener('cartUpdated', function() {
+      updateCartUI();
+      renderProducts(); // 重新渲染商品列表（更新按鈕狀態）
+    });
+
+    // 如果是手機版，添加無限滾動監聽
+    if (isMobile()) {
+      window.addEventListener('scroll', function() {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
+          loadMoreMobile();
+        }
+      });
+    }
+
+  } catch (error) {
+    console.error('初始化失敗：', error);
+  }
+
+  // 原有的 reveal 觀察者
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { 
+        e.target.classList.add('visible'); 
+        observer.unobserve(e.target); 
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(function (el) { observer.observe(el); });
+
+  // 初始化圖示
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+});
+
+// 導覽列初始化函數（從你的原有程式碼中提取）
+function initNav() {
+  var btn = document.getElementById('hamburger');
+  var menu = document.getElementById('mobileMenu');
+  if (btn && menu) {
+    btn.addEventListener('click', function () {
+      btn.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+    menu.querySelectorAll('.mobile-link').forEach(function (a) {
+      a.addEventListener('click', function () {
+        btn.classList.remove('open');
+        menu.classList.remove('open');
+      });
+    });
+  }
+  
+  menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
+    parent.addEventListener('click', function () {
+      var id = parent.getAttribute('data-target');
+      var sub = document.getElementById(id);
+      var caretId = 'caret-' + id.replace('sub-', '');
+      var caret = document.getElementById(caretId);
+      var opening = !sub.classList.contains('open');
+      menu.querySelectorAll('.mobile-sub').forEach(function (s) { 
+        s.classList.remove('open'); 
+      });
+      menu.querySelectorAll('.mobile-caret').forEach(function (c) { 
+        c.classList.remove('open'); 
+      });
+      if (opening) {
+        sub.classList.add('open');
+        if (caret) caret.classList.add('open');
+      }
+    });
+  });
+
+  window.addEventListener('scroll', function () {
+    var nav = document.getElementById('mainNav');
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+}
   </script>
 </body>
 </html>
