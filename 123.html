@@ -434,7 +434,7 @@ const category = urlParams.get('cat');
 if (category) {
   // 找到對應的按鈕
   const btn = Array.from(document.querySelectorAll('.filter-btn'))
-    .find(b => b.innerText === category);
+    .find(b => b.innerText.trim() === category);
 
   if (btn) {
     filterProducts(category, btn);
