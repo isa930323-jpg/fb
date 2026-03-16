@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    /* ===== 共用樣式 (僅保留導覽列所需) ===== */
+    /* ===== 共用樣式 ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --ink: #1a1a14;
@@ -27,6 +27,8 @@
       color: var(--ink);
       overflow-x: hidden;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     /* ----- 導覽列 (完整保留) ----- */
@@ -223,10 +225,62 @@
       .hamburger { display: flex; }
     }
 
-    /* ----- 頁面內容預留樣式 (可自行添加) ----- */
+    /* ----- 頁面內容區域 ----- */
     .content {
+      flex: 1;
       padding-top: 92px; /* 72px nav + 20px 間距 */
-      min-height: calc(100vh - 72px);
+      padding-bottom: 40px;
+    }
+
+    /* ----- Footer (完整保留) ----- */
+    footer {
+      border-top: 1px solid rgba(90,122,74,0.15);
+      padding: 40px 4vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--paper);
+      margin-top: auto;
+    }
+    .footer-logo {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: var(--moss);
+      letter-spacing: 0.05em;
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--stone);
+      letter-spacing: 0.1em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.75rem;
+      color: var(--stone);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .footer-links a:hover {
+      opacity: 1;
+      color: var(--fern);
+    }
+    @media (max-width: 768px) {
+      footer {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+      .footer-links {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
     }
   </style>
 </head>
@@ -234,7 +288,7 @@
   <!-- 放置導覽列的佔位元素 -->
   <div id="nav-placeholder"></div>
 
-  <!-- 空的內容區域，您可以在此加入自己的頁面內容 -->
+  <!-- 頁面主要內容區域 -->
   <main class="content">
     <!-- 
       =============================================
@@ -243,14 +297,23 @@
       =============================================
     -->
     <div style="text-align: center; padding: 40px; color: var(--stone);">
-      <h1 style="font-family: 'Noto Serif TC', serif; color: var(--moss;">歡迎使用蕨積模板</h1>
+      <h1 style="font-family: 'Noto Serif TC', serif; color: var(--moss);">歡迎使用蕨積模板</h1>
       <p>此處已預留給您的頁面內容</p>
+      <p style="margin-top: 20px;">導覽列與 footer 都已完整保留</p>
     </div>
   </main>
+
+  <!-- Footer -->
   <footer>
-    <ul class="footer-links"><li><a href="#">植物選品</a></li><li><a href="#">綠色顧問</a></li><li><a href="#">蕨望筆記</a></li><li><a href="#">關於蕨積</a></li></ul>
+    <ul class="footer-links">
+      <li><a href="#">植物選品</a></li>
+      <li><a href="#">綠色顧問</a></li>
+      <li><a href="#">蕨望筆記</a></li>
+      <li><a href="#">關於蕨積</a></li>
+    </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       // 載入共用導覽列
