@@ -1,56 +1,280 @@
-<!-- ========== 共用導覽列元件 nav.html ========== -->
-<!-- 使用方式：在頁面中 <body> 內放置 <div id="nav-placeholder"></div>，
-     並在頁面底部引入下方 script 載入此檔案。此檔案不含 <style>，
-     樣式需在主要頁面中自行定義（或另建共用的 CSS 檔）。 -->
-<nav id="mainNav">
-  <a href="https://fb-d9pw.onrender.com/index.html" class="logo">
-    <div class="logo-mark"><img src="logo.png" alt="蕨積"></div>
-    <div class="logo-text">蕨積<span>FernBrom</span></div>
-  </a>
-  <ul class="nav-links">
-    <li class="has-dropdown">
-      <a href="123.html">植物選品</a>
-      <ul class="dropdown">
-        <li><a href="123.html?cat=鹿角蕨">蕨類</a></li>
-        <li><a href="123.html?cat=積水鳳梨">積水鳳梨</a></li>
-        <li><a href="123.html?cat=其他植物">其他植物</a></li>
-      </ul>
-    </li>
-    <li class="has-dropdown">
-      <a href="#consultant">綠色顧問</a>
-      <ul class="dropdown">
-        <li><a href="#carbon-audit">碳盤查顧問</a></li>
-        <li><a href="#green-wall">植生牆顧問</a></li>
-        <li><a href="#proposal">提案合作</a></li>
-      </ul>
-    </li>
-    <li><a href="#notes">蕨望筆記</a></li>
-    <li><a href="#about">關於蕨積</a></li>
-    <li><a href="#contact" class="nav-contact">聯絡我們</a></li>
-  </ul>
-  <button class="hamburger" id="hamburger" aria-label="開啟選單"><span></span><span></span><span></span></button>
-</nav>
-<!-- 行動選單結構也保留在 nav 元件中，因為它與 hamburger 連動 -->
-<div class="mobile-menu" id="mobileMenu">
-  <ul>
-    <li>
-      <div class="mobile-parent" data-target="sub-plants"><span>植物選品</span><span class="mobile-caret" id="caret-plants">▾</span></div>
-      <ul class="mobile-sub" id="sub-plants">
-        <li><a href="#plants-fern" class="mobile-link">蕨類</a></li>
-        <li><a href="#plants-bromeliad" class="mobile-link">積水鳳梨</a></li>
-        <li><a href="#plants-other" class="mobile-link">其他植物</a></li>
-      </ul>
-    </li>
-    <li>
-      <div class="mobile-parent" data-target="sub-consultant"><span>綠色顧問</span><span class="mobile-caret" id="caret-consultant">▾</span></div>
-      <ul class="mobile-sub" id="sub-consultant">
-        <li><a href="#carbon-audit" class="mobile-link">碳盤查顧問</a></li>
-        <li><a href="#green-wall" class="mobile-link">植生牆顧問</a></li>
-        <li><a href="#proposal" class="mobile-link">提案合作</a></li>
-      </ul>
-    </li>
-    <li><a href="#notes" class="mobile-link">蕨望筆記</a></li>
-    <li><a href="#about" class="mobile-link">關於蕨積</a></li>
-    <li><a href="#contact" class="mobile-link">聯絡我們</a></li>
-  </ul>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* 導覽列基本樣式 */
+    #mainNav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .logo-mark img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .logo-text span {
+      font-size: 0.8rem;
+      font-weight: normal;
+      color: #666;
+      margin-left: 5px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links li {
+      margin-left: 2rem;
+      position: relative;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    /* ===== 下拉選單修正（重點在這裡）===== */
+    .has-dropdown {
+      position: relative;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      min-width: 150px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      
+      /* 隱藏下拉選單 */
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      
+      /* 【關鍵修正】增加緩衝區 */
+      padding-top: 10px;
+      z-index: 100;
+    }
+
+    /* 建立透明橋樑（雙重保障） */
+    .dropdown::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: transparent;
+    }
+
+    /* 滑鼠移到父層時顯示下拉選單 */
+    .has-dropdown:hover > .dropdown {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .dropdown li {
+      margin: 0;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 8px 15px;
+      color: #333;
+    }
+
+    .dropdown a:hover {
+      background-color: #f5f5f5;
+    }
+
+    /* 聯絡我們按鈕樣式 */
+    .nav-contact {
+      background-color: #4CAF50;
+      color: white !important;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+
+    /* 漢堡選單（預設隱藏） */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: #333;
+      margin: 2px 0;
+      transition: 0.3s;
+    }
+
+    /* 行動版選單 */
+    .mobile-menu {
+      display: none;
+      background-color: #fff;
+      padding: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .mobile-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mobile-parent {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    .mobile-sub {
+      display: none;
+      padding-left: 20px;
+    }
+
+    .mobile-sub.active {
+      display: block;
+    }
+
+    .mobile-caret.active {
+      transform: rotate(180deg);
+    }
+
+    .mobile-link {
+      display: block;
+      padding: 8px 15px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    /* RWD 響應式 */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .mobile-menu.active {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav id="mainNav">
+    <a href="https://fb-d9pw.onrender.com/index.html" class="logo">
+      <div class="logo-mark"><img src="logo.png" alt="蕨積"></div>
+      <div class="logo-text">蕨積<span>FernBrom</span></div>
+    </a>
+    <ul class="nav-links">
+      <li class="has-dropdown">
+        <a href="123.html">植物選品</a>
+        <ul class="dropdown">
+          <li><a href="123.html?cat=鹿角蕨">蕨類</a></li>
+          <li><a href="123.html?cat=積水鳳梨">積水鳳梨</a></li>
+          <li><a href="123.html?cat=其他植物">其他植物</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown">
+        <a href="#consultant">綠色顧問</a>
+        <ul class="dropdown">
+          <li><a href="#carbon-audit">碳盤查顧問</a></li>
+          <li><a href="#green-wall">植生牆顧問</a></li>
+          <li><a href="#proposal">提案合作</a></li>
+        </ul>
+      </li>
+      <li><a href="#notes">蕨望筆記</a></li>
+      <li><a href="#about">關於蕨積</a></li>
+      <li><a href="#contact" class="nav-contact">聯絡我們</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="開啟選單"><span></span><span></span><span></span></button>
+  </nav>
+  <!-- 行動選單結構也保留在 nav 元件中，因為它與 hamburger 連動 -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li>
+        <div class="mobile-parent" data-target="sub-plants"><span>植物選品</span><span class="mobile-caret" id="caret-plants">▾</span></div>
+        <ul class="mobile-sub" id="sub-plants">
+          <li><a href="#plants-fern" class="mobile-link">蕨類</a></li>
+          <li><a href="#plants-bromeliad" class="mobile-link">積水鳳梨</a></li>
+          <li><a href="#plants-other" class="mobile-link">其他植物</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="mobile-parent" data-target="sub-consultant"><span>綠色顧問</span><span class="mobile-caret" id="caret-consultant">▾</span></div>
+        <ul class="mobile-sub" id="sub-consultant">
+          <li><a href="#carbon-audit" class="mobile-link">碳盤查顧問</a></li>
+          <li><a href="#green-wall" class="mobile-link">植生牆顧問</a></li>
+          <li><a href="#proposal" class="mobile-link">提案合作</a></li>
+        </ul>
+      </li>
+      <li><a href="#notes" class="mobile-link">蕨望筆記</a></li>
+      <li><a href="#about" class="mobile-link">關於蕨積</a></li>
+      <li><a href="#contact" class="mobile-link">聯絡我們</a></li>
+    </ul>
+  </div>
+
+  <script>
+    // 漢堡選單功能
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+    });
+
+    // 行動版下拉選單功能
+    const mobileParents = document.querySelectorAll('.mobile-parent');
+    
+    mobileParents.forEach(parent => {
+      parent.addEventListener('click', function() {
+        const targetId = this.dataset.target;
+        const targetSub = document.getElementById(targetId);
+        const caret = this.querySelector('.mobile-caret');
+        
+        targetSub.classList.toggle('active');
+        caret.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>
