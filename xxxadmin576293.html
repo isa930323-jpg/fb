@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌿 人生植物店 - 後台管理系統</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root { --primary: #2d5a27; --danger: #e74c3c; --edit: #3498db; --bg: #f4f7f6; }
+        body { font-family: "PingFang TC", sans-serif; background: var(--bg); padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        h1 { color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
+        .form-section { background: #f9f9f9; padding: 20px; border-radius: 8px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        input, select, textarea { padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 12px; border: none; border-radius: 5px; cursor: pointer; color: white; font-weight: bold; }
+        .btn-add { background: var(--primary); grid-column: 1 / -1; }
+        .btn-edit { background: var(--edit); margin-right: 5px; padding: 6px 12px; font-size: 14px; }
+        .btn-del { background: var(--danger); padding: 6px 12px; font-size: 14px; }
+        .prod-img { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 15px; border-bottom: 1px solid #eee; text-align: left; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .close-btn { font-size: 24px; cursor: pointer; color: #666; }
+        .close-btn:hover { color: #000; }
+        .btn-save { background: var(--primary); width: 100%; margin-top: 20px; }
+        .current-image { max-width: 200px; margin: 10px 0; border-radius: 6px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🏪 商品管理後台</h1>
+
+    <!-- 新增商品表單 -->
+    <div class="form-section">
+        <div class="form-group">
+            <label>品種分類</label>
+            <select id="add-category">
+                <option value="鹿角蕨">鹿角蕨</option>
+                <option value="積水鳳梨">積水鳳梨</option>
+                <option value="其他植物">其他植物</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>商品名稱</label>
+            <input type="text" id="add-name">
+        </div>
+        <div class="form-group">
+            <label>價格</label>
+            <input type="number" id="add-price">
+        </div>
+        <div class="form-group">
+            <label>庫存</label>
+            <input type="number" id="add-quantity" value="1">
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
+            <label>商品照片</label>
+            <input type="file" id="add-file" accept="image/*">
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
+            <label>商品備註</label>
+            <input type="text" id="add-note" placeholder="例如：現貨/預購/照顧小撇步">
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
+            <label>詳細描述</label>
+            <textarea id="add-description" rows="2"></textarea>
+        </div>
+        <button id="btn-submit" class="btn-add" onclick="addProduct()">✨ 新增商品並上架</button>
+    </div>
+
+    <!-- 商品列表 -->
+    <table>
+        <thead>
+            <tr><th>圖片</th><th>名稱</th><th>備註</th><th>價格</th><th>庫存</th><th>操作</th></tr>
+        </thead>
+        <tbody id="product-tbody"></tbody>
+    </table>
+</div>
+
+<!-- 編輯商品的 Modal -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>✏️ 編輯商品</h2>
+            <span class="close-btn" onclick="closeEditModal()">&times;</span>
+        </div>
+        
+        <div class="form-section" style="margin-bottom: 0;">
+            <div class="form-group">
+                <label>品種分類</label>
+                <select id="edit-category">
+                    <option value="鹿角蕨">鹿角蕨</option>
+                    <option value="積水鳳梨">積水鳳梨</option>
+                    <option value="其他植物">其他植物</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>商品名稱</label>
+                <input type="text" id="edit-name">
+            </div>
+            <div class="form-group">
+                <label>價格</label>
+                <input type="number" id="edit-price">
+            </div>
+            <div class="form-group">
+                <label>庫存</label>
+                <input type="number" id="edit-quantity">
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label>目前照片</label>
+                <img id="edit-current-image" class="current-image" src="" alt="目前照片">
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label>更換照片（如不更換請留空）</label>
+                <input type="file" id="edit-file" accept="image/*">
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label>商品備註</label>
+                <input type="text" id="edit-note" placeholder="例如：現貨/預購/照顧小撇步">
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label>詳細描述</label>
+                <textarea id="edit-description" rows="2"></textarea>
+            </div>
+            <button id="btn-save-edit" class="btn-save" onclick="saveEdit()">💾 儲存修改</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const supabaseUrl = 'https://wrreydnppkhhssbnmnno.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndycmV5ZG5wcGtoaHNzYm5tbm5vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMjI0MjYsImV4cCI6MjA4ODc5ODQyNn0.7520TxecGoqhjkIcY497sCt4oG7eqDtShK1OQJe3N7o';
+    const mySupabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+    // 當前正在編輯的商品ID
+    let currentEditId = null;
+
+    // 新增商品
+    async function addProduct() {
+        const fileInput = document.getElementById('add-file');
+        const file = fileInput.files[0];
+        const submitBtn = document.getElementById('btn-submit');
+
+        if (!file) return alert("請選擇照片！");
+        
+        try {
+            submitBtn.disabled = true;
+            submitBtn.innerText = "上傳中...";
+
+            const filePath = `public/${Date.now()}.jpg`;
+            const { error: uploadError } = await mySupabase.storage.from('product-images').upload(filePath, file);
+            if (uploadError) throw uploadError;
+
+            const { data: { publicUrl } } = mySupabase.storage.from('product-images').getPublicUrl(filePath);
+
+            const product = {
+                category: document.getElementById('add-category').value,
+                name: document.getElementById('add-name').value,
+                price: parseInt(document.getElementById('add-price').value),
+                quantity: parseInt(document.getElementById('add-quantity').value),
+                image_url: publicUrl,
+                description: document.getElementById('add-description').value,
+                note: document.getElementById('add-note').value,
+                creator_id: 'admin_web',
+                status: 'active'
+            };
+
+            const { error: dbError } = await mySupabase.from('products').insert([product]);
+            if (dbError) throw dbError;
+
+            alert("✅ 上架成功！");
+            location.reload();
+        } catch (e) {
+            alert("失敗：" + e.message);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerText = "✨ 新增商品並上架";
+        }
+    }
+
+    // 開啟編輯視窗
+    async function editProduct(id) {
+        currentEditId = id;
+        
+        // 查詢商品資料
+        const { data, error } = await mySupabase
+            .from('products')
+            .select('*')
+            .eq('id', id)
+            .single();
+        
+        if (error) {
+            alert("讀取商品資料失敗：" + error.message);
+            return;
+        }
+
+        // 填寫表單
+        document.getElementById('edit-category').value = data.category || '鹿角蕨';
+        document.getElementById('edit-name').value = data.name || '';
+        document.getElementById('edit-price').value = data.price || '';
+        document.getElementById('edit-quantity').value = data.quantity || '';
+        document.getElementById('edit-note').value = data.note || '';
+        document.getElementById('edit-description').value = data.description || '';
+        document.getElementById('edit-current-image').src = data.image_url || '';
+        
+        // 清空檔案選擇
+        document.getElementById('edit-file').value = '';
+
+        // 顯示 Modal
+        document.getElementById('editModal').style.display = 'flex';
+    }
+
+    // 關閉編輯視窗
+    function closeEditModal() {
+        document.getElementById('editModal').style.display = 'none';
+        currentEditId = null;
+    }
+
+    // 儲存編輯
+    async function saveEdit() {
+        if (!currentEditId) return;
+
+        const saveBtn = document.getElementById('btn-save-edit');
+        const fileInput = document.getElementById('edit-file');
+        const file = fileInput.files[0];
+
+        try {
+            saveBtn.disabled = true;
+            saveBtn.innerText = "儲存中...";
+
+            let image_url = document.getElementById('edit-current-image').src;
+
+            // 如果有上傳新照片
+            if (file) {
+                const filePath = `public/${Date.now()}.jpg`;
+                const { error: uploadError } = await mySupabase.storage.from('product-images').upload(filePath, file);
+                if (uploadError) throw uploadError;
+
+                const { data: { publicUrl } } = mySupabase.storage.from('product-images').getPublicUrl(filePath);
+                image_url = publicUrl;
+            }
+
+            // 更新資料庫（移除 updated_at）
+            const updates = {
+                category: document.getElementById('edit-category').value,
+                name: document.getElementById('edit-name').value,
+                price: parseInt(document.getElementById('edit-price').value),
+                quantity: parseInt(document.getElementById('edit-quantity').value),
+                note: document.getElementById('edit-note').value,
+                description: document.getElementById('edit-description').value,
+                image_url: image_url
+            };
+
+            const { error: updateError } = await mySupabase
+                .from('products')
+                .update(updates)
+                .eq('id', currentEditId);
+
+            if (updateError) throw updateError;
+
+            alert("✅ 修改成功！");
+            closeEditModal();
+            fetchAdminProducts(); // 重新整理列表
+        } catch (e) {
+            alert("修改失敗：" + e.message);
+        } finally {
+            saveBtn.disabled = false;
+            saveBtn.innerText = "💾 儲存修改";
+        }
+    }
+
+    // 刪除商品
+    async function deleteProduct(id) {
+        if (!confirm("確定刪除？")) return;
+        
+        try {
+            const { error } = await mySupabase.from('products').delete().eq('id', id);
+            if (error) throw error;
+            
+            alert("✅ 刪除成功！");
+            fetchAdminProducts();
+        } catch (e) {
+            alert("刪除失敗：" + e.message);
+        }
+    }
+
+    // 查詢所有商品
+    async function fetchAdminProducts() {
+        const { data, error } = await mySupabase
+            .from('products')
+            .select('*')
+            .order('created_at', { ascending: false });
+        
+        if (error) {
+            console.error("讀取失敗:", error);
+            return;
+        }
+
+        const tbody = document.getElementById('product-tbody');
+        tbody.innerHTML = data.map(p => `
+            <tr>
+                <td><img src="${p.image_url}" class="prod-img"></td>
+                <td>${p.name}</td>
+                <td>${p.note || ''}</td>
+                <td>$${p.price}</td>
+                <td>${p.quantity}</td>
+                <td>
+                    <button class="btn-edit" onclick="editProduct('${p.id}')">編輯</button>
+                    <button class="btn-del" onclick="deleteProduct('${p.id}')">刪除</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    // 點擊 Modal 外部關閉
+    window.onclick = function(event) {
+        const modal = document.getElementById('editModal');
+        if (event.target === modal) {
+            closeEditModal();
+        }
+    }
+
+    // 初始化載入商品列表
+    fetchAdminProducts();
+</script>
+</body>
+</html>
