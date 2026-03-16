@@ -427,7 +427,19 @@
       filteredProducts = [...filteredProducts, ...nextBatch];
       
       await renderProducts(); // 重新渲染
-      
+      // 讀取網址參數
+const urlParams = new URLSearchParams(window.location.search);
+const category = urlParams.get('cat');
+
+if (category) {
+  // 找到對應的按鈕
+  const btn = Array.from(document.querySelectorAll('.filter-btn'))
+    .find(b => b.innerText === category);
+
+  if (btn) {
+    filterProducts(category, btn);
+  }
+}
       isLoadingMore = false;
       if (filteredProducts.length >= allProducts.length) {
         hasMoreMobile = false;
