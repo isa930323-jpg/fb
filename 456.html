@@ -361,7 +361,311 @@
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
 
-  <script>
+  <script>  // Supabase 初始化
+    const mySupabase = supabase.createClient(
+      'https://wrreydnppkhhssbnmnno.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndycmV5ZG5wcGtoaHNzYm5tbm5vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMjI0MjYsImV4cCI6MjA4ODc5ODQyNn0.7520TxecGoqhjkIcY497sCt4oG7eqDtShK1OQJe3N7o',
+      { auth: { persistSession: false, detectSessionInUrl: false } }
+    );
+
+    // 全域變數
+    let allProducts = [];                 // 所有商品（不分頁，用於篩選）
+    let filteredProducts = [];             // 篩選後的商品
+    let currentPage = 1;                   // 目前頁碼（從1開始）
+    let isLoadingMore = false;              // 避免重複載入
+    let hasMoreMobile = true;               // 手機板是否還有更多資料
+    const ITEMS_PER_PAGE = 8;               // 每頁 8 筆
+
+    // 判斷是否為手機版（簡易判斷：視窗寬度 ≤ 768px）
+    function isMobile() {
+      return window.innerWidth <= 768;
+    }
+
+    // 渲染商品列表（根據目前模式與頁碼）
+    async function renderProducts() {
+      const list = document.getElementById('product-list');
+      const cartItems = Cart.getItems();
+
+      let productsToRender = filteredProducts;
+
+      if (!isMobile()) {
+        // 電腦版：只顯示當前頁面的 8 筆
+        const start = (currentPage - 1) * ITEMS_PER_PAGE;
+        const end = start + ITEMS_PER_PAGE;
+        productsToRender = filteredProducts.slice(start, end);
+      }
+
+      if (productsToRender.length === 0) {
+        list.innerHTML = "<p style='text-align:center;'>目前沒有商品。</p>";
+      } else {
+        list.innerHTML = productsToRender.map(p => {
+          const cartItem = cartItems.find(item => item.id === p.id);
+          const cartQty = cartItem ? cartItem.quantity : 0;
+          const disabled = cartQty >= p.quantity || p.quantity <= 0;
+
+          let buttonText = '加入購物車';
+          if (p.quantity <= 0) {
+            buttonText = '庫存不足';
+          } else if (cartQty >= p.quantity) {
+            buttonText = '已達上限';
+          }
+
+          return `
+            <div class="product-card">
+              <img src="${p.image_url}" style="width:100%; height:180px; object-fit:cover; border-radius:8px;">
+              <h3>${p.name}</h3>
+              <p>庫存: ${p.quantity} | $${p.price}</p>
+              <button class="btn-add" 
+                      onclick="Cart.addItem('${p.id}', '${p.name}', ${p.price}, ${p.quantity})"
+                      ${disabled ? 'disabled' : ''}>
+                ${buttonText}
+              </button>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // 更新分頁資訊（電腦版）
+      if (!isMobile()) {
+        updatePaginationUI();
+      }
+    }
+
+    // 更新分頁按鈕狀態
+    function updatePaginationUI() {
+      const prevBtn = document.getElementById('prev-page');
+      const nextBtn = document.getElementById('next-page');
+      const pageInfo = document.getElementById('page-info');
+      
+      const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE) || 1;
+      pageInfo.innerText = `第 ${currentPage} 頁 / 共 ${totalPages} 頁`;
+
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === totalPages;
+    }
+
+    // 切換頁碼（電腦版專用）
+    function changePage(newPage) {
+      if (isMobile()) return; // 手機板不支援按鈕分頁
+      const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE) || 1;
+      if (newPage < 1 || newPage > totalPages) return;
+      currentPage = newPage;
+      renderProducts();
+    }
+
+    // 手機板：載入更多（無限滾動）
+    async function loadMoreMobile() {
+      if (!isMobile() || isLoadingMore || !hasMoreMobile) return;
+
+      const nextStart = filteredProducts.length; // 已載入的商品數（即下一批的起始索引）
+      if (nextStart >= allProducts.length) {
+        hasMoreMobile = false;
+        document.getElementById('loading-more').style.display = 'none';
+        return;
+      }
+
+      isLoadingMore = true;
+      document.getElementById('loading-more').style.display = 'block';
+
+      // 從 allProducts 取得下一批商品（依目前篩選類別）
+      const nextBatch = allProducts.slice(nextStart, nextStart + ITEMS_PER_PAGE);
+      
+      // 將新商品加入 filteredProducts（因為手機版會逐步累積）
+      filteredProducts = [...filteredProducts, ...nextBatch];
+      
+      await renderProducts(); // 重新渲染
+      
+      isLoadingMore = false;
+      if (filteredProducts.length >= allProducts.length) {
+        hasMoreMobile = false;
+        document.getElementById('loading-more').style.display = 'none';
+      }
+    }
+
+    // 篩選類別
+    async function filterProducts(category, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (category === '全部') {
+        filteredProducts = [...allProducts];
+      } else {
+        filteredProducts = allProducts.filter(p => p.category === category);
+      }
+
+      // 重置狀態
+      currentPage = 1;
+      hasMoreMobile = true;
+      
+      // 重新渲染（電腦版自動分頁，手機版只顯示第一批）
+      if (isMobile()) {
+        // 手機版：只載入第一批 8 筆，後續靠滾動
+        filteredProducts = filteredProducts.slice(0, ITEMS_PER_PAGE);
+      }
+      await renderProducts();
+
+      // 隱藏載入中提示
+      document.getElementById('loading-more').style.display = 'none';
+    }
+
+    // 載入所有商品（從 Supabase）
+    async function fetchProducts() {
+      const { data } = await mySupabase.from('products').select('*').order('created_at', { ascending: true }); // 假設有 created_at 欄位，若無可改用 'id'
+      allProducts = data || [];
+      
+      // 預設顯示全部
+      filteredProducts = [...allProducts];
+      
+      if (isMobile()) {
+        // 手機版只顯示第一頁
+        filteredProducts = filteredProducts.slice(0, ITEMS_PER_PAGE);
+      }
+      
+      await renderProducts();
+    }
+
+    // 更新購物車 UI
+    function updateCartUI() {
+      const list = document.getElementById('cart-items');
+      if (!list) return;
+      const items = Cart.getItems();
+      list.innerHTML = items.map((p, i) => `
+        <li>${p.name} x ${p.quantity} - $${p.price * p.quantity} 
+        <button onclick="Cart.removeItem(${i})" style="color:red; border:none; background:none;">刪除</button></li>
+      `).join('');
+      document.getElementById('total-price').innerText = Cart.getTotal();
+    }
+
+    // 送出訂單
+    async function submitOrder() {
+      const items = Cart.getItems();
+      if (items.length === 0) return alert('購物車是空的');
+      const orderData = {
+        name: document.getElementById('cust-name').value,
+        phone: document.getElementById('cust-phone').value,
+        email: document.getElementById('cust-email').value,
+        items: items,
+        total: Cart.getTotal()
+      };
+      if (!orderData.name || !orderData.phone || !orderData.email) return alert('請填寫完整資訊');
+      const res = await fetch('https://linebot-oh5o.onrender.com/order', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(orderData)
+      });
+      if (res.ok) {
+        alert('✅ 訂單已送出！');
+        localStorage.removeItem('myCart');
+        await fetchProducts();
+        updateCartUI();
+      } else {
+        alert('發送失敗');
+      }
+    }
+
+    // 監聽手機板滾動事件
+    window.addEventListener('scroll', () => {
+      if (!isMobile()) return;
+      
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      
+      // 當距離底部小於 200px 時觸發載入更多
+      if (scrollY + windowHeight > documentHeight - 200) {
+        loadMoreMobile();
+      }
+    });
+
+    // 監聽視窗大小變化，切換模式時重新渲染
+    window.addEventListener('resize', () => {
+      // 簡單延遲，避免頻繁重繪
+      clearTimeout(window.resizeTimer);
+      window.resizeTimer = setTimeout(() => {
+        // 重新設定 filteredProducts 根據目前模式
+        if (isMobile()) {
+          // 切到手機板：只保留第一頁
+          filteredProducts = allProducts.slice(0, ITEMS_PER_PAGE);
+          currentPage = 1;
+          hasMoreMobile = true;
+        } else {
+          // 切到電腦板：顯示完整 filteredProducts（但會由 renderProducts 自動分頁）
+          filteredProducts = allProducts; // 假設目前是全部類別，若有篩選需額外處理
+        }
+        renderProducts();
+      }, 300);
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // 載入共用導覽列
+      fetch('nav.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('nav-placeholder').innerHTML = data;
+          // 在導覽列插入後，重新綁定事件與初始化
+          initNav();
+        })
+        .catch(err => {
+          console.warn('無法載入導覽列，使用預設內嵌導覽（僅供開發）');
+          // 可選的 fallback：若無法載入則顯示簡單導覽（此處省略）
+        });
+
+      function initNav() {
+        // hamburger 事件
+        var btn = document.getElementById('hamburger');
+        var menu = document.getElementById('mobileMenu');
+        if (btn && menu) {
+          btn.addEventListener('click', function () {
+            btn.classList.toggle('open');
+            menu.classList.toggle('open');
+          });
+          menu.querySelectorAll('.mobile-link').forEach(function (a) {
+            a.addEventListener('click', function () {
+              btn.classList.remove('open');
+              menu.classList.remove('open');
+            });
+          });
+        }
+        // 行動選單的展開折疊
+        menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
+          parent.addEventListener('click', function () {
+            var id = parent.getAttribute('data-target');
+            var sub = document.getElementById(id);
+            var caretId = 'caret-' + id.replace('sub-', '');
+            var caret = document.getElementById(caretId);
+            var opening = !sub.classList.contains('open');
+            menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
+            menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
+            if (opening) {
+              sub.classList.add('open');
+              if (caret) caret.classList.add('open');
+            }
+          });
+        });
+        // 滾動效果
+        window.addEventListener('scroll', function () {
+          var nav = document.getElementById('mainNav');
+          if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
+        });
+        // 因為導覽列剛插入，需要重新觀察 reveal (但 reveal 為頁面主要內容，不受影響)
+        // 重新綁定 lucide 圖示
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      }
+
+      // 頁面原本的 reveal 觀察者
+      var reveals = document.querySelectorAll('.reveal');
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      reveals.forEach(function (el) { observer.observe(el); });
+
+      // 如果 lucide 已經存在，先執行一次（但導覽列加載後會再執行一次）
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    });
+  </script>
+    
     document.addEventListener('DOMContentLoaded', function () {
       // 載入共用導覽列
       fetch('nav.html')
