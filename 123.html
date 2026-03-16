@@ -515,80 +515,76 @@
         alert('發送失敗');
       }
     }
-
-    // 監聽手機板滾動事件
-    window.addEventListener('scroll', () => {
-      if (!isMobile()) return;
-      
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      
-      // 當距離底部小於 200px 時觸發載入更多
-      if (scrollY + windowHeight > documentHeight - 200) {
-        loadMoreMobile();
-      }
-    });
-
-    // 監聽視窗大小變化，切換模式時重新渲染
-    window.addEventListener('resize', () => {
-      // 簡單延遲，避免頻繁重繪
-      clearTimeout(window.resizeTimer);
-      window.resizeTimer = setTimeout(() => {
-        // 重新設定 filteredProducts 根據目前模式
-        if (isMobile()) {
-          // 切到手機板：只保留第一頁
-          filteredProducts = allProducts.slice(0, ITEMS_PER_PAGE);
-          currentPage = 1;
-          hasMoreMobile = true;
-        } else {
-          // 切到電腦板：顯示完整 filteredProducts（但會由 renderProducts 自動分頁）
-          filteredProducts = allProducts; // 假設目前是全部類別，若有篩選需額外處理
-        }
-        renderProducts();
-      }, 300);
-    });
-
-    // 導覽列互動
     document.addEventListener('DOMContentLoaded', function () {
-      var btn = document.getElementById('hamburger');
-      var menu = document.getElementById('mobileMenu');
-      btn.addEventListener('click', function () {
-        btn.classList.toggle('open');
-        menu.classList.toggle('open');
-      });
-      menu.querySelectorAll('.mobile-link').forEach(function (a) {
-        a.addEventListener('click', function () {
-          btn.classList.remove('open');
-          menu.classList.remove('open');
+      // 載入共用導覽列
+      fetch('nav.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('nav-placeholder').innerHTML = data;
+          // 在導覽列插入後，重新綁定事件與初始化
+          initNav();
+        })
+        .catch(err => {
+          console.warn('無法載入導覽列，使用預設內嵌導覽（僅供開發）');
+          // 可選的 fallback：若無法載入則顯示簡單導覽（此處省略）
         });
-      });
-      menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
-        parent.addEventListener('click', function () {
-          var id = parent.getAttribute('data-target');
-          var sub = document.getElementById(id);
-          var caretId = 'caret-' + id.replace('sub-', '');
-          var caret = document.getElementById(caretId);
-          var opening = !sub.classList.contains('open');
-          menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
-          menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
-          if (opening) {
-            sub.classList.add('open');
-            if (caret) caret.classList.add('open');
-          }
+
+      function initNav() {
+        // hamburger 事件
+        var btn = document.getElementById('hamburger');
+        var menu = document.getElementById('mobileMenu');
+        if (btn && menu) {
+          btn.addEventListener('click', function () {
+            btn.classList.toggle('open');
+            menu.classList.toggle('open');
+          });
+          menu.querySelectorAll('.mobile-link').forEach(function (a) {
+            a.addEventListener('click', function () {
+              btn.classList.remove('open');
+              menu.classList.remove('open');
+            });
+          });
+        }
+        // 行動選單的展開折疊
+        menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
+          parent.addEventListener('click', function () {
+            var id = parent.getAttribute('data-target');
+            var sub = document.getElementById(id);
+            var caretId = 'caret-' + id.replace('sub-', '');
+            var caret = document.getElementById(caretId);
+            var opening = !sub.classList.contains('open');
+            menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
+            menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
+            if (opening) {
+              sub.classList.add('open');
+              if (caret) caret.classList.add('open');
+            }
+          });
         });
-      });
-      window.addEventListener('scroll', function () {
-        document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
-      });
-      lucide.createIcons();
+        // 滾動效果
+        window.addEventListener('scroll', function () {
+          var nav = document.getElementById('mainNav');
+          if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
+        });
+        // 因為導覽列剛插入，需要重新觀察 reveal (但 reveal 為頁面主要內容，不受影響)
+        // 重新綁定 lucide 圖示
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      }
+
+      // 頁面原本的 reveal 觀察者
+      var reveals = document.querySelectorAll('.reveal');
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      reveals.forEach(function (el) { observer.observe(el); });
+
+      // 如果 lucide 已經存在，先執行一次（但導覽列加載後會再執行一次）
+      if (typeof lucide !== 'undefined') lucide.createIcons();
     });
 
-    // 初始化
-    document.addEventListener('DOMContentLoaded', () => {
-      fetchProducts();
-      updateCartUI();
-    });
+   
   </script>
 </body>
 </html>
