@@ -1,6 +1,33 @@
-<iframe 
-    src="https://gw-yxjx.onrender.com/" 
-    width="800" 
-    height="600"
-    title="描述性標題">
-</iframe>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>iframe 範例</title>
+    <style>
+        .iframe-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: 2px solid #333;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>嵌入網頁範例</h1>
+    
+    <div class="iframe-container">
+        <iframe 
+            src="https://gw-yxjx.onrender.com/" 
+            title="維基百科"
+            loading="lazy"
+            allowfullscreen>
+            <p>您的瀏覽器不支援 iframe</p>
+        </iframe>
+    </div>
+</body>
+</html>
