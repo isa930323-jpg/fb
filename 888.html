@@ -1,23 +1,28 @@
-<style>
-    html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        overflow: hidden; /* 隱藏主頁面捲軸 */
-    }
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.min.js"></script>
+    <style>
+        /* 關鍵：設定寬度100%，高度由套件自動調整 */
+        iframe {
+            width: 1px;
+            min-width: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>我的網站</h1>
+    <iframe src="https://gw-yxjx.onrender.com/" id="myIframe"></iframe>
     
-    .fullscreen-iframe {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: none;
-    }
-</style>
-
-<iframe 
-    src="https://gw-yxjx.onrender.com/" 
-    class="fullscreen-iframe"
-    title="全螢幕 iframe">
-</iframe>
+    <script>
+        // 一行代碼搞定跨域高度自適應
+        iFrameResize({ 
+            log: false,              // 是否顯示日誌
+            heightCalculationMethod: 'lowestElement', // 計算高度的方式
+            checkOrigin: false,       // 跨域時可能需要關閉來源檢查
+            resizeFrom: 'parent'      // 從父頁面發起調整
+        }, '#myIframe');
+    </script>
+</body>
+</html>
