@@ -1,4 +1,4 @@
-<!-- ========== 主要頁面 index.html ========== -->
+========= 主要頁面 index.html ========== -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -241,6 +241,36 @@
       padding: 20px 24px 40px;
     }
 
+    .page-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .page-header h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--moss);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .page-header h2 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--moss);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .page-header .subhead {
+      font-size: 1rem;
+      color: var(--stone);
+      letter-spacing: 0.1em;
+      font-weight: 300;
+      border-bottom: 1px solid var(--mist);
+      padding-bottom: 20px;
+      margin-top: 4px;
+    }
+
     .section-title {
       font-family: 'Noto Serif TC', serif;
       font-size: 1.8rem;
@@ -314,6 +344,15 @@
       background: white;
     }
 
+    /* 數據說明文字 */
+    .iframe-note {
+      margin-top: 16px;
+      color: var(--stone);
+      font-size: 0.85rem;
+      line-height: 1.5;
+      text-align: left;
+    }
+
     /* 註腳小語 */
     .footnote {
       font-size: 0.9rem;
@@ -381,28 +420,18 @@
 <body>
   <!-- 放置導覽列的佔位元素 -->
   <div id="nav-placeholder"></div>
- <main class="content">
-  
-    <div style="text-align: center; padding: 60px; color: var(--stone);">
-      <div style="max-width: 820px; margin: 0 auto; padding: 40px 24px;">
-    
-      <h1 style="font-family: 'Noto Serif TC', serif; color: var(--moss);">綠色顧問</h1>
- <h1 style="
-      font-family: 'Noto Serif TC', serif;
-      font-size: 2rem;
-      font-weight: 600;
-      color: var(--moss);
-      line-height: 1.6;
-      margin-bottom: 40px;
-    ">
-      數據之外，我們更在意真正存在的綠。
-    </h1>
-  <!-- 頁面主要內容區域 -->
-  <main class="content">
-    <!-- 重新排版後的文案與 iframe 區塊 -->
-    <div class="carbon-story">
 
-    
+  <!-- 頁面主要內容區域：只有一個 main，結構乾淨 -->
+  <main class="content">
+    <!-- 所有內容都放在一個統一的容器內 -->
+    <div class="carbon-story">
+      
+      <!-- 頁面標題區 -->
+      <div class="page-header">
+        <h1>綠色顧問</h1>
+        <h2>數據之外，我們更在意真正存在的綠。</h2>
+        <div class="subhead"></div>
+      </div>
 
       <!-- 第一段：背景論述 -->
       <p class="story-paragraph">
@@ -416,7 +445,7 @@
         植物的生長不只帶來綠意，也透過光合作用吸收二氧化碳，並被轉換為可追蹤的固碳數據。<br>
         在這個系統中，<strong style="color: var(--fern); font-weight: 500;">每一顆被照顧的植物</strong>，都代表一個持續運作的碳吸存單位；
         <strong style="color: var(--fern); font-weight: 500;">每一公斤累積的固碳量</strong>，都是城市環境改善的量化成果，我刻意忽略照顧過程的碳排，
-       不是為了 <strong style="color: var(--fern); font-weight: 500;">漂綠</strong>，只是為了讓大家能更清楚看到他們的貢獻。
+        不是為了 <strong style="color: var(--fern); font-weight: 500;">漂綠</strong>，只是為了讓大家能更清楚看到他們的貢獻。
       </p>
 
       <!-- iframe 卡片區（包含嵌入的數據框） -->
@@ -427,11 +456,9 @@
         </div>
         <!-- 嵌入的 iframe，id 保留給 iframe-resizer 使用 -->
         <iframe src="https://gw-yxjx.onrender.com/show.html" id="myIframe"></iframe>
-        <!-- 簡單的數據說明（呼應框內數字） -->
-        <div style="display: flex; justify-content: space-between; margin-top: 16px; color: var(--stone); font-size: 0.85rem;">
-          <span>植物數量與固碳量依據屋頂植物桶機與植生牆系統之植栽生長資料持續更新，
-作為城市綠化與碳管理的參考指標。</span>
-        
+        <!-- 數據說明文字 -->
+        <div class="iframe-note">
+          植物數量與固碳量依據屋頂植物桶機與植生牆系統之植栽生長資料持續更新，作為城市綠化與碳管理的參考指標。
         </div>
       </div>
 
@@ -446,8 +473,8 @@
       <div class="footnote">
         「讓每一株植物，不只是綠化，而是城市的微型碳匯。」
       </div>
-    </div>
-    </div>
+
+    </div> <!-- end .carbon-story -->
   </main>
 
   <!-- Footer -->
