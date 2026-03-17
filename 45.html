@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- 引入 iframe-resizer 父頁面套件 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.min.js"></script>
   <style>
     /* ===== 共用樣式 ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -232,6 +234,98 @@
       padding-bottom: 40px;
     }
 
+    /* ----- 新增的排版樣式 (不影響既有CSS) ----- */
+    .carbon-story {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 20px 24px 40px;
+    }
+
+    .section-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--moss);
+      letter-spacing: 0.08em;
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+    .section-title span {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--stone);
+      letter-spacing: 0.2em;
+      margin-top: 6px;
+    }
+
+    .story-paragraph {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--ink);
+      margin-bottom: 2rem;
+      font-weight: 300;
+      text-align: justify;
+    }
+    .story-paragraph:last-of-type {
+      margin-bottom: 1.5rem;
+    }
+
+    /* iframe 容器 — 卡片式設計 */
+    .iframe-card {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(4px);
+      border: 1px solid var(--mist);
+      border-radius: 28px;
+      padding: 24px 24px 20px;
+      margin: 32px 0 24px;
+      box-shadow: 0 8px 24px rgba(61,90,56,0.08);
+    }
+
+    .iframe-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--sage);
+    }
+    .iframe-header i {
+      color: var(--fern);
+      width: 24px;
+      height: 24px;
+    }
+    .iframe-header h3 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--moss);
+      letter-spacing: 0.06em;
+    }
+
+    /* iframe 本身 — 只保留寬度設定，高度由 iframe-resizer 動態處理 */
+    #myIframe {
+      width: 1px;
+      min-width: 100%;
+      border: none;
+      display: block;
+      border-radius: 16px;
+      background: white;
+    }
+
+    /* 註腳小語 */
+    .footnote {
+      font-size: 0.9rem;
+      color: var(--stone);
+      letter-spacing: 0.05em;
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--mist);
+      font-style: italic;
+      text-align: right;
+    }
+
     /* ----- Footer (完整保留) ----- */
     footer {
       border-top: 1px solid rgba(90,122,74,0.15);
@@ -282,13 +376,6 @@
         flex-wrap: wrap;
       }
     }
-     /* 關鍵：設定寬度100%，高度由套件自動調整 */
-        iframe {
-            width: 1px;
-            min-width: 100%;
-            border: none;
-        }
-
   </style>
 </head>
 <body>
@@ -297,38 +384,57 @@
 
   <!-- 頁面主要內容區域 -->
   <main class="content">
-    <!-- 
-      =============================================
-      請在此加入您的頁面內容
-      hero、about、contact 都已經移除
-      =============================================
-    -->
-    <div style="text-align: center; padding: 40px; color: var(--stone);">
-      <h1 style="font-family: 'Noto Serif TC', serif; color: var(--moss);">歡迎使用蕨積模板</h1>
-      <p>綠色顧問</p>
-      <p style="margin-top: 20px;">導覽列與 footer 都已完整保留</p>
-    <iframe src="https://gw-yxjx.onrender.com/show.html" id="myIframe"   height="300"></iframe>
-      植物數量與固碳量依據屋頂植物桶機與植生牆系統之植栽生長資料持續更新，
-作為城市綠化與碳管理的參考指標。
+    <!-- 重新排版後的文案與 iframe 區塊 -->
+    <div class="carbon-story">
 
-      
-      🌿 城市微型碳匯監測
+      <!-- 標題區 -->
+      <h2 class="section-title">
+        城市微型碳匯監測
+        <span>Carbon Sink · Urban Greening</span>
+      </h2>
 
-在淨零轉型的時代，城市綠化不再只是景觀設計，而是一種可被計算的環境基礎設施。
+      <!-- 第一段：背景論述 -->
+      <p class="story-paragraph">
+        在淨零轉型的時代，城市綠化不再只是景觀設計，而是一種可被計算的環境基礎設施。<br>
+        透過屋頂植物桶機與工程植生牆系統，我們將分散於建築與生活空間中的植物，<br>
+        轉化為可持續運作的微型碳匯。
+      </p>
 
-透過屋頂植物桶機與工程植生牆系統，我們將分散於建築與生活空間中的植物，轉化為可持續運作的微型碳匯。
-植物的生長不只帶來綠意，也透過光合作用吸收二氧化碳，並被轉換為可追蹤的固碳數據。
+      <!-- 第二段：植物與數據的連結 -->
+      <p class="story-paragraph">
+        植物的生長不只帶來綠意，也透過光合作用吸收二氧化碳，並被轉換為可追蹤的固碳數據。<br>
+        在這個系統中，<strong style="color: var(--fern); font-weight: 500;">每一顆被照顧的植物</strong>，都代表一個持續運作的碳吸存單位；<br>
+        <strong style="color: var(--fern); font-weight: 500;">每一公斤累積的固碳量</strong>，都是城市環境改善的量化成果。
+      </p>
 
-在這個系統中，每一顆被照顧的植物，都代表一個持續運作的碳吸存單位；
-每一公斤累積的固碳量，都是城市環境改善的量化成果。
+      <!-- iframe 卡片區（包含嵌入的數據框） -->
+      <div class="iframe-card">
+        <div class="iframe-header">
+          <i data-lucide="leaf" style="stroke: var(--fern); fill: none;"></i>
+          <h3>即時固碳數據 · 植生牆監測</h3>
+        </div>
+        <!-- 嵌入的 iframe，id 保留給 iframe-resizer 使用 -->
+        <iframe src="https://gw-yxjx.onrender.com/show.html" id="myIframe"></iframe>
+        <!-- 簡單的數據說明（呼應框內數字） -->
+        <div style="display: flex; justify-content: space-between; margin-top: 16px; color: var(--stone); font-size: 0.85rem;">
+          <span>🌱 正在照顧 · 植物數量</span>
+          <span>🌿 累積固碳量 (kg CO₂)</span>
+        </div>
+      </div>
 
-透過結合碳盤查邏輯與工程綠化技術，我們讓綠色不只是理念，而是能被記錄、被管理、也能持續累積的環境價值。
+      <!-- 第三段：結合碳盤查與工程綠化的價值 -->
+      <p class="story-paragraph">
+        透過結合<strong style="color: var(--moss);">碳盤查邏輯</strong>與<strong style="color: var(--moss);">工程綠化技術</strong>，我們讓綠色不只是理念，<br>
+        而是能被記錄、被管理、也能持續累積的環境價值。<br>
+        從建築立面到城市屋頂，讓每一片綠意，成為低碳城市的一部分。
+      </p>
 
-從建築立面到城市屋頂，
-讓每一片綠意，成為低碳城市的一部分。
-      
+      <!-- 結語小語（呼應開頭） -->
+      <div class="footnote">
+        「讓每一株植物，不只是綠化，而是城市的微型碳匯。」
+      </div>
+
     </div>
-    「讓每一株植物，不只是綠化，而是城市的微型碳匯。」
   </main>
 
   <!-- Footer -->
@@ -341,15 +447,16 @@
     </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
- <script>
-        // 一行代碼搞定跨域高度自適應
-        iFrameResize({ 
-            log: false,              // 是否顯示日誌
-            heightCalculationMethod: 'lowestElement', // 計算高度的方式
-            checkOrigin: false,       // 跨域時可能需要關閉來源檢查
-            resizeFrom: 'parent'      // 從父頁面發起調整
-        }, '#myIframe');
-    </script>
+
+  <!-- iframe-resizer 初始化：動態調整 iframe 高度 -->
+  <script>
+    iFrameResize({ 
+      log: false,
+      heightCalculationMethod: 'lowestElement',
+      checkOrigin: false,
+      resizeFrom: 'parent'
+    }, '#myIframe');
+  </script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -413,6 +520,10 @@
         if (typeof lucide !== 'undefined') lucide.createIcons();
       }
     });
+  </script>
+  <!-- 確保 lucide 圖示在 iframe 卡片內也能渲染 -->
+  <script>
+    if (typeof lucide !== 'undefined') lucide.createIcons();
   </script>
 </body>
 </html>
