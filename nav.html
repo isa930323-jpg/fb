@@ -1,79 +1,28 @@
-<!-- ===== 導覽列 nav.html ===== -->
+<!-- ========== 共用導覽列元件 nav.html ========== -->
+<!-- 使用方式：在頁面中 <body> 內放置 <div id="nav-placeholder"></div>，
+     並在頁面底部引入下方 script 載入此檔案。此檔案不含 <style>，
+     樣式需在主要頁面中自行定義（或另建共用的 CSS 檔）。 -->
 <nav id="mainNav">
-  <!-- Logo 區域 -->
-  <a href="index.html" class="logo">
-    <div class="logo-mark">
-      <!-- 這裡放你的 logo 圖片 -->
-      <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="19" cy="19" r="18" stroke="#5A7A4A" stroke-width="1.5" fill="none"/>
-        <path d="M12 19L17 24L26 14" stroke="#5A7A4A" stroke-width="2" stroke-linecap="round"/>
-        <path d="M19 9V29" stroke="#5A7A4A" stroke-width="1.5" stroke-dasharray="3 3"/>
-      </svg>
-    </div>
-    <div class="logo-text">
-      蕨積
-      <span>FERN BROM</span>
-    </div>
+  <a href="https://fb-d9pw.onrender.com/index.html" class="logo">
+    <div class="logo-mark"><img src="logo.png" alt="蕨積"></div>
+    <div class="logo-text">蕨積<span>FernBrom</span></div>
   </a>
-
-  <!-- 桌面版選單 -->
   <ul class="nav-links">
-    <li class="has-dropdown">
-      <a href="#">植物選品</a>
-      <ul class="dropdown">
-        <li><a href="123.html">室內植物</a></li>
-        <li><a href="123.html">戶外植栽</a></li>
-        <li><a href="123.html">特殊品種</a></li>
-      </ul>
-    </li>
-    <li class="has-dropdown">
-      <a href="#">綠色顧問</a>
-      <ul class="dropdown">
-        <li><a href="45.html">顧問服務</a></li>
-        <li><a href="45.html">空間規劃</a></li>
-        <li><a href="45.html">維護建議</a></li>
-      </ul>
-    </li>
+    <li><a href="123.html">植物選品</a></li>  <!-- 修改這裡：移除 has-dropdown 類別和下拉選單 -->
+    <li><a href="45.html">綠色顧問</a></li>
     <li><a href="67.html">蕨望筆記</a></li>
     <li><a href="89.html">關於蕨積</a></li>
-    <li><a href="#" class="nav-contact">聯絡我們</a></li>
+    <li><a href="0.html" class="nav-contact">聯絡我們</a></li>
   </ul>
-
-  <!-- 漢堡選單按鈕 (手機版) -->
-  <button class="hamburger" id="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-
-  <!-- 手機版選單 -->
-  <div class="mobile-menu" id="mobileMenu">
-    <ul>
-      <li>
-        <span class="mobile-parent" data-target="sub-plants">
-          植物選品
-          <span class="mobile-caret" id="caret-plants">▼</span>
-        </span>
-        <ul class="mobile-sub" id="sub-plants">
-          <li><a href="123.html" class="mobile-link">室內植物</a></li>
-          <li><a href="123.html" class="mobile-link">戶外植栽</a></li>
-          <li><a href="123.html" class="mobile-link">特殊品種</a></li>
-        </ul>
-      </li>
-      <li>
-        <span class="mobile-parent" data-target="sub-consult">
-          綠色顧問
-          <span class="mobile-caret" id="caret-consult">▼</span>
-        </span>
-        <ul class="mobile-sub" id="sub-consult">
-          <li><a href="45.html" class="mobile-link">顧問服務</a></li>
-          <li><a href="45.html" class="mobile-link">空間規劃</a></li>
-          <li><a href="45.html" class="mobile-link">維護建議</a></li>
-        </ul>
-      </li>
-      <li><a href="67.html" class="mobile-link">蕨望筆記</a></li>
-      <li><a href="89.html" class="mobile-link">關於蕨積</a></li>
-      <li><a href="#" class="mobile-link">聯絡我們</a></li>
-    </ul>
-  </div>
+  <button class="hamburger" id="hamburger" aria-label="開啟選單"><span></span><span></span><span></span></button>
 </nav>
+<!-- 行動選單結構也保留在 nav 元件中，因為它與 hamburger 連動 -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="123.html" class="mobile-link">植物選品</a></li>  <!-- 修改這裡：改為一般連結 -->
+    <li><a href="45.html" class="mobile-link">綠色顧問</a></li>
+    <li><a href="67.html" class="mobile-link">蕨望筆記</a></li>
+    <li><a href="89.html" class="mobile-link">關於蕨積</a></li>
+    <li><a href="0.html" class="mobile-link">聯絡我們</a></li>
+  </ul>
+</div>
