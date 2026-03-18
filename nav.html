@@ -1,4 +1,4 @@
-<!-- ========== 共用導覽列元件 nav.html ========== -->
+<!-- ========== 共用導覽列元件 nav.html (改善下拉選單消失問題) ========== -->
 <!-- 使用方式：在頁面中 <body> 內放置 <div id="nav-placeholder"></div>，
      並在頁面底部引入 script 載入此檔案。此檔案不含 <style>，
      樣式需在主要頁面中自行定義（或另建共用的 CSS 檔）。 -->
@@ -8,20 +8,20 @@
     <div class="logo-text">蕨積<span>FernBrom</span></div>
   </a>
   <ul class="nav-links">
-    <!-- 植物選品（有下拉選單） -->
-    <li class="has-dropdown">
+    <!-- 植物選品（有下拉選單）- 加入 timeout 處理 -->
+    <li class="has-dropdown" id="nav-plant">
       <a href="123.html">植物選品</a>
-      <ul class="dropdown">
+      <ul class="dropdown" id="dropdown-plant">
         <li><a href="all.html">所有植物</a></li>
         <li><a href="fern.html">蕨類</a></li>
         <li><a href="brom.html">積水鳳梨</a></li>
         <li><a href="otherplant.html">其他植物</a></li>
       </ul>
     </li>
-    <!-- 綠色顧問（有下拉選單） -->
-    <li class="has-dropdown">
+    <!-- 綠色顧問（有下拉選單）- 加入 timeout 處理 -->
+    <li class="has-dropdown" id="nav-green">
       <a href="45.html">綠色顧問</a>
-      <ul class="dropdown">
+      <ul class="dropdown" id="dropdown-green">
         <li><a href="ghg.html">溫室氣體盤查</a></li>
         <li><a href="greenwall.html">植生牆綠化</a></li>
         <li><a href="lifestyle.html">生活提案</a></li>
@@ -69,3 +69,132 @@
     <li><a href="0.html" class="mobile-link">聯絡我們</a></li>
   </ul>
 </div>
+
+<!-- 加入改善下拉選單消失的 JavaScript -->
+<script>
+  (function() {
+    // 確保只在電腦版執行（螢幕寬度 > 768px）
+    function initDropdownFix() {
+      if (window.innerWidth <= 768) return;
+      
+      // 為每個有下拉選單的項目設定 timeout 變數
+      const dropdownItems = document.querySelectorAll('.has-dropdown');
+      
+      dropdownItems.forEach(item => {
+        const dropdown = item.querySelector('.dropdown');
+        if (!dropdown) return;
+        
+        let hideTimeout = null;
+        let isMouseOnItem = false;
+        let isMouseOnDropdown = false;
+        
+        // 滑鼠進入主選單項目
+        item.addEventListener('mouseenter', function() {
+          isMouseOnItem = true;
+          if (hideTimeout) {
+            clearTimeout(hideTimeout);
+            hideTimeout = null;
+          }
+          // 顯示下拉選單（如果你的 CSS 是用 hover 控制，這行可以省略）
+          // 但為了確保顯示，可以加上 class
+          dropdown.style.display = 'block';
+        });
+        
+        // 滑鼠離開主選單項目
+        item.addEventListener('mouseleave', function() {
+          isMouseOnItem = false;
+          // 延遲隱藏，給使用者時間移動到下拉選單
+          hideTimeout = setTimeout(function() {
+            if (!isMouseOnDropdown) {
+              dropdown.style.display = 'none';
+            }
+          }, 300); // 300ms 緩衝時間
+        });
+        
+        // 滑鼠進入下拉選單
+        dropdown.addEventListener('mouseenter', function() {
+          isMouseOnDropdown = true;
+          if (hideTimeout) {
+            clearTimeout(hideTimeout);
+            hideTimeout = null;
+          }
+          dropdown.style.display = 'block';
+        });
+        
+        // 滑鼠離開下拉選單
+        dropdown.addEventListener('mouseleave', function() {
+          isMouseOnDropdown = false;
+          if (!isMouseOnItem) {
+            dropdown.style.display = 'none';
+          }
+        });
+      });
+    }
+    
+    // 頁面載入後執行
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDropdownFix);
+    } else {
+      initDropdownFix();
+    }
+    
+    // 視窗大小改變時重新檢查（切換到手機版時不執行）
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768) {
+        initDropdownFix();
+      }
+    });
+  })();
+</script>
+
+<!-- 可選：加入 CSS 緩衝區（視覺上連接主選單和下拉選單） -->
+<style>
+  /* 這部分可以放在主要 CSS 中，但放在這裡確保生效 */
+  @media (min-width: 769px) {
+    .has-dropdown {
+      position: relative;
+    }
+    
+    .has-dropdown > .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 180px;
+      background: white;
+      border: 1px solid #ddd;
+      border-top: 2px solid var(--fern, #5a7a4a);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 1000;
+      display: none;
+      padding: 8px 0;
+    }
+    
+    /* 增加緩衝區：在 mainNav 和 dropdown 之間加入透明的偽元素 */
+    .has-dropdown::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 10px;  /* 10px 緩衝區，讓滑鼠可以從主選單平滑移動到下拉選單 */
+      background: transparent;
+      z-index: 1001;
+    }
+    
+    /* 下拉選單本身也要向上延伸一點，與偽元素重疊 */
+    .has-dropdown > .dropdown {
+      margin-top: 5px;  /* 稍微向下，但被偽元素覆蓋 */
+    }
+    
+    /* 當 hover 主選單時顯示下拉選單 */
+    .has-dropdown:hover > .dropdown {
+      display: block;
+    }
+    
+    /* 確保下拉選單在 hover 時也保持顯示 */
+    .has-dropdown > .dropdown:hover {
+      display: block;
+    }
+  }
+</style>
