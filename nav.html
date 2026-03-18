@@ -1,6 +1,6 @@
 <!-- ========== 共用導覽列元件 nav.html ========== -->
 <!-- 使用方式：在頁面中 <body> 內放置 <div id="nav-placeholder"></div>，
-     並在頁面底部引入下方 script 載入此檔案。此檔案不含 <style>，
+     並在頁面底部引入 script 載入此檔案。此檔案不含 <style>，
      樣式需在主要頁面中自行定義（或另建共用的 CSS 檔）。 -->
 <nav id="mainNav">
   <a href="https://fb-d9pw.onrender.com/index.html" class="logo">
@@ -8,19 +8,62 @@
     <div class="logo-text">蕨積<span>FernBrom</span></div>
   </a>
   <ul class="nav-links">
-    <li><a href="123.html">植物選品</a></li>  <!-- 修改這裡：移除 has-dropdown 類別和下拉選單 -->
-    <li><a href="45.html">綠色顧問</a></li>
+    <!-- 植物選品（有下拉選單） -->
+    <li class="has-dropdown">
+      <a href="123.html">植物選品</a>
+      <ul class="dropdown">
+        <li><a href="all.html">所有植物</a></li>
+        <li><a href="fern.html">蕨類</a></li>
+        <li><a href="brom.html">積水鳳梨</a></li>
+        <li><a href="otherplant.html">其他植物</a></li>
+      </ul>
+    </li>
+    <!-- 綠色顧問（有下拉選單） -->
+    <li class="has-dropdown">
+      <a href="45.html">綠色顧問</a>
+      <ul class="dropdown">
+        <li><a href="ghg.html">溫室氣體盤查</a></li>
+        <li><a href="greenwall.html">植生牆綠化</a></li>
+        <li><a href="lifestyle.html">生活提案</a></li>
+      </ul>
+    </li>
+    <!-- 一般連結（無下拉） -->
     <li><a href="67.html">蕨望筆記</a></li>
     <li><a href="89.html">關於蕨積</a></li>
     <li><a href="0.html" class="nav-contact">聯絡我們</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="開啟選單"><span></span><span></span><span></span></button>
 </nav>
-<!-- 行動選單結構也保留在 nav 元件中，因為它與 hamburger 連動 -->
+
+<!-- 行動選單結構（手機版，也加入次選單） -->
 <div class="mobile-menu" id="mobileMenu">
   <ul>
-    <li><a href="123.html" class="mobile-link">植物選品</a></li>  <!-- 修改這裡：改為一般連結 -->
-    <li><a href="45.html" class="mobile-link">綠色顧問</a></li>
+    <!-- 植物選品（手機版：可點擊展開） -->
+    <li>
+      <div class="mobile-parent" data-target="sub-plant">
+        植物選品
+        <span class="mobile-caret" id="caret-sub-plant">▼</span>
+      </div>
+      <ul class="mobile-sub" id="sub-plant">
+        <li><a href="all.html" class="mobile-link">所有植物</a></li>
+        <li><a href="fern.html" class="mobile-link">蕨類</a></li>
+        <li><a href="brom.html" class="mobile-link">積水鳳梨</a></li>
+        <li><a href="otherplant.html" class="mobile-link">其他植物</a></li>
+      </ul>
+    </li>
+    <!-- 綠色顧問（手機版：可點擊展開） -->
+    <li>
+      <div class="mobile-parent" data-target="sub-green">
+        綠色顧問
+        <span class="mobile-caret" id="caret-sub-green">▼</span>
+      </div>
+      <ul class="mobile-sub" id="sub-green">
+        <li><a href="ghg.html" class="mobile-link">溫室氣體盤查</a></li>
+        <li><a href="greenwall.html" class="mobile-link">植生牆綠化</a></li>
+        <li><a href="lifestyle.html" class="mobile-link">生活提案</a></li>
+      </ul>
+    </li>
+    <!-- 一般連結（無次選單） -->
     <li><a href="67.html" class="mobile-link">蕨望筆記</a></li>
     <li><a href="89.html" class="mobile-link">關於蕨積</a></li>
     <li><a href="0.html" class="mobile-link">聯絡我們</a></li>
