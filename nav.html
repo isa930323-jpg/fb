@@ -15,6 +15,7 @@
         <li><a href="otherplant.html">其他植物</a></li>
       </ul>
     </li>
+
     <!-- 綠色顧問（有下拉選單） -->
     <li class="has-dropdown" id="nav-green">
       <a href="45.html">綠色顧問</a>
@@ -25,6 +26,7 @@
         <li><a href="lifestyle.html">生活提案</a></li>
       </ul>
     </li>
+
     <!-- 蕨望筆記（有下拉） -->
     <li class="has-dropdown" id="nav-note">
       <a href="67.html">蕨望筆記</a> 
@@ -35,18 +37,19 @@
         <li><a href="lifestyle.html">綠色實驗室</a></li>
       </ul>
     </li>
+
     <li><a href="89.html">關於蕨積</a></li>
     <li><a href="0.html" class="nav-contact">聯絡我們</a></li>
   </ul>
+
   <button class="hamburger" id="hamburger" aria-label="開啟選單">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- 行動選單結構（手機版）- 修正版 -->
+<!-- 行動選單結構（手機版） -->
 <div class="mobile-menu" id="mobileMenu">
   <ul>
-    <!-- 植物選品 -->
     <li>
       <div class="mobile-parent" data-target="mobile-sub-plant">
         植物選品
@@ -59,8 +62,7 @@
         <li><a href="otherplant.html">其他植物</a></li>
       </ul>
     </li>
-    
-    <!-- 綠色顧問 -->
+
     <li>
       <div class="mobile-parent" data-target="mobile-sub-green">
         綠色顧問
@@ -73,8 +75,7 @@
         <li><a href="lifestyle.html">生活提案</a></li>
       </ul>
     </li>
-    
-    <!-- 蕨望筆記 -->
+
     <li>
       <div class="mobile-parent" data-target="mobile-sub-note">
         蕨望筆記
@@ -87,266 +88,130 @@
         <li><a href="lifestyle.html">綠色實驗室</a></li>
       </ul>
     </li>
-    
-    <!-- 關於蕨積 -->
+
     <li><a href="89.html">關於蕨積</a></li>
-    
-    <!-- 聯絡我們 -->
     <li><a href="0.html">聯絡我們</a></li>
   </ul>
 </div>
 
-<!-- 完整的 JavaScript (電腦版+手機版) -->
+<!-- ⭐ 關鍵修正版 JS -->
 <script>
-  (function() {
-    // 漢堡選單功能
+(function initNav() {
+
+  function run() {
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
-    
+
     if (hamburger && mobileMenu) {
-      hamburger.addEventListener('click', function() {
+      hamburger.onclick = function () {
         this.classList.toggle('active');
         mobileMenu.classList.toggle('active');
-      });
+      };
     }
-    
-    // 手機版下拉選單功能
-    function initMobileDropdown() {
-      const mobileParents = document.querySelectorAll('.mobile-parent');
-      
-      mobileParents.forEach(parent => {
-        parent.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          const targetId = this.getAttribute('data-target');
-          const subMenu = document.getElementById(targetId);
-          const caret = this.querySelector('.mobile-caret');
-          
-          if (subMenu) {
-            // 切換目前選單
-            if (subMenu.style.display === 'block') {
-              subMenu.style.display = 'none';
-              if (caret) caret.textContent = '▼';
-            } else {
-              subMenu.style.display = 'block';
-              if (caret) caret.textContent = '▲';
-            }
+
+    const mobileParents = document.querySelectorAll('.mobile-parent');
+
+    mobileParents.forEach(parent => {
+      parent.onclick = function () {
+        const targetId = this.getAttribute('data-target');
+        const subMenu = document.getElementById(targetId);
+        const caret = this.querySelector('.mobile-caret');
+
+        if (subMenu) {
+          if (subMenu.style.display === 'block') {
+            subMenu.style.display = 'none';
+            if (caret) caret.textContent = '▼';
+          } else {
+            subMenu.style.display = 'block';
+            if (caret) caret.textContent = '▲';
           }
-        });
-      });
-    }
-    
-    // 電腦版下拉選單功能
-    function initDesktopDropdown() {
-      if (window.innerWidth <= 768) return;
-      
+        }
+      };
+    });
+
+    if (window.innerWidth > 768) {
       const dropdownItems = document.querySelectorAll('.has-dropdown');
-      
+
       dropdownItems.forEach(item => {
         const dropdown = item.querySelector('.dropdown');
         if (!dropdown) return;
-        
-        let hideTimeout = null;
-        let isMouseOnItem = false;
-        let isMouseOnDropdown = false;
-        
-        item.addEventListener('mouseenter', function() {
-          isMouseOnItem = true;
-          if (hideTimeout) {
-            clearTimeout(hideTimeout);
-            hideTimeout = null;
-          }
-          dropdown.style.display = 'block';
-        });
-        
-        item.addEventListener('mouseleave', function() {
-          isMouseOnItem = false;
-          hideTimeout = setTimeout(function() {
-            if (!isMouseOnDropdown) {
-              dropdown.style.display = 'none';
-            }
-          }, 480);
-        });
-        
-        dropdown.addEventListener('mouseenter', function() {
-          isMouseOnDropdown = true;
-          if (hideTimeout) {
-            clearTimeout(hideTimeout);
-            hideTimeout = null;
-          }
-          dropdown.style.display = 'block';
-        });
-        
-        dropdown.addEventListener('mouseleave', function() {
-          isMouseOnDropdown = false;
-          if (!isMouseOnItem) {
-            dropdown.style.display = 'none';
-          }
-        });
+
+        item.onmouseenter = () => dropdown.style.display = 'block';
+        item.onmouseleave = () => dropdown.style.display = 'none';
       });
     }
-    
-    // 初始化
-    function init() {
-      initMobileDropdown();
-      if (window.innerWidth > 768) {
-        initDesktopDropdown();
-      }
-    }
-    
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      init();
-    }
-    
-    // 視窗大小改變時重新初始化
-    window.addEventListener('resize', function() {
-      if (window.innerWidth > 768) {
-        initDesktopDropdown();
-      }
-    });
-  })();
+  }
+
+  // ⭐ 這行是關鍵（支援 fetch 載入）
+  if (document.readyState === 'complete') {
+    run();
+  } else {
+    window.addEventListener('load', run);
+  }
+
+})();
 </script>
 
 <!-- CSS 樣式 -->
 <style>
-  /* 電腦版樣式 */
-  @media (min-width: 769px) {
-    .has-dropdown {
-      position: relative;
-    }
-    
-    .has-dropdown > .dropdown {
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      min-width: 180px;
-      background: white;
-      border: 1px solid #ddd;
-      border-top: 2px solid #5a7a4a;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      z-index: 1000;
-      display: none;
-      padding: 8px 0;
-    }
-    
-    .has-dropdown::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      height: 50px;
-      background: transparent;
-      z-index: 1001;
-    }
-    
-    .has-dropdown > .dropdown {
-      margin-top: 0;
-      top: calc(100% - 5px);
-    }
-    
-    .has-dropdown:hover > .dropdown,
-    .has-dropdown > .dropdown:hover {
-      display: block;
-    }
+@media (min-width: 769px) {
+  .has-dropdown { position: relative; }
+
+  .has-dropdown > .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 180px;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: 2px solid #5a7a4a;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 1000;
+    display: none;
+    padding: 8px 0;
   }
-  
-  /* 手機版樣式 */
-  @media (max-width: 768px) {
-    .nav-links {
-      display: none;
-    }
-    
-    .hamburger {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 30px;
-      height: 21px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-    }
-    
-    .hamburger span {
-      width: 100%;
-      height: 3px;
-      background-color: #333;
-      transition: all 0.3s;
-    }
-    
-    .hamburger.active span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-    
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-    
-    .hamburger.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
-    }
-    
-    .mobile-menu {
-      display: none;
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 100%;
-      background: white;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      z-index: 999;
-    }
-    
-    .mobile-menu.active {
-      display: block;
-    }
-    
-    .mobile-menu ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    
-    .mobile-menu li {
-      border-bottom: 1px solid #eee;
-    }
-    
-    .mobile-parent {
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      font-weight: 500;
-    }
-    
-    .mobile-caret {
-      font-size: 12px;
-    }
-    
-    .mobile-sub {
-      display: none;
-      background-color: #f9f9f9;
-    }
-    
-    .mobile-sub a {
-      display: block;
-      padding: 12px 20px 12px 40px;
-      text-decoration: none;
-      color: #666;
-    }
-    
-    .mobile-menu > ul > li > a {
-      display: block;
-      padding: 15px 20px;
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-    }
+
+  .has-dropdown:hover > .dropdown {
+    display: block;
   }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+  }
+
+  .hamburger span {
+    height: 3px;
+    background-color: #333;
+  }
+
+  .mobile-menu {
+    display: none;
+    position: fixed; /* ⭐ 修正 */
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: white;
+    z-index: 9999; /* ⭐ 修正 */
+  }
+
+  .mobile-menu.active {
+    display: block;
+  }
+
+  .mobile-sub {
+    display: none;
+    background: #f9f9f9;
+  }
+}
 </style>
