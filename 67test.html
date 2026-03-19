@@ -284,34 +284,33 @@
     }
   </style>
 </head>
-<body>
+  <body>
   <!-- 放置導覽列的佔位元素 -->
   <div id="nav-placeholder"></div>
 
   <!-- 頁面主要內容區域 -->
-  <main class="content">
+  <main class="content" style="display: flex; flex-direction: column; min-height: calc(100vh - 130px);">
    
-    <!-- 
-      =============================================
-      請在此加入您的頁面內容
-      hero、about、contact 都已經移除
-      =============================================
-    -->
-    <div style="text-align: center; padding: 40px; color: var(--stone);">
+    <!-- 標題區塊 - 保持較小 -->
+    <div style="text-align: center; padding: 20px 40px; color: var(--stone); flex-shrink: 0;">
       <h1 style="font-family: 'Noto Serif TC', serif; color: var(--moss);">歡迎使用蕨積模板</h1>
       <p>絕望筆記</p>
-      <p style="margin-top: 20px;">導覽列與 footer 都已完整保留</p>
-       <iframe 
-  src="https://linephotobot.onrender.com/message.html" 
-  width="80%" 
-  height="60%" 
-  frameborder="0">
-</iframe>
+      <p style="margin-top: 10px;">導覽列與 footer 都已完整保留</p>
+    </div>
+    
+    <!-- iframe 容器 - 佔據剩餘所有空間 -->
+    <div style="flex: 1; width: 100%; padding: 0 20px 20px 20px; box-sizing: border-box;">
+      <iframe 
+        src="https://linephotobot.onrender.com/message.html" 
+        style="width: 100%; height: 100%; border: none; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
     </div>
   </main>
 
   <!-- Footer -->
-  <footer>
+  <footer style="flex-shrink: 0;">
     <ul class="footer-links">
       <li><a href="123.html">植物選品</a></li>
       <li><a href="45.html">綠色顧問</a></li>
