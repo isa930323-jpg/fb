@@ -6,19 +6,23 @@
   <title>蕨積 — 綠色顧問</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     :root {
-      --ink:#1a1a14; --moss:#3d5a38; --fern:#5a7a4a;
-      --sage:#8aab7a; --mist:#d4e4c8; --paper:#faf7f2; --stone:#9a9080;
+      --ink:#1a1a14;
+      --moss:#3d5a38;
+      --fern:#5a7a4a;
+      --mist:#d4e4c8;
+      --stone:#9a9080;
+      --paper:#faf7f2;
     }
 
     body {
+      margin:0;
       font-family:'Noto Sans TC',sans-serif;
       background:var(--paper);
-      margin:0;
     }
 
     .content {
@@ -27,7 +31,7 @@
     }
 
     .carbon-story {
-      max-width:760px;
+      max-width:720px;
       margin:0 auto;
       padding:0 20px;
     }
@@ -39,15 +43,14 @@
 
     .page-header h2 {
       font-family:'Noto Serif TC',serif;
-      font-size:1.8rem;
       color:var(--moss);
+      font-size:1.8rem;
       line-height:1.6;
     }
 
     .story-paragraph {
       line-height:1.9;
       margin-bottom:24px;
-      color:var(--ink);
     }
 
     .section-title {
@@ -59,16 +62,16 @@
 
     .iframe-card {
       background:white;
-      border-radius:18px;
+      border:1px solid var(--mist);
+      border-radius:16px;
       padding:20px;
       margin:20px 0;
-      border:1px solid var(--mist);
-      transition:0.25s;
+      transition:.25s;
     }
 
     .iframe-card:hover {
       transform:translateY(-3px);
-      box-shadow:0 8px 20px rgba(0,0,0,0.05);
+      box-shadow:0 6px 16px rgba(0,0,0,0.05);
     }
 
     .iframe-header {
@@ -91,7 +94,6 @@
       color:var(--fern);
       text-decoration:none;
       font-size:0.85rem;
-      transition:0.2s;
     }
 
     .card-link:hover {
@@ -105,85 +107,103 @@
       color:var(--stone);
       font-style:italic;
     }
+
+    footer {
+      border-top:1px solid #ddd;
+      text-align:center;
+      padding:30px;
+      color:#999;
+    }
   </style>
 </head>
 
 <body>
 
+<!-- nav 插入點 -->
 <div id="nav-placeholder"></div>
 
 <main class="content">
 
-<div class="carbon-story">
+  <div class="carbon-story">
 
-  <div class="page-header">
-    <h2>從理解排放，到改變環境與生活。</h2>
-  </div>
-
-  <p class="story-paragraph">
-    多數關於減碳的討論，停留在數據或制度中。
-    但環境的改變，往往發生在空間、使用方式，以及日常選擇。
-  </p>
-
-  <p class="story-paragraph">
-    蕨積從碳盤查出發，延伸到植生牆與生活提案，
-    嘗試讓環境變成可以被理解與實踐的事情。
-  </p>
-
-  <div class="section-title">服務導引</div>
-
-  <p class="story-paragraph">
-    你可以從不同角度開始：
-  </p>
-
-  <!-- 卡片1 -->
-  <div class="iframe-card">
-    <div class="iframe-header">
-      <i data-lucide="bar-chart-3"></i>
-      <h3>溫室氣體盤查</h3>
+    <div class="page-header">
+      <h2>從理解排放，到改變環境與生活。</h2>
     </div>
-    <p>理解排放來源與數據結構。</p>
-    <a href="carbon.html" class="card-link">了解更多 →</a>
-  </div>
 
-  <!-- 卡片2 -->
-  <div class="iframe-card">
-    <div class="iframe-header">
-      <i data-lucide="leaf"></i>
-      <h3>植生牆綠化</h3>
+    <p class="story-paragraph">
+      多數關於減碳的討論，停留在數據或制度中。
+      但環境的改變，往往發生在空間與日常選擇。
+    </p>
+
+    <p class="story-paragraph">
+      蕨積從碳盤查出發，延伸到植生牆與生活提案，
+      嘗試讓環境變成可以被理解與實踐的事情。
+    </p>
+
+    <div class="section-title">服務導引</div>
+
+    <p class="story-paragraph">
+      你可以從不同角度開始：
+    </p>
+
+    <!-- 卡片1 -->
+    <div class="iframe-card">
+      <div class="iframe-header">
+        <i data-lucide="bar-chart-3"></i>
+        <h3>溫室氣體盤查</h3>
+      </div>
+      <p>理解排放來源與結構。</p>
+      <a href="ghg.html" class="card-link">了解更多 →</a>
     </div>
-    <p>讓植物真正進入空間並持續運作。</p>
-    <a href="greenwall.html" class="card-link">了解更多 →</a>
-  </div>
 
-  <!-- 卡片3 -->
-  <div class="iframe-card">
-    <div class="iframe-header">
-      <i data-lucide="home"></i>
-      <h3>生活提案</h3>
+    <!-- 卡片2 -->
+    <div class="iframe-card">
+      <div class="iframe-header">
+        <i data-lucide="leaf"></i>
+        <h3>植生牆綠化</h3>
+      </div>
+      <p>讓植物真正進入空間並持續運作。</p>
+      <a href="greenwall.html" class="card-link">了解更多 →</a>
     </div>
-    <p>從日常開始理解與調整環境影響。</p>
-    <a href="lifestyle.html" class="card-link">了解更多 →</a>
-  </div>
 
-  <div class="footnote">
-    「理解，是改變的開始。」
-  </div>
+    <!-- 卡片3 -->
+    <div class="iframe-card">
+      <div class="iframe-header">
+        <i data-lucide="home"></i>
+        <h3>生活提案</h3>
+      </div>
+      <p>從日常開始理解環境影響。</p>
+      <a href="lifestyle.html" class="card-link">了解更多 →</a>
+    </div>
 
-</div>
+    <div class="footnote">
+      「理解，是改變的開始。」
+    </div>
+
+  </div>
 
 </main>
 
-<footer>
-  <p style="text-align:center;width:100%;color:#999;">© 2026 蕨積 FernBrom</p>
-</footer>
+ <!-- Footer -->
+  <footer>
+    <ul class="footer-links">
+      <li><a href="123.html">植物選品</a></li>
+      <li><a href="45.html">綠色顧問</a></li>
+      <li><a href="67.html">蕨望筆記</a></li>
+      <li><a href="89.html">關於蕨積</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
+  </footer>
+
 
 <script>
-fetch('nav.html')
-.then(r=>r.text())
-.then(d=>{
-  document.getElementById('nav-placeholder').innerHTML=d;
-  if(typeof lucide!=='undefined') lucide.createIcons();
+document.addEventListener('DOMContentLoaded', function () {
+  fetch('nav.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('nav-placeholder').innerHTML = data;
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    });
 });
 </script>
 
