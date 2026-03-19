@@ -1,4 +1,4 @@
-<!-- ========== 共用導覽列元件 nav.html (改善下拉選單消失問題 - 加大緩衝與延遲) ========== -->
+<!-- ========== 共用導覽列元件 nav.html ========== -->
 <nav id="mainNav">
   <a href="https://fb-d9pw.onrender.com/index.html" class="logo">
     <div class="logo-mark"><img src="logo.png" alt="蕨積"></div>
@@ -25,71 +25,119 @@
         <li><a href="lifestyle.html">生活提案</a></li>
       </ul>
     </li>
-    <!-- 一般連結（有下拉） -->
-    <li class="has-dropdown" id="nav-green">
-    <a href="67.html">蕨望筆記</a> 
-      <ul class="dropdown" id="dropdown-green">
+    <!-- 蕨望筆記（有下拉） -->
+    <li class="has-dropdown" id="nav-note">
+      <a href="67.html">蕨望筆記</a> 
+      <ul class="dropdown" id="dropdown-note">
         <li><a href="consulting.html">生活隨筆</a></li>
         <li><a href="ghg.html">永續日常</a></li>
         <li><a href="greenwall.html">淨零生活</a></li>
         <li><a href="lifestyle.html">綠色實驗室</a></li>
       </ul>
-     </li>
+    </li>
     <li><a href="89.html">關於蕨積</a></li>
     <li><a href="0.html" class="nav-contact">聯絡我們</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" aria-label="開啟選單"><span></span><span></span><span></span></button>
+  <button class="hamburger" id="hamburger" aria-label="開啟選單">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<!-- 行動選單結構（手機版） -->
+<!-- 行動選單結構（手機版）- 修正版 -->
 <div class="mobile-menu" id="mobileMenu">
   <ul>
+    <!-- 植物選品 -->
     <li>
-      <div class="mobile-parent" data-target="sub-plant">
+      <div class="mobile-parent" data-target="mobile-sub-plant">
         植物選品
-        <span class="mobile-caret" id="caret-sub-plant">▼</span>
+        <span class="mobile-caret">▼</span>
       </div>
-      <ul class="mobile-sub" id="sub-plant">
-        <li><a href="all.html" class="mobile-link">所有植物</a></li>
-        <li><a href="fern.html" class="mobile-link">蕨類</a></li>
-        <li><a href="brom.html" class="mobile-link">積水鳳梨</a></li>
-        <li><a href="otherplant.html" class="mobile-link">其他植物</a></li>
+      <ul class="mobile-sub" id="mobile-sub-plant">
+        <li><a href="all.html">所有植物</a></li>
+        <li><a href="fern.html">蕨類</a></li>
+        <li><a href="brom.html">積水鳳梨</a></li>
+        <li><a href="otherplant.html">其他植物</a></li>
       </ul>
     </li>
-    <li>
-      <div class="mobile-parent" data-target="sub-green">
-        綠色顧問
-        <span class="mobile-caret" id="caret-sub-green">▼</span>
-      </div>
-      <ul class="mobile-sub" id="sub-green">
-         <li><a href="consulting.html">綠色顧問總覽</a></li>
-        <li><a href="ghg.html" class="mobile-link">溫室氣體盤查</a></li>
-        <li><a href="greenwall.html" class="mobile-link">植生牆綠化</a></li>
-        <li><a href="lifestyle.html" class="mobile-link">生活提案</a></li>
-      </ul>
-    </li><li>
     
-    <div class=  "mobile-parent" data-target="sub-green">
-        蕨望筆記
-        <span class="mobile-caret" id="caret-sub-green">▼</span>
+    <!-- 綠色顧問 -->
+    <li>
+      <div class="mobile-parent" data-target="mobile-sub-green">
+        綠色顧問
+        <span class="mobile-caret">▼</span>
       </div>
-     <ul class="mobile-sub" id="sub-green">
-         <li><a href="consulting.html">生活隨筆</a></li>
-        <li><a href="ghg.html" class="mobile-link">永續日常</a></li>
-        <li><a href="greenwall.html" class="mobile-link">淨零生活</a></li>
-        <li><a href="lifestyle.html" class="mobile-link">綠色實驗室</a></li>
+      <ul class="mobile-sub" id="mobile-sub-green">
+        <li><a href="consulting.html">綠色顧問總覽</a></li>
+        <li><a href="ghg.html">溫室氣體盤查</a></li>
+        <li><a href="greenwall.html">植生牆綠化</a></li>
+        <li><a href="lifestyle.html">生活提案</a></li>
       </ul>
-    <li><a href="67.html" class="mobile-link">蕨望筆記</a></li>
-    <li><a href="89.html" class="mobile-link">關於蕨積</a></li>
-    <li><a href="0.html" class="mobile-link">聯絡我們</a></li>
+    </li>
+    
+    <!-- 蕨望筆記 -->
+    <li>
+      <div class="mobile-parent" data-target="mobile-sub-note">
+        蕨望筆記
+        <span class="mobile-caret">▼</span>
+      </div>
+      <ul class="mobile-sub" id="mobile-sub-note">
+        <li><a href="consulting.html">生活隨筆</a></li>
+        <li><a href="ghg.html">永續日常</a></li>
+        <li><a href="greenwall.html">淨零生活</a></li>
+        <li><a href="lifestyle.html">綠色實驗室</a></li>
+      </ul>
+    </li>
+    
+    <!-- 關於蕨積 -->
+    <li><a href="89.html">關於蕨積</a></li>
+    
+    <!-- 聯絡我們 -->
+    <li><a href="0.html">聯絡我們</a></li>
   </ul>
 </div>
 
-<!-- 加入改善下拉選單消失的 JavaScript (緩衝 50px, 延遲 480ms) -->
+<!-- 完整的 JavaScript (電腦版+手機版) -->
 <script>
   (function() {
-    // 確保只在電腦版執行
-    function initDropdownFix() {
+    // 漢堡選單功能
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', function() {
+        this.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+      });
+    }
+    
+    // 手機版下拉選單功能
+    function initMobileDropdown() {
+      const mobileParents = document.querySelectorAll('.mobile-parent');
+      
+      mobileParents.forEach(parent => {
+        parent.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('data-target');
+          const subMenu = document.getElementById(targetId);
+          const caret = this.querySelector('.mobile-caret');
+          
+          if (subMenu) {
+            // 切換目前選單
+            if (subMenu.style.display === 'block') {
+              subMenu.style.display = 'none';
+              if (caret) caret.textContent = '▼';
+            } else {
+              subMenu.style.display = 'block';
+              if (caret) caret.textContent = '▲';
+            }
+          }
+        });
+      });
+    }
+    
+    // 電腦版下拉選單功能
+    function initDesktopDropdown() {
       if (window.innerWidth <= 768) return;
       
       const dropdownItems = document.querySelectorAll('.has-dropdown');
@@ -102,7 +150,6 @@
         let isMouseOnItem = false;
         let isMouseOnDropdown = false;
         
-        // 滑鼠進入主選單項目
         item.addEventListener('mouseenter', function() {
           isMouseOnItem = true;
           if (hideTimeout) {
@@ -112,18 +159,15 @@
           dropdown.style.display = 'block';
         });
         
-        // 滑鼠離開主選單項目
         item.addEventListener('mouseleave', function() {
           isMouseOnItem = false;
-          // 延遲 480ms 隱藏，給使用者更多時間移動到下拉選單
           hideTimeout = setTimeout(function() {
             if (!isMouseOnDropdown) {
               dropdown.style.display = 'none';
             }
-          }, 480); // 改為 480ms
+          }, 480);
         });
         
-        // 滑鼠進入下拉選單
         dropdown.addEventListener('mouseenter', function() {
           isMouseOnDropdown = true;
           if (hideTimeout) {
@@ -133,7 +177,6 @@
           dropdown.style.display = 'block';
         });
         
-        // 滑鼠離開下拉選單
         dropdown.addEventListener('mouseleave', function() {
           isMouseOnDropdown = false;
           if (!isMouseOnItem) {
@@ -143,22 +186,32 @@
       });
     }
     
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initDropdownFix);
-    } else {
-      initDropdownFix();
+    // 初始化
+    function init() {
+      initMobileDropdown();
+      if (window.innerWidth > 768) {
+        initDesktopDropdown();
+      }
     }
     
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+    
+    // 視窗大小改變時重新初始化
     window.addEventListener('resize', function() {
       if (window.innerWidth > 768) {
-        initDropdownFix();
+        initDesktopDropdown();
       }
     });
   })();
 </script>
 
-<!-- CSS 緩衝區 (加大為 50px) -->
+<!-- CSS 樣式 -->
 <style>
+  /* 電腦版樣式 */
   @media (min-width: 769px) {
     .has-dropdown {
       position: relative;
@@ -172,34 +225,128 @@
       min-width: 180px;
       background: white;
       border: 1px solid #ddd;
-      border-top: 2px solid var(--fern, #5a7a4a);
+      border-top: 2px solid #5a7a4a;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       z-index: 1000;
       display: none;
       padding: 8px 0;
     }
     
-    /* 加大緩衝區到 50px */
     .has-dropdown::after {
       content: '';
       position: absolute;
       top: 100%;
       left: 0;
       width: 100%;
-      height: 50px;  /* 從 10px 加大到 50px */
+      height: 50px;
       background: transparent;
       z-index: 1001;
     }
     
-    /* 下拉選單向上微調，與緩衝區更緊密 */
     .has-dropdown > .dropdown {
-      margin-top: 0;  /* 移除原本的 margin */
-      top: calc(100% - 5px);  /* 稍微向上拉，讓選單和緩衝區重疊 */
+      margin-top: 0;
+      top: calc(100% - 5px);
     }
     
     .has-dropdown:hover > .dropdown,
     .has-dropdown > .dropdown:hover {
       display: block;
+    }
+  }
+  
+  /* 手機版樣式 */
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+    
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    
+    .hamburger span {
+      width: 100%;
+      height: 3px;
+      background-color: #333;
+      transition: all 0.3s;
+    }
+    
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+    
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background: white;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+    
+    .mobile-menu.active {
+      display: block;
+    }
+    
+    .mobile-menu ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .mobile-menu li {
+      border-bottom: 1px solid #eee;
+    }
+    
+    .mobile-parent {
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    
+    .mobile-caret {
+      font-size: 12px;
+    }
+    
+    .mobile-sub {
+      display: none;
+      background-color: #f9f9f9;
+    }
+    
+    .mobile-sub a {
+      display: block;
+      padding: 12px 20px 12px 40px;
+      text-decoration: none;
+      color: #666;
+    }
+    
+    .mobile-menu > ul > li > a {
+      display: block;
+      padding: 15px 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
     }
   }
 </style>
