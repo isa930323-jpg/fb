@@ -41,57 +41,118 @@
   <button class="hamburger" id="hamburger" aria-label="開啟選單"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- 行動選單結構（手機版） -->
+<!-- 行動選單結構（手機版）- 完全修正版 -->
 <div class="mobile-menu" id="mobileMenu">
   <ul>
+    <!-- 植物選品 -->
     <li>
-      <div class="mobile-parent" data-target="sub-plant">
+      <div class="mobile-parent" data-target="mobile-sub-plant">
         植物選品
-        <span class="mobile-caret" id="caret-sub-plant">▼</span>
+        <span class="mobile-caret">▼</span>
       </div>
-      <ul class="mobile-sub" id="sub-plant">
-        <li><a href="all.html" class="mobile-link">所有植物</a></li>
-        <li><a href="fern.html" class="mobile-link">蕨類</a></li>
-        <li><a href="brom.html" class="mobile-link">積水鳳梨</a></li>
-        <li><a href="otherplant.html" class="mobile-link">其他植物</a></li>
+      <ul class="mobile-sub" id="mobile-sub-plant">
+        <li><a href="all.html">所有植物</a></li>
+        <li><a href="fern.html">蕨類</a></li>
+        <li><a href="brom.html">積水鳳梨</a></li>
+        <li><a href="otherplant.html">其他植物</a></li>
       </ul>
     </li>
+    
+    <!-- 綠色顧問 -->
     <li>
-      <div class="mobile-parent" data-target="sub-green">
+      <div class="mobile-parent" data-target="mobile-sub-green">
         綠色顧問
-        <span class="mobile-caret" id="caret-sub-green">▼</span>
+        <span class="mobile-caret">▼</span>
       </div>
-      <ul class="mobile-sub" id="sub-green">
+      <ul class="mobile-sub" id="mobile-sub-green">
         <li><a href="consulting.html">綠色顧問總覽</a></li>
-        <li><a href="ghg.html" class="mobile-link">溫室氣體盤查</a></li>
-        <li><a href="greenwall.html" class="mobile-link">植生牆綠化</a></li>
-        <li><a href="lifestyle.html" class="mobile-link">生活提案</a></li>
+        <li><a href="ghg.html">溫室氣體盤查</a></li>
+        <li><a href="greenwall.html">植生牆綠化</a></li>
+        <li><a href="lifestyle.html">生活提案</a></li>
       </ul>
     </li>
+    
+    <!-- 蕨望筆記 -->
     <li>
-      <div class="mobile-parent" data-target="sub-note">
+      <div class="mobile-parent" data-target="mobile-sub-note">
         蕨望筆記
-        <span class="mobile-caret" id="caret-sub-note">▼</span>
+        <span class="mobile-caret">▼</span>
       </div>
-      <ul class="mobile-sub" id="sub-note">
+      <ul class="mobile-sub" id="mobile-sub-note">
         <li><a href="consulting.html">生活隨筆</a></li>
-        <li><a href="ghg.html" class="mobile-link">永續日常</a></li>
-        <li><a href="greenwall.html" class="mobile-link">淨零生活</a></li>
-        <li><a href="lifestyle.html" class="mobile-link">綠色實驗室</a></li>
+        <li><a href="ghg.html">永續日常</a></li>
+        <li><a href="greenwall.html">淨零生活</a></li>
+        <li><a href="lifestyle.html">綠色實驗室</a></li>
       </ul>
     </li>
-    <li><a href="89.html" class="mobile-link">關於蕨積</a></li>
-    <li><a href="0.html" class="mobile-link">聯絡我們</a></li>
+    
+    <!-- 關於蕨積 -->
+    <li><a href="89.html">關於蕨積</a></li>
+    
+    <!-- 聯絡我們 -->
+    <li><a href="0.html">聯絡我們</a></li>
   </ul>
 </div>
 
-<!-- 加入改善下拉選單消失的 JavaScript (緩衝 50px, 延遲 480ms) -->
+<!-- 完整的 JavaScript -->
 <script>
   (function() {
-    // 確保只在電腦版執行
-    function initDropdownFix() {
-      if (window.innerWidth <= 768) return;
+    // 漢堡選單切換
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', function() {
+        mobileMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+      });
+    }
+    
+    // 手機版下拉選單功能
+    function initMobileDropdown() {
+      // 先隱藏所有子選單
+      document.querySelectorAll('.mobile-sub').forEach(sub => {
+        sub.style.display = 'none';
+      });
       
+      // 重置所有箭頭
+      document.querySelectorAll('.mobile-caret').forEach(caret => {
+        caret.textContent = '▼';
+      });
+      
+      // 為每個手機版父選項添加點擊事件
+      const mobileParents = document.querySelectorAll('.mobile-parent');
+      
+      mobileParents.forEach(parent => {
+        // 移除舊的事件監聽器，避免重複綁定
+        parent.removeEventListener('click', handleMobileClick);
+        parent.addEventListener('click', handleMobileClick);
+      });
+    }
+    
+    // 手機版點擊處理函數
+    function handleMobileClick(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const targetId = this.getAttribute('data-target');
+      const subMenu = document.getElementById(targetId);
+      const caret = this.querySelector('.mobile-caret');
+      
+      if (subMenu) {
+        // 切換目前選單
+        if (subMenu.style.display === 'block') {
+          subMenu.style.display = 'none';
+          if (caret) caret.textContent = '▼';
+        } else {
+          subMenu.style.display = 'block';
+          if (caret) caret.textContent = '▲';
+        }
+      }
+    }
+    
+    // 電腦版下拉選單功能
+    function initDesktopDropdown() {
       const dropdownItems = document.querySelectorAll('.has-dropdown');
       
       dropdownItems.forEach(item => {
@@ -102,94 +163,88 @@
         let isMouseOnItem = false;
         let isMouseOnDropdown = false;
         
-        // 滑鼠進入主選單項目
-        item.addEventListener('mouseenter', function() {
-          isMouseOnItem = true;
-          if (hideTimeout) {
-            clearTimeout(hideTimeout);
-            hideTimeout = null;
-          }
-          dropdown.style.display = 'block';
-        });
+        // 移除舊的事件監聽器（簡化處理，直接重新綁定）
+        item.replaceWith(item.cloneNode(true));
+      });
+      
+      // 重新獲取元素並綁定事件
+      setTimeout(() => {
+        const newDropdownItems = document.querySelectorAll('.has-dropdown');
         
-        // 滑鼠離開主選單項目
-        item.addEventListener('mouseleave', function() {
-          isMouseOnItem = false;
-          // 延遲 480ms 隱藏，給使用者更多時間移動到下拉選單
-          hideTimeout = setTimeout(function() {
-            if (!isMouseOnDropdown) {
+        newDropdownItems.forEach(item => {
+          const dropdown = item.querySelector('.dropdown');
+          if (!dropdown) return;
+          
+          let hideTimeout = null;
+          let isMouseOnItem = false;
+          let isMouseOnDropdown = false;
+          
+          item.addEventListener('mouseenter', function() {
+            isMouseOnItem = true;
+            if (hideTimeout) {
+              clearTimeout(hideTimeout);
+              hideTimeout = null;
+            }
+            dropdown.style.display = 'block';
+          });
+          
+          item.addEventListener('mouseleave', function() {
+            isMouseOnItem = false;
+            hideTimeout = setTimeout(function() {
+              if (!isMouseOnDropdown) {
+                dropdown.style.display = 'none';
+              }
+            }, 480);
+          });
+          
+          dropdown.addEventListener('mouseenter', function() {
+            isMouseOnDropdown = true;
+            if (hideTimeout) {
+              clearTimeout(hideTimeout);
+              hideTimeout = null;
+            }
+            dropdown.style.display = 'block';
+          });
+          
+          dropdown.addEventListener('mouseleave', function() {
+            isMouseOnDropdown = false;
+            if (!isMouseOnItem) {
               dropdown.style.display = 'none';
             }
-          }, 480);
+          });
         });
-        
-        // 滑鼠進入下拉選單
-        dropdown.addEventListener('mouseenter', function() {
-          isMouseOnDropdown = true;
-          if (hideTimeout) {
-            clearTimeout(hideTimeout);
-            hideTimeout = null;
-          }
-          dropdown.style.display = 'block';
-        });
-        
-        // 滑鼠離開下拉選單
-        dropdown.addEventListener('mouseleave', function() {
-          isMouseOnDropdown = false;
-          if (!isMouseOnItem) {
-            dropdown.style.display = 'none';
-          }
-        });
-      });
+      }, 100);
     }
     
-    // 手機版下拉選單功能
-    function initMobileDropdown() {
-      if (window.innerWidth > 768) return;
-      
-      const mobileParents = document.querySelectorAll('.mobile-parent');
-      
-      mobileParents.forEach(parent => {
-        parent.addEventListener('click', function() {
-          const targetId = this.getAttribute('data-target');
-          const subMenu = document.getElementById(targetId);
-          const caret = this.querySelector('.mobile-caret');
-          
-          if (subMenu) {
-            if (subMenu.style.display === 'block') {
-              subMenu.style.display = 'none';
-              if (caret) caret.textContent = '▼';
-            } else {
-              subMenu.style.display = 'block';
-              if (caret) caret.textContent = '▲';
-            }
-          }
-        });
-      });
-    }
-    
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function() {
-        initDropdownFix();
+    // 根據視窗大小初始化對應功能
+    function initByViewport() {
+      if (window.innerWidth <= 768) {
         initMobileDropdown();
-      });
-    } else {
-      initDropdownFix();
-      initMobileDropdown();
-    }
-    
-    window.addEventListener('resize', function() {
-      if (window.innerWidth > 768) {
-        initDropdownFix();
       } else {
-        initMobileDropdown();
+        initDesktopDropdown();
       }
+    }
+    
+    // 初始化
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initByViewport);
+    } else {
+      initByViewport();
+    }
+    
+    // 視窗大小改變時重新初始化
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(initByViewport, 250);
     });
+    
   })();
 </script>
 
-<!-- CSS 緩衝區 (加大為 50px) -->
+<!-- CSS 樣式 -->
 <style>
+  /* 電腦版樣式 */
   @media (min-width: 769px) {
     .has-dropdown {
       position: relative;
@@ -203,14 +258,13 @@
       min-width: 180px;
       background: white;
       border: 1px solid #ddd;
-      border-top: 2px solid var(--fern, #5a7a4a);
+      border-top: 2px solid #5a7a4a;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       z-index: 1000;
       display: none;
       padding: 8px 0;
     }
     
-    /* 加大緩衝區到 50px */
     .has-dropdown::after {
       content: '';
       position: absolute;
@@ -222,38 +276,151 @@
       z-index: 1001;
     }
     
-    /* 下拉選單向上微調，與緩衝區更緊密 */
     .has-dropdown > .dropdown {
       margin-top: 0;
       top: calc(100% - 5px);
     }
     
-    .has-dropdown:hover > .dropdown,
-    .has-dropdown > .dropdown:hover {
+    .has-dropdown:hover > .dropdown {
       display: block;
+    }
+    
+    .dropdown li {
+      list-style: none;
+    }
+    
+    .dropdown a {
+      display: block;
+      padding: 8px 20px;
+      text-decoration: none;
+      color: #333;
+      white-space: nowrap;
+    }
+    
+    .dropdown a:hover {
+      background-color: #f5f5f5;
+      color: #5a7a4a;
     }
   }
   
   /* 手機版樣式 */
   @media (max-width: 768px) {
-    .mobile-sub {
+    .mobile-menu {
       display: none;
-      padding-left: 20px;
-      background-color: #f9f9f9;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background: white;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      z-index: 999;
+    }
+    
+    .mobile-menu.active {
+      display: block;
+    }
+    
+    .mobile-menu ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .mobile-menu li {
+      border-bottom: 1px solid #eee;
+    }
+    
+    .mobile-menu > ul > li > a {
+      display: block;
+      padding: 15px 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
     }
     
     .mobile-parent {
-      cursor: pointer;
-      padding: 10px 15px;
+      padding: 15px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      font-weight: 500;
+      color: #333;
     }
     
     .mobile-caret {
       font-size: 12px;
       transition: transform 0.3s;
+    }
+    
+    .mobile-sub {
+      display: none;
+      background-color: #f9f9f9;
+      padding: 0;
+    }
+    
+    .mobile-sub li {
+      border-bottom: 1px solid #e5e5e5;
+    }
+    
+    .mobile-sub li:last-child {
+      border-bottom: none;
+    }
+    
+    .mobile-sub a {
+      display: block;
+      padding: 12px 20px 12px 40px;
+      text-decoration: none;
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .mobile-sub a:hover {
+      background-color: #f0f0f0;
+      color: #5a7a4a;
+    }
+    
+    /* 漢堡選單樣式 */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    
+    .hamburger span {
+      width: 100%;
+      height: 3px;
+      background-color: #333;
+      transition: all 0.3s;
+    }
+    
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+    }
+    
+    /* 漢堡選單動畫 */
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
     }
   }
 </style>
