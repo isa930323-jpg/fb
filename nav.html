@@ -25,16 +25,16 @@
         <li><a href="lifestyle.html">生活提案</a></li>
       </ul>
     </li>
-    <!-- 一般連結（有下拉） -->
-    <li class="has-dropdown" id="nav-green">
-    <a href="67.html">蕨望筆記</a> 
-      <ul class="dropdown" id="dropdown-green">
+    <!-- 蕨望筆記（有下拉） -->
+    <li class="has-dropdown" id="nav-note">
+      <a href="67.html">蕨望筆記</a> 
+      <ul class="dropdown" id="dropdown-note">
         <li><a href="consulting.html">生活隨筆</a></li>
         <li><a href="ghg.html">永續日常</a></li>
         <li><a href="greenwall.html">淨零生活</a></li>
         <li><a href="lifestyle.html">綠色實驗室</a></li>
       </ul>
-     </li>
+    </li>
     <li><a href="89.html">關於蕨積</a></li>
     <li><a href="0.html" class="nav-contact">聯絡我們</a></li>
   </ul>
@@ -62,24 +62,24 @@
         <span class="mobile-caret" id="caret-sub-green">▼</span>
       </div>
       <ul class="mobile-sub" id="sub-green">
-         <li><a href="consulting.html">綠色顧問總覽</a></li>
+        <li><a href="consulting.html">綠色顧問總覽</a></li>
         <li><a href="ghg.html" class="mobile-link">溫室氣體盤查</a></li>
         <li><a href="greenwall.html" class="mobile-link">植生牆綠化</a></li>
         <li><a href="lifestyle.html" class="mobile-link">生活提案</a></li>
       </ul>
-    </li><li>
-    
-    <div class=  "mobile-parent" data-target="sub-green">
+    </li>
+    <li>
+      <div class="mobile-parent" data-target="sub-note">
         蕨望筆記
-        <span class="mobile-caret" id="caret-sub-green">▼</span>
+        <span class="mobile-caret" id="caret-sub-note">▼</span>
       </div>
-     <ul class="mobile-sub" id="sub-green">
-         <li><a href="consulting.html">生活隨筆</a></li>
+      <ul class="mobile-sub" id="sub-note">
+        <li><a href="consulting.html">生活隨筆</a></li>
         <li><a href="ghg.html" class="mobile-link">永續日常</a></li>
         <li><a href="greenwall.html" class="mobile-link">淨零生活</a></li>
         <li><a href="lifestyle.html" class="mobile-link">綠色實驗室</a></li>
       </ul>
-    <li><a href="67.html" class="mobile-link">蕨望筆記</a></li>
+    </li>
     <li><a href="89.html" class="mobile-link">關於蕨積</a></li>
     <li><a href="0.html" class="mobile-link">聯絡我們</a></li>
   </ul>
@@ -120,7 +120,7 @@
             if (!isMouseOnDropdown) {
               dropdown.style.display = 'none';
             }
-          }, 480); // 改為 480ms
+          }, 480);
         });
         
         // 滑鼠進入下拉選單
@@ -143,15 +143,46 @@
       });
     }
     
+    // 手機版下拉選單功能
+    function initMobileDropdown() {
+      if (window.innerWidth > 768) return;
+      
+      const mobileParents = document.querySelectorAll('.mobile-parent');
+      
+      mobileParents.forEach(parent => {
+        parent.addEventListener('click', function() {
+          const targetId = this.getAttribute('data-target');
+          const subMenu = document.getElementById(targetId);
+          const caret = this.querySelector('.mobile-caret');
+          
+          if (subMenu) {
+            if (subMenu.style.display === 'block') {
+              subMenu.style.display = 'none';
+              if (caret) caret.textContent = '▼';
+            } else {
+              subMenu.style.display = 'block';
+              if (caret) caret.textContent = '▲';
+            }
+          }
+        });
+      });
+    }
+    
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initDropdownFix);
+      document.addEventListener('DOMContentLoaded', function() {
+        initDropdownFix();
+        initMobileDropdown();
+      });
     } else {
       initDropdownFix();
+      initMobileDropdown();
     }
     
     window.addEventListener('resize', function() {
       if (window.innerWidth > 768) {
         initDropdownFix();
+      } else {
+        initMobileDropdown();
       }
     });
   })();
@@ -186,20 +217,43 @@
       top: 100%;
       left: 0;
       width: 100%;
-      height: 50px;  /* 從 10px 加大到 50px */
+      height: 50px;
       background: transparent;
       z-index: 1001;
     }
     
     /* 下拉選單向上微調，與緩衝區更緊密 */
     .has-dropdown > .dropdown {
-      margin-top: 0;  /* 移除原本的 margin */
-      top: calc(100% - 5px);  /* 稍微向上拉，讓選單和緩衝區重疊 */
+      margin-top: 0;
+      top: calc(100% - 5px);
     }
     
     .has-dropdown:hover > .dropdown,
     .has-dropdown > .dropdown:hover {
       display: block;
+    }
+  }
+  
+  /* 手機版樣式 */
+  @media (max-width: 768px) {
+    .mobile-sub {
+      display: none;
+      padding-left: 20px;
+      background-color: #f9f9f9;
+    }
+    
+    .mobile-parent {
+      cursor: pointer;
+      padding: 10px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .mobile-caret {
+      font-size: 12px;
+      transition: transform 0.3s;
     }
   }
 </style>
