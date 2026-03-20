@@ -29,7 +29,25 @@
       flex-direction: column;
     }
 
-    /* 主內容區 - 避開固定導覽列，導覽列樣式完全由 nav.html 提供 */
+    /* 導覽列容器 - 只負責佔位，樣式完全由 nav.html 提供 */
+    #nav-placeholder {
+      min-height: 72px;
+      position: relative;
+      z-index: 100;
+    }
+    
+    /* 確保 nav.html 載入後的樣式正常運作 */
+    #nav-placeholder nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    /* 主內容區 - 避開固定導覽列 */
     .content {
       flex: 1;
       padding-top: 92px;
@@ -236,10 +254,6 @@
       background: var(--fern);
       color: white;
     }
-    .load-more-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
 
     /* 空狀態 */
     .empty-state {
@@ -275,7 +289,7 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Footer - 保持與品牌一致 */
+    /* Footer */
     footer {
       border-top: 1px solid rgba(90,122,74,0.15);
       padding: 40px 4vw;
@@ -305,6 +319,7 @@
       font-size: 0.75rem;
       color: var(--stone);
     }
+    
     @media (max-width: 768px) {
       footer {
         flex-direction: column;
@@ -322,24 +337,10 @@
         padding-top: 82px;
       }
     }
-    
-    /* 導覽列容器 - 確保高度正確 */
-    #nav-placeholder {
-      min-height: 72px;
-    }
-    
-    /* 確保導覽列載入後樣式正確，避免任何覆蓋 */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-    }
   </style>
 </head>
 <body>
-  <!-- 導覽列佔位符，由 nav.html 動態載入 -->
+  <!-- 導覽列佔位符，nav.html 會完整載入其樣式和結構 -->
   <div id="nav-placeholder"></div>
 
   <main class="content">
@@ -390,7 +391,6 @@
     const POSTS_PER_PAGE = 3;
     let currentSearchTag = '';
     
-    // 預設標籤列表
     const defaultTags = ['#碳盤查', '#ESG', '#永續', '#生活', '#鹿角蕨', '#植物', '#環保', '#碳中和'];
     
     // ==================== 輔助函數 ====================
@@ -404,14 +404,12 @@
         .replace(/'/g, "&#039;");
     }
     
-    // 從文章中提取所有標籤
     function extractTagsFromText(text) {
       const tagRegex = /#[\u4e00-\u9fa5a-zA-Z0-9]+/g;
       const matches = text.match(tagRegex);
       return matches ? [...new Set(matches)] : [];
     }
     
-    // 取得所有文章中的標籤
     function getAllTagsFromMessages(messages) {
       const tagsSet = new Set();
       messages.forEach(msg => {
@@ -422,7 +420,6 @@
       return Array.from(tagsSet).sort();
     }
     
-    // 渲染標籤雲
     function renderTagCloud(tags, activeTag = '') {
       const container = document.getElementById('tagCloud');
       if (!container) return;
@@ -434,7 +431,6 @@
         <span class="tag ${activeTag === tag ? 'active' : ''}" data-tag="${escapeHtml(tag).replace(/"/g, '&quot;')}">${escapeHtml(tag)}</span>
       `).join('');
       
-      // 綁定標籤點擊事件
       document.querySelectorAll('.tag').forEach(el => {
         el.removeEventListener('click', tagClickHandler);
         el.addEventListener('click', tagClickHandler);
@@ -443,12 +439,9 @@
     
     function tagClickHandler(e) {
       const tagText = e.currentTarget.getAttribute('data-tag') || e.currentTarget.innerText;
-      if (tagText) {
-        searchByTagText(tagText);
-      }
+      if (tagText) searchByTagText(tagText);
     }
     
-    // 根據標籤篩選
     function filterMessagesByTag(tag) {
       if (!tag) return [...allMessages];
       return allMessages.filter(msg => {
@@ -457,7 +450,6 @@
       });
     }
     
-    // 執行搜尋
     function performSearch(tag) {
       if (!tag) {
         filteredMessages = [...allMessages];
@@ -485,9 +477,7 @@
     function searchByTag() {
       const input = document.getElementById('tagInput');
       let tag = input.value.trim();
-      if (tag && !tag.startsWith('#')) {
-        tag = '#' + tag;
-      }
+      if (tag && !tag.startsWith('#')) tag = '#' + tag;
       performSearch(tag);
     }
     
@@ -509,8 +499,7 @@
     }
     
     function getCurrentPagePosts() {
-      const end = currentPage * POSTS_PER_PAGE;
-      return filteredMessages.slice(0, end);
+      return filteredMessages.slice(0, currentPage * POSTS_PER_PAGE);
     }
     
     function hasMore() {
@@ -518,8 +507,7 @@
     }
     
     function loadMore() {
-      const totalPages = Math.ceil(filteredMessages.length / POSTS_PER_PAGE);
-      if (currentPage < totalPages) {
+      if (hasMore()) {
         currentPage++;
         renderPosts();
       }
@@ -570,37 +558,28 @@
         `;
       }).join('');
       
-      // 綁定文章內標籤點擊事件
       document.querySelectorAll('.post-tag').forEach(el => {
         el.removeEventListener('click', postTagClickHandler);
         el.addEventListener('click', postTagClickHandler);
       });
       
       if (loadMoreBtn) {
-        if (hasMore()) {
-          loadMoreBtn.style.display = 'inline-block';
-          loadMoreBtn.disabled = false;
-        } else {
-          loadMoreBtn.style.display = 'none';
-        }
+        loadMoreBtn.style.display = hasMore() ? 'inline-block' : 'none';
+        loadMoreBtn.disabled = false;
       }
     }
     
     function postTagClickHandler(e) {
       const tagText = e.currentTarget.getAttribute('data-tag') || e.currentTarget.innerText;
-      if (tagText) {
-        searchByTagText(tagText);
-      }
+      if (tagText) searchByTagText(tagText);
     }
     
-    // 載入所有文章
     async function loadMessages() {
       const container = document.getElementById('postsContainer');
       if (container) container.innerHTML = '<div class="loading">載入文章...</div>';
       
       try {
-        const API_URL = 'https://linephotobot.onrender.com/api/messages';
-        const response = await fetch(API_URL);
+        const response = await fetch('https://linephotobot.onrender.com/api/messages');
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         
         const messages = await response.json();
@@ -614,45 +593,40 @@
         renderPosts();
         
         const countSpan = document.getElementById('resultCount');
-        if (countSpan) {
-          countSpan.innerHTML = `📖 共 ${allMessages.length} 篇文章`;
-        }
+        if (countSpan) countSpan.innerHTML = `📖 共 ${allMessages.length} 篇文章`;
         
       } catch (error) {
-        console.error('載入文章失敗:', error);
+        console.error('載入失敗:', error);
         if (container) {
           container.innerHTML = `
             <div class="empty-state">
               <i>⚠️</i>
               <p>載入失敗，請稍後再試</p>
-              <p style="font-size:0.8rem; margin-top:8px;">${escapeHtml(error.message)}</p>
+              <p style="font-size:0.8rem;">${escapeHtml(error.message)}</p>
             </div>
           `;
         }
       }
     }
     
-    // 初始化頁面 - 只載入導覽列和文章，不重複定義任何導覽列功能
+    // 初始化：載入導覽列和文章內容
     function initPage() {
+      // 載入共用導覽列
       const navPlaceholder = document.getElementById('nav-placeholder');
       if (navPlaceholder) {
         fetch('nav.html')
-          .then(response => {
-            if (!response.ok) throw new Error('nav.html 載入失敗');
-            return response.text();
-          })
+          .then(response => response.text())
           .then(html => {
             navPlaceholder.innerHTML = html;
-            // 導覽列內建的下拉選單功能會自動運作，不需額外處理
-            // 重新初始化 lucide 圖示（如果有）
+            // 初始化 lucide 圖示
             if (typeof lucide !== 'undefined' && lucide.createIcons) {
-              setTimeout(() => lucide.createIcons(), 100);
+              setTimeout(() => lucide.createIcons(), 50);
             }
           })
           .catch(err => console.warn('導覽列載入錯誤:', err));
       }
       
-      // 綁定頁面按鈕事件
+      // 綁定按鈕事件
       const searchBtn = document.getElementById('searchBtn');
       const clearBtn = document.getElementById('clearBtn');
       const loadMoreBtn = document.getElementById('loadMoreBtn');
@@ -671,34 +645,26 @@
         loadMoreBtn.addEventListener('click', loadMore);
       }
       if (tagInput) {
-        tagInput.removeEventListener('keypress', handleKeyPress);
-        tagInput.addEventListener('keypress', handleKeyPress);
+        tagInput.removeEventListener('keypress', (e) => e.key === 'Enter' && searchByTag());
+        tagInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') searchByTag(); });
       }
       
       // 載入文章
       loadMessages();
       
-      // 定時重新整理
+      // 定時刷新
       if (window.refreshInterval) clearInterval(window.refreshInterval);
       window.refreshInterval = setInterval(loadMessages, 60000);
     }
     
-    function handleKeyPress(e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        searchByTag();
-      }
-    }
-    
-    // 啟動初始化
+    // 啟動
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initPage);
     } else {
       initPage();
     }
     
-    // 頁面卸載時清理定時器
-    window.addEventListener('beforeunload', function() {
+    window.addEventListener('beforeunload', () => {
       if (window.refreshInterval) clearInterval(window.refreshInterval);
     });
   </script>
