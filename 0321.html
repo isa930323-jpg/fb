@@ -29,123 +29,7 @@
       flex-direction: column;
     }
 
-    /* 導覽列樣式 - 與共用 nav.html 一致，但避免衝突 */
-    /* 注意：共用導覽列會動態載入，這裡只保留備份樣式確保過渡平滑 */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 4vw; height: 72px;
-      background: rgba(250,247,242,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(90,122,74,0.12);
-    }
-    nav.scrolled { box-shadow: 0 2px 24px rgba(61,90,56,0.10); }
-
-    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
-    .logo-mark { width: 38px; height: 38px; flex-shrink: 0; }
-    .logo-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
-    .logo-text {
-      font-family: 'Noto Serif TC', serif;
-      font-weight: 900;
-      font-size: 1.35rem;
-      color: var(--moss);
-      letter-spacing: 0.05em;
-      line-height: 1;
-      white-space: nowrap;
-    }
-    .logo-text span {
-      display: block;
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
-      color: var(--stone);
-      margin-top: 2px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-      align-items: center;
-      white-space: nowrap;
-    }
-    .nav-links li { position: relative; padding: 0 2px; }
-    .nav-links a {
-      font-family: 'Noto Sans TC', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      color: var(--ink);
-      text-decoration: none;
-      padding-bottom: 3px;
-      opacity: 0.75;
-      display: inline-block;
-    }
-    .nav-links a:hover { opacity: 1; color: var(--fern); }
-    .nav-contact {
-      padding: 8px 20px !important;
-      border: 1px solid var(--fern) !important;
-      border-radius: 2px;
-      color: var(--fern) !important;
-      opacity: 1 !important;
-      margin-left: 0.5rem;
-    }
-    .nav-contact:hover { background: var(--fern); color: white !important; }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      gap: 6px;
-      width: 40px; height: 40px;
-      cursor: pointer;
-      background: none; border: none;
-      flex-shrink: 0;
-    }
-    .hamburger span {
-      display: block;
-      width: 24px; height: 1.5px;
-      background: var(--moss);
-      transition: transform 0.2s ease;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
-
-    .mobile-menu {
-      position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
-      background: #faf7f2;
-      border-bottom: 1px solid rgba(90,122,74,0.15);
-      padding: 0 6vw 40px;
-      z-index: 99;
-      overflow-y: auto;
-      transform: translateX(100%);
-      visibility: hidden;
-      transition: transform 0.3s ease;
-    }
-    .mobile-menu.open { transform: translateX(0); visibility: visible; }
-    .mobile-menu ul { list-style: none; }
-    .mobile-menu > ul > li > a,
-    .mobile-parent {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 0;
-      font-family: 'Noto Serif TC', serif;
-      font-weight: 600;
-      font-size: 1rem;
-      letter-spacing: 0.08em;
-      color: var(--moss);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(90,122,74,0.1);
-      cursor: pointer;
-    }
-
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-    }
-
-    /* 主內容區 - 避開固定導覽列 */
+    /* 主內容區 - 避開固定導覽列，導覽列樣式完全由 nav.html 提供 */
     .content {
       flex: 1;
       padding-top: 92px;
@@ -391,7 +275,7 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Footer */
+    /* Footer - 保持與品牌一致 */
     footer {
       border-top: 1px solid rgba(90,122,74,0.15);
       padding: 40px 4vw;
@@ -434,15 +318,28 @@
       .post-card {
         padding: 24px;
       }
+      .content {
+        padding-top: 82px;
+      }
     }
     
-    /* 防止導覽列載入前閃爍 */
+    /* 導覽列容器 - 確保高度正確 */
     #nav-placeholder {
       min-height: 72px;
+    }
+    
+    /* 確保導覽列載入後樣式正確，避免任何覆蓋 */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
     }
   </style>
 </head>
 <body>
+  <!-- 導覽列佔位符，由 nav.html 動態載入 -->
   <div id="nav-placeholder"></div>
 
   <main class="content">
@@ -487,11 +384,11 @@
 
   <script>
     // ==================== 全域變數 ====================
-    let allMessages = [];      // 所有文章
-    let filteredMessages = []; // 檢索後的文章
+    let allMessages = [];
+    let filteredMessages = [];
     let currentPage = 1;
-    const POSTS_PER_PAGE = 3;   // 每頁顯示篇數
-    let currentSearchTag = '';   // 目前檢索的標籤
+    const POSTS_PER_PAGE = 3;
+    let currentSearchTag = '';
     
     // 預設標籤列表
     const defaultTags = ['#碳盤查', '#ESG', '#永續', '#生活', '#鹿角蕨', '#植物', '#環保', '#碳中和'];
@@ -507,7 +404,7 @@
         .replace(/'/g, "&#039;");
     }
     
-    // 從文章中提取所有標籤（支援 #標籤 格式）
+    // 從文章中提取所有標籤
     function extractTagsFromText(text) {
       const tagRegex = /#[\u4e00-\u9fa5a-zA-Z0-9]+/g;
       const matches = text.match(tagRegex);
@@ -521,7 +418,6 @@
         const tags = extractTagsFromText(msg.text);
         tags.forEach(tag => tagsSet.add(tag));
       });
-      // 加入預設標籤讓介面更豐富
       defaultTags.forEach(tag => tagsSet.add(tag));
       return Array.from(tagsSet).sort();
     }
@@ -538,7 +434,7 @@
         <span class="tag ${activeTag === tag ? 'active' : ''}" data-tag="${escapeHtml(tag).replace(/"/g, '&quot;')}">${escapeHtml(tag)}</span>
       `).join('');
       
-      // 綁定點擊事件（避免內聯 onclick 與全域函數衝突）
+      // 綁定標籤點擊事件
       document.querySelectorAll('.tag').forEach(el => {
         el.removeEventListener('click', tagClickHandler);
         el.addEventListener('click', tagClickHandler);
@@ -574,7 +470,6 @@
       renderPosts();
       updateTagCloudActive(tag);
       
-      // 更新結果計數
       const countSpan = document.getElementById('resultCount');
       if (countSpan) {
         if (tag && filteredMessages.length > 0) {
@@ -587,7 +482,6 @@
       }
     }
     
-    // 搜尋功能（從輸入框）
     function searchByTag() {
       const input = document.getElementById('tagInput');
       let tag = input.value.trim();
@@ -597,36 +491,32 @@
       performSearch(tag);
     }
     
-    // 點擊標籤搜尋
     function searchByTagText(tag) {
-      document.getElementById('tagInput').value = tag;
+      const input = document.getElementById('tagInput');
+      if (input) input.value = tag;
       performSearch(tag);
     }
     
-    // 清除搜尋
     function clearSearch() {
-      document.getElementById('tagInput').value = '';
+      const input = document.getElementById('tagInput');
+      if (input) input.value = '';
       performSearch('');
     }
     
-    // 更新標籤雲的 active 狀態
     function updateTagCloudActive(activeTag) {
       const tags = getAllTagsFromMessages(allMessages);
       renderTagCloud(tags, activeTag);
     }
     
-    // 取得當前頁面要顯示的文章
     function getCurrentPagePosts() {
       const end = currentPage * POSTS_PER_PAGE;
       return filteredMessages.slice(0, end);
     }
     
-    // 檢查是否還有更多
     function hasMore() {
       return currentPage * POSTS_PER_PAGE < filteredMessages.length;
     }
     
-    // 載入更多
     function loadMore() {
       const totalPages = Math.ceil(filteredMessages.length / POSTS_PER_PAGE);
       if (currentPage < totalPages) {
@@ -635,16 +525,16 @@
       }
     }
     
-    // 格式化內容，讓 #標籤 高亮
     function formatContentWithTags(text) {
       return text.replace(/(#[#\u4e00-\u9fa5a-zA-Z0-9]+)/g, '<span style="color: var(--fern); font-weight: 500;">$1</span>');
     }
     
-    // 渲染文章列表
     function renderPosts() {
       const container = document.getElementById('postsContainer');
       const loadMoreBtn = document.getElementById('loadMoreBtn');
       const postsToShow = getCurrentPagePosts();
+      
+      if (!container) return;
       
       if (filteredMessages.length === 0) {
         container.innerHTML = `
@@ -686,7 +576,6 @@
         el.addEventListener('click', postTagClickHandler);
       });
       
-      // 控制載入更多按鈕
       if (loadMoreBtn) {
         if (hasMore()) {
           loadMoreBtn.style.display = 'inline-block';
@@ -715,15 +604,12 @@
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         
         const messages = await response.json();
-        // 依時間排序（最新的在前）
         allMessages = messages.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         filteredMessages = [...allMessages];
         
-        // 更新標籤雲
         const allTags = getAllTagsFromMessages(allMessages);
         renderTagCloud(allTags);
         
-        // 顯示結果
         currentPage = 1;
         renderPosts();
         
@@ -746,9 +632,8 @@
       }
     }
     
-    // 初始化導覽列與按鈕事件 (完全獨立，不干擾 nav.html 的下拉選單功能)
+    // 初始化頁面 - 只載入導覽列和文章，不重複定義任何導覽列功能
     function initPage() {
-      // 載入共用導覽列 - 使用 fetch 並確保不會覆蓋原有的導覽列事件
       const navPlaceholder = document.getElementById('nav-placeholder');
       if (navPlaceholder) {
         fetch('nav.html')
@@ -758,17 +643,16 @@
           })
           .then(html => {
             navPlaceholder.innerHTML = html;
-            // 重要：不要執行任何會覆蓋導覽列功能的初始化
-            // 導覽列本身已經內建下拉選單的 JavaScript (在 nav.html 中)
-            // 我們只需要確保 lucide 圖示重新初始化（如果有需要）
+            // 導覽列內建的下拉選單功能會自動運作，不需額外處理
+            // 重新初始化 lucide 圖示（如果有）
             if (typeof lucide !== 'undefined' && lucide.createIcons) {
-              lucide.createIcons();
+              setTimeout(() => lucide.createIcons(), 100);
             }
           })
           .catch(err => console.warn('導覽列載入錯誤:', err));
       }
       
-      // 初始化按鈕事件 (避免與導覽列衝突，使用獨立 ID)
+      // 綁定頁面按鈕事件
       const searchBtn = document.getElementById('searchBtn');
       const clearBtn = document.getElementById('clearBtn');
       const loadMoreBtn = document.getElementById('loadMoreBtn');
@@ -794,7 +678,7 @@
       // 載入文章
       loadMessages();
       
-      // 設定定時重新整理 (每 60 秒)
+      // 定時重新整理
       if (window.refreshInterval) clearInterval(window.refreshInterval);
       window.refreshInterval = setInterval(loadMessages, 60000);
     }
@@ -806,14 +690,14 @@
       }
     }
     
-    // 確保在 DOM 完全載入後初始化，且不與 nav.html 內的初始化衝突
+    // 啟動初始化
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initPage);
     } else {
       initPage();
     }
     
-    // 清理定時器的好習慣 (頁面卸載時可選，但非必要)
+    // 頁面卸載時清理定時器
     window.addEventListener('beforeunload', function() {
       if (window.refreshInterval) clearInterval(window.refreshInterval);
     });
