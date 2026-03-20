@@ -677,7 +677,7 @@
       try {
         // 請確認這個 API 網址是否正確
         // 如果是跨專案，請改成完整網址：https://linephotobot.onrender.com/api/messages
-        const API_URL = '/api/messages';
+        const API_URL = 'https://linephotobot.onrender.com/api/messages';
         
         const response = await fetch(API_URL);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
