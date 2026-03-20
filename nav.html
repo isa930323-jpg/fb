@@ -86,7 +86,7 @@
 </div>
 
 <style>
-  /* 確保導覽列樣式正常 */
+  /* 導覽列樣式 */
   nav {
     position: fixed;
     top: 0;
@@ -161,10 +161,26 @@
     opacity: 1 !important;
   }
   
-  /* 下拉選單 */
+  /* 下拉選單 - 加入緩衝區解決消失問題 */
+  .has-dropdown {
+    position: relative;
+  }
+  
+  /* 隱藏緩衝區 - 連接主選單和下拉選單 */
+  .has-dropdown::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: transparent;
+    z-index: 101;
+  }
+  
   .dropdown {
     position: absolute;
-    top: 100%;
+    top: calc(100% - 5px);
     left: 50%;
     transform: translateX(-50%);
     min-width: 160px;
@@ -177,12 +193,27 @@
     padding: 8px 0;
     list-style: none;
     margin: 0;
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
     z-index: 1000;
   }
   
+  /* 滑鼠懸停時顯示 */
   .has-dropdown:hover .dropdown {
-    display: block;
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* 下拉選單也加入緩衝區向上延伸 */
+  .dropdown::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    background: transparent;
   }
   
   .dropdown li {
@@ -201,7 +232,7 @@
     padding-left: 26px;
   }
   
-  /* 手機版 */
+  /* 手機版樣式 */
   .hamburger {
     display: none;
     flex-direction: column;
@@ -215,6 +246,19 @@
     width: 24px;
     height: 2px;
     background: #3d5a38;
+    transition: 0.2s;
+  }
+  
+  .hamburger.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  .hamburger.open span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .hamburger.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
   }
   
   .mobile-menu {
@@ -227,6 +271,7 @@
     transform: translateX(100%);
     transition: transform 0.3s;
     z-index: 99;
+    border-bottom: 1px solid rgba(90,122,74,0.15);
   }
   
   .mobile-menu.open {
@@ -236,14 +281,25 @@
   .mobile-parent {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 12px 0;
     cursor: pointer;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(90,122,74,0.1);
+  }
+  
+  .mobile-caret {
+    transition: transform 0.2s;
+  }
+  
+  .mobile-caret.open {
+    transform: rotate(180deg);
   }
   
   .mobile-sub {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s;
+    transition: max-height 0.3s ease;
     padding-left: 16px;
   }
   
@@ -251,11 +307,20 @@
     max-height: 300px;
   }
   
+  .mobile-sub li {
+    list-style: none;
+  }
+  
   .mobile-sub li a {
     display: block;
     padding: 10px 0;
     text-decoration: none;
     color: #9a9080;
+    border-bottom: 1px solid rgba(90,122,74,0.05);
+  }
+  
+  .mobile-sub li a:hover {
+    color: #5a7a4a;
   }
   
   @media (max-width: 768px) {
@@ -271,28 +336,51 @@
 <script>
   // 手機選單控制
   (function() {
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    
-    if (hamburger && mobileMenu) {
-      hamburger.addEventListener('click', function() {
-        hamburger.classList.toggle('open');
-        mobileMenu.classList.toggle('open');
+    // 確保 DOM 載入完成
+    function initMobileMenu() {
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobileMenu');
+      
+      if (hamburger && mobileMenu) {
+        // 移除可能重複的事件監聽
+        const newHamburger = hamburger.cloneNode(true);
+        hamburger.parentNode.replaceChild(newHamburger, hamburger);
+        const newMobileMenu = mobileMenu.cloneNode(true);
+        mobileMenu.parentNode.replaceChild(newMobileMenu, mobileMenu);
+        
+        const finalHamburger = document.getElementById('hamburger');
+        const finalMobileMenu = document.getElementById('mobileMenu');
+        
+        finalHamburger.addEventListener('click', function(e) {
+          e.stopPropagation();
+          finalHamburger.classList.toggle('open');
+          finalMobileMenu.classList.toggle('open');
+        });
+      }
+      
+      // 手機版下拉選單
+      document.querySelectorAll('.mobile-parent').forEach(parent => {
+        const newParent = parent.cloneNode(true);
+        parent.parentNode.replaceChild(newParent, parent);
+        
+        newParent.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const targetId = this.getAttribute('data-target');
+          const subMenu = document.getElementById(targetId);
+          const caret = this.querySelector('.mobile-caret');
+          
+          if (subMenu) {
+            subMenu.classList.toggle('open');
+            if (caret) caret.classList.toggle('open');
+          }
+        });
       });
     }
     
-    // 手機版下拉選單
-    document.querySelectorAll('.mobile-parent').forEach(parent => {
-      parent.addEventListener('click', function() {
-        const targetId = this.getAttribute('data-target');
-        const subMenu = document.getElementById(targetId);
-        const caret = this.querySelector('.mobile-caret');
-        
-        if (subMenu) {
-          subMenu.classList.toggle('open');
-          if (caret) caret.classList.toggle('open');
-        }
-      });
-    });
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMobileMenu);
+    } else {
+      initMobileMenu();
+    }
   })();
 </script>
