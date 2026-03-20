@@ -725,34 +725,18 @@
     
     // 初始化導覽列
     document.addEventListener('DOMContentLoaded', function() {
-      fetch('nav.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('nav-placeholder').innerHTML = data;
-          initNav();
-        })
-        .catch(err => console.error('無法載入導覽列:', err));
-      
-      function initNav() {
-        const btn = document.getElementById('hamburger');
-        const menu = document.getElementById('mobileMenu');
-        if (btn && menu) {
-          btn.addEventListener('click', () => {
-            btn.classList.toggle('open');
-            menu.classList.toggle('open');
-          });
-        }
-        window.addEventListener('scroll', () => {
-          const nav = document.getElementById('mainNav');
-          if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
-        });
-        if (typeof lucide !== 'undefined') lucide.createIcons();
-      }
-      
-      // 載入文章
-      loadMessages();
-    });
-    
+  fetch('nav.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('nav-placeholder').innerHTML = data;
+      // 不要執行 initNav()，讓原本的導覽列功能保持不變
+      // 如果頁面上已經有導覽列的功能（來自其他 script），就不要覆蓋
+    })
+    .catch(err => console.error('無法載入導覽列:', err));
+  
+  // 直接載入文章
+  loadMessages();
+});
     // 自動重新整理（每 60 秒）
     setInterval(loadMessages, 60000);
   </script>
