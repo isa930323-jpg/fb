@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生活隨筆 — 蕨積｜碳盤查・ESG・永續生活</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --ink: #1a1a14;
+      --moss: #3d5a38;
+      --fern: #5a7a4a;
+      --sage: #8aab7a;
+      --mist: #d4e4c8;
+      --cream: #f5f0e8;
+      --stone: #9a9080;
+      --paper: #faf7f2;
+    }
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 導覽列樣式 */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4vw; height: 72px;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(90,122,74,0.12);
+    }
+    nav.scrolled { box-shadow: 0 2px 24px rgba(61,90,56,0.10); }
+
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .logo-mark { width: 38px; height: 38px; flex-shrink: 0; }
+    .logo-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .logo-text {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: 1.35rem;
+      color: var(--moss);
+      letter-spacing: 0.05em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .logo-text span {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--stone);
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+      white-space: nowrap;
+    }
+    .nav-links li { position: relative; padding: 0 2px; }
+    .nav-links a {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      text-decoration: none;
+      padding-bottom: 3px;
+      opacity: 0.75;
+      display: inline-block;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--fern); }
+    .nav-contact {
+      padding: 8px 20px !important;
+      border: 1px solid var(--fern) !important;
+      border-radius: 2px;
+      color: var(--fern) !important;
+      opacity: 1 !important;
+      margin-left: 0.5rem;
+    }
+    .nav-contact:hover { background: var(--fern); color: white !important; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      width: 40px; height: 40px;
+      cursor: pointer;
+      background: none; border: none;
+      flex-shrink: 0;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 1.5px;
+      background: var(--moss);
+      transition: transform 0.2s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
+      background: #faf7f2;
+      border-bottom: 1px solid rgba(90,122,74,0.15);
+      padding: 0 6vw 40px;
+      z-index: 99;
+      overflow-y: auto;
+      transform: translateX(100%);
+      visibility: hidden;
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu.open { transform: translateX(0); visibility: visible; }
+    .mobile-menu ul { list-style: none; }
+    .mobile-menu > ul > li > a,
+    .mobile-parent {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 0;
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      color: var(--moss);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(90,122,74,0.1);
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* 主內容區 */
+    .content {
+      flex: 1;
+      padding-top: 92px;
+      padding-bottom: 60px;
+    }
+
+    .blog-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* 標題區 */
+    .blog-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .blog-header h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2.5rem;
+      color: var(--moss);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+    .blog-header p {
+      color: var(--stone);
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* 標籤導航列 - 連結式 */
+    .tag-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 40px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(90,122,74,0.15);
+      justify-content: center;
+    }
+    .tag-link {
+      display: inline-block;
+      padding: 6px 18px;
+      background: var(--cream);
+      color: var(--fern);
+      border-radius: 30px;
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid rgba(90,122,74,0.2);
+    }
+    .tag-link:hover {
+      background: var(--mist);
+      transform: translateY(-2px);
+    }
+    .tag-link.active {
+      background: var(--fern);
+      color: white;
+      border-color: var(--fern);
+    }
+
+    /* 文章卡片 */
+    .post-card {
+      background: white;
+      border-radius: 24px;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      border: 1px solid rgba(90,122,74,0.08);
+      transition: all 0.2s;
+    }
+    .post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(61,90,56,0.08);
+    }
+    .post-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .post-author {
+      font-size: 0.8rem;
+      color: var(--sage);
+      letter-spacing: 0.05em;
+    }
+    .post-date {
+      font-size: 0.75rem;
+      color: var(--stone);
+    }
+    .post-content {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--ink);
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 20px;
+    }
+    .post-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(90,122,74,0.1);
+    }
+    .post-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: var(--cream);
+      color: var(--fern);
+      border-radius: 30px;
+      font-size: 0.7rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .post-tag:hover {
+      background: var(--mist);
+      transform: translateY(-1px);
+    }
+
+    /* 空狀態 */
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--stone);
+    }
+    .empty-state i {
+      display: block;
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    /* 載入動畫 */
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--fern);
+    }
+    .loading::after {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--mist);
+      border-top: 2px solid var(--fern);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-left: 10px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(90,122,74,0.15);
+      padding: 40px 4vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--paper);
+      margin-top: auto;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.75rem;
+      color: var(--stone);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+    }
+    .footer-links a:hover {
+      opacity: 1;
+      color: var(--fern);
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--stone);
+    }
+    @media (max-width: 768px) {
+      footer {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+      .footer-links {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .post-card {
+        padding: 24px;
+      }
+      .tag-nav {
+        gap: 8px;
+      }
+      .tag-link {
+        padding: 4px 12px;
+        font-size: 0.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <main class="content">
+    <div class="blog-container">
+      <div class="blog-header">
+        <h1>🌿 生活隨筆</h1>
+        <p>碳盤查 · ESG · 永續 · 植物與日常</p>
+      </div>
+
+      <!-- 標籤導航列 - 簡單連結 -->
+      <div class="tag-nav" id="tagNav">
+        <a href="note.html" class="tag-link" id="tagAll">📖 全部文章</a>
+        <a href="note.html?tag=%23%E7%A2%B3%E7%9B%A4%E6%9F%A5" class="tag-link">#碳盤查</a>
+        <a href="note.html?tag=%23ESG" class="tag-link">#ESG</a>
+        <a href="note.html?tag=%23%E6%B0%B8%E7%BA%8C" class="tag-link">#永續</a>
+        <a href="note.html?tag=%23%E7%94%9F%E6%B4%BB" class="tag-link">#生活</a>
+        <a href="note.html?tag=%23%E9%B9%BF%E8%A7%92%E8%95%A8" class="tag-link">#鹿角蕨</a>
+        <a href="note.html?tag=%23%E6%A4%8D%E7%89%A9" class="tag-link">#植物</a>
+        <a href="note.html?tag=%23%E7%92%B0%E4%BF%9D" class="tag-link">#環保</a>
+        <a href="note.html?tag=%23%E7%A2%B3%E4%B8%AD%E5%92%8C" class="tag-link">#碳中和</a>
+      </div>
+
+      <!-- 文章列表區 -->
+      <div id="postsContainer"></div>
+    </div>
+  </main>
+
+  <footer>
+    <ul class="footer-links">
+      <li><a href="#">關於蕨積</a></li>
+      <li><a href="#">碳生活專欄</a></li>
+      <li><a href="#">ESG 觀點</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 蕨積 FernBrom · 生活隨筆</p>
+  </footer>
+
+  <script>
+    // 取得網址參數
+    function getUrlParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+    
+    const currentTag = getUrlParam('tag');
+    
+    // 設定當前標籤的 active 樣式
+    function setActiveTag() {
+      if (currentTag) {
+        const allLinks = document.querySelectorAll('.tag-link');
+        allLinks.forEach(link => {
+          if (link.getAttribute('href') === `note.html?tag=${encodeURIComponent(currentTag)}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      } else {
+        document.getElementById('tagAll')?.classList.add('active');
+      }
+    }
+    
+    // 格式化內容，讓 #標籤 高亮
+    function formatContentWithTags(text) {
+      return text.replace(/(#[#\u4e00-\u9fa5a-zA-Z0-9]+)/g, '<span style="color: var(--fern); font-weight: 500;">$1</span>');
+    }
+    
+    function escapeHtml(unsafe) {
+      if (!unsafe) return '';
+      return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+    
+    // 載入文章
+    async function loadMessages() {
+      const container = document.getElementById('postsContainer');
+      container.innerHTML = '<div class="loading">載入文章...</div>';
+      
+      try {
+        // 根據是否有標籤參數決定 API 網址
+        let apiUrl = 'https://linephotobot.onrender.com/api/messages';
+        if (currentTag) {
+          apiUrl += `?tag=${encodeURIComponent(currentTag)}`;
+        }
+        
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        const messages = await response.json();
+        
+        if (messages.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <i>📭</i>
+              <p>${currentTag ? `沒有找到關於 ${escapeHtml(currentTag)} 的文章` : '目前還沒有任何文章'}</p>
+              <p style="font-size:0.8rem; margin-top:8px;">${currentTag ? '試試其他標籤吧！' : '快用 LINE 傳送訊息，加入 #標籤 吧！'}</p>
+            </div>
+          `;
+          return;
+        }
+        
+        // 渲染文章
+        container.innerHTML = messages.map(post => {
+          const displayName = post.displayName || '蕨友';
+          const time = new Date(post.timestamp);
+          const dateStr = `${time.getFullYear()}.${String(time.getMonth()+1).padStart(2,'0')}.${String(time.getDate()).padStart(2,'0')}`;
+          
+          return `
+            <article class="post-card">
+              <div class="post-header">
+                <span class="post-author">✍️ ${escapeHtml(displayName)}</span>
+                <span class="post-date">📅 ${dateStr}</span>
+              </div>
+              <div class="post-content">${formatContentWithTags(escapeHtml(post.text))}</div>
+              ${post.tags && post.tags.length > 0 ? `
+                <div class="post-tags">
+                  ${post.tags.map(tag => `<a href="note.html?tag=${encodeURIComponent(tag)}" class="post-tag">${escapeHtml(tag)}</a>`).join('')}
+                </div>
+              ` : ''}
+            </article>
+          `;
+        }).join('');
+        
+      } catch (error) {
+        console.error('載入文章失敗:', error);
+        container.innerHTML = `
+          <div class="empty-state">
+            <i>⚠️</i>
+            <p>載入失敗，請稍後再試</p>
+            <p style="font-size:0.8rem; margin-top:8px;">${error.message}</p>
+          </div>
+        `;
+      }
+    }
+    
+    // 載入導覽列
+    fetch('nav.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('nav-placeholder').innerHTML = data;
+        // 載入完成後，重新綁定手機選單（如果需要）
+        setTimeout(() => {
+          const hamburger = document.getElementById('hamburger');
+          const mobileMenu = document.getElementById('mobileMenu');
+          if (hamburger && mobileMenu) {
+            hamburger.addEventListener('click', function() {
+              hamburger.classList.toggle('open');
+              mobileMenu.classList.toggle('open');
+            });
+          }
+        }, 100);
+      })
+      .catch(err => console.error('無法載入導覽列:', err));
+    
+    // 初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      setActiveTag();
+      loadMessages();
+    });
+  </script>
+</body>
+</html>
