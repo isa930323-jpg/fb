@@ -30,7 +30,7 @@
       flex-direction: column;
     }
 
-    /* ----- 導覽列 (完整保留) ----- */
+    /* ----- 導覽列 ----- */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -224,72 +224,128 @@
       .hamburger { display: flex; }
     }
 
-    /* ----- 頁面內容區域 (修正手機邊界過大 + 表格/卡片壓縮問題) ----- */
+    /* ----- 頁面內容區域 ----- */
     .content {
       flex: 1;
-      padding-top: 92px; /* 72px nav + 20px 間距 */
+      padding-top: 92px;
       padding-bottom: 40px;
     }
 
-    /* 修正碳故事區塊手機版內距過大，並讓卡片內任何表格都能完整顯示 */
     .carbon-story {
       max-width: 800px;
       margin: 0 auto;
       padding: 0 4vw 40px;
     }
 
-    /* 手機版：將左右內距縮小，確保卡片內的表格/數字不被壓扁 */
+    /* 手機版邊界修正 */
     @media (max-width: 640px) {
       .carbon-story {
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left: 20px;
+        padding-right: 20px;
       }
       .iframe-card {
         padding: 1.2rem 1rem;
-        overflow-x: auto;  /* 若內部有表格超出，可橫向滾動，確保數字完整 */
       }
-      /* 防止任何內建表格(假如未來加入)被壓縮看不見 */
-      .iframe-card table, 
-      .iframe-card .data-table,
-      .iframe-card [class*="table"] {
-        display: block;
-        width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        font-size: 0.85rem;
-      }
-      /* 針對可能出現的純數字/指標區塊避免文字過小或折行嚴重 */
-      .iframe-card p, .iframe-card .story-paragraph {
-        font-size: 0.95rem;
-        line-height: 1.55;
-        word-break: break-word;
-      }
-      /* 確保標題與圖示大小適當 */
-      .iframe-header h3 {
-        font-size: 1.15rem;
-      }
-      .iframe-header i {
-        width: 24px;
-        height: 24px;
-      }
+    }
+
+    /* ===== 修正標題顏色 ===== */
+    .page-header {
+      margin-bottom: 40px;
+    }
+
+    .page-header h2 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--moss) !important;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 640px) {
       .page-header h2 {
         font-size: 1.8rem;
-      }
-      .section-title {
-        font-size: 1.4rem;
+        color: var(--moss) !important;
       }
     }
 
-    /* 額外保障任何表格、數據區塊（包含將來盤查頁面可能嵌入）在手機寬度下可橫向捲動 */
-    .iframe-card {
-      overflow-x: auto;
+    .story-paragraph {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--ink);
+      margin-bottom: 1.8rem;
+      opacity: 0.85;
     }
-    /* 讓卡片內部預設不會擠壓內容，但保留整體美觀 */
-    .iframe-card p.story-paragraph {
+
+    .section-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--fern);
+      letter-spacing: 0.1em;
+      margin: 3rem 0 2rem 0;
+      border-bottom: 1px solid var(--mist);
+      padding-bottom: 0.5rem;
+    }
+
+    .iframe-card {
+      background: #ffffffdd;
+      backdrop-filter: blur(4px);
+      border: 1px solid var(--mist);
+      border-radius: 0;
+      padding: 1.8rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 20px rgba(90,122,74,0.05);
+      transition: box-shadow 0.2s;
+    }
+    .iframe-card:hover {
+      box-shadow: 0 8px 30px rgba(61,90,56,0.1);
+      border-color: var(--sage);
+    }
+    .iframe-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
       margin-bottom: 0.75rem;
     }
+    .iframe-header i {
+      color: var(--fern);
+      width: 28px;
+      height: 28px;
+    }
+    .iframe-header h3 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--moss);
+      letter-spacing: 0.05em;
+    }
+    .iframe-card a {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-size: 0.9rem;
+      color: var(--fern);
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 0.25rem;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .iframe-card a:hover {
+      border-bottom: 1px solid var(--fern);
+    }
+    .footnote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--stone);
+      text-align: center;
+      margin: 4rem 0 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--mist);
+    }
 
-    /* ----- Footer (完整保留) ----- */
+    /* ----- Footer ----- */
     footer {
       border-top: 1px solid rgba(90,122,74,0.15);
       padding: 40px 4vw;
@@ -339,115 +395,13 @@
         flex-wrap: wrap;
       }
     }
-
-    /* ===== 新增輔助樣式: 避免任何潛在表格/數字區塊被切 ===== */
-    .iframe-card table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 0.75rem 0;
-      font-size: 0.85rem;
-    }
-    .iframe-card th, 
-    .iframe-card td {
-      border: 1px solid var(--mist);
-      padding: 8px 6px;
-      text-align: left;
-      vertical-align: top;
-    }
-    .iframe-card th {
-      background-color: #f0f4ea;
-      font-weight: 500;
-      color: var(--moss);
-    }
-    /* 強制手機上如果表格內容多可滑動 */
-    @media (max-width: 640px) {
-      .iframe-card .responsive-table-wrapper {
-        display: block;
-        width: 100%;
-        overflow-x: auto;
-      }
-    }
-    .story-paragraph {
-      font-family: 'Noto Sans TC', sans-serif;
-      font-size: 1rem;
-      line-height: 1.8;
-      color: var(--ink);
-      margin-bottom: 1.8rem;
-      opacity: 0.85;
-    }
-    .section-title {
-      font-family: 'Noto Serif TC', serif;
-      font-size: 1.6rem;
-      font-weight: 400;
-      color: var(--fern);
-      letter-spacing: 0.1em;
-      margin: 3rem 0 2rem 0;
-      border-bottom: 1px solid var(--mist);
-      padding-bottom: 0.5rem;
-    }
-    .iframe-card {
-      background: #ffffffdd;
-      backdrop-filter: blur(4px);
-      border: 1px solid var(--mist);
-      border-radius: 0;
-      padding: 1.8rem 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 4px 20px rgba(90,122,74,0.05);
-      transition: box-shadow 0.2s;
-      overflow-x: auto; /* 確保表格溢出時可捲動，不破壞版型 */
-    }
-    .iframe-card:hover {
-      box-shadow: 0 8px 30px rgba(61,90,56,0.1);
-      border-color: var(--sage);
-    }
-    .iframe-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 0.75rem;
-    }
-    .iframe-header i {
-      color: var(--fern);
-      width: 28px;
-      height: 28px;
-    }
-    .iframe-header h3 {
-      font-family: 'Noto Serif TC', serif;
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: var(--moss);
-      letter-spacing: 0.05em;
-    }
-    .iframe-card a {
-      font-family: 'Noto Sans TC', sans-serif;
-      font-size: 0.9rem;
-      color: var(--fern);
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 0.25rem;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.2s;
-    }
-    .iframe-card a:hover {
-      border-bottom: 1px solid var(--fern);
-    }
-    .footnote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-style: italic;
-      color: var(--stone);
-      text-align: center;
-      margin: 4rem 0 2rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--mist);
-    }
   </style>
 </head>
 <body>
   <!-- 放置導覽列的佔位元素 -->
   <div id="nav-placeholder"></div>
 
-  <!-- 頁面主要內容區域：優化後避免手機邊界過大及表格/數字被壓縮 -->
+  <!-- 頁面主要內容區域 -->
   <main class="content">
     <div class="carbon-story">
       <div class="page-header">
@@ -455,12 +409,12 @@
       </div>
 
       <p class="story-paragraph">
-        多數關於減碳的討論，停留在數據或制度中。
+        多數關於減碳的討論，停留在數據或制度中。<br>
         但環境的改變，往往發生在空間與日常選擇。
       </p>
 
       <p class="story-paragraph">
-        蕨積從碳盤查出發，延伸到植生牆與生活提案，
+        蕨積從碳盤查出發，延伸到植生牆與生活提案，<br>
         嘗試讓環境變成可以被理解與實踐的事情。
       </p>
 
@@ -470,72 +424,34 @@
         你可以從不同角度開始：
       </p>
 
-      <!-- 卡片1：盤查示例 + 數據表格（模擬數字，確保手機上表格完整顯示）-->
+      <!-- 卡片1 -->
       <div class="iframe-card">
         <div class="iframe-header">
           <i data-lucide="bar-chart-3"></i>
           <h3>溫室氣體盤查</h3>
         </div>
-        <p class="story-paragraph">理解排放來源與結構，提供精準量化建議。</p>
-        <!-- 示例表格：展示真實數據（避免被壓縮看不到數字） -->
-        <div class="responsive-table-wrapper">
-          <table style="min-width: 280px;">
-            <thead>
-                <table><th>排放範疇</th><th>排放源</th><th>年度排放量 (tCO₂e)</th><th>佔比</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>範疇一</td><td>固定燃燒/公務車輛</td><td>124.3</td><td>18%</td></tr>
-              <tr><td>範疇二</td><td>外購電力</td><td>386.7</td><td>56%</td></tr>
-              <tr><td>範疇三</td><td>員工通勤/廢棄物</td><td>179.2</td><td>26%</td></tr>
-              <tr><td><strong>總計</strong></td><td>-</td><td><strong>690.2</strong></td><td>100%</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="story-paragraph" style="font-size:0.85rem; margin-top: 12px;">※ 依據ISO 14064-1 量化，數據為模擬示意，幫助企業辨識熱點。</p>
-        <a href="ghg.html">了解更多盤查方案 →</a>
+        <p class="story-paragraph">理解排放來源與結構。</p>
+        <a href="ghg.html">了解更多 →</a>
       </div>
 
-      <!-- 卡片2：植生牆綠化 + 數據/規格表格（展示規格與環境效益數字）-->
+      <!-- 卡片2 -->
       <div class="iframe-card">
         <div class="iframe-header">
           <i data-lucide="leaf"></i>
           <h3>植生牆綠化</h3>
         </div>
-        <p class="story-paragraph">讓植物真正進入空間並持續運作，改善微氣候與碳匯效益。</p>
-        <div class="responsive-table-wrapper">
-          <table style="min-width: 260px;">
-            <thead><tr><th>植生牆類型</th><th>年固碳量 (kg CO₂/㎡)</th><th>降溫效果</th><th>維護頻率</th></tr></thead>
-            <tbody>
-              <tr><td>模組式戶外牆</td><td>12.5 ~ 18.3</td><td>降低表面溫度 5~8°C</td><td>每季一次</td></tr>
-              <tr><td>室內水培系統</td><td>5.2 ~ 9.7</td><td>調節濕度15%</td><td>每月巡檢</td></tr>
-              <tr><td>苔蘚/蕨類裝飾板</td><td>2.8 ~ 5.4</td><td>隔音/視覺降壓</td><td>雙週補水</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="story-paragraph" style="font-size:0.85rem; margin-top: 10px;">實際效益依據植物種類、氣候條件與養護計畫而異。</p>
-        <a href="greenwall.html">了解更多植生設計 →</a>
+        <p class="story-paragraph">讓植物真正進入空間並持續運作。</p>
+        <a href="greenwall.html">了解更多 →</a>
       </div>
 
-      <!-- 卡片3：生活提案 + 日常碳數據表格（避免數字被裁切）-->
+      <!-- 卡片3 -->
       <div class="iframe-card">
         <div class="iframe-header">
           <i data-lucide="home"></i>
           <h3>生活提案</h3>
         </div>
-        <p class="story-paragraph">從日常開始理解環境影響，累積有感減碳行動。</p>
-        <div class="responsive-table-wrapper">
-          <table style="min-width: 280px;">
-            <thead><tr><th>日常行為</th><th>每次碳足跡 (kgCO₂e)</th><th>替代方案</th><th>減碳潛力</th></tr></thead>
-            <tbody>
-              <tr><td>開汽油車通勤10km</td><td>2.3</td><td>騎單車/捷運</td><td>-85%</td></tr>
-              <tr><td>外送一次性餐盒</td><td>0.42</td><td>自備容器/內用</td><td>-78%</td></tr>
-              <tr><td>冷氣設定22°C 8hr</td><td>3.1</td><td>26°C+循環扇</td><td>-40%</td></tr>
-              <tr><td>購買快時尚一件</td><td>12.5</td><td>二手/租賃</td><td>-90%</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="story-paragraph" style="font-size:0.85rem; margin-top: 8px;">數據參考環保署碳足跡資料庫，為生活減碳提供明確方向。</p>
-        <a href="lifestyle.html">探索更多生活提案 →</a>
+        <p class="story-paragraph">從日常開始理解環境影響。</p>
+        <a href="lifestyle.html">了解更多 →</a>
       </div>
 
       <div class="footnote">
@@ -562,34 +478,27 @@
         .then(response => response.text())
         .then(data => {
           document.getElementById('nav-placeholder').innerHTML = data;
-          // 在導覽列插入後，重新綁定事件與初始化
           initNav();
         })
         .catch(err => {
           console.error('無法載入導覽列:', err);
-          // 錯誤時的備用顯示 (保留基本結構)
           document.getElementById('nav-placeholder').innerHTML = 
             '<nav id="mainNav" style="background:rgba(250,247,242,0.96);padding:0 4vw;height:72px;display:flex;align-items:center;justify-content:space-between;">' +
             '<div class="logo"><div class="logo-mark"><svg viewBox="0 0 40 40" fill="none" stroke="#3d5a38" stroke-width="1.2"><path d="M12,20 L20,8 L28,20 L20,32 Z" fill="#d4e4c8"/><circle cx="20" cy="20" r="4" fill="#5a7a4a"/></svg></div><div class="logo-text">蕨積<span>FERNBROM</span></div></div>' +
-            '<button class="hamburger" id="hamburger" style="display:flex"><span></span><span></span><span></span></button>' +
+            '<button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>' +
             '</nav>' +
             '<div class="mobile-menu" id="mobileMenu"><ul><li><a href="index.html">首頁</a></li><li><a href="consult.html">顧問服務</a></li></ul></div>';
           initNav();
         });
 
       function initNav() {
-        // hamburger 事件
         var btn = document.getElementById('hamburger');
         var menu = document.getElementById('mobileMenu');
         if (btn && menu) {
-          // 避免重複綁定
-          btn.removeEventListener('click', window._hamburgerClick);
-          window._hamburgerClick = function () {
+          btn.addEventListener('click', function () {
             btn.classList.toggle('open');
             menu.classList.toggle('open');
-          };
-          btn.addEventListener('click', window._hamburgerClick);
-          
+          });
           menu.querySelectorAll('.mobile-link, .mobile-sub a').forEach(function (a) {
             a.addEventListener('click', function () {
               btn.classList.remove('open');
@@ -597,11 +506,10 @@
             });
           });
         }
-        // 行動選單的展開折疊 (若存在動態dropdown結構)
+        
         if (menu) {
           menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
-            parent.removeEventListener('click', window._mobileParentClick);
-            window._mobileParentClick = function () {
+            parent.addEventListener('click', function () {
               var id = parent.getAttribute('data-target');
               var sub = document.getElementById(id);
               var caretId = 'caret-' + id?.replace('sub-', '');
@@ -616,25 +524,19 @@
                 sub.classList.remove('open');
                 if (caret) caret.classList.remove('open');
               }
-            };
-            parent.addEventListener('click', window._mobileParentClick);
+            });
           });
         }
-        // 滾動效果
+        
         var mainNav = document.getElementById('mainNav');
         if (mainNav) {
           window.addEventListener('scroll', function () {
             if (mainNav) mainNav.classList.toggle('scrolled', window.scrollY > 20);
           });
         }
-        // 重新綁定 lucide 圖示 (適用於動態插入的內容以及現有圖示)
+        
         if (typeof lucide !== 'undefined') {
           lucide.createIcons();
-        } else {
-          // 若延遲載入，稍後重試
-          setTimeout(function() {
-            if (typeof lucide !== 'undefined') lucide.createIcons();
-          }, 200);
         }
       }
     });
