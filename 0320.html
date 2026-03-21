@@ -2,11 +2,13 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>蕨積 — 植物 x 工程 x 碳生活</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>蕨積 — 綠色顧問</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- 引入 iframe-resizer 父頁面套件 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.min.js"></script>
   <style>
     /* ===== 共用樣式 ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -227,120 +229,173 @@
     /* ----- 頁面內容區域 ----- */
     .content {
       flex: 1;
-      padding-top: 92px; /* 72px nav + 20px 間距 */
+      padding-top: 92px;
       padding-bottom: 40px;
     }
 
-    /* ----- 新增：永續淨零文章專屬樣式 (僅美化內容，不影響原有結構) ----- */
-    .essay-container {
-      max-width: 960px;
+    /* ----- 修正手機板邊界與 iframe 內容壓縮問題 ----- */
+    .carbon-story {
+      max-width: 720px;
       margin: 0 auto;
-      padding: 1.5rem 1.8rem 4rem;
-      background: var(--paper);
+      padding: 20px 24px 40px;
     }
-    .essay-container h1 {
-      font-family: 'Noto Serif TC', serif;
-      font-weight: 900;
-      font-size: 3rem;
-      letter-spacing: -0.01em;
-      color: var(--moss);
-      margin-bottom: 1.2rem;
-      border-left: 6px solid var(--fern);
-      padding-left: 1.2rem;
-    }
-    .essay-container p {
-      font-family: 'Noto Sans TC', sans-serif;
-      font-weight: 350;
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: #2a2a24;
-      margin-bottom: 1.3rem;
-    }
-    .essay-container .section {
-      margin: 3rem 0 2rem;
-    }
-    .essay-container .section h3 {
-      font-family: 'Noto Serif TC', serif;
-      font-weight: 600;
-      font-size: 1.55rem;
-      color: var(--fern);
-      margin-bottom: 1.25rem;
-      letter-spacing: -0.2px;
-      display: inline-block;
-      border-bottom: 2px solid var(--mist);
-      padding-bottom: 0.25rem;
-    }
-    .essay-container .card {
-      background: #ffffffdd;
-      background: linear-gradient(135deg, #ffffff 0%, #fefaf5 100%);
-      border-radius: 28px;
-      padding: 1.6rem 1.9rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 6px 14px rgba(61, 90, 56, 0.05), 0 1px 3px rgba(0,0,0,0.02);
-      border: 1px solid rgba(138, 171, 122, 0.2);
-      transition: all 0.2s ease;
-    }
-    .essay-container .card:hover {
-      border-color: rgba(90, 122, 74, 0.35);
-      box-shadow: 0 12px 22px rgba(61, 90, 56, 0.08);
-    }
-    .essay-container .card h3 {
-      font-size: 1.45rem;
-      margin-bottom: 0.9rem;
-      border: none;
-      padding: 0;
-      color: var(--moss);
-      letter-spacing: -0.2px;
-      font-weight: 600;
-    }
-    .essay-container .card p {
-      margin-bottom: 0.9rem;
-      font-size: 1rem;
-    }
-    .essay-container .card p:last-child {
-      margin-bottom: 0;
-    }
-    .essay-container .tag-link {
-      display: inline-block;
-      font-family: 'Noto Sans TC', monospace;
-      font-size: 0.9rem;
-      background: var(--mist);
-      color: var(--moss);
-      padding: 0.4rem 1.1rem;
-      border-radius: 40px;
-      text-decoration: none;
-      margin-top: 0.5rem;
-      margin-right: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      transition: all 0.2s;
-      border: 1px solid rgba(90,122,74,0.2);
-    }
-    .essay-container .tag-link:hover {
-      background: var(--fern);
-      color: white;
-      border-color: var(--fern);
-    }
-    .essay-container .small {
-      font-size: 0.85rem;
-      color: var(--stone);
-      letter-spacing: 0.02em;
-      margin-bottom: 1.2rem;
-    }
+
+    /* 手機版：縮小左右邊界，讓 iframe 容器可橫向滾動 */
     @media (max-width: 640px) {
-      .essay-container {
-        padding: 0.5rem 1.2rem 3rem;
+      .carbon-story {
+        padding-left: 12px;
+        padding-right: 12px;
       }
-      .essay-container h1 {
-        font-size: 2.2rem;
-        padding-left: 0.8rem;
+      
+      /* iframe 卡片容器可橫向滾動，確保內部數字不被壓縮 */
+      .iframe-card {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
       }
-      .essay-container .card {
-        padding: 1.2rem 1.3rem;
+      
+      /* iframe 本身確保最小寬度，防止內容被壓扁 */
+      #myIframe {
+        min-width: 580px;  /* 設定最小寬度，確保表格/數字完整顯示 */
+        width: 100%;
       }
-      .essay-container .section h3 {
-        font-size: 1.35rem;
+      
+      /* 調整標題字體大小 */
+      .page-header h2 {
+        font-size: 1.6rem;
       }
+      
+      .section-title {
+        font-size: 1.4rem;
+      }
+      
+      .story-paragraph {
+        font-size: 0.95rem;
+        line-height: 1.7;
+      }
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .page-header h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--moss);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .page-header h2 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--moss);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .page-header .subhead {
+      font-size: 1rem;
+      color: var(--stone);
+      letter-spacing: 0.1em;
+      font-weight: 300;
+      border-bottom: 1px solid var(--mist);
+      padding-bottom: 20px;
+      margin-top: 4px;
+    }
+
+    .section-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--moss);
+      letter-spacing: 0.08em;
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+    .section-title span {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--stone);
+      letter-spacing: 0.2em;
+      margin-top: 6px;
+    }
+
+    .story-paragraph {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--ink);
+      margin-bottom: 2rem;
+      font-weight: 300;
+      text-align: justify;
+    }
+    .story-paragraph:last-of-type {
+      margin-bottom: 1.5rem;
+    }
+
+    /* iframe 容器 — 卡片式設計 */
+    .iframe-card {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(4px);
+      border: 1px solid var(--mist);
+      border-radius: 28px;
+      padding: 24px 24px 20px;
+      margin: 32px 0 24px;
+      box-shadow: 0 8px 24px rgba(61,90,56,0.08);
+    }
+
+    .iframe-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--sage);
+    }
+    .iframe-header i {
+      color: var(--fern);
+      width: 24px;
+      height: 24px;
+    }
+    .iframe-header h3 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--moss);
+      letter-spacing: 0.06em;
+    }
+
+    /* iframe 本身 — 寬度自適應，手機版透過父容器滾動 */
+    #myIframe {
+      width: 1px;
+      min-width: 100%;
+      border: none;
+      display: block;
+      border-radius: 16px;
+      background: white;
+    }
+
+    /* 數據說明文字 */
+    .iframe-note {
+      margin-top: 16px;
+      color: var(--stone);
+      font-size: 0.85rem;
+      line-height: 1.5;
+      text-align: left;
+    }
+
+    /* 註腳小語 */
+    .footnote {
+      font-size: 0.9rem;
+      color: var(--stone);
+      letter-spacing: 0.05em;
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--mist);
+      font-style: italic;
+      text-align: right;
     }
 
     /* ----- Footer (完整保留) ----- */
@@ -398,114 +453,86 @@
 <body>
   <!-- 放置導覽列的佔位元素 -->
   <div id="nav-placeholder"></div>
-
-  <!-- 頁面主要內容區域：已依照需求填寫永續淨零文章，排版美化且不更動原有 CSS/JS 結構 -->
-  <main class="content">
-    <div class="essay-container">
-      <h1>永續淨零</h1>
-
-      <p>
-        很多人在談淨零，但多數時候，它離真正的生活很遠。
-      </p>
-
-      <p>
-        數據可以被整理，報告可以被完成，但一個人的日常，往往沒有那麼整齊。<br>
-        當永續變成一種標準答案，它有時反而失去了原本該面對的問題。
-      </p>
-
-      <p>
-        我們不否認制度的必要，也理解碳盤查的價值，<br>
-        但同時也知道，那些數字背後，有太多來自估算、假設與現實落差。
-      </p>
-
-      <div class="section">
-        <div class="card">
-          <h3>🌿 減少，比替代更困難</h3>
-          <p>
-            多數人習慣尋找「更好的選擇」，但很少人願意少做一點選擇。
-          </p>
-          <p>
-            少買、少丟、少更換，看起來很簡單，但其實最不容易。
-          </p>
-        </div>
-
-        <div class="card">
-          <h3>🌱 使用時間，才是真正的價值</h3>
-          <p>
-            一個東西是否永續，不只取決於它的來源，而是它能陪你多久。
-          </p>
-          <p>
-            植物養得久、材料用得久，這些時間累積的選擇，往往比任何標章都更誠實。
-          </p>
-        </div>
-
-        <div class="card">
-          <h3>🧾 數據有用，但不完整</h3>
-          <p>
-            碳盤查讓事情可以被衡量，但不代表就能被完全理解。
-          </p>
-          <p>
-            係數、邊界、不確定性，這些在計算裡被簡化，但在現實中一直存在。
-          </p>
-        </div>
-      </div>
-
-      <div class="section">
-        <h3>我們的做法</h3>
-        <div class="card">
-          <p>
-            我們沒有一套標準答案，也沒有試圖成為最環保的那一種人。
-          </p>
-          <p>
-            只是從生活裡開始調整：
-          </p>
-          <p>
-            少買一點東西、讓植物活久一點、把用過的材料再整理一次。
-          </p>
-          <p>
-            這些選擇不完美，也不一定有效率，但至少是誠實的。
-          </p>
-        </div>
-      </div>
-
-      <div class="section">
-        <h3>實際紀錄</h3>
-        <p class="small">我們把這些嘗試與觀察，持續記錄在生活隨筆中。</p>
-
-        <a href="note.html?tag=%23%E6%B0%B8%E7%BA%8C" class="tag-link"># 永續相關紀錄</a>
-        <a href="note.html?tag=%23%E7%A2%B3%E7%9B%A4%E6%9F%A5" class="tag-link"># 碳盤查紀錄</a>
-        <a href="note.html?tag=%23%E7%92%B0%E4%BF%9D" class="tag-link"># 減廢紀錄</a>
-      </div>
-
-      <div class="section">
-        <div class="card">
-          <p>
-            我們仍然在使用電，仍然會產生廢棄物，也還做不到真正的低碳生活。
-          </p>
-          <p>
-            有些時候，也會懷疑這些努力是否真的有意義。
-          </p>
-          <p>
-            但比起給出一個漂亮的答案，我們更在意的是：
-          </p>
-          <p>
-            在每一次選擇裡，是否少了一點浪費，多了一點理解。
-          </p>
-        </div>
-      </div>
+ 
+  <!-- 頁面主要內容區域 -->
+  <main class="content"> 
+    <div style="text-align: center; padding: 40px; color: var(--stone);">
+      <h1 style="font-family: 'Noto Serif TC', serif; color: var(--moss);">綠色顧問</h1>
     </div>
+    
+    <!-- 所有內容都放在一個統一的容器內 -->
+    <div class="carbon-story">
+      
+      <!-- 頁面標題區 -->
+      <div class="page-header">
+        <h2>數據之外，我們更在意真正存在的綠。</h2>
+        <div class="subhead"></div>
+      </div>
+
+      <!-- 第一段：背景論述 -->
+      <p class="story-paragraph">
+        在淨零轉型的時代，家庭的植栽，城市的綠化不再只是景觀設計，而是一種可被計算的環境基礎設施。<br>
+        透過屋頂長期照顧的植物與工程植生牆系統，我們將分散於建築與生活空間中的植物，<br>
+        轉化為可持續運作的微型碳匯。
+      </p>
+
+      <!-- 第二段：植物與數據的連結 -->
+      <p class="story-paragraph">
+        植物的生長不只帶來綠意，也透過光合作用吸收二氧化碳，並被轉換為可追蹤的固碳數據。<br>
+        在這個系統中，<strong style="color: var(--fern); font-weight: 500;">每一顆被照顧的植物</strong>，都代表一個持續運作的碳吸存單位；
+        <strong style="color: var(--fern); font-weight: 500;">每一公斤累積的固碳量</strong>，都是城市環境改善的量化成果，我刻意忽略照顧過程的碳排，
+        不是為了 <strong style="color: var(--fern); font-weight: 500;">漂綠</strong>，只是為了讓大家能更清楚看到他們的貢獻。
+      </p>
+
+      <!-- iframe 卡片區（包含嵌入的數據框） -->
+      <div class="iframe-card">
+        <div class="iframe-header">
+          <i data-lucide="leaf" style="stroke: var(--fern); fill: none;"></i>
+          <h3>屋頂植栽的綠色貢獻</h3>
+        </div>
+        <!-- 嵌入的 iframe，id 保留給 iframe-resizer 使用 -->
+        <iframe src="https://gw-yxjx.onrender.com/show.html" id="myIframe"></iframe>
+        <!-- 數據說明文字 -->
+        <div class="iframe-note">
+          植物數量與固碳量依據屋頂植物桶機與植生牆系統之植栽生長資料持續更新，作為城市綠化與碳管理的參考指標。
+        </div>
+      </div>
+
+      <!-- 第三段：結合碳盤查與工程綠化的價值 -->
+      <p class="story-paragraph">
+        透過結合<strong style="color: var(--moss);">碳盤查邏輯</strong>與<strong style="color: var(--moss);">工程綠化技術</strong>，我們讓綠色不只是理念，<br>
+        而是能被記錄、被管理、也能持續累積的環境價值。<br>
+        從建築立面到城市屋頂，讓每一片綠意，成為低碳城市的一部分。
+      </p>
+
+      <!-- 結語小語（呼應開頭） -->
+      <div class="footnote">
+        「讓每一株植物，不只是綠化，而是城市的微型碳匯。」
+      </div>
+
+    </div> <!-- end .carbon-story -->
   </main>
 
   <!-- Footer -->
   <footer>
     <ul class="footer-links">
-      <li><a href="#">植物選品</a></li>
-      <li><a href="#">綠色顧問</a></li>
-      <li><a href="#">蕨望筆記</a></li>
-      <li><a href="#">關於蕨積</a></li>
+      <li><a href="shop.html">植物選品</a></li>
+      <li><a href="consult.html">綠色顧問</a></li>
+      <li><a href="fbnote.html">蕨望筆記</a></li>
+      <li><a href="about.html">關於蕨積</a></li>
     </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
+
+  <!-- iframe-resizer 初始化：動態調整 iframe 高度 -->
+  <script>
+    iFrameResize({ 
+      log: false,
+      heightCalculationMethod: 'lowestElement',
+      checkOrigin: false,
+      resizeFrom: 'parent'
+    }, '#myIframe');
+  </script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -519,28 +546,14 @@
         })
         .catch(err => {
           console.error('無法載入導覽列:', err);
-          // 錯誤時的備用顯示 — 但仍然保留導覽功能的基本佔位，確保版面不塌陷
+          // 錯誤時的備用顯示
           document.getElementById('nav-placeholder').innerHTML = 
-            '<nav style="background:var(--paper);border-bottom:1px solid rgba(90,122,74,0.12);padding:0 4vw;height:72px;display:flex;align-items:center;justify-content:space-between;" id="fallbackNav">' +
-            '<div class="logo" style="display:flex;align-items:center;gap:10px;"><div class="logo-mark"><svg width="38" height="38" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4L4 12v12l12 8 12-8V12L16 4z" stroke="#5a7a4a" stroke-width="1.2" fill="#d4e4c8"/><path d="M16 12v8M12 16h8" stroke="#3d5a38" stroke-width="1.2"/></svg></div><div class="logo-text">蕨積<span>FERNBROM</span></div></div>' +
-            '<div class="hamburger" id="fallbackHamburger" style="display:flex;flex-direction:column;"><span></span><span></span><span></span></div>' +
-            '</nav><div id="fallbackMobileMenu" class="mobile-menu" style="transform:translateX(100%);visibility:hidden;"><ul><li><a href="#">植物選品</a></li><li><a href="#">綠色顧問</a></li><li><a href="#">蕨望筆記</a></li><li><a href="#">關於蕨積</a></li></ul></div>';
-          // 簡單備份 init 避免崩潰
-          const fallbackBtn = document.getElementById('fallbackHamburger');
-          const fallbackMenu = document.getElementById('fallbackMobileMenu');
-          if (fallbackBtn && fallbackMenu) {
-            fallbackBtn.addEventListener('click', function() {
-              fallbackBtn.classList.toggle('open');
-              fallbackMenu.classList.toggle('open');
-              if (fallbackMenu.style.transform === 'translateX(0%)' || fallbackMenu.classList.contains('open')) {
-                fallbackMenu.style.transform = 'translateX(0)';
-                fallbackMenu.style.visibility = 'visible';
-              } else {
-                fallbackMenu.style.transform = 'translateX(100%)';
-                fallbackMenu.style.visibility = 'hidden';
-              }
-            });
-          }
+            '<nav id="mainNav" style="background:rgba(250,247,242,0.96);padding:0 4vw;height:72px;display:flex;align-items:center;justify-content:space-between;">' +
+            '<div class="logo"><div class="logo-mark"><svg viewBox="0 0 40 40" fill="none" stroke="#3d5a38" stroke-width="1.2"><path d="M12,20 L20,8 L28,20 L20,32 Z" fill="#d4e4c8"/><circle cx="20" cy="20" r="4" fill="#5a7a4a"/></svg></div><div class="logo-text">蕨積<span>FERNBROM</span></div></div>' +
+            '<button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>' +
+            '</nav>' +
+            '<div class="mobile-menu" id="mobileMenu"><ul><li><a href="index.html">首頁</a></li><li><a href="consult.html">顧問服務</a></li></ul></div>';
+          initNav();
         });
 
       function initNav() {
@@ -586,6 +599,10 @@
         if (typeof lucide !== 'undefined') lucide.createIcons();
       }
     });
+  </script>
+  <!-- 確保 lucide 圖示在 iframe 卡片內也能渲染 -->
+  <script>
+    if (typeof lucide !== 'undefined') lucide.createIcons();
   </script>
 </body>
 </html>
