@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>蕨積 — 綠色顧問</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
@@ -229,15 +229,49 @@
     /* ----- 頁面內容區域 ----- */
     .content {
       flex: 1;
-      padding-top: 92px; /* 72px nav + 20px 間距 */
+      padding-top: 92px;
       padding-bottom: 40px;
     }
 
-    /* ----- 新增的排版樣式 (不影響既有CSS) ----- */
+    /* ----- 修正手機板邊界與 iframe 內容壓縮問題 ----- */
     .carbon-story {
       max-width: 720px;
       margin: 0 auto;
       padding: 20px 24px 40px;
+    }
+
+    /* 手機版：縮小左右邊界，讓 iframe 容器可橫向滾動 */
+    @media (max-width: 640px) {
+      .carbon-story {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+      
+      /* iframe 卡片容器可橫向滾動，確保內部數字不被壓縮 */
+      .iframe-card {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      /* iframe 本身確保最小寬度，防止內容被壓扁 */
+      #myIframe {
+        min-width: 580px;  /* 設定最小寬度，確保表格/數字完整顯示 */
+        width: 100%;
+      }
+      
+      /* 調整標題字體大小 */
+      .page-header h2 {
+        font-size: 1.6rem;
+      }
+      
+      .section-title {
+        font-size: 1.4rem;
+      }
+      
+      .story-paragraph {
+        font-size: 0.95rem;
+        line-height: 1.7;
+      }
     }
 
     .page-header {
@@ -333,7 +367,7 @@
       letter-spacing: 0.06em;
     }
 
-    /* iframe 本身 — 只保留寬度設定，高度由 iframe-resizer 動態處理 */
+    /* iframe 本身 — 寬度自適應，手機版透過父容器滾動 */
     #myIframe {
       width: 1px;
       min-width: 100%;
@@ -420,17 +454,17 @@
   <!-- 放置導覽列的佔位元素 -->
   <div id="nav-placeholder"></div>
  
-  <!-- 頁面主要內容區域：只有一個 main，結構乾淨 -->
+  <!-- 頁面主要內容區域 -->
   <main class="content"> 
-     <div style="text-align: center; padding: 40px; color: var(--stone);">
+    <div style="text-align: center; padding: 40px; color: var(--stone);">
       <h1 style="font-family: 'Noto Serif TC', serif; color: var(--moss);">綠色顧問</h1>
-      
+    </div>
+    
     <!-- 所有內容都放在一個統一的容器內 -->
     <div class="carbon-story">
       
       <!-- 頁面標題區 -->
       <div class="page-header">
-        <h1style="font-family: 'Noto Serif TC', serif; color: var(--moss);" ></h1>
         <h2>數據之外，我們更在意真正存在的綠。</h2>
         <div class="subhead"></div>
       </div>
@@ -514,9 +548,12 @@
           console.error('無法載入導覽列:', err);
           // 錯誤時的備用顯示
           document.getElementById('nav-placeholder').innerHTML = 
-            '<nav style="background:var(--moss);color:white;padding:0 4vw;height:72px;display:flex;align-items:center;">' +
-            '<span style="font-family:Noto Serif TC,serif;font-weight:900;">⚠️ 導覽列載入失敗，請確認 nav.html 是否存在</span>' +
-            '</nav>';
+            '<nav id="mainNav" style="background:rgba(250,247,242,0.96);padding:0 4vw;height:72px;display:flex;align-items:center;justify-content:space-between;">' +
+            '<div class="logo"><div class="logo-mark"><svg viewBox="0 0 40 40" fill="none" stroke="#3d5a38" stroke-width="1.2"><path d="M12,20 L20,8 L28,20 L20,32 Z" fill="#d4e4c8"/><circle cx="20" cy="20" r="4" fill="#5a7a4a"/></svg></div><div class="logo-text">蕨積<span>FERNBROM</span></div></div>' +
+            '<button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>' +
+            '</nav>' +
+            '<div class="mobile-menu" id="mobileMenu"><ul><li><a href="index.html">首頁</a></li><li><a href="consult.html">顧問服務</a></li></ul></div>';
+          initNav();
         });
 
       function initNav() {
