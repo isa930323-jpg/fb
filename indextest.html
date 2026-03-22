@@ -9,7 +9,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://unpkg.com/@supabase/supabase-js@2.39.0/dist/umd/supabase.js"></script>
   <style>
-    /* ===== 共用樣式 (含導覽列、行動選單) ===== */
+    /* ===== 共用樣式 ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --ink: #1a1a14;
@@ -28,7 +28,7 @@
       overflow-x: hidden;
     }
 
-    /* ----- 導覽列 ----- */
+    /* ----- 導覽列 (內嵌完整版，確保顯示) ----- */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -280,7 +280,7 @@
     .hero-cta:hover::before { transform: translateX(0); }
     .hero-cta:hover { color: white; }
 
-    /* ===== 三圖片廊區塊 (植物選品入口) ===== */
+    /* ===== 三圖片廊區塊 ===== */
     .featured-plants {
       max-width: 1280px;
       margin: 0 auto;
@@ -395,7 +395,7 @@
       margin-bottom: 8px;
     }
     .service-card p {
-      font-size: 1.15rem;
+      font-size: 1rem;
       line-height: 1.6;
       color: var(--stone);
     }
@@ -499,7 +499,32 @@
   </style>
 </head>
 <body>
-  <div id="nav-placeholder"></div>
+  <!-- 內嵌完整導覽列，確保 nav 正常顯示 -->
+  <nav id="mainNav">
+    <a href="index.html" class="logo">
+      <div class="logo-mark"><img src="logo.svg" alt="蕨積" onerror="this.style.display='none'"></div>
+      <div class="logo-text">蕨積<span>FERNGINEERING</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="shop.html">植物選品</a></li>
+      <li><a href="consult.html">綠色顧問</a></li>
+      <li><a href="fbnote.html">蕨望筆記</a></li>
+      <li><a href="about.html">關於蕨積</a></li>
+      <li><a href="contact.html" class="nav-contact">聯繫</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="shop.html">植物選品</a></li>
+      <li><a href="consult.html">綠色顧問</a></li>
+      <li><a href="fbnote.html">蕨望筆記</a></li>
+      <li><a href="about.html">關於蕨積</a></li>
+      <li><a href="contact.html">聯繫蕨積</a></li>
+    </ul>
+  </div>
 
   <!-- Hero 區塊 -->
   <section class="hero">
@@ -511,13 +536,13 @@
     <a href="shop.html" class="hero-cta">立即購買</a>
   </section>
 
-  <!-- 三圖連結植物選品次分類（鹿角蕨圖片從 Supabase 商品庫隨機獲取） -->
+  <!-- 三圖連結植物選品次分類 -->
   <section class="featured-plants">
     <div class="plants-grid">
-      <!-- 鹿角蕨 連結 - 圖片將從 Supabase 鹿角蕨商品隨機取得 -->
-      <a href="fern.html" class="plant-card-link" id="staghorn-link">
+      <!-- 鹿角蕨 連結 - 圖片從 Supabase 鹿角蕨商品隨機取得 -->
+      <a href="staghorn.html" class="plant-card-link" id="staghorn-link">
         <div class="plant-image-box">
-          <img class="plant-image" id="staghorn-img" src="" alt="鹿角蕨" loading="lazy">
+          <img class="plant-image" id="staghorn-img" src="https://placehold.co/600x450/e8ede9/3d5a38?text=載入中..." alt="鹿角蕨" loading="lazy">
         </div>
         <div class="plant-info">
           <div class="plant-name">鹿角蕨</div>
@@ -525,7 +550,7 @@
         </div>
       </a>
       <!-- 積水鳳梨 連結 -->
-      <a href="brom.html" class="plant-card-link">
+      <a href="bromeliad.html" class="plant-card-link">
         <div class="plant-image-box">
           <img class="plant-image" src="https://images.pexels.com/photos/8910589/pexels-photo-8910589.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" 
                alt="積水鳳梨" loading="lazy" onerror="this.src='https://placehold.co/600x450/e8ede9/5a7a4a?text=積水鳳梨'">
@@ -536,7 +561,7 @@
         </div>
       </a>
       <!-- 其他植物 連結 -->
-      <a href="otherplant.html" class="plant-card-link">
+      <a href="other-plants.html" class="plant-card-link">
         <div class="plant-image-box">
           <img class="plant-image" src="https://images.pexels.com/photos/12721915/pexels-photo-12721915.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" 
                alt="其他蕨類植物" loading="lazy" onerror="this.src='https://placehold.co/600x450/d4e4c8/8aab7a?text=其他蕨類'">
@@ -592,7 +617,7 @@
 
   <script>
     // Supabase 初始化
-    const supabase = supabase.createClient(
+    const supabaseClient = supabase.createClient(
       'https://wrreydnppkhhssbnmnno.supabase.co',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndycmV5ZG5wcGtoaHNzYm5tbm5vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMjI0MjYsImV4cCI6MjA4ODc5ODQyNn0.7520TxecGoqhjkIcY497sCt4G7eqDtShK1OQJe3N7o',
       { auth: { persistSession: false, detectSessionInUrl: false } }
@@ -601,8 +626,7 @@
     // 從 Supabase 獲取鹿角蕨商品並隨機選取一張圖片
     async function fetchRandomStaghornImage() {
       try {
-        // 獲取所有 category 為 '鹿角蕨' 的商品
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('products')
           .select('image_url, name')
           .eq('category', '鹿角蕨')
@@ -618,10 +642,9 @@
           return null;
         }
         
-        // 隨機選取一張圖片
         const randomIndex = Math.floor(Math.random() * data.length);
         const randomProduct = data[randomIndex];
-        console.log('隨機選取鹿角蕨:', randomProduct.name, randomProduct.image_url);
+        console.log('隨機選取鹿角蕨:', randomProduct.name);
         return randomProduct.image_url;
         
       } catch (err) {
@@ -635,89 +658,63 @@
       const imgElement = document.getElementById('staghorn-img');
       if (!imgElement) return;
       
-      // 顯示載入中佔位
-      imgElement.src = 'https://placehold.co/600x450/e8ede9/3d5a38?text=載入中...';
-      
       const imageUrl = await fetchRandomStaghornImage();
       
-      if (imageUrl) {
+      if (imageUrl && imageUrl.trim() !== '') {
         imgElement.src = imageUrl;
         imgElement.onerror = function() {
-          // 若圖片載入失敗，使用備用圖片
+          console.warn('圖片載入失敗，使用備用圖');
           this.src = 'https://placehold.co/600x450/d4e4c8/5a7a4a?text=鹿角蕨';
         };
       } else {
-        // 若無法從 Supabase 獲取，使用備用圖片
         imgElement.src = 'https://placehold.co/600x450/e8ede9/3d5a38?text=鹿角蕨';
       }
     }
 
-    // 導覽列初始化
-    function initNav() {
-      var btn = document.getElementById('hamburger');
-      var menu = document.getElementById('mobileMenu');
+    // 導覽列互動初始化
+    function initNavInteractions() {
+      const btn = document.getElementById('hamburger');
+      const menu = document.getElementById('mobileMenu');
       if (btn && menu) {
-        btn.addEventListener('click', function () {
+        btn.addEventListener('click', function() {
           btn.classList.toggle('open');
           menu.classList.toggle('open');
         });
-        menu.querySelectorAll('.mobile-link, a').forEach(function (a) {
-          a.addEventListener('click', function () {
+        const mobileLinks = menu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', function() {
             btn.classList.remove('open');
             menu.classList.remove('open');
           });
         });
       }
-      if (menu) {
-        menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
-          parent.addEventListener('click', function () {
-            var id = parent.getAttribute('data-target');
-            var sub = document.getElementById(id);
-            var caretId = 'caret-' + (id ? id.replace('sub-', '') : '');
-            var caret = document.getElementById(caretId);
-            var opening = sub && !sub.classList.contains('open');
-            if (menu) {
-              menu.querySelectorAll('.mobile-sub').forEach(function (s) { if(s) s.classList.remove('open'); });
-              menu.querySelectorAll('.mobile-caret').forEach(function (c) { if(c) c.classList.remove('open'); });
-            }
-            if (opening && sub) {
-              sub.classList.add('open');
-              if (caret) caret.classList.add('open');
-            }
-          });
-        });
-      }
-      window.addEventListener('scroll', function () {
-        var nav = document.getElementById('mainNav');
-        if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
+      
+      // 滾動效果
+      window.addEventListener('scroll', function() {
+        const nav = document.getElementById('mainNav');
+        if (nav) {
+          if (window.scrollY > 20) {
+            nav.classList.add('scrolled');
+          } else {
+            nav.classList.remove('scrolled');
+          }
+        }
       });
-      if (typeof lucide !== 'undefined') lucide.createIcons();
     }
 
     // 頁面載入主流程
-    document.addEventListener('DOMContentLoaded', async function () {
-      // 載入導覽列
-      try {
-        const response = await fetch('nav.html');
-        const data = await response.text();
-        document.getElementById('nav-placeholder').innerHTML = data;
-        initNav();
-      } catch (err) {
-        console.warn('無法載入導覽列，使用靜態導覽');
-        const fallbackNav = `
-          <nav id="mainNav">
-            <a href="index.html" class="logo"><div class="logo-mark"><img src="logo.svg" alt="蕨積" onerror="this.style.display='none'"></div><div class="logo-text">蕨積<span>FERNGINEERING</span></div></a>
-            <ul class="nav-links"><li><a href="shop.html">植物選品</a></li><li><a href="consult.html">綠色顧問</a></li><li><a href="fbnote.html">蕨望筆記</a></li><li><a href="about.html">關於蕨積</a></li><li><a href="contact.html" class="nav-contact">聯繫</a></li></ul>
-            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
-          </nav>
-          <div class="mobile-menu" id="mobileMenu"><ul><li><a href="shop.html">植物選品</a></li><li><a href="consult.html">綠色顧問</a></li><li><a href="fbnote.html">蕨望筆記</a></li><li><a href="about.html">關於蕨積</a></li><li><a href="contact.html">聯繫蕨積</a></li></ul></div>`;
-        document.getElementById('nav-placeholder').innerHTML = fallbackNav;
-        initNav();
-      }
-
-      // 設定鹿角蕨隨機圖片（從 Supabase 鹿角蕨商品照片隨機獲取）
+    document.addEventListener('DOMContentLoaded', async function() {
+      // 初始化導覽列互動
+      initNavInteractions();
+      
+      // 設定鹿角蕨隨機圖片
       await setStaghornImage();
-
+      
+      // 初始化 lucide 圖示
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+      
       // reveal 動畫觀察
       const reveals = document.querySelectorAll('.reveal');
       const observer = new IntersectionObserver((entries) => {
@@ -729,8 +726,6 @@
         });
       }, { threshold: 0.15 });
       reveals.forEach(el => observer.observe(el));
-
-      if (typeof lucide !== 'undefined') lucide.createIcons();
     });
   </script>
 </body>
