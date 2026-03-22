@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js@2.39.0/dist/umd/supabase.js"></script>
   <style>
     /* ===== 共用樣式 (含導覽列、行動選單) ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,7 +28,7 @@
       overflow-x: hidden;
     }
 
-    /* ----- 導覽列 (與原本完全相同) ----- */
+    /* ----- 導覽列 ----- */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -98,7 +99,6 @@
       background: var(--fern);
       color: white !important;
     }
-    .has-dropdown > a::after { display: none; }
 
     .nav-links li .dropdown {
       display: none;
@@ -280,7 +280,7 @@
     .hero-cta:hover::before { transform: translateX(0); }
     .hero-cta:hover { color: white; }
 
-    /* ===== 新增: 三圖片廊區塊 (植物選品入口) ===== */
+    /* ===== 三圖片廊區塊 (植物選品入口) ===== */
     .featured-plants {
       max-width: 1280px;
       margin: 0 auto;
@@ -365,7 +365,7 @@
       .plant-name { font-size: 1.2rem; }
     }
 
-    /* ----- 關於與服務區塊 (完全保留原有)----- */
+    /* ----- 關於與服務區塊 ----- */
     .about-grid {
       max-width: 1200px; margin: 0 auto; display: grid;
       grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
@@ -426,15 +426,6 @@
       padding: 100px 4vw; text-align: center;
     }
     .contact-container { max-width: 900px; margin: 0 auto; }
-    .contact-label {
-      font-family: 'Cormorant Garamond', serif; font-style: italic;
-      font-size: 0.85rem; letter-spacing: 0.3em; color: var(--sage);
-      margin-bottom: 20px; display: flex; align-items: center;
-      justify-content: center; gap: 12px;
-    }
-    .contact-label::before, .contact-label::after {
-      content: ''; display: block; width: 32px; height: 1px; background: var(--sage);
-    }
     .contact-heading {
       font-family: 'Noto Serif TC', serif; font-weight: 900;
       font-size: clamp(2.2rem, 5vw, 3.8rem); color: var(--paper);
@@ -484,13 +475,6 @@
       padding: 40px 4vw; display: flex; align-items: center;
       justify-content: space-between; background: var(--paper);
     }
-    .footer-logo {
-      font-family: 'Noto Serif TC', serif; font-weight: 900;
-      font-size: 1.1rem; color: var(--moss); letter-spacing: 0.05em;
-    }
-    .footer-copy {
-      font-size: 0.75rem; color: var(--stone); letter-spacing: 0.1em;
-    }
     .footer-links {
       display: flex; gap: 24px; list-style: none;
     }
@@ -499,6 +483,9 @@
       letter-spacing: 0.08em; opacity: 0.7; transition: opacity 0.2s;
     }
     .footer-links a:hover { opacity: 1; color: var(--fern); }
+    .footer-copy {
+      font-size: 0.75rem; color: var(--stone); letter-spacing: 0.1em;
+    }
     @media (max-width: 768px) {
       footer { flex-direction: column; gap: 20px; text-align: center; }
       .footer-links { justify-content: center; flex-wrap: wrap; }
@@ -524,15 +511,13 @@
     <a href="shop.html" class="hero-cta">立即購買</a>
   </section>
 
-  <!-- 新增：三圖連結植物選品次分類（鹿角蕨、積水鳳梨、其他植物） -->
+  <!-- 三圖連結植物選品次分類（鹿角蕨圖片從 Supabase 商品庫隨機獲取） -->
   <section class="featured-plants">
     <div class="plants-grid">
-      <!-- 鹿角蕨 連結 -->
-      <a href="staghorn.html" class="plant-card-link">
+      <!-- 鹿角蕨 連結 - 圖片將從 Supabase 鹿角蕨商品隨機取得 -->
+      <a href="fern.html" class="plant-card-link" id="staghorn-link">
         <div class="plant-image-box">
-          <!-- 使用高品質植物插圖或示意圖 (Unsplash 風格佔位，但真實感十足) 鹿角蕨典型意象 -->
-          <img class="plant-image" src="https://images.pexels.com/photos/16155937/pexels-photo-16155937.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" 
-               alt="鹿角蕨" loading="lazy" onerror="this.src='https://placehold.co/600x450/e8ede9/3d5a38?text=鹿角蕨'">
+          <img class="plant-image" id="staghorn-img" src="" alt="鹿角蕨" loading="lazy">
         </div>
         <div class="plant-info">
           <div class="plant-name">鹿角蕨</div>
@@ -540,7 +525,7 @@
         </div>
       </a>
       <!-- 積水鳳梨 連結 -->
-      <a href="bromeliad.html" class="plant-card-link">
+      <a href="brom.html" class="plant-card-link">
         <div class="plant-image-box">
           <img class="plant-image" src="https://images.pexels.com/photos/8910589/pexels-photo-8910589.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" 
                alt="積水鳳梨" loading="lazy" onerror="this.src='https://placehold.co/600x450/e8ede9/5a7a4a?text=積水鳳梨'">
@@ -550,8 +535,8 @@
           <div class="plant-sub">Neoregelia · 雨林靈魂</div>
         </div>
       </a>
-      <!-- 其他植物 連結 (多種蕨類與室內觀葉) -->
-      <a href="other-plants.html" class="plant-card-link">
+      <!-- 其他植物 連結 -->
+      <a href="otherplant.html" class="plant-card-link">
         <div class="plant-image-box">
           <img class="plant-image" src="https://images.pexels.com/photos/12721915/pexels-photo-12721915.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" 
                alt="其他蕨類植物" loading="lazy" onerror="this.src='https://placehold.co/600x450/d4e4c8/8aab7a?text=其他蕨類'">
@@ -564,7 +549,7 @@
     </div>
   </section>
 
-  <!-- 關於區域 (與原始完全一致) -->
+  <!-- 關於區域 -->
   <section id="about" style="padding:100px 4vw 80px;background:linear-gradient(to bottom,#f5f7f6,#e8ede9);">
     <div class="about-grid">
       <div class="about-left">
@@ -606,70 +591,132 @@
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // 載入共用導覽列
-      fetch('nav.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('nav-placeholder').innerHTML = data;
-          initNav();
-        })
-        .catch(err => {
-          console.warn('無法載入導覽列，使用靜態佔位');
-          // 輕量fallback: 避免完全無導覽
-          const fallbackNav = `
-            <nav id="mainNav">
-              <a href="index.html" class="logo"><div class="logo-mark"><img src="logo.svg" alt="蕨積" onerror="this.style.display='none'"></div><div class="logo-text">蕨積<span>FERNGINEERING</span></div></a>
-              <ul class="nav-links"><li><a href="shop.html">植物選品</a></li><li><a href="consult.html">綠色顧問</a></li><li><a href="fbnote.html">蕨望筆記</a></li><li><a href="about.html">關於蕨積</a></li><li><a href="contact.html" class="nav-contact">聯繫</a></li></ul>
-              <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
-            </nav>
-            <div class="mobile-menu" id="mobileMenu"><ul><li><a href="shop.html">植物選品</a></li><li><a href="consult.html">綠色顧問</a></li><li><a href="fbnote.html">蕨望筆記</a></li><li><a href="about.html">關於蕨積</a></li><li><a href="contact.html">聯繫蕨積</a></li></ul></div>`;
-          document.getElementById('nav-placeholder').innerHTML = fallbackNav;
-          initNav();
-        });
+    // Supabase 初始化
+    const supabase = supabase.createClient(
+      'https://wrreydnppkhhssbnmnno.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndycmV5ZG5wcGtoaHNzYm5tbm5vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMjI0MjYsImV4cCI6MjA4ODc5ODQyNn0.7520TxecGoqhjkIcY497sCt4G7eqDtShK1OQJe3N7o',
+      { auth: { persistSession: false, detectSessionInUrl: false } }
+    );
 
-      function initNav() {
-        var btn = document.getElementById('hamburger');
-        var menu = document.getElementById('mobileMenu');
-        if (btn && menu) {
-          btn.addEventListener('click', function () {
-            btn.classList.toggle('open');
-            menu.classList.toggle('open');
-          });
-          const mobileLinks = menu.querySelectorAll('.mobile-link, a');
-          mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-              btn.classList.remove('open');
-              menu.classList.remove('open');
-            });
-          });
+    // 從 Supabase 獲取鹿角蕨商品並隨機選取一張圖片
+    async function fetchRandomStaghornImage() {
+      try {
+        // 獲取所有 category 為 '鹿角蕨' 的商品
+        const { data, error } = await supabase
+          .from('products')
+          .select('image_url, name')
+          .eq('category', '鹿角蕨')
+          .not('image_url', 'is', null);
+        
+        if (error) {
+          console.warn('Supabase 查詢失敗:', error);
+          return null;
         }
-        if (menu) {
-          const mobileParents = menu.querySelectorAll('.mobile-parent');
-          mobileParents.forEach(parent => {
-            parent.addEventListener('click', function (e) {
-              const targetId = parent.getAttribute('data-target');
-              if (targetId) {
-                const subMenu = document.getElementById(targetId);
-                const caretId = 'caret-' + targetId.replace('sub-', '');
-                const caret = document.getElementById(caretId);
-                const isOpen = subMenu && subMenu.classList.contains('open');
-                menu.querySelectorAll('.mobile-sub').forEach(s => s.classList.remove('open'));
-                menu.querySelectorAll('.mobile-caret').forEach(c => c.classList.remove('open'));
-                if (!isOpen && subMenu) {
-                  subMenu.classList.add('open');
-                  if (caret) caret.classList.add('open');
-                }
-              }
-            });
-          });
+        
+        if (!data || data.length === 0) {
+          console.warn('沒有找到鹿角蕨商品');
+          return null;
         }
-        window.addEventListener('scroll', function () {
-          const nav = document.getElementById('mainNav');
-          if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
-        });
-        if (typeof lucide !== 'undefined') lucide.createIcons();
+        
+        // 隨機選取一張圖片
+        const randomIndex = Math.floor(Math.random() * data.length);
+        const randomProduct = data[randomIndex];
+        console.log('隨機選取鹿角蕨:', randomProduct.name, randomProduct.image_url);
+        return randomProduct.image_url;
+        
+      } catch (err) {
+        console.error('獲取鹿角蕨圖片失敗:', err);
+        return null;
       }
+    }
+
+    // 設定鹿角蕨圖片
+    async function setStaghornImage() {
+      const imgElement = document.getElementById('staghorn-img');
+      if (!imgElement) return;
+      
+      // 顯示載入中佔位
+      imgElement.src = 'https://placehold.co/600x450/e8ede9/3d5a38?text=載入中...';
+      
+      const imageUrl = await fetchRandomStaghornImage();
+      
+      if (imageUrl) {
+        imgElement.src = imageUrl;
+        imgElement.onerror = function() {
+          // 若圖片載入失敗，使用備用圖片
+          this.src = 'https://placehold.co/600x450/d4e4c8/5a7a4a?text=鹿角蕨';
+        };
+      } else {
+        // 若無法從 Supabase 獲取，使用備用圖片
+        imgElement.src = 'https://placehold.co/600x450/e8ede9/3d5a38?text=鹿角蕨';
+      }
+    }
+
+    // 導覽列初始化
+    function initNav() {
+      var btn = document.getElementById('hamburger');
+      var menu = document.getElementById('mobileMenu');
+      if (btn && menu) {
+        btn.addEventListener('click', function () {
+          btn.classList.toggle('open');
+          menu.classList.toggle('open');
+        });
+        menu.querySelectorAll('.mobile-link, a').forEach(function (a) {
+          a.addEventListener('click', function () {
+            btn.classList.remove('open');
+            menu.classList.remove('open');
+          });
+        });
+      }
+      if (menu) {
+        menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
+          parent.addEventListener('click', function () {
+            var id = parent.getAttribute('data-target');
+            var sub = document.getElementById(id);
+            var caretId = 'caret-' + (id ? id.replace('sub-', '') : '');
+            var caret = document.getElementById(caretId);
+            var opening = sub && !sub.classList.contains('open');
+            if (menu) {
+              menu.querySelectorAll('.mobile-sub').forEach(function (s) { if(s) s.classList.remove('open'); });
+              menu.querySelectorAll('.mobile-caret').forEach(function (c) { if(c) c.classList.remove('open'); });
+            }
+            if (opening && sub) {
+              sub.classList.add('open');
+              if (caret) caret.classList.add('open');
+            }
+          });
+        });
+      }
+      window.addEventListener('scroll', function () {
+        var nav = document.getElementById('mainNav');
+        if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
+      });
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    // 頁面載入主流程
+    document.addEventListener('DOMContentLoaded', async function () {
+      // 載入導覽列
+      try {
+        const response = await fetch('nav.html');
+        const data = await response.text();
+        document.getElementById('nav-placeholder').innerHTML = data;
+        initNav();
+      } catch (err) {
+        console.warn('無法載入導覽列，使用靜態導覽');
+        const fallbackNav = `
+          <nav id="mainNav">
+            <a href="index.html" class="logo"><div class="logo-mark"><img src="logo.svg" alt="蕨積" onerror="this.style.display='none'"></div><div class="logo-text">蕨積<span>FERNGINEERING</span></div></a>
+            <ul class="nav-links"><li><a href="shop.html">植物選品</a></li><li><a href="consult.html">綠色顧問</a></li><li><a href="fbnote.html">蕨望筆記</a></li><li><a href="about.html">關於蕨積</a></li><li><a href="contact.html" class="nav-contact">聯繫</a></li></ul>
+            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+          </nav>
+          <div class="mobile-menu" id="mobileMenu"><ul><li><a href="shop.html">植物選品</a></li><li><a href="consult.html">綠色顧問</a></li><li><a href="fbnote.html">蕨望筆記</a></li><li><a href="about.html">關於蕨積</a></li><li><a href="contact.html">聯繫蕨積</a></li></ul></div>`;
+        document.getElementById('nav-placeholder').innerHTML = fallbackNav;
+        initNav();
+      }
+
+      // 設定鹿角蕨隨機圖片（從 Supabase 鹿角蕨商品照片隨機獲取）
+      await setStaghornImage();
 
       // reveal 動畫觀察
       const reveals = document.querySelectorAll('.reveal');
