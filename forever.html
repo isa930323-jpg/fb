@@ -231,22 +231,12 @@
       padding-bottom: 40px;
     }
 
-    /* ----- 永續淨零文章專屬樣式 (僅美化內容，不影響原有結構) ----- */
+    /* ----- 永續淨零文章專屬樣式 (移除左側綠色直線) ----- */
     .essay-container {
       max-width: 960px;
       margin: 0 auto;
-      padding: 1.5rem 1.8rem 4rem;
+      padding: 0 1.8rem 4rem;
       background: var(--paper);
-    }
-    .essay-container h1 {
-      font-family: 'Noto Serif TC', serif;
-      font-weight: 900;
-      font-size: 3rem;
-      letter-spacing: -0.01em;
-      color: var(--moss);
-      margin-bottom: 1.2rem;
-      border-left: 6px solid var(--fern);
-      padding-left: 1.2rem;
     }
     .essay-container .intro-text {
       font-size: 1.1rem;
@@ -273,8 +263,9 @@
       color: var(--fern);
       margin-bottom: 1.25rem;
       letter-spacing: -0.2px;
-      border-left: 4px solid var(--sage);
-      padding-left: 1rem;
+      /* 移除左側綠色邊線 */
+      padding-left: 0;
+      border-left: none;
     }
     .essay-container .card {
       background: #ffffffdd;
@@ -342,13 +333,28 @@
       color: #4d6542;
       font-weight: 380;
     }
+    /* 標題置中樣式區塊 */
+    .page-title-block {
+      text-align: center;
+      padding: 40px 20px 20px 20px;
+      color: var(--stone);
+    }
+    .page-title-block h1 {
+      font-family: 'Noto Serif TC', serif;
+      color: var(--moss);
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      margin: 0;
+      border: none;
+      padding: 0;
+    }
     @media (max-width: 640px) {
       .essay-container {
-        padding: 0.5rem 1.2rem 3rem;
+        padding: 0 1.2rem 3rem;
       }
-      .essay-container h1 {
+      .page-title-block h1 {
         font-size: 2.2rem;
-        padding-left: 0.8rem;
       }
       .essay-container .card {
         padding: 1.2rem 1.3rem;
@@ -414,11 +420,14 @@
   <div id="nav-placeholder"></div>
 
   <main class="content">
-    <!-- 文章區域：重新調整格式，保留所有原內容但優化結構 -->
+    <!-- 標題區塊：使用指定的置中格式，無左側綠色直線 -->
+    <div style="text-align: center; padding: 40px; color: var(--stone);">
+      <h1 style="font-family: 'Noto Serif TC', serif; color: var(--moss);">永續淨零</h1>
+    </div>
+
+    <!-- 文章內容區域 -->
     <div class="essay-container">
-      <h1>永續淨零</h1>
-      
-      <!-- 開場段落群：整合為更清晰的引言區塊 -->
+      <!-- 開場段落群 -->
       <div class="intro-text">
         <p style="font-size: 1.08rem; line-height: 1.75;">很多人在談淨零，但多數時候，它離真正的生活很遠。</p>
         <p>數據可以被整理，報告可以被完成，但一個人的日常，往往沒有那麼整齊。<br>當永續變成一種標準答案，它有時反而失去了原本該面對的問題。</p>
