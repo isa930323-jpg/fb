@@ -231,7 +231,7 @@
       padding-bottom: 40px;
     }
 
-    /* ----- 新增：永續淨零文章專屬樣式 (僅美化內容，不影響原有結構) ----- */
+    /* ----- 永續淨零文章專屬樣式 (僅美化內容，不影響原有結構) ----- */
     .essay-container {
       max-width: 960px;
       margin: 0 auto;
@@ -248,6 +248,13 @@
       border-left: 6px solid var(--fern);
       padding-left: 1.2rem;
     }
+    .essay-container .intro-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #2f3e2a;
+      margin-bottom: 2rem;
+      font-weight: 380;
+    }
     .essay-container p {
       font-family: 'Noto Sans TC', sans-serif;
       font-weight: 350;
@@ -259,16 +266,15 @@
     .essay-container .section {
       margin: 3rem 0 2rem;
     }
-    .essay-container .section h3 {
+    .essay-container .section-title {
       font-family: 'Noto Serif TC', serif;
       font-weight: 600;
-      font-size: 1.55rem;
+      font-size: 1.65rem;
       color: var(--fern);
       margin-bottom: 1.25rem;
       letter-spacing: -0.2px;
-      display: inline-block;
-      border-bottom: 2px solid var(--mist);
-      padding-bottom: 0.25rem;
+      border-left: 4px solid var(--sage);
+      padding-left: 1rem;
     }
     .essay-container .card {
       background: #ffffffdd;
@@ -292,6 +298,7 @@
       color: var(--moss);
       letter-spacing: -0.2px;
       font-weight: 600;
+      font-family: 'Noto Serif TC', serif;
     }
     .essay-container .card p {
       margin-bottom: 0.9rem;
@@ -327,6 +334,14 @@
       letter-spacing: 0.02em;
       margin-bottom: 1.2rem;
     }
+    .essay-container .poetic-quote {
+      font-style: normal;
+      border-left: 3px solid var(--sage);
+      padding-left: 1.2rem;
+      margin: 1.8rem 0;
+      color: #4d6542;
+      font-weight: 380;
+    }
     @media (max-width: 640px) {
       .essay-container {
         padding: 0.5rem 1.2rem 3rem;
@@ -338,8 +353,8 @@
       .essay-container .card {
         padding: 1.2rem 1.3rem;
       }
-      .essay-container .section h3 {
-        font-size: 1.35rem;
+      .essay-container .section-title {
+        font-size: 1.4rem;
       }
     }
 
@@ -396,104 +411,72 @@
   </style>
 </head>
 <body>
-  <body>
   <div id="nav-placeholder"></div>
 
   <main class="content">
-    <div style="text-align: center; padding: 40px; color: var(--stone);">
-      <h1 style="font-family: 'Noto Serif TC', serif; color: var(--moss);">永續淨零</h1>
-  
-    </div>
-<div class="easy-container">
-  
+    <!-- 文章區域：重新調整格式，保留所有原內容但優化結構 -->
+    <div class="essay-container">
+      <h1>永續淨零</h1>
+      
+      <!-- 開場段落群：整合為更清晰的引言區塊 -->
+      <div class="intro-text">
+        <p style="font-size: 1.08rem; line-height: 1.75;">很多人在談淨零，但多數時候，它離真正的生活很遠。</p>
+        <p>數據可以被整理，報告可以被完成，但一個人的日常，往往沒有那麼整齊。<br>當永續變成一種標準答案，它有時反而失去了原本該面對的問題。</p>
+        <p>我們不否認制度的必要，也理解碳盤查的價值，<br>但同時也知道，那些數字背後，有太多來自估算、假設與現實落差。</p>
+      </div>
 
-      <p>
-        很多人在談淨零，但多數時候，它離真正的生活很遠。
-      </p>
-
-      <p>
-        數據可以被整理，報告可以被完成，但一個人的日常，往往沒有那麼整齊。<br>
-        當永續變成一種標準答案，它有時反而失去了原本該面對的問題。
-      </p>
-
-      <p>
-        我們不否認制度的必要，也理解碳盤查的價值，<br>
-        但同時也知道，那些數字背後，有太多來自估算、假設與現實落差。
-      </p>
-
+      <!-- 核心觀點卡片區塊 -->
       <div class="section">
         <div class="card">
           <h3>🌿 減少，比替代更困難</h3>
-          <p>
-            多數人習慣尋找「更好的選擇」，但很少人願意少做一點選擇。
-          </p>
-          <p>
-            少買、少丟、少更換，看起來很簡單，但其實最不容易。
-          </p>
+          <p>多數人習慣尋找「更好的選擇」，但很少人願意少做一點選擇。</p>
+          <p>少買、少丟、少更換，看起來很簡單，但其實最不容易。</p>
         </div>
 
         <div class="card">
           <h3>🌱 使用時間，才是真正的價值</h3>
-          <p>
-            一個東西是否永續，不只取決於它的來源，而是它能陪你多久。
-          </p>
-          <p>
-            植物養得久、材料用得久，這些時間累積的選擇，往往比任何標章都更誠實。
-          </p>
+          <p>一個東西是否永續，不只取決於它的來源，而是它能陪你多久。</p>
+          <p>植物養得久、材料用得久，這些時間累積的選擇，往往比任何標章都更誠實。</p>
         </div>
 
         <div class="card">
           <h3>🧾 數據有用，但不完整</h3>
-          <p>
-            碳盤查讓事情可以被衡量，但不代表就能被完全理解。
-          </p>
-          <p>
-            係數、邊界、不確定性，這些在計算裡被簡化，但在現實中一直存在。
-          </p>
+          <p>碳盤查讓事情可以被衡量，但不代表就能被完全理解。</p>
+          <p>係數、邊界、不確定性，這些在計算裡被簡化，但在現實中一直存在。</p>
         </div>
       </div>
 
+      <!-- 我們的做法 -->
       <div class="section">
-        <h3>我們的做法</h3>
+        <div class="section-title">我們的做法</div>
         <div class="card">
-          <p>
-            我們沒有一套標準答案，也沒有試圖成為最環保的那一種人。
-          </p>
-          <p>
-            只是從生活裡開始調整：
-          </p>
-          <p>
-            少買一點東西、讓植物活久一點、把用過的材料再整理一次。
-          </p>
-          <p>
-            這些選擇不完美，也不一定有效率，但至少是誠實的。
-          </p>
+          <p>我們沒有一套標準答案，也沒有試圖成為最環保的那一種人。</p>
+          <p>只是從生活裡開始調整：</p>
+          <p>少買一點東西、讓植物活久一點、把用過的材料再整理一次。</p>
+          <p>這些選擇不完美，也不一定有效率，但至少是誠實的。</p>
         </div>
       </div>
 
+      <!-- 實際紀錄 + 標籤連結 -->
       <div class="section">
-        <h3>實際紀錄</h3>
+        <div class="section-title">實際紀錄</div>
         <p class="small">我們把這些嘗試與觀察，持續記錄在生活隨筆中。</p>
-
-        <a href="note.html?tag=%23%E6%B0%B8%E7%BA%8C" class="tag-link"># 永續相關紀錄</a>
-        <a href="note.html?tag=%23%E7%A2%B3%E7%9B%A4%E6%9F%A5" class="tag-link"># 碳盤查紀錄</a>
-        <a href="note.html?tag=%23%E7%92%B0%E4%BF%9D" class="tag-link"># 減廢紀錄</a>
+        <div style="margin-bottom: 1.5rem;">
+          <a href="note.html?tag=%23%E6%B0%B8%E7%BA%8C" class="tag-link"># 永續相關紀錄</a>
+          <a href="note.html?tag=%23%E7%A2%B3%E7%9B%A4%E6%9F%A5" class="tag-link"># 碳盤查紀錄</a>
+          <a href="note.html?tag=%23%E7%92%B0%E4%BF%9D" class="tag-link"># 減廢紀錄</a>
+        </div>
       </div>
 
+      <!-- 結尾反思區塊 -->
       <div class="section">
         <div class="card">
-          <p>
-            我們仍然在使用電，仍然會產生廢棄物，也還做不到真正的低碳生活。
-          </p>
-          <p>
-            有些時候，也會懷疑這些努力是否真的有意義。
-          </p>
-          <p>
-            但比起給出一個漂亮的答案，我們更在意的是：
-          </p>
-          <p>
-            在每一次選擇裡，是否少了一點浪費，多了一點理解。
-          </p>
+          <p>我們仍然在使用電，仍然會產生廢棄物，也還做不到真正的低碳生活。</p>
+          <p>有些時候，也會懷疑這些努力是否真的有意義。</p>
+          <div class="poetic-quote">
+            <p>但比起給出一個漂亮的答案，我們更在意的是：</p>
+            <p style="font-weight: 450;">在每一次選擇裡，是否少了一點浪費，多了一點理解。</p>
+          </div>
         </div>
       </div>
     </div>
@@ -555,12 +538,14 @@
             btn.classList.toggle('open');
             menu.classList.toggle('open');
           });
-          menu.querySelectorAll('.mobile-link').forEach(function (a) {
-            a.addEventListener('click', function () {
-              btn.classList.remove('open');
-              menu.classList.remove('open');
+          if (menu.querySelectorAll) {
+            menu.querySelectorAll('.mobile-link').forEach(function (a) {
+              a.addEventListener('click', function () {
+                btn.classList.remove('open');
+                menu.classList.remove('open');
+              });
             });
-          });
+          }
         }
         // 行動選單的展開折疊
         if (menu) {
@@ -568,14 +553,16 @@
             parent.addEventListener('click', function () {
               var id = parent.getAttribute('data-target');
               var sub = document.getElementById(id);
-              var caretId = 'caret-' + id.replace('sub-', '');
+              var caretId = 'caret-' + id?.replace('sub-', '');
               var caret = document.getElementById(caretId);
-              var opening = !sub.classList.contains('open');
-              menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
-              menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
-              if (opening) {
-                sub.classList.add('open');
-                if (caret) caret.classList.add('open');
+              if (sub) {
+                var opening = !sub.classList.contains('open');
+                menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
+                menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
+                if (opening) {
+                  sub.classList.add('open');
+                  if (caret) caret.classList.add('open');
+                }
               }
             });
           });
