@@ -528,9 +528,12 @@
         font-size: 1.8rem !important;
       }
       
-      .content > div:first-child p {
+      .content > div:first-child h2 {
+        font-size: 1.2rem !important;
+      }
+      
+      .content > div:first-child .subhead {
         font-size: 0.85rem !important;
-        padding: 0 12px !important;
       }
       
       /* 購物車手機版 */
@@ -562,11 +565,13 @@
   </style>
 </head>
 <body>
-  <!-- 導覽列佔位 -->
+  <!-- 導覽列佔位元素 -->
   <div id="nav-placeholder"></div>
 
+  <!-- 主要內容區 -->
   <main class="content">
-    <!-- 所有植物專區標題 -->
+    <!-- 頁首區塊：完全比照專區頁的優雅風格 -->
+   <!-- 所有植物專區標題 -->
     <div style="text-align: center; padding:60px 20px 20px; color: var(--stone);">
       <h1 style="font-family: 'Noto Serif TC', serif; color: var(--moss); font-size: 2.2rem;">所有植物 · 選集</h1>
       <p style="max-width:600px; margin:20px auto; line-height:1.8; color: var(--fern);">
@@ -575,11 +580,11 @@
       <p style="max-width:600px; margin:20px auto; line-height:1.8; color: var(--stone); font-size: 0.95rem;">
         這些植物，大多來自一個持續多年的屋頂栽培計畫。<br>在城市裡，我們嘗試讓植物重新回到生活中。
       </p>
-    </div>
+    </div
 
     <!-- 篩選按鈕 -->
     <div class="filter-container">
-      
+    
       <button class="filter-btn" onclick="filterProducts('鹿角蕨', this)">蕨類</button>
       <button class="filter-btn" onclick="filterProducts('積水鳳梨', this)">積水鳳梨</button>
       <button class="filter-btn" onclick="filterProducts('其他植物', this)">其他植物</button>
@@ -639,6 +644,14 @@
 
     function isMobile() {
       return window.innerWidth <= 768;
+    }
+
+    function getFullFilteredList() {
+      const activeBtn = document.querySelector('.filter-btn.active');
+      if (!activeBtn) return allProducts;
+      const category = activeBtn.innerText.trim().replace(/[🌿🪴💧🌱]/g, '').trim();
+      if (category === '全部') return allProducts;
+      return allProducts.filter(p => p.category === category);
     }
 
     async function renderProducts() {
@@ -727,14 +740,6 @@
       }
     }
 
-    function getFullFilteredList() {
-      const activeBtn = document.querySelector('.filter-btn.active');
-      if (!activeBtn) return allProducts;
-      const category = activeBtn.innerText.trim().replace(/[🌿🪴💧🌱]/g, '').trim();
-      if (category === '全部') return allProducts;
-      return allProducts.filter(p => p.category === category);
-    }
-
     async function filterProducts(category, btn) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
@@ -799,7 +804,7 @@
         body: JSON.stringify(orderData)
       });
       if (res.ok) {
-        alert('✅ '謝謝您 ! 訂單已送出 ! 我會盡快與您聯絡 ! );
+        alert('✅ 謝謝您 ! 訂單已送出 ! 我會盡快與您聯絡 ! ');
         localStorage.removeItem('myCart');
         await fetchProducts();
         updateCartUI();
