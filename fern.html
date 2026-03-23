@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>蕨積 — 蕨類專區</title>
+  <title>蕨積 — 鹿角蕨專區</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -337,18 +337,17 @@
   <div id="nav-placeholder"></div>
 
   <main class="content">
-    <!-- 蕨類專區標題 -->
+    <!-- 鹿角蕨專區標題 -->
     <div style="text-align: center; padding:60px 20px 20px; color: var(--stone);">
-      <h1 style="font-family: 'Noto Serif TC', serif; color: var(--moss); font-size: 2.2rem;">蕨類 · 選集</h1>
+      <h1 style="font-family: 'Noto Serif TC', serif; color: var(--moss); font-size: 2.2rem;">鹿角蕨 · 專區</h1>
       <p style="max-width:600px; margin:20px auto; line-height:1.8; color: var(--fern);">
-        形似羽葉，姿態各異。這裡蒐集了我們持續照顧的各種不同的蕨類，每一片葉子都是時間的痕跡。
+        形似鹿角，姿態優雅。這裡蒐集了我們持續照顧的各種鹿角蕨，每一片葉子都是時間的痕跡。
       </p>
     </div>
 
-    <!-- 篩選按鈕：新增鹿角蕨按鈕 -->
+    <!-- 篩選按鈕：只有三個選項 -->
     <div class="filter-container">
-      <button class="filter-btn" onclick="filterProducts('全部', this)">全部</button>
-      
+      <button class="filter-btn" onclick="filterProducts('所有植物', this)">所有植物</button>
       <button class="filter-btn" onclick="filterProducts('積水鳳梨', this)">積水鳳梨</button>
       <button class="filter-btn" onclick="filterProducts('其他植物', this)">其他植物</button>
     </div>
@@ -364,7 +363,7 @@
     </div>
 
     <!-- 手機載入提示 -->
-    <div class="loading-more" id="loading-more" style="display: none;">載入更多蕨類…</div>
+    <div class="loading-more" id="loading-more" style="display: none;">載入更多植物…</div>
 
     <!-- 購物車區塊 -->
     <div id="cart-section">
@@ -509,13 +508,10 @@
         category = match ? match[1] : '';
       }
       
-      // 如果無法從 onclick 提取，則從按鈕文字移除 emoji 後取得
-      if (!category) {
-        category = activeBtn.innerText.trim().replace(/[🌿🪴🦌💧🌱]/g, '').trim();
-      }
-      
-      if (category === '全部') return allProducts;
-      return allProducts.filter(p => p.category === category);
+      if (category === '鹿角蕨') return allProducts.filter(p => p.category === '鹿角蕨');
+      if (category === '積水鳳梨') return allProducts.filter(p => p.category === '積水鳳梨');
+      if (category === '其他植物') return allProducts.filter(p => p.category === '其他植物');
+      return allProducts;
     }
 
     // 篩選函數
@@ -524,10 +520,14 @@
       btn.classList.add('active');
 
       let fullList = [];
-      if (category === '全部') {
-        fullList = allProducts;
+      if (category === '鹿角蕨') {
+        fullList = allProducts.filter(p => p.category === '鹿角蕨');
+      } else if (category === '積水鳳梨') {
+        fullList = allProducts.filter(p => p.category === '積水鳳梨');
+      } else if (category === '其他植物') {
+        fullList = allProducts.filter(p => p.category === '其他植物');
       } else {
-        fullList = allProducts.filter(p => p.category === category);
+        fullList = allProducts;
       }
 
       // 儲存完整的篩選結果，供手機無限載入使用
@@ -550,8 +550,8 @@
       const { data } = await mySupabase.from('products').select('*').order('created_at', { ascending: true });
       allProducts = data || [];
 
-      // 預設顯示「蕨類」
-      const defaultCategory = '蕨類';
+      // 預設顯示「鹿角蕨」
+      const defaultCategory = '鹿角蕨';
       const fullDefault = allProducts.filter(p => p.category === defaultCategory);
       
       // 儲存完整的預設篩選結果
@@ -657,7 +657,7 @@
         console.warn('無法載入導覽列，略過');
       }
 
-      // 載入商品 (預設顯示蕨類)
+      // 載入商品 (預設顯示鹿角蕨)
       await fetchProducts();
       updateCartUI();
 
