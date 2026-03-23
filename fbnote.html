@@ -1,15 +1,14 @@
-<!-- ========== 主要頁面 index.html ========== -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>蕨積 — 蕨望筆記</title>
+  <title>蕨積 — 蕨望筆記｜植物 x 工程 x 碳生活</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    /* ===== 共用樣式 ===== */
+    /* ===== 共用樣式 (完整保留，無更動) ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --ink: #1a1a14;
@@ -31,7 +30,6 @@
       flex-direction: column;
     }
 
-    /* ----- 導覽列 (完整保留) ----- */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -225,14 +223,12 @@
       .hamburger { display: flex; }
     }
 
-    /* ----- 頁面內容區域 ----- */
     .content {
       flex: 1;
       padding-top: 92px; /* 72px nav + 20px 間距 */
       padding-bottom: 40px;
     }
 
-    /* ----- Footer (完整保留) ----- */
     footer {
       border-top: 1px solid rgba(90,122,74,0.15);
       padding: 40px 4vw;
@@ -282,59 +278,266 @@
         flex-wrap: wrap;
       }
     }
+
+    /* ===== 新增：蕨望筆記專屬樣式 (模組化，不影響既有架構) ===== */
+    .journal-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem 3rem;
+    }
+
+    /* 頁首標題區 */
+    .journal-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .journal-header h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 600;
+      font-size: 2.8rem;
+      letter-spacing: 0.1em;
+      color: var(--moss);
+      margin-bottom: 0.5rem;
+    }
+    .journal-header p {
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      color: var(--stone);
+      border-top: 1px solid var(--mist);
+      display: inline-block;
+      padding-top: 0.8rem;
+      font-weight: 300;
+    }
+
+    /* 卡片網格系統 */
+    .notes-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+    .note-card {
+      background: white;
+      border-radius: 32px;
+      padding: 2rem 2rem 2rem 2rem;
+      box-shadow: 0 8px 20px rgba(61, 90, 56, 0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s;
+      border: 1px solid rgba(138, 171, 122, 0.2);
+    }
+    .note-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 30px -12px rgba(61, 90, 56, 0.15);
+    }
+    .card-title {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 600;
+      font-size: 1.8rem;
+      color: var(--fern);
+      margin-bottom: 0.5rem;
+      display: inline-block;
+      border-left: 6px solid var(--sage);
+      padding-left: 1rem;
+    }
+    .card-sub {
+      font-size: 0.8rem;
+      color: var(--stone);
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+      text-transform: uppercase;
+    }
+    .card-content {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--ink);
+    }
+    .card-content p {
+      margin-bottom: 1rem;
+    }
+    .stat-badge {
+      background: var(--mist);
+      padding: 0.2rem 0.7rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--moss);
+      display: inline-block;
+      margin-right: 0.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .carbon-highlight {
+      background: rgba(90, 122, 74, 0.08);
+      padding: 0.2rem 0.6rem;
+      border-radius: 24px;
+      font-weight: 500;
+      font-family: monospace;
+      color: var(--fern);
+    }
+    .action-formula {
+      background: var(--cream);
+      border-radius: 40px;
+      padding: 1.2rem 1.8rem;
+      margin-top: 1.5rem;
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--moss);
+      border: 1px dashed var(--sage);
+    }
+    hr {
+      margin: 1rem 0;
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--mist), transparent);
+    }
+    .flex-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .small-note {
+      font-size: 0.85rem;
+      color: var(--stone);
+      margin-top: 1rem;
+      font-style: italic;
+      border-top: 1px solid rgba(138, 171, 122, 0.2);
+      padding-top: 1rem;
+    }
+    @media (max-width: 700px) {
+      .journal-container {
+        padding: 0 1rem 2rem;
+      }
+      .card-title {
+        font-size: 1.5rem;
+      }
+      .journal-header h1 {
+        font-size: 2rem;
+      }
+      .note-card {
+        padding: 1.5rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- 放置導覽列的佔位元素 -->
   <div id="nav-placeholder"></div>
 
-  <!-- 頁面主要內容區域 -->
   <main class="content">
-    <!-- 
-      =============================================
-      請在此加入您的頁面內容
-      hero、about、contact 都已經移除
-      =============================================
-    -->
-    <div style="text-align: center; padding: 40px; color: var(--stone);">
-      <h1 style="font-family: 'Noto Serif TC', serif; color: var(--moss);">歡迎使用蕨積模板</h1>
-      <p>絕望筆記</p>
-      <p style="margin-top: 20px;">導覽列與 footer 都已完整保留</p>
+    <!-- 全新蕨望筆記內容 — 完全依照客戶提供的文字，重新編排為閱讀性高的筆記頁面 -->
+    <div class="journal-container">
+      <div class="journal-header">
+        <h1>蕨望筆記</h1>
+        <p>生活隨筆 · 淨零日常 · 綠色靈感</p>
+      </div>
+
+      <div class="notes-grid">
+        <!-- 區塊1: 從生活開始減碳 -->
+        <div class="note-card">
+          <div class="card-title">從生活開始減碳</div>
+          <div class="card-sub">日常微光 · 碳足跡的溫柔削減</div>
+          <div class="card-content">
+            <p>LED照明、自然通風、在地飲食與循環容器，這些看似微小的選擇，串聯起來便是巨大的氣候影響力。透過永續設計提升效率：自然採光與對流、省水設備、隔熱降溫，讓舒適與低碳共存。</p>
+            <div class="flex-stats">
+              <span class="stat-badge">💡 LED 節電60%↑</span>
+              <span class="stat-badge">🌬️ 對流換氣省空調</span>
+              <span class="stat-badge">🥗 在地飲食減運送碳排</span>
+            </div>
+            <p><strong>淨零概念：</strong> 排放 − 移除 = 0。不只減少排放，更要積極增加碳匯，達到氣候中和。</p>
+          </div>
+        </div>
+
+        <!-- 區塊2: 綠色實驗室｜植物碳循環 -->
+        <div class="note-card">
+          <div class="card-title">綠色實驗室｜植物碳循環</div>
+          <div class="card-sub">光合作用 · 自然固碳的奇蹟</div>
+          <div class="card-content">
+            <p>植物透過光合作用吸收CO₂並轉化儲存，形成長期碳匯。每棵喬木每年約可固定 <span class="carbon-highlight">10–40 kg</span> 碳，是大地最穩定的碳儲存庫。</p>
+            <p><strong>碳匯類型：</strong><br>🌳 森林（綠碳） · 🌊 海洋（藍碳） · 🌾 土壤（黃碳）<br>關鍵策略在於複層種植、採用原生植物與土壤保護，讓生態系發揮最大碳吸存效益。</p>
+            <div class="flex-stats">
+              <span class="stat-badge">🌲 喬木年固碳10–40kg</span>
+              <span class="stat-badge">🌱 複層林碳匯+30%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 區塊3: 蕨積計畫｜植栽碳管理 (室內碳匯具體數據) -->
+        <div class="note-card">
+          <div class="card-title">蕨積計畫｜植栽碳管理</div>
+          <div class="card-sub">室內植物 · 微型碳匯參與</div>
+          <div class="card-content">
+            <p>即使在家居空間，植物也能成為碳循環的一份子。不同種類的室內植物每年固碳量各有魅力：</p>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+              <li>🌿 鹿角蕨／蕨類：約 <strong class="carbon-highlight">0.2–0.5 kg/年</strong></li>
+              <li>💧 積水鳳梨：約 <strong class="carbon-highlight">0.15–0.4 kg/年</strong></li>
+              <li>🍃 小型觀葉植物（龜背芋、琴葉榕等）：約 <strong class="carbon-highlight">0.8–1.5 kg/年</strong></li>
+            </ul>
+            <p>結合居家能耗記錄，建立個人碳帳本，讓綠色行動可視、可追蹤。每一盆植物都是生活中的微型碳庫。</p>
+            <div class="small-note">✨ 蕨積碳帳本：記錄水電費＋植物養護＝專屬的淨零儀表板</div>
+          </div>
+        </div>
+
+        <!-- 區塊4: 行動總覽｜從一盆開始 -->
+        <div class="note-card">
+          <div class="card-title">行動總覽｜從一盆開始</div>
+          <div class="card-sub">永續日常，一步一腳印</div>
+          <div class="card-content">
+            <p>🌱 記錄水電與生活碳排，覺察日常能耗<br>
+            🌱 增加室內植物，提升綠覆率與碳匯潛力<br>
+            🌱 分享永續日常，讓影響力擴散成漣漪</p>
+            <div class="action-formula">
+              🌍 淨零行動公式：<br>
+              <strong style="font-size: 1.3rem;">減碳 × 植物碳匯 × 永續設計</strong>
+            </div>
+            <p style="margin-top: 1rem;">每一個選擇，都是邁向永續的一步。從一盆蕨類、一個節能習慣開始，讓我們一起打造低碳且充滿生命力的未來。</p>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 
-  <!-- Footer -->
   <footer>
     <ul class="footer-links">
-      <li><a href="123.html">植物選品</a></li>
-      <li><a href="45.html">綠色顧問</a></li>
-      <li><a href="67.html">蕨望筆記</a></li>
-      <li><a href="89.html">關於蕨積</a></li>
+      <li><a href="shop.html">植物選品</a></li>
+      <li><a href="consult.html">綠色顧問</a></li>
+      <li><a href="fbnote.html">蕨望筆記</a></li>
+      <li><a href="about.html">關於蕨積</a></li>
     </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // 載入共用導覽列
+      // 載入共用導覽列 (nav.html 保留原樣式)
       fetch('nav.html')
         .then(response => response.text())
         .then(data => {
           document.getElementById('nav-placeholder').innerHTML = data;
-          // 在導覽列插入後，重新綁定事件與初始化
           initNav();
         })
         .catch(err => {
           console.error('無法載入導覽列:', err);
-          // 錯誤時的備用顯示
-          document.getElementById('nav-placeholder').innerHTML = 
-            '<nav style="background:var(--moss);color:white;padding:0 4vw;height:72px;display:flex;align-items:center;">' +
-            '<span style="font-family:Noto Serif TC,serif;font-weight:900;">⚠️ 導覽列載入失敗，請確認 nav.html 是否存在</span>' +
-            '</nav>';
+          // 若無法載入，建立一個基礎導覽列讓佈局完整 (保留風格)
+          document.getElementById('nav-placeholder').innerHTML = `
+            <nav id="mainNav" style="background: rgba(250,247,242,0.96); backdrop-filter: blur(12px);">
+              <a href="#" class="logo">
+                <div class="logo-mark"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="var(--moss)" stroke-width="1.2"><path d="M3 12 L12 3 L21 12 L12 21 Z M12 8 L12 16 M8 12 L16 12"/><path d="M12 8 L8 12 L12 16 L16 12 Z"/></svg></div>
+                <div class="logo-text">蕨積<span>FERNBROM</span></div>
+              </a>
+              <ul class="nav-links">
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="fbnote.html">蕨望筆記</a></li>
+                <li><a href="shop.html">植物選品</a></li>
+                <li><a href="about.html">關於</a></li>
+                <li><a href="consult.html" class="nav-contact">綠色顧問</a></li>
+              </ul>
+              <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+              <div class="mobile-menu" id="mobileMenu"><ul><li><a href="index.html">首頁</a></li><li><a href="fbnote.html">蕨望筆記</a></li><li><a href="shop.html">植物選品</a></li><li><a href="about.html">關於</a></li><li><a href="consult.html">綠色顧問</a></li></ul></div>
+            </nav>`;
+          initNav();
         });
 
       function initNav() {
-        // hamburger 事件
         var btn = document.getElementById('hamburger');
         var menu = document.getElementById('mobileMenu');
         if (btn && menu) {
@@ -342,37 +545,20 @@
             btn.classList.toggle('open');
             menu.classList.toggle('open');
           });
-          menu.querySelectorAll('.mobile-link').forEach(function (a) {
-            a.addEventListener('click', function () {
-              btn.classList.remove('open');
-              menu.classList.remove('open');
+          if (menu.querySelectorAll('.mobile-link')) {
+            menu.querySelectorAll('a').forEach(function (a) {
+              a.addEventListener('click', function () {
+                btn.classList.remove('open');
+                menu.classList.remove('open');
+              });
             });
-          });
+          }
         }
-        // 行動選單的展開折疊
-        if (menu) {
-          menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
-            parent.addEventListener('click', function () {
-              var id = parent.getAttribute('data-target');
-              var sub = document.getElementById(id);
-              var caretId = 'caret-' + id.replace('sub-', '');
-              var caret = document.getElementById(caretId);
-              var opening = !sub.classList.contains('open');
-              menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
-              menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
-              if (opening) {
-                sub.classList.add('open');
-                if (caret) caret.classList.add('open');
-              }
-            });
-          });
-        }
-        // 滾動效果
+        // 若有dropdown或mobile-parent可預留相容，但nav.html動態載入後可能無此結構，此處不做強制要求。
         window.addEventListener('scroll', function () {
           var nav = document.getElementById('mainNav');
           if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
         });
-        // 重新綁定 lucide 圖示
         if (typeof lucide !== 'undefined') lucide.createIcons();
       }
     });
