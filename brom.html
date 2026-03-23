@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>蕨積 - 積水鳳梨專區</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
@@ -223,6 +223,116 @@
     /* 微調標題區域 */
     .content { padding-top: 72px; }
   </style>
+  
+  <!-- 新增：手機版專用樣式（只影響 main 和 footer 的顯示，並確保漢堡選單正常） -->
+  <style>
+    /* 確保手機版漢堡選單顯示 */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex !important;
+      }
+      .nav-links {
+        display: none !important;
+      }
+    }
+    
+    /* 手機版商品列表改為 2 欄 */
+    @media (max-width: 640px) {
+      #product-list {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+        padding: 0 12px !important;
+      }
+      
+      .product-card {
+        padding: 10px !important;
+      }
+      
+      .product-card img {
+        height: 140px !important;
+        object-fit: cover !important;
+        border-radius: 8px !important;
+      }
+      
+      .product-card h3 {
+        font-size: 0.85rem !important;
+        margin: 8px 0 4px !important;
+      }
+      
+      .product-card p {
+        font-size: 0.75rem !important;
+        margin: 4px 0 !important;
+      }
+      
+      .btn-add {
+        padding: 8px !important;
+        font-size: 0.75rem !important;
+        border-radius: 20px !important;
+      }
+      
+      /* 篩選按鈕改為可滾動並置中 */
+      .filter-container {
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 0 12px 12px !important;
+        margin: 15px 0 !important;
+        text-align: center !important;
+      }
+      
+      .filter-btn {
+        display: inline-block !important;
+        padding: 6px 16px !important;
+        margin: 0 4px !important;
+        font-size: 0.8rem !important;
+      }
+      
+      /* 手機版 footer 垂直排列 */
+      footer {
+        flex-direction: column !important;
+        text-align: center !important;
+        padding: 30px 20px !important;
+        gap: 16px !important;
+      }
+      
+      .footer-links {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+        gap: 16px !important;
+      }
+      
+      /* 標題區手機版調整 */
+      .content > div:first-child {
+        padding: 40px 16px 20px !important;
+      }
+      
+      .content > div:first-child h1 {
+        font-size: 1.8rem !important;
+      }
+      
+      .content > div:first-child p {
+        font-size: 0.85rem !important;
+        padding: 0 12px !important;
+      }
+      
+      /* 購物車手機版 */
+      #cart-section {
+        margin: 30px 16px !important;
+        padding: 20px !important;
+      }
+    }
+    
+    /* 超小手機改為 1 欄 */
+    @media (max-width: 480px) {
+      #product-list {
+        grid-template-columns: 1fr !important;
+      }
+      
+      .product-card img {
+        height: 180px !important;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- 導覽列佔位 (nav.html 將載入) -->
@@ -240,7 +350,7 @@
     <div class="filter-container">
       <button class="filter-btn" onclick="filterProducts('全部', this)">全部</button>
       <button class="filter-btn" onclick="filterProducts('鹿角蕨', this)">蕨類</button>
-      <button class="filter-btn active" onclick="filterProducts('積水鳳梨', this)">積水鳳梨</button>
+     
       <button class="filter-btn" onclick="filterProducts('其他植物', this)">其他植物</button>
     </div>
 
@@ -374,10 +484,6 @@
       isLoadingMore = true;
       document.getElementById('loading-more').style.display = 'block';
 
-      // 從 allProducts 取出下一批（但必須符合目前篩選類別，此處用 allProducts 是為了保留原始資料，但注意 filteredProducts 可能早已是篩選後的子集合
-      // 這裡我們要從「篩選後的完整列表」去追加，而不是從 allProducts，否則會加錯類別
-      // 修正：使用完整篩選清單 fullFilteredList 來分頁載入
-      // 但我們需要先取得完整篩選後的列表 (fullFilteredList) 
       const fullFilteredList = getFullFilteredList(); 
       if (nextStart >= fullFilteredList.length) {
         hasMoreMobile = false;
@@ -387,7 +493,7 @@
       }
 
       const nextBatch = fullFilteredList.slice(nextStart, nextStart + ITEMS_PER_PAGE);
-      filteredProducts = [...filteredProducts, ...nextBatch];  // 累加顯示
+      filteredProducts = [...filteredProducts, ...nextBatch];
 
       await renderProducts();
       isLoadingMore = false;
@@ -397,34 +503,30 @@
       }
     }
 
-    // 取得目前類別篩選後的完整商品陣列 (從 allProducts 中過濾)
+    // 取得目前類別篩選後的完整商品陣列
     function getFullFilteredList() {
       const activeBtn = document.querySelector('.filter-btn.active');
       if (!activeBtn) return allProducts;
-      const category = activeBtn.innerText.trim();
+      const category = activeBtn.innerText.trim().replace(/[🌿🪴💧🌱]/g, '').trim();
       if (category === '全部') return allProducts;
       return allProducts.filter(p => p.category === category);
     }
 
-    // 篩選函數 (點擊按鈕時呼叫)
+    // 篩選函數
     async function filterProducts(category, btn) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      // 更新全部分類對應的完整清單 (fullList)
       let fullList = [];
       if (category === '全部') fullList = allProducts;
       else fullList = allProducts.filter(p => p.category === category);
 
-      // 根據裝置決定顯示內容
       if (isMobile()) {
-        // 手機版只顯示第一批
         filteredProducts = fullList.slice(0, ITEMS_PER_PAGE);
       } else {
-        filteredProducts = fullList; // 電腦版保留全部供分頁用
+        filteredProducts = fullList;
       }
 
-      // 重置分頁狀態
       currentPage = 1;
       hasMoreMobile = true;
       document.getElementById('loading-more').style.display = 'none';
@@ -436,14 +538,13 @@
       const { data } = await mySupabase.from('products').select('*').order('created_at', { ascending: true });
       allProducts = data || [];
 
-      // 預設顯示「積水鳳梨」 (因為按鈕 active 是積水鳳梨)
       const defaultCategory = '積水鳳梨';
       const fullDefault = allProducts.filter(p => p.category === defaultCategory);
       
       if (isMobile()) {
         filteredProducts = fullDefault.slice(0, ITEMS_PER_PAGE);
       } else {
-        filteredProducts = fullDefault; // 電腦版保持完整
+        filteredProducts = fullDefault;
       }
 
       await renderProducts();
@@ -479,9 +580,8 @@
         body: JSON.stringify(orderData)
       });
       if (res.ok) {
-        alert('✅ 訂單已送出！');
+        alert('✅ 謝謝您 ! 訂單已送出 ! 我會盡快與您聯絡 !！');
         localStorage.removeItem('myCart');
-        // 重新載入商品以刷新庫存（簡單做法重新 fetch）
         await fetchProducts();
         updateCartUI();
       } else {
@@ -531,7 +631,6 @@
 
     // ========= 主要啟動流程 =========
     document.addEventListener('DOMContentLoaded', async function () {
-      // 載入導覽列
       try {
         const response = await fetch('nav.html');
         const data = await response.text();
@@ -539,20 +638,16 @@
         initNav();
       } catch (err) {
         console.warn('無法載入導覽列，略過');
-        // 若 nav.html 不存在，至少讓頁面不中斷 (但導覽列空白)
       }
 
-      // 載入商品 (預設顯示積水鳳梨)
       await fetchProducts();
       updateCartUI();
 
-      // 監聽購物車更新
       document.addEventListener('cartUpdated', function() {
         updateCartUI();
         renderProducts();
       });
 
-      // 手機無限滾動
       if (isMobile()) {
         window.addEventListener('scroll', function() {
           if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
@@ -561,7 +656,6 @@
         });
       }
 
-      // 原有的 reveal (如果有)
       const reveals = document.querySelectorAll('.reveal');
       const observer = new IntersectionObserver(function (entries) {
         entries.forEach(e => {
@@ -573,12 +667,9 @@
       if (typeof lucide !== 'undefined') lucide.createIcons();
     });
 
-    // 將函式暴露給全域 (供 onclick 使用)
     window.filterProducts = filterProducts;
     window.changePage = changePage;
     window.submitOrder = submitOrder;
   </script>
-  <!-- 注意：原頁面使用了 cart.js，必須確保 cart.js 存在且定義了 Cart 物件 (addItem, getItems, removeItem, getTotal) -->
-  <!-- 若無該檔案，需自行補上簡易版，此處假設存在。 -->
 </body>
 </html>
