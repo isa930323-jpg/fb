@@ -345,7 +345,7 @@
       </p>
     </div>
 
-    <!-- 篩選按鈕：active 在「蕨類」 -->
+    <!-- 篩選按鈕：新增鹿角蕨按鈕 -->
     <div class="filter-container">
       <button class="filter-btn" onclick="filterProducts('全部', this)">全部</button>
       
@@ -497,9 +497,23 @@
     }
 
     function getFullFilteredList() {
+      // 從 active 按鈕的 onclick 屬性中提取分類參數
       const activeBtn = document.querySelector('.filter-btn.active');
       if (!activeBtn) return allProducts;
-      const category = activeBtn.innerText.trim().replace(/[🌿🪴🦌💧🌱]/g, '').trim();
+      
+      // 從 onclick 屬性中提取 category 參數
+      const onclickAttr = activeBtn.getAttribute('onclick');
+      let category = '';
+      if (onclickAttr) {
+        const match = onclickAttr.match(/filterProducts\('([^']+)',/);
+        category = match ? match[1] : '';
+      }
+      
+      // 如果無法從 onclick 提取，則從按鈕文字移除 emoji 後取得
+      if (!category) {
+        category = activeBtn.innerText.trim().replace(/[🌿🪴🦌💧🌱]/g, '').trim();
+      }
+      
       if (category === '全部') return allProducts;
       return allProducts.filter(p => p.category === category);
     }
@@ -510,8 +524,14 @@
       btn.classList.add('active');
 
       let fullList = [];
-      if (category === '全部') fullList = allProducts;
-      else fullList = allProducts.filter(p => p.category === category);
+      if (category === '全部') {
+        fullList = allProducts;
+      } else {
+        fullList = allProducts.filter(p => p.category === category);
+      }
+
+      // 儲存完整的篩選結果，供手機無限載入使用
+      window.currentFilteredFullList = fullList;
 
       if (isMobile()) {
         filteredProducts = fullList.slice(0, ITEMS_PER_PAGE);
@@ -533,6 +553,9 @@
       // 預設顯示「蕨類」
       const defaultCategory = '蕨類';
       const fullDefault = allProducts.filter(p => p.category === defaultCategory);
+      
+      // 儲存完整的預設篩選結果
+      window.currentFilteredFullList = fullDefault;
       
       if (isMobile()) {
         filteredProducts = fullDefault.slice(0, ITEMS_PER_PAGE);
