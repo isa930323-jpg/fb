@@ -2,8 +2,8 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>蕨積 — 鹿角蕨專區</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>蕨積 — 蕨類專區</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -221,13 +221,123 @@
     .loading-more { text-align: center; color: var(--stone); padding: 20px; font-size: 0.9rem; }
     .content { padding-top: 72px; }
   </style>
+  
+  <!-- 新增：手機版專用樣式（只影響 main 和 footer 的顯示，並確保漢堡選單正常） -->
+  <style>
+    /* 確保手機版漢堡選單顯示 */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex !important;
+      }
+      .nav-links {
+        display: none !important;
+      }
+    }
+    
+    /* 手機版商品列表改為 2 欄 */
+    @media (max-width: 640px) {
+      #product-list {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+        padding: 0 12px !important;
+      }
+      
+      .product-card {
+        padding: 10px !important;
+      }
+      
+      .product-card img {
+        height: 140px !important;
+        object-fit: cover !important;
+        border-radius: 8px !important;
+      }
+      
+      .product-card h3 {
+        font-size: 0.85rem !important;
+        margin: 8px 0 4px !important;
+      }
+      
+      .product-card p {
+        font-size: 0.75rem !important;
+        margin: 4px 0 !important;
+      }
+      
+      .btn-add {
+        padding: 8px !important;
+        font-size: 0.75rem !important;
+        border-radius: 20px !important;
+      }
+      
+      /* 篩選按鈕改為可滾動並置中 */
+      .filter-container {
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 0 12px 12px !important;
+        margin: 15px 0 !important;
+        text-align: center !important;
+      }
+      
+      .filter-btn {
+        display: inline-block !important;
+        padding: 6px 16px !important;
+        margin: 0 4px !important;
+        font-size: 0.8rem !important;
+      }
+      
+      /* 手機版 footer 垂直排列 */
+      footer {
+        flex-direction: column !important;
+        text-align: center !important;
+        padding: 30px 20px !important;
+        gap: 16px !important;
+      }
+      
+      .footer-links {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+        gap: 16px !important;
+      }
+      
+      /* 標題區手機版調整 */
+      .content > div:first-child {
+        padding: 40px 16px 20px !important;
+      }
+      
+      .content > div:first-child h1 {
+        font-size: 1.8rem !important;
+      }
+      
+      .content > div:first-child p {
+        font-size: 0.85rem !important;
+        padding: 0 12px !important;
+      }
+      
+      /* 購物車手機版 */
+      #cart-section {
+        margin: 30px 16px !important;
+        padding: 20px !important;
+      }
+    }
+    
+    /* 超小手機改為 1 欄 */
+    @media (max-width: 480px) {
+      #product-list {
+        grid-template-columns: 1fr !important;
+      }
+      
+      .product-card img {
+        height: 180px !important;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- 導覽列佔位 -->
   <div id="nav-placeholder"></div>
 
   <main class="content">
-    <!-- 蕨專區標題 -->
+    <!-- 蕨類專區標題 -->
     <div style="text-align: center; padding:60px 20px 20px; color: var(--stone);">
       <h1 style="font-family: 'Noto Serif TC', serif; color: var(--moss); font-size: 2.2rem;">蕨類 · 選集</h1>
       <p style="max-width:600px; margin:20px auto; line-height:1.8; color: var(--fern);">
@@ -235,10 +345,10 @@
       </p>
     </div>
 
-    <!-- 篩選按鈕：active 在「鹿角蕨」 -->
+    <!-- 篩選按鈕：active 在「蕨類」 -->
     <div class="filter-container">
       <button class="filter-btn" onclick="filterProducts('全部', this)">全部</button>
-      <button class="filter-btn active" onclick="filterProducts('鹿角蕨', this)">蕨類</button>
+      
       <button class="filter-btn" onclick="filterProducts('積水鳳梨', this)">積水鳳梨</button>
       <button class="filter-btn" onclick="filterProducts('其他植物', this)">其他植物</button>
     </div>
@@ -254,7 +364,7 @@
     </div>
 
     <!-- 手機載入提示 -->
-    <div class="loading-more" id="loading-more" style="display: none;">載入更多鹿角蕨…</div>
+    <div class="loading-more" id="loading-more" style="display: none;">載入更多蕨類…</div>
 
     <!-- 購物車區塊 -->
     <div id="cart-section">
@@ -372,6 +482,9 @@
         return;
       }
 
+      isLoadingMore = true;
+      document.getElementById('loading-more').style.display = 'block';
+
       const nextBatch = fullFilteredList.slice(nextStart, nextStart + ITEMS_PER_PAGE);
       filteredProducts = [...filteredProducts, ...nextBatch];
 
@@ -386,7 +499,7 @@
     function getFullFilteredList() {
       const activeBtn = document.querySelector('.filter-btn.active');
       if (!activeBtn) return allProducts;
-      const category = activeBtn.innerText.trim();
+      const category = activeBtn.innerText.trim().replace(/[🌿🪴🦌💧🌱]/g, '').trim();
       if (category === '全部') return allProducts;
       return allProducts.filter(p => p.category === category);
     }
@@ -417,8 +530,8 @@
       const { data } = await mySupabase.from('products').select('*').order('created_at', { ascending: true });
       allProducts = data || [];
 
-      // 預設顯示「鹿角蕨」
-      const defaultCategory = '鹿角蕨';
+      // 預設顯示「蕨類」
+      const defaultCategory = '蕨類';
       const fullDefault = allProducts.filter(p => p.category === defaultCategory);
       
       if (isMobile()) {
@@ -460,7 +573,7 @@
         body: JSON.stringify(orderData)
       });
       if (res.ok) {
-        alert('✅ 訂單已送出！');
+        alert('✅ 謝謝您 ! 訂單已送出 ! 我會盡快與您聯絡 !');
         localStorage.removeItem('myCart');
         await fetchProducts();
         updateCartUI();
@@ -521,7 +634,7 @@
         console.warn('無法載入導覽列，略過');
       }
 
-      // 載入商品 (預設顯示鹿角蕨)
+      // 載入商品 (預設顯示蕨類)
       await fetchProducts();
       updateCartUI();
 
