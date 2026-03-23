@@ -29,7 +29,7 @@
       overflow-x: hidden;
     }
 
-    /* ========= 導覽列（與原版一致） ========= */
+    /* ========= 導覽列 ========= */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -142,7 +142,7 @@
       padding: 0 16px;
     }
 
-    /* 篩選按鈕容器 - 改為水平滾動 */
+    /* 篩選按鈕容器 - 置中並可滾動（修正版） */
     .filter-container {
       padding: 0 16px 20px;
       overflow-x: auto;
@@ -151,11 +151,14 @@
       -webkit-overflow-scrolling: touch;
       scrollbar-width: thin;
       margin-bottom: 10px;
+      text-align: center;  /* 容器內容置中 */
     }
     .filter-wrapper {
-      display: inline-flex;
+      display: inline-flex;  /* inline-flex 讓寬度自動，可置中 */
       gap: 12px;
       padding: 4px 0;
+      justify-content: center;
+      margin: 0 auto;  /* 自動邊距置中 */
     }
     .filter-btn {
       background: white;
@@ -178,7 +181,7 @@
       transform: scale(0.96);
     }
 
-    /* 商品列表 - 手機版優化 */
+    /* 商品列表 - 響應式網格 */
     #product-list {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -188,7 +191,6 @@
       margin: 0 auto;
     }
 
-    /* 手機版改為 2 欄 */
     @media (max-width: 640px) {
       #product-list {
         grid-template-columns: repeat(2, 1fr);
@@ -270,7 +272,7 @@
       cursor: not-allowed;
     }
 
-    /* 分頁控制 - 電腦版才顯示 */
+    /* 分頁控制 - 電腦版 */
     .pagination {
       display: flex;
       justify-content: center;
@@ -420,7 +422,7 @@
       <p>葉心滯水，承接雨露與光。這裡只有積水鳳梨——來自屋頂栽培的穩定植株。</p>
     </div>
 
-    <!-- 篩選按鈕 - 改為可滾動容器 -->
+    <!-- 篩選按鈕 - 已置中 -->
     <div class="filter-container">
       <div class="filter-wrapper">
         <button class="filter-btn" data-category="全部">🌿 全部</button>
@@ -608,8 +610,6 @@
       if (isMobile()) {
         document.getElementById('loading-more').style.display = 'none';
         await renderProducts();
-        
-        // 重新綁定滾動載入
         window.removeEventListener('scroll', handleScroll);
         window.addEventListener('scroll', handleScroll);
       } else {
@@ -723,7 +723,6 @@
         renderProducts();
       });
       
-      // 綁定篩選按鈕事件
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           const category = btn.getAttribute('data-category');
