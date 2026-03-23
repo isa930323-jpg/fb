@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>蕨積 - 積水鳳梨專區</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js@2.39.0/dist/umd/supabase.js"></script>
+  <script src="cart.js"></script>
+  <style>
+    /* ========= 全域變數與重置 ========= */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --ink: #1a1a14;
+      --moss: #3d5a38;
+      --fern: #5a7a4a;
+      --sage: #8aab7a;
+      --mist: #d4e4c8;
+      --cream: #f5f0e8;
+      --stone: #9a9080;
+      --paper: #faf7f2;
+    }
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ========= 導覽列（與原版一致） ========= */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4vw; height: 72px;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(90,122,74,0.12);
+    }
+    nav.scrolled { box-shadow: 0 2px 24px rgba(61,90,56,0.10); }
+
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .logo-mark { width: 38px; height: 38px; flex-shrink: 0; }
+    .logo-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .logo-text {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: 1.35rem;
+      color: var(--moss);
+      letter-spacing: 0.05em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .logo-text span {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--stone);
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none; align-items: center; white-space: nowrap;
+    }
+    .nav-links li { position: relative; padding: 0 2px; }
+    .nav-links a {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-size: 0.82rem; font-weight: 400; letter-spacing: 0.1em;
+      color: var(--ink); text-decoration: none; padding-bottom: 3px;
+      opacity: 0.75; display: inline-block;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--fern); }
+    .nav-contact {
+      padding: 8px 20px !important;
+      border: 1px solid var(--fern) !important;
+      border-radius: 2px;
+      color: var(--fern) !important;
+      opacity: 1 !important;
+      margin-left: 0.5rem;
+    }
+    .nav-contact:hover { background: var(--fern); color: white !important; }
+
+    .hamburger {
+      display: none; flex-direction: column; justify-content: center; gap: 6px;
+      width: 40px; height: 40px; cursor: pointer; background: none; border: none;
+      flex-shrink: 0;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 1.5px; background: var(--moss);
+      transition: transform 0.2s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
+      background: #faf7f2; border-bottom: 1px solid rgba(90,122,74,0.15);
+      padding: 0 6vw 40px; z-index: 99; overflow-y: auto;
+      transform: translateX(100%); visibility: hidden; transition: transform 0.3s ease;
+    }
+    .mobile-menu.open { transform: translateX(0); visibility: visible; }
+    .mobile-menu ul { list-style: none; }
+    .mobile-menu > ul > li > a {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 0; font-family: 'Noto Serif TC', serif; font-weight: 600;
+      font-size: 1rem; letter-spacing: 0.08em; color: var(--moss);
+      text-decoration: none; border-bottom: 1px solid rgba(90,122,74,0.1);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ========= 主要內容區域 ========= */
+    .content {
+      padding-top: 92px;
+      min-height: 100vh;
+    }
+
+    /* 頁面標題區 */
+    .page-header {
+      text-align: center;
+      padding: 20px 20px 30px;
+    }
+    .page-header h1 {
+      font-family: 'Noto Serif TC', serif;
+      color: var(--moss);
+      font-size: clamp(1.8rem, 6vw, 2.2rem);
+      margin-bottom: 12px;
+    }
+    .page-header p {
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+      color: var(--fern);
+      font-size: clamp(0.85rem, 3vw, 1rem);
+      padding: 0 16px;
+    }
+
+    /* 篩選按鈕容器 - 改為水平滾動 */
+    .filter-container {
+      padding: 0 16px 20px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      margin-bottom: 10px;
+    }
+    .filter-wrapper {
+      display: inline-flex;
+      gap: 12px;
+      padding: 4px 0;
+    }
+    .filter-btn {
+      background: white;
+      border: 1px solid var(--fern);
+      color: var(--fern);
+      padding: 8px 24px;
+      cursor: pointer;
+      border-radius: 40px;
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .filter-btn.active {
+      background: var(--fern);
+      color: white;
+      border-color: var(--fern);
+    }
+    .filter-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* 商品列表 - 手機版優化 */
+    #product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 0 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* 手機版改為 2 欄 */
+    @media (max-width: 640px) {
+      #product-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 0 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #product-list {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
+    /* 商品卡片樣式 */
+    .product-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: 1px solid rgba(90, 122, 74, 0.12);
+    }
+    .product-card:active {
+      transform: scale(0.98);
+    }
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    @media (max-width: 640px) {
+      .product-card img {
+        height: 160px;
+      }
+    }
+    .product-info {
+      padding: 14px;
+    }
+    .product-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--moss);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .product-price {
+      color: var(--fern);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin: 8px 0;
+    }
+    .product-stock {
+      font-size: 0.75rem;
+      color: var(--stone);
+      margin-bottom: 12px;
+    }
+    .btn-add {
+      width: 100%;
+      background: var(--fern);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 40px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    .btn-add:active {
+      background: var(--moss);
+      transform: scale(0.98);
+    }
+    .btn-add:disabled {
+      background: var(--stone);
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* 分頁控制 - 電腦版才顯示 */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin: 40px 0;
+    }
+    .pagination button {
+      padding: 10px 24px;
+      background: white;
+      border: 1px solid var(--fern);
+      color: var(--fern);
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .pagination button:hover:not(:disabled) {
+      background: var(--fern);
+      color: white;
+    }
+    .pagination button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    .page-info {
+      align-self: center;
+      color: var(--stone);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .pagination {
+        display: none;
+      }
+    }
+
+    /* 載入更多提示 */
+    .loading-more {
+      text-align: center;
+      padding: 20px;
+      color: var(--stone);
+      font-size: 0.85rem;
+    }
+
+    /* 購物車區塊 */
+    #cart-section {
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 24px;
+      background: white;
+      border-radius: 28px;
+      border: 1px solid rgba(90, 122, 74, 0.15);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    }
+    #cart-section h3 {
+      color: var(--moss);
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+    #cart-items {
+      list-style: none;
+      margin-bottom: 16px;
+    }
+    #cart-items li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--mist);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+    #cart-items button {
+      color: #c94f4f;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 4px 8px;
+    }
+    .form-input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid rgba(90, 122, 74, 0.2);
+      border-radius: 40px;
+      font-size: 0.9rem;
+      background: white;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--fern);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(90,122,74,0.15);
+      padding: 40px 4vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--paper);
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer-links a {
+      font-size: 0.75rem;
+      color: var(--stone);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .footer-links a:hover {
+      opacity: 1;
+      color: var(--fern);
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--stone);
+      letter-spacing: 0.1em;
+    }
+    @media (max-width: 768px) {
+      footer {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+      }
+      .footer-links {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <main class="content">
+    <div class="page-header">
+      <h1>積水鳳梨 · 選集</h1>
+      <p>葉心滯水，承接雨露與光。這裡只有積水鳳梨——來自屋頂栽培的穩定植株。</p>
+    </div>
+
+    <!-- 篩選按鈕 - 改為可滾動容器 -->
+    <div class="filter-container">
+      <div class="filter-wrapper">
+        <button class="filter-btn" data-category="全部">🌿 全部</button>
+        <button class="filter-btn" data-category="鹿角蕨">🪴 蕨類</button>
+        <button class="filter-btn active" data-category="積水鳳梨">💧 積水鳳梨</button>
+        <button class="filter-btn" data-category="其他植物">🌱 其他植物</button>
+      </div>
+    </div>
+
+    <div id="product-list"></div>
+    <div class="pagination" id="pagination-controls">
+      <button id="prev-page">◀ 上一頁</button>
+      <span class="page-info" id="page-info">第 1 頁</span>
+      <button id="next-page">下一頁 ▶</button>
+    </div>
+    <div class="loading-more" id="loading-more" style="display: none;">載入更多積水鳳梨…</div>
+
+    <div id="cart-section">
+      <h3>🛒 購物清單</h3>
+      <ul id="cart-items"></ul>
+      <p>總金額：$ <span id="total-price">0</span></p>
+      <input type="text" id="cust-name" class="form-input" placeholder="姓名">
+      <input type="text" id="cust-phone" class="form-input" placeholder="電話">
+      <input type="email" id="cust-email" class="form-input" placeholder="Email">
+      <button class="btn-add" onclick="submitOrder()">送出訂單</button>
+    </div>
+  </main>
+
+  <footer>
+    <ul class="footer-links">
+      <li><a href="shop.html">植物選品</a></li>
+      <li><a href="consult.html">綠色顧問</a></li>
+      <li><a href="fbnote.html">蕨望筆記</a></li>
+      <li><a href="about.html">關於蕨積</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
+  </footer>
+
+  <script>
+    const mySupabase = supabase.createClient(
+      'https://wrreydnppkhhssbnmnno.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndycmV5ZG5wcGtoaHNzYm5tbm5vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMjI0MjYsImV4cCI6MjA4ODc5ODQyNn0.7520TxecGoqhjkIcY497sCt4oG7eqDtShK1OQJe3N7o'
+    );
+
+    let allProducts = [];
+    let currentCategory = '積水鳳梨';
+    let currentPage = 1;
+    let isLoadingMore = false;
+    let hasMoreMobile = true;
+    const ITEMS_PER_PAGE = 8;
+
+    function isMobile() {
+      return window.innerWidth <= 768;
+    }
+
+    function getFilteredProducts() {
+      if (currentCategory === '全部') return allProducts;
+      return allProducts.filter(p => p.category === currentCategory);
+    }
+
+    async function renderProducts() {
+      const list = document.getElementById('product-list');
+      const cartItems = Cart.getItems();
+      const filtered = getFilteredProducts();
+
+      let productsToRender = filtered;
+      if (!isMobile()) {
+        const start = (currentPage - 1) * ITEMS_PER_PAGE;
+        productsToRender = filtered.slice(start, start + ITEMS_PER_PAGE);
+      }
+
+      if (productsToRender.length === 0) {
+        list.innerHTML = '<div style="text-align:center; padding:60px; color: var(--stone);">🌱 此分類暫無商品，或庫存補貨中。</div>';
+        return;
+      }
+
+      list.innerHTML = productsToRender.map(p => {
+        const cartItem = cartItems.find(item => item.id === p.id);
+        const cartQty = cartItem ? cartItem.quantity : 0;
+        const disabled = cartQty >= p.quantity || p.quantity <= 0;
+        let buttonText = '加入購物車';
+        if (p.quantity <= 0) buttonText = '補貨中';
+        else if (cartQty >= p.quantity) buttonText = '已達上限';
+
+        return `
+          <div class="product-card">
+            <img src="${p.image_url}" alt="${p.name}" loading="lazy">
+            <div class="product-info">
+              <h3>${p.name}</h3>
+              <div class="product-price">NT$ ${p.price}</div>
+              <div class="product-stock">庫存: ${p.quantity}</div>
+              <button class="btn-add" 
+                onclick="Cart.addItem('${p.id}', '${p.name}', ${p.price}, ${p.quantity})"
+                ${disabled ? 'disabled' : ''}>
+                ${buttonText}
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      if (!isMobile()) updatePaginationUI();
+    }
+
+    function updatePaginationUI() {
+      const filtered = getFilteredProducts();
+      const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE) || 1;
+      document.getElementById('page-info').innerText = `第 ${currentPage} 頁 / 共 ${totalPages} 頁`;
+      document.getElementById('prev-page').disabled = currentPage === 1;
+      document.getElementById('next-page').disabled = currentPage === totalPages;
+    }
+
+    async function changePage(delta) {
+      if (isMobile()) return;
+      const filtered = getFilteredProducts();
+      const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE) || 1;
+      const newPage = currentPage + delta;
+      if (newPage < 1 || newPage > totalPages) return;
+      currentPage = newPage;
+      await renderProducts();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    async function loadMoreMobile() {
+      if (!isMobile() || isLoadingMore) return;
+      
+      const filtered = getFilteredProducts();
+      const currentDisplayCount = document.querySelectorAll('.product-card').length;
+      
+      if (currentDisplayCount >= filtered.length) {
+        hasMoreMobile = false;
+        document.getElementById('loading-more').style.display = 'none';
+        return;
+      }
+
+      isLoadingMore = true;
+      document.getElementById('loading-more').style.display = 'block';
+      
+      const nextBatch = filtered.slice(currentDisplayCount, currentDisplayCount + ITEMS_PER_PAGE);
+      const list = document.getElementById('product-list');
+      const cartItems = Cart.getItems();
+      
+      const newCardsHtml = nextBatch.map(p => {
+        const cartItem = cartItems.find(item => item.id === p.id);
+        const cartQty = cartItem ? cartItem.quantity : 0;
+        const disabled = cartQty >= p.quantity || p.quantity <= 0;
+        let buttonText = '加入購物車';
+        if (p.quantity <= 0) buttonText = '補貨中';
+        else if (cartQty >= p.quantity) buttonText = '已達上限';
+        
+        return `
+          <div class="product-card">
+            <img src="${p.image_url}" alt="${p.name}" loading="lazy">
+            <div class="product-info">
+              <h3>${p.name}</h3>
+              <div class="product-price">NT$ ${p.price}</div>
+              <div class="product-stock">庫存: ${p.quantity}</div>
+              <button class="btn-add" 
+                onclick="Cart.addItem('${p.id}', '${p.name}', ${p.price}, ${p.quantity})"
+                ${disabled ? 'disabled' : ''}>
+                ${buttonText}
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      list.insertAdjacentHTML('beforeend', newCardsHtml);
+      
+      isLoadingMore = false;
+      if (currentDisplayCount + nextBatch.length >= filtered.length) {
+        hasMoreMobile = false;
+        document.getElementById('loading-more').style.display = 'none';
+      }
+    }
+
+    async function filterProducts(category, btnElement) {
+      currentCategory = category;
+      currentPage = 1;
+      hasMoreMobile = true;
+      
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      btnElement.classList.add('active');
+      
+      if (isMobile()) {
+        document.getElementById('loading-more').style.display = 'none';
+        await renderProducts();
+        
+        // 重新綁定滾動載入
+        window.removeEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll);
+      } else {
+        await renderProducts();
+      }
+    }
+    
+    function handleScroll() {
+      if (isMobile() && !isLoadingMore && hasMoreMobile) {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        
+        if (scrollTop + windowHeight >= documentHeight - 300) {
+          loadMoreMobile();
+        }
+      }
+    }
+
+    async function fetchProducts() {
+      const { data } = await mySupabase.from('products').select('*').order('created_at', { ascending: true });
+      allProducts = data || [];
+      await renderProducts();
+      
+      if (isMobile()) {
+        window.addEventListener('scroll', handleScroll);
+      }
+    }
+
+    function updateCartUI() {
+      const list = document.getElementById('cart-items');
+      if (!list) return;
+      const items = Cart.getItems();
+      list.innerHTML = items.map((p, i) => `
+        <li>
+          <span>${p.name} x ${p.quantity}</span>
+          <span>$${p.price * p.quantity} 
+            <button onclick="Cart.removeItem(${i})">🗑️</button>
+          </span>
+        </li>
+      `).join('');
+      document.getElementById('total-price').innerText = Cart.getTotal();
+    }
+
+    async function submitOrder() {
+      const items = Cart.getItems();
+      if (items.length === 0) return alert('購物車是空的');
+      const orderData = {
+        name: document.getElementById('cust-name').value,
+        phone: document.getElementById('cust-phone').value,
+        email: document.getElementById('cust-email').value,
+        items: items,
+        total: Cart.getTotal()
+      };
+      if (!orderData.name || !orderData.phone || !orderData.email) return alert('請填寫完整資訊');
+      
+      try {
+        const res = await fetch('https://linebot-oh5o.onrender.com/order', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(orderData)
+        });
+        if (res.ok) {
+          alert('✅ 訂單已送出！');
+          localStorage.removeItem('myCart');
+          await fetchProducts();
+          updateCartUI();
+        } else {
+          alert('發送失敗');
+        }
+      } catch (err) {
+        alert('網路錯誤，請稍後再試');
+      }
+    }
+
+    function initNav() {
+      const btn = document.getElementById('hamburger');
+      const menu = document.getElementById('mobileMenu');
+      if (btn && menu) {
+        btn.addEventListener('click', () => {
+          btn.classList.toggle('open');
+          menu.classList.toggle('open');
+        });
+        menu.querySelectorAll('a').forEach(a => {
+          a.addEventListener('click', () => {
+            btn.classList.remove('open');
+            menu.classList.remove('open');
+          });
+        });
+      }
+      window.addEventListener('scroll', () => {
+        const nav = document.getElementById('mainNav');
+        if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const response = await fetch('nav.html');
+        const data = await response.text();
+        document.getElementById('nav-placeholder').innerHTML = data;
+        initNav();
+      } catch (err) {
+        console.warn('導覽列載入失敗');
+      }
+      
+      await fetchProducts();
+      updateCartUI();
+      document.addEventListener('cartUpdated', () => {
+        updateCartUI();
+        renderProducts();
+      });
+      
+      // 綁定篩選按鈕事件
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const category = btn.getAttribute('data-category');
+          filterProducts(category, btn);
+        });
+      });
+      
+      document.getElementById('prev-page')?.addEventListener('click', () => changePage(-1));
+      document.getElementById('next-page')?.addEventListener('click', () => changePage(1));
+    });
+    
+    window.Cart = window.Cart || {};
+    window.submitOrder = submitOrder;
+  </script>
+</body>
+</html>
