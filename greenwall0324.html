@@ -1,10 +1,9 @@
-<!-- ========== 主要頁面 index.html ========== -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>蕨積 — 植物 x 工程 x 碳生活</title>
+  <title>蕨積 — 植物 x 工程 x 碳生活 | 植生牆碳效益計算機</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -225,14 +224,136 @@
       .hamburger { display: flex; }
     }
 
-    /* ----- 頁面內容區域 ----- */
+    /* ----- 頁面內容區域 - 全新調整格式，更具呼吸感與雜誌風格 ----- */
     .content {
       flex: 1;
-      padding-top: 92px; /* 72px nav + 20px 間距 */
-      padding-bottom: 40px;
+      padding-top: 112px; /* 增加上方留白，讓視覺舒適 */
+      padding-bottom: 60px;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 90%;
     }
 
-    /* ----- Footer (完整保留) ----- */
+    /* 碳故事介紹區塊 */
+    .carbon-story-intro {
+      margin-bottom: 56px;
+      border-bottom: 1px solid rgba(90,122,74,0.2);
+      padding-bottom: 32px;
+    }
+    .page-header h2 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--moss);
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      margin-bottom: 24px;
+      border-left: 5px solid var(--fern);
+      padding-left: 20px;
+    }
+    .story-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 16px;
+    }
+    .story-paragraph {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #2c2c26;
+      margin-bottom: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+    .insight-card {
+      background: #ffffffcc;
+      backdrop-filter: blur(2px);
+      border-radius: 24px;
+      padding: 20px 28px;
+      flex: 1 1 240px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      border: 1px solid rgba(90,122,74,0.2);
+      transition: all 0.2s ease;
+    }
+    .insight-card:hover {
+      border-color: var(--sage);
+      background: white;
+    }
+    .insight-card i {
+      color: var(--fern);
+      width: 28px;
+      height: 28px;
+      margin-bottom: 12px;
+    }
+    .insight-card h3 {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      color: var(--moss);
+    }
+    .extend-links {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      margin: 12px 0 8px;
+    }
+    .extend-links a {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-weight: 500;
+      color: var(--fern);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border 0.2s;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+    .extend-links a:hover {
+      border-bottom: 1px solid var(--fern);
+      color: var(--moss);
+    }
+    .footnote {
+      margin-top: 40px;
+      padding: 20px 28px;
+      background: var(--mist);
+      border-radius: 48px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--moss);
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+
+    /* 計算機容器精修 - 融合品牌風格 */
+    .calculator-container {
+      margin: 32px 0 20px;
+      border-radius: 36px;
+      background: #fefaf5;
+      box-shadow: 0 20px 35px -12px rgba(61,90,56,0.12);
+      overflow: hidden;
+      border: 1px solid rgba(90,122,74,0.2);
+    }
+    /* 覆蓋 tailwind 的部分內部樣式，使其更符合整體美感 */
+    .calc-inner {
+      padding: 1.5rem;
+    }
+    @media (min-width: 768px) {
+      .calc-inner {
+        padding: 2rem;
+      }
+    }
+    .calc-header h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+    /* 自訂微調卡片間距 */
+    .custom-input-card {
+      transition: all 0.2s;
+    }
+
+    /* footer 不變 */
     footer {
       border-top: 1px solid rgba(90,122,74,0.15);
       padding: 40px 4vw;
@@ -281,226 +402,163 @@
         justify-content: center;
         flex-wrap: wrap;
       }
+      .content {
+        width: 92%;
+        padding-top: 100px;
+      }
+      .page-header h2 {
+        font-size: 1.6rem;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- 放置導覽列的佔位元素 -->
   <div id="nav-placeholder"></div>
 
-  <!-- 頁面主要內容區域：greenwall.html 專屬內容 -->
   <main class="content">
-    <div class="carbon-story">
+    <!-- 重新組織整體內容: 先有品牌論述，再置入計算機，讓綠化工程思維貫穿 -->
+    <div class="carbon-story-intro">
       <div class="page-header">
-        <h2>綠化，不只是設計，而是環境工程。</h2>
+        <h2>綠化，不只是設計，<br>而是環境工程的精準實踐。</h2>
       </div>
-
-      <p class="story-paragraph">
-        在都市環境中，空間有限，
-        垂直綠化成為讓植物回到生活的一種方式。
-      </p>
-
-      <p class="story-paragraph">
-        植生牆不只是視覺，
-        而是一種結合環境、設計與管理的系統。
-      </p>
-
-      <p class="story-paragraph">
-        在適當維護下，可以帶來降溫、空氣改善，
-        並參與碳循環的一部分。
-      </p>
-
-      <div class="iframe-card">
-        <div class="iframe-header">
+      <div class="story-grid">
+        <div class="insight-card">
+          <i data-lucide="building-2"></i>
+          <h3>垂直・再生</h3>
+          <p class="story-paragraph" style="font-size:0.9rem;">在都市縫隙中，植生牆將建築立面轉化為會呼吸的生態介面，讓植物回歸生活場景。</p>
+        </div>
+        <div class="insight-card">
           <i data-lucide="leaf"></i>
-          <h3>綠化與數據</h3>
+          <h3>系統・管理</h3>
+          <p class="story-paragraph" style="font-size:0.9rem;">結合灌溉、監控與維護計畫，讓綠牆不僅是視覺焦點，更是穩定運作的環境設備。</p>
         </div>
-        <p class="story-paragraph">
-          植物的成長，可以被記錄與累積，
-          成為環境改善的一部分。
-        </p>
-      </div>
-
-      <div class="iframe-card">
-        <div class="iframe-header">
-          <i data-lucide="arrow-right"></i>
-          <h3>延伸</h3>
+        <div class="insight-card">
+          <i data-lucide="trending-up"></i>
+          <h3>碳・數據化</h3>
+          <p class="story-paragraph" style="font-size:0.9rem;">透過科學化計算，將植生牆的固碳潛力與建置碳排可視化，建立透明減碳路徑。</p>
         </div>
-        <a href="lifestyle.html">生活提案 →</a><br>
-        <a href="consulting.html">回到顧問總覽 →</a>
       </div>
-
-      <div class="footnote">
-        「植物不是裝飾，而是系統的一部分。」
-      </div>
+      <p class="story-paragraph" style="margin-top: 20px; max-width: 780px;">
+        適當維護下的垂直綠化，能為都市帶來降溫、空氣淨化，並參與碳循環。但每一座綠牆背後，都藏著材料選擇、能源消耗與植物固碳的真實平衡。以下工具將協助您評估植生牆的碳足跡與回收年限，讓永續決策有跡可循。
+      </p>
     </div>
-  </main><div id="green-wall-calculator-wrapper">
-    <!-- 引入 Tailwind CSS (若您的網站已有則可移除此行) -->
-    <script src="https://cdn.tailwindcss.com"></script>
 
-    <div class="max-w-4xl mx-auto p-4 md:p-6 bg-[#f0fdf4] rounded-2xl shadow-inner">
-        <header class="mb-8 text-center">
-            <h1 class="text-3xl font-bold text-green-800 mb-2">🌿 植生牆碳效益計算機</h1>
-            <p class="text-green-600">評估垂直綠化的建置碳排與年度固碳能力</p>
-        </header>
+    <!-- 植生牆碳效益計算機區塊 (將原本的 wrapper 完美融入，提升格式與間距) -->
+    <div class="calculator-container">
+      <!-- 原本 #green-wall-calculator-wrapper 的內容重新格式化但保留完整計算邏輯，同時優化視覺 -->
+      <script src="https://cdn.tailwindcss.com"></script>
+      <!-- 內嵌自訂 tailwind 不會影響外部版面，但避免衝突使用輕量覆蓋 -->
+      <div class="calc-inner">
+        <div class="max-w-4xl mx-auto">
+          <header class="mb-8 text-center md:text-left">
+            <h1 class="text-3xl md:text-4xl font-bold text-green-800 mb-2 flex items-center gap-2 justify-center md:justify-start">
+              <i data-lucide="calculator" style="width: 32px; height: 32px;"></i> 
+              植生牆碳效益計算機
+            </h1>
+            <p class="text-green-600 text-sm md:text-base">評估垂直綠化的建置碳排與年度固碳能力，打造數據導向的綠化策略</p>
+          </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- 輸入區塊 -->
-            <div class="bg-white p-6 rounded-2xl shadow-md border border-green-100">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">基本參數設定</h2>
-                
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">植生牆總面積 (m²)</label>
-                        <input type="number" id="area" value="10" min="0.1" step="0.1" oninput="gw_calculate()" class="w-full border border-gray-300 p-2 rounded-md">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">主要結構材料</label>
-                        <select id="structure" class="w-full border border-gray-300 p-2 rounded-md" onchange="gw_calculate()">
-                            <option value="steel">鍍鋅鋼架 (高強度、高碳排)</option>
-                            <option value="aluminum">鋁合金 (輕便、極高碳排)</option>
-                            <option value="recycled_plastic">再生塑料 (環保、中碳排)</option>
-                            <option value="wood">防腐木材 (天然、低碳排)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">維護用電量 (kWh/月)</label>
-                        <p class="text-[10px] text-gray-400 mb-1">自動灌溉與補光燈</p>
-                        <input type="number" id="electricity" value="5" min="0" oninput="gw_calculate()" class="w-full border border-gray-300 p-2 rounded-md">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">預期植物密度 (株/m²)</label>
-                        <input type="number" id="density" value="36" min="1" oninput="gw_calculate()" class="w-full border border-gray-300 p-2 rounded-md">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">固碳係數 (kg CO2e/株/年)</label>
-                        <p class="text-[10px] text-gray-400 mb-1">預設為 0.2kg (一般觀葉植物平均值)</p>
-                        <input type="number" id="carbon_rate" value="0.2" min="0.01" step="0.01" oninput="gw_calculate()" class="w-full border border-gray-300 p-2 rounded-md">
-                    </div>
-                </div>
-            </div>
-
-            <!-- 結果顯示區 -->
-            <div class="bg-white p-6 rounded-2xl shadow-md border border-green-100 flex flex-col justify-between">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- 輸入區塊 加入淡綠色背景與圓角 -->
+            <div class="bg-white/90 p-6 rounded-2xl shadow-sm border border-green-100 custom-input-card">
+              <h2 class="text-xl font-semibold text-gray-800 mb-4 border-b border-green-200 pb-2 flex items-center gap-2">
+                <i data-lucide="sliders"></i> 基本參數設定
+              </h2>
+              <div class="space-y-4">
                 <div>
-                    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">計算結果分析</h2>
-                    
-                    <div class="space-y-6">
-                        <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
-                            <p class="text-xs text-red-700 font-bold uppercase tracking-wider">建置階段總碳排 (一次性)</p>
-                            <div class="flex items-baseline gap-2">
-                                <span id="total_construction_emissions" class="text-3xl font-bold text-red-600">0.0</span>
-                                <span class="text-gray-500 text-sm font-medium">kg CO2e</span>
-                            </div>
-                        </div>
-
-                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                            <p class="text-xs text-blue-700 font-bold uppercase tracking-wider">年度營運維護碳排</p>
-                            <div class="flex items-baseline gap-2">
-                                <span id="annual_maintenance_emissions" class="text-3xl font-bold text-blue-600">0.0</span>
-                                <span class="text-gray-500 text-sm font-medium">kg CO2e / 年</span>
-                            </div>
-                        </div>
-
-                        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
-                            <p class="text-xs text-green-700 font-bold uppercase tracking-wider">年度植物總固碳量</p>
-                            <div class="flex items-baseline gap-2">
-                                <span id="total_sequestration" class="text-3xl font-bold text-green-600">0.0</span>
-                                <span class="text-gray-500 text-sm font-medium">kg CO2e / 年</span>
-                            </div>
-                        </div>
-                    </div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">🌱 植生牆總面積 (m²)</label>
+                  <input type="number" id="area" value="10" min="0.1" step="0.1" oninput="gw_calculate()" class="w-full border border-gray-300 p-2 rounded-md focus:ring-green-400 focus:border-green-400">
                 </div>
-
-                <div class="mt-8 pt-4 border-t border-dashed border-gray-200">
-                    <div class="bg-gray-800 text-white p-4 rounded-xl text-center">
-                        <p class="text-xs opacity-80 mb-1">碳中和損益平衡點</p>
-                        <p class="text-2xl font-bold"><span id="payback_years">0.0</span> 年</p>
-                        <p class="text-[10px] opacity-60 mt-2">扣除年度維護排碳後，需多少年抵銷建置碳排</p>
-                    </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">🏗️ 主要結構材料</label>
+                  <select id="structure" class="w-full border border-gray-300 p-2 rounded-md" onchange="gw_calculate()">
+                    <option value="steel">鍍鋅鋼架 (高強度、高碳排)</option>
+                    <option value="aluminum">鋁合金 (輕便、極高碳排)</option>
+                    <option value="recycled_plastic">再生塑料 (環保、中碳排)</option>
+                    <option value="wood">防腐木材 (天然、低碳排)</option>
+                  </select>
                 </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">⚡ 維護用電量 (kWh/月)</label>
+                  <p class="text-[10px] text-gray-400 mb-1">自動灌溉與補光燈</p>
+                  <input type="number" id="electricity" value="5" min="0" oninput="gw_calculate()" class="w-full border border-gray-300 p-2 rounded-md">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">🌿 預期植物密度 (株/m²)</label>
+                  <input type="number" id="density" value="36" min="1" oninput="gw_calculate()" class="w-full border border-gray-300 p-2 rounded-md">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">📊 固碳係數 (kg CO2e/株/年)</label>
+                  <p class="text-[10px] text-gray-400 mb-1">預設為 0.2kg (一般觀葉植物平均值)</p>
+                  <input type="number" id="carbon_rate" value="0.2" min="0.01" step="0.01" oninput="gw_calculate()" class="w-full border border-gray-300 p-2 rounded-md">
+                </div>
+              </div>
             </div>
-        </div>
 
-        <!-- 說明文件 -->
-        <div class="mt-8 p-6 text-[13px] text-gray-600 leading-relaxed bg-white/50 rounded-xl">
-            <h3 class="font-bold text-gray-800 mb-2">計算說明與引用基準：</h3>
+            <!-- 結果顯示區 強化視覺 -->
+            <div class="bg-white/90 p-6 rounded-2xl shadow-sm border border-green-100 flex flex-col justify-between">
+              <div>
+                <h2 class="text-xl font-semibold text-gray-800 mb-4 border-b border-green-200 pb-2 flex items-center gap-2">
+                  <i data-lucide="bar-chart-3"></i> 計算結果分析
+                </h2>
+                <div class="space-y-6">
+                  <div class="bg-red-50 p-4 rounded-xl border-l-4 border-red-500 transition hover:shadow-sm">
+                    <p class="text-xs text-red-700 font-bold uppercase tracking-wider flex items-center gap-1"><i data-lucide="hammer"></i> 建置階段總碳排 (一次性)</p>
+                    <div class="flex items-baseline gap-2 mt-1">
+                      <span id="total_construction_emissions" class="text-3xl font-bold text-red-600">0.0</span>
+                      <span class="text-gray-500 text-sm font-medium">kg CO2e</span>
+                    </div>
+                  </div>
+                  <div class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">
+                    <p class="text-xs text-blue-700 font-bold uppercase tracking-wider flex items-center gap-1"><i data-lucide="zap"></i> 年度營運維護碳排</p>
+                    <div class="flex items-baseline gap-2">
+                      <span id="annual_maintenance_emissions" class="text-3xl font-bold text-blue-600">0.0</span>
+                      <span class="text-gray-500 text-sm font-medium">kg CO2e / 年</span>
+                    </div>
+                  </div>
+                  <div class="bg-green-50 p-4 rounded-xl border-l-4 border-green-500">
+                    <p class="text-xs text-green-700 font-bold uppercase tracking-wider flex items-center gap-1"><i data-lucide="leaf"></i> 年度植物總固碳量</p>
+                    <div class="flex items-baseline gap-2">
+                      <span id="total_sequestration" class="text-3xl font-bold text-green-600">0.0</span>
+                      <span class="text-gray-500 text-sm font-medium">kg CO2e / 年</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-8 pt-4 border-t border-dashed border-gray-200">
+                <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white p-5 rounded-xl text-center shadow-md">
+                  <p class="text-xs opacity-80 mb-1 tracking-wider">📆 碳中和損益平衡點</p>
+                  <p class="text-3xl font-bold tracking-tight"><span id="payback_years">0.0</span> <span class="text-base font-normal">年</span></p>
+                  <p class="text-[10px] opacity-70 mt-2">扣除年度維護排碳後，需多少年抵銷建置碳排</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 說明文件 精簡優雅 -->
+          <div class="mt-10 p-6 text-[13px] text-gray-600 leading-relaxed bg-white/70 rounded-2xl border border-green-100 shadow-inner">
+            <h3 class="font-bold text-gray-800 mb-2 flex items-center gap-1"><i data-lucide="info" style="width:16px;"></i> 計算說明與引用基準</h3>
             <ul class="list-disc ml-5 space-y-1">
-                <li><strong>建置碳排：</strong> 包含支架、不織布、塑膠盆器與介質。本工具根據材質平均排放係數換算為每平方公尺數值。</li>
-                <li><strong>維護碳排：</strong> 參考台灣電力排放係數 (約 0.495 kg CO2e/kWh)。</li>
-                <li><strong>固碳作用：</strong> 垂直綠化植物生物量較小，研究顯示單株年固碳約在 0.1 ~ 0.5 kg 之間。</li>
-                <li><strong>淨效益：</strong> 植生牆降溫帶來的空調節電效益通常遠高於直接固碳量，此處僅計算直接碳匯。</li>
+              <li><strong>建置碳排：</strong> 包含支架、不織布、塑膠盆器與介質。本工具根據材質平均排放係數換算為每平方公尺數值 (鋼架25 / 鋁55 / 再生塑膠15 / 木材5 kgCO2e/m²)。</li>
+              <li><strong>維護碳排：</strong> 參考台灣電力排放係數 (約 0.495 kg CO2e/kWh)。</li>
+              <li><strong>固碳作用：</strong> 垂直綠化植物生物量較小，研究顯示單株年固碳約在 0.1 ~ 0.5 kg 之間。</li>
+              <li><strong>淨效益：</strong> 植生牆降溫帶來的空調節電效益通常遠高於直接固碳量，此處僅計算直接碳匯與碳抵銷年限。</li>
             </ul>
+          </div>
         </div>
+      </div>
     </div>
 
-    <script>
-        // 使用具備前綴的函數名，避免與 WordPress 其他插件衝突
-        function gw_calculate() {
-            const EMISSION_FACTORS = {
-                structure: {
-                    steel: 25.0,
-                    aluminum: 55.0,
-                    recycled_plastic: 15.0,
-                    wood: 5.0
-                },
-                electricity: 0.495,
-                pot_and_media: 2.5
-            };
-
-            const area = parseFloat(document.getElementById('area').value) || 0;
-            const structureType = document.getElementById('structure').value;
-            const monthlyElec = parseFloat(document.getElementById('electricity').value) || 0;
-            const density = parseFloat(document.getElementById('density').value) || 0;
-            const carbonRate = parseFloat(document.getElementById('carbon_rate').value) || 0;
-
-            if (area <= 0) return;
-
-            // 1. 建置排碳
-            const constructionEmissions = area * (EMISSION_FACTORS.structure[structureType] + EMISSION_FACTORS.pot_and_media);
-            
-            // 2. 年度運作排碳
-            const annualMaintenanceEmissions = monthlyElec * 12 * EMISSION_FACTORS.electricity;
-
-            // 3. 年度固碳量
-            const totalSequestration = area * density * carbonRate;
-
-            // 4. 更新 UI
-            document.getElementById('total_construction_emissions').innerText = constructionEmissions.toFixed(1);
-            document.getElementById('annual_maintenance_emissions').innerText = annualMaintenanceEmissions.toFixed(1);
-            document.getElementById('total_sequestration').innerText = totalSequestration.toFixed(1);
-
-            // 5. 計算損益平衡
-            const netAnnualSequestration = totalSequestration - annualMaintenanceEmissions;
-            const paybackYearsElement = document.getElementById('payback_years');
-
-            if (netAnnualSequestration <= 0) {
-                paybackYearsElement.innerText = "∞ (碳排 > 固碳)";
-                paybackYearsElement.style.color = "#f87171";
-            } else {
-                const years = constructionEmissions / netAnnualSequestration;
-                paybackYearsElement.innerText = years.toFixed(1);
-                paybackYearsElement.style.color = "#ffffff";
-            }
-        }
-
-        // 確保 DOM 載入後執行一次
-        document.addEventListener('DOMContentLoaded', function() {
-            gw_calculate();
-        });
-        
-        // 針對 Elementor 預覽模式的特殊處理
-        setTimeout(gw_calculate, 500);
-    </script>
-</div>
-    
+    <!-- 延伸連結與補充註腳 -->
+    <div class="extend-links" style="margin: 30px 0 20px;">
+      <a href="lifestyle.html">⟡ 生活提案：植物與日常碳足跡</a>
+      <a href="consulting.html">⟡ 回到顧問總覽</a>
+    </div>
+    <div class="footnote">
+      「植物不是裝飾，而是系統的一部分。」—— 每一座綠牆，都是都市裡微型的碳循環引擎。
+    </div>
   </main>
 
-  <!-- Footer -->
   <footer>
     <ul class="footer-links">
       <li><a href="shop.html">植物選品</a></li>
@@ -512,26 +570,73 @@
   </footer>
 
   <script>
+    // 植生牆計算核心函數 (獨立且相容)
+    function gw_calculate() {
+      const EMISSION_FACTORS = {
+        structure: {
+          steel: 25.0,
+          aluminum: 55.0,
+          recycled_plastic: 15.0,
+          wood: 5.0
+        },
+        electricity: 0.495,
+        pot_and_media: 2.5
+      };
+      const area = parseFloat(document.getElementById('area')?.value) || 0;
+      const structureType = document.getElementById('structure')?.value || 'steel';
+      const monthlyElec = parseFloat(document.getElementById('electricity')?.value) || 0;
+      const density = parseFloat(document.getElementById('density')?.value) || 0;
+      const carbonRate = parseFloat(document.getElementById('carbon_rate')?.value) || 0;
+
+      if (area <= 0) {
+        if(document.getElementById('total_construction_emissions')) document.getElementById('total_construction_emissions').innerText = '0.0';
+        if(document.getElementById('annual_maintenance_emissions')) document.getElementById('annual_maintenance_emissions').innerText = '0.0';
+        if(document.getElementById('total_sequestration')) document.getElementById('total_sequestration').innerText = '0.0';
+        if(document.getElementById('payback_years')) document.getElementById('payback_years').innerText = '∞';
+        return;
+      }
+      const constructionEmissions = area * (EMISSION_FACTORS.structure[structureType] + EMISSION_FACTORS.pot_and_media);
+      const annualMaintenanceEmissions = monthlyElec * 12 * EMISSION_FACTORS.electricity;
+      const totalSequestration = area * density * carbonRate;
+      
+      if(document.getElementById('total_construction_emissions')) document.getElementById('total_construction_emissions').innerText = constructionEmissions.toFixed(1);
+      if(document.getElementById('annual_maintenance_emissions')) document.getElementById('annual_maintenance_emissions').innerText = annualMaintenanceEmissions.toFixed(1);
+      if(document.getElementById('total_sequestration')) document.getElementById('total_sequestration').innerText = totalSequestration.toFixed(1);
+      
+      const netAnnualSequestration = totalSequestration - annualMaintenanceEmissions;
+      const paybackElement = document.getElementById('payback_years');
+      if (paybackElement) {
+        if (netAnnualSequestration <= 0) {
+          paybackElement.innerText = "∞ (碳排 > 固碳)";
+          paybackElement.style.color = "#f87171";
+        } else {
+          const years = constructionEmissions / netAnnualSequestration;
+          paybackElement.innerText = years.toFixed(1);
+          paybackElement.style.color = "#ffffff";
+        }
+      }
+    }
+
+    // 導覽列載入 + 初始化邏輯
     document.addEventListener('DOMContentLoaded', function () {
-      // 載入共用導覽列
       fetch('nav.html')
         .then(response => response.text())
         .then(data => {
           document.getElementById('nav-placeholder').innerHTML = data;
-          // 在導覽列插入後，重新綁定事件與初始化
           initNav();
+          // 確保計算機重新觸發
+          setTimeout(() => { if(typeof gw_calculate === 'function') gw_calculate(); }, 100);
         })
         .catch(err => {
-          console.error('無法載入導覽列:', err);
-          // 錯誤時的備用顯示
+          console.error('nav.html 不存在，使用簡易替代導覽列');
           document.getElementById('nav-placeholder').innerHTML = 
-            '<nav style="background:var(--moss);color:white;padding:0 4vw;height:72px;display:flex;align-items:center;">' +
-            '<span style="font-family:Noto Serif TC,serif;font-weight:900;">⚠️ 導覽列載入失敗，請確認 nav.html 是否存在</span>' +
-            '</nav>';
+            '<nav style="background:var(--paper);padding:0 4vw;height:72px;display:flex;align-items:center;justify-content:space-between;">' +
+            '<div class="logo"><div class="logo-text">蕨積<span>FERNBROM</span></div></div>' +
+            '<div style="display:flex;gap:20px;"><a href="#" style="text-decoration:none;color:var(--moss)">選單</a></div></nav>';
+          initNav();
         });
-
+      
       function initNav() {
-        // hamburger 事件
         var btn = document.getElementById('hamburger');
         var menu = document.getElementById('mobileMenu');
         if (btn && menu) {
@@ -539,39 +644,29 @@
             btn.classList.toggle('open');
             menu.classList.toggle('open');
           });
-          menu.querySelectorAll('.mobile-link').forEach(function (a) {
-            a.addEventListener('click', function () {
-              btn.classList.remove('open');
-              menu.classList.remove('open');
-            });
-          });
+          if(menu.querySelectorAll('.mobile-link')) menu.querySelectorAll('.mobile-link').forEach(a => a.addEventListener('click', () => { btn.classList.remove('open'); menu.classList.remove('open'); }));
         }
-        // 行動選單的展開折疊
         if (menu) {
-          menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
+          menu.querySelectorAll('.mobile-parent').forEach(parent => {
             parent.addEventListener('click', function () {
-              var id = parent.getAttribute('data-target');
-              var sub = document.getElementById(id);
-              var caretId = 'caret-' + id.replace('sub-', '');
-              var caret = document.getElementById(caretId);
-              var opening = !sub.classList.contains('open');
-              menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
-              menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
-              if (opening) {
+              let targetId = parent.getAttribute('data-target');
+              let sub = document.getElementById(targetId);
+              let caretId = 'caret-' + targetId?.replace('sub-', '');
+              let caret = document.getElementById(caretId);
+              let opening = sub && !sub.classList.contains('open');
+              if(menu.querySelectorAll('.mobile-sub')) menu.querySelectorAll('.mobile-sub').forEach(s => s.classList.remove('open'));
+              if(menu.querySelectorAll('.mobile-caret')) menu.querySelectorAll('.mobile-caret').forEach(c => c.classList.remove('open'));
+              if(opening && sub) {
                 sub.classList.add('open');
-                if (caret) caret.classList.add('open');
+                if(caret) caret.classList.add('open');
               }
             });
           });
         }
-        // 滾動效果
-        window.addEventListener('scroll', function () {
-          var nav = document.getElementById('mainNav');
-          if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
-        });
-        // 重新綁定 lucide 圖示
+        window.addEventListener('scroll', () => { let nav = document.getElementById('mainNav'); if(nav) nav.classList.toggle('scrolled', window.scrollY > 20); });
         if (typeof lucide !== 'undefined') lucide.createIcons();
       }
+      gw_calculate();
     });
   </script>
 </body>
