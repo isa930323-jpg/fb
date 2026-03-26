@@ -3,276 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>蕨積每日文章 - 植物・永續・碳盤查・生活</title>
+    <title>蕨積每日文章</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background-color: #faf8f4;
-            color: #2c3e2f;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        /* 標題區 */
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .header h1 {
-            color: #2c5e2e;
-            font-size: 2rem;
-        }
-        .header p {
-            color: #7f8c6d;
-            margin-top: 0.5rem;
-        }
-        /* 四大類別連結 */
-        .categories {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        .category-btn {
-            padding: 0.5rem 1.5rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: transform 0.2s;
-            cursor: pointer;
-            border: none;
-            font-size: 0.9rem;
-        }
-        .category-btn:hover {
-            transform: translateY(-2px);
-        }
-        .category-植物 { background: #4a7c59; color: white; }
-        .category-永續 { background: #2c7a4d; color: white; }
-        .category-碳盤查 { background: #1e6f5c; color: white; }
-        .category-生活 { background: #b88b4a; color: white; }
-        .category-all { background: #6c757d; color: white; }
-        
-        /* 兩欄布局 */
-        .main-layout {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-        .content-area {
-            flex: 3;
-            min-width: 250px;
-        }
-        .sidebar {
-            flex: 1;
-            min-width: 200px;
-            background: white;
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            height: fit-content;
-        }
-        .section-title {
-            font-size: 1.2rem;
-            color: #2c5e2e;
-            border-bottom: 2px solid #e0d6cc;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        /* 最新文章完整顯示 */
-        .latest-article {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-        }
-        .latest-category {
-            display: inline-block;
-            background: #4a7c59;
-            color: white;
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-bottom: 1rem;
-        }
-        .latest-title {
-            font-size: 1.8rem;
-            color: #2c5e2e;
-            margin-bottom: 0.5rem;
-        }
-        .latest-date {
-            color: #7f8c6d;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-        }
-        .latest-content {
-            line-height: 1.8;
-            color: #2c3e2f;
-        }
-        .latest-content p {
-            margin: 1rem 0;
-        }
-        .read-more {
-            display: inline-block;
-            margin-top: 1rem;
-            color: #4a7c59;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        /* 過往文章列表 */
-        .past-list {
-            list-style: none;
-            padding: 0;
-        }
-        .past-item {
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #f0e8e0;
-        }
-        .past-link {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: #4a7c59;
-            text-decoration: none;
-            display: block;
-        }
-        .past-link:hover {
-            text-decoration: underline;
-        }
-        .past-meta {
-            font-size: 0.7rem;
-            color: #aaa;
-            margin-top: 0.25rem;
-        }
-        .past-badge {
-            display: inline-block;
-            font-size: 0.65rem;
-            padding: 0.1rem 0.5rem;
-            border-radius: 12px;
-            color: white;
-            margin-right: 0.5rem;
-        }
-        .archive-month {
-            margin-bottom: 1rem;
-        }
-        .archive-month-title {
-            font-weight: 600;
-            color: #4a7c59;
-            margin-bottom: 0.5rem;
-        }
-        .archive-list {
-            list-style: none;
-            padding-left: 0.5rem;
-        }
-        .archive-list li {
-            margin-bottom: 0.3rem;
-        }
-        .archive-list a {
-            color: #7f8c6d;
-            text-decoration: none;
-            font-size: 0.85rem;
-        }
-        .archive-list a:hover {
-            color: #4a7c59;
-            text-decoration: underline;
-        }
-        .back-link {
-            display: inline-block;
-            margin-top: 2rem;
-            color: #4a7c59;
-            text-decoration: none;
-        }
-        @media (max-width: 768px) {
-            .main-layout {
-                flex-direction: column;
-            }
-            .latest-title {
-                font-size: 1.4rem;
-            }
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 0 auto; padding: 2rem; background: #faf8f4; color: #2c3e2f; }
+        h1 { color: #2c5e2e; border-left: 4px solid #6b8c5c; padding-left: 1rem; }
+        .article-list { list-style: none; padding: 0; }
+        .article-item { margin: 1rem 0; padding: 1rem; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .article-link { font-size: 1.1rem; font-weight: 500; color: #4a7c59; text-decoration: none; display: block; }
+        .article-link:hover { text-decoration: underline; }
+        .article-date { color: #7f8c6d; font-size: 0.8rem; margin-top: 0.3rem; }
+        .category-badge { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.7rem; color: white; margin-right: 0.5rem; }
+        .footer { text-align: center; margin-top: 2rem; color: #7f8c6d; font-size: 0.8rem; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🌿 蕨積每日文章</h1>
-            <p>植物・永續・碳盤查・生活 — 每天一篇，與你一起成長</p>
-        </div>
-        
-        <div class="categories">
-            <button class="category-btn category-all" onclick="filterPastArticles('all')">📋 全部</button>
-            <button class="category-btn category-植物" onclick="filterPastArticles('植物')">📌 植物</button>
-            <button class="category-btn category-永續" onclick="filterPastArticles('永續')">📌 永續</button>
-            <button class="category-btn category-碳盤查" onclick="filterPastArticles('碳盤查')">📌 碳盤查</button>
-            <button class="category-btn category-生活" onclick="filterPastArticles('生活')">📌 生活</button>
+    <h1>🌿 蕨積每日文章</h1>
+    <p style="color: #7f8c6d; margin-bottom: 1.5rem;">植物・永續・碳盤查・生活 — 每天一篇，與你一起成長</p>
+    <ul class="article-list">
 
-        </div>
-        
-        <div class="main-layout">
-            <div class="content-area">
-                <!-- 最新文章：完整顯示 -->
-                <div class="latest-article">
-                    <div class="latest-category">📌 植物</div>
-                    <h1 class="latest-title">植物界的沉默魔術師：它們如何悄悄改變你的生活？</h1>
-                    <div class="latest-date">📅 2026-03-26</div>
-                    <div class="latest-content">
-                        
-        ### 植物界的沉默魔術師：它們如何悄悄改變你的生活？<br><br>你是否曾停下腳步，欣賞路邊一朵野花的綻放，或感受過家中盆栽帶來的那份寧靜？植物，這些看似靜默的生命體，其實正以驚人的方式與世界互動，並深深影響著我們的身心靈。<br><br>**不只是裝飾：植物的生態智慧**<br><br>植物是地球生態系的基石。它們透過光合作用，將陽光轉化為能量，並釋放出我們賴以維生的氧氣。但你可能不知道，植物擁有令人驚嘆的溝通與防禦機制。例如，當柳樹被毛蟲啃食時，會釋放化學訊號，提醒周圍的柳樹「危險來臨」，讓鄰居提前製造苦味物質來抵禦害蟲。這種無聲的「植物網路」，展現了它們低調卻複雜的生存策略。<br><br>**室內綠手指入門：養護三關鍵**<br><br>將植物帶入家中，不僅能美化空間，更能提升生活品質。新手可以從以下三點開始：<br><br>1.  **光照判斷**：觀察家中光線。窗邊明亮處適合龜背竹、虎尾蘭；光線較弱的角落，則可以選擇黃金葛、心葉蔓綠絨。記住：「寧可少光，勿曝曬過度」是通用原則。<br>2.  **澆水哲學**：「見乾見濕」是關鍵。手指插入土壤約一節指節深，若感覺乾燥再澆水，且要澆到水從盆底流出，確保根系均勻吸收。多數植物死於「愛心過度」的澆灌。<br>3.  **通風與濕度**：避免將植物放在空調出風口或完全密閉的空間。定期開窗通風，或偶爾噴灑水霧，能讓葉片更健康有光澤。<br><br>**特殊明星：會跳舞的舞女蘭**<br><br>在眾多植物中，有些品種特別引人入勝。例如「舞女蘭」（Oncidium），當微風吹過，其花瓣會如翩翩起舞的裙擺般搖曳，因而得名。它喜歡明亮的散射光與良好的排水環境，開花時成串的小花宛如空中芭蕾，能為空間增添動態的活力。<br><br>**綠意的療癒力量**<br><br>研究顯示，與植物相處能降低壓力指數、提升專注力與創造力。照料植物的過程，是一種正念練習，讓我們專注於當下。土壤的觸感、新芽萌發的驚喜，都在無形中舒緩緊繃的神經，連結我們與自然的節奏。<br><br>一盆綠意，不僅是空間的點綴，更是我們與自然對話的窗口。從今天開始，試著觀察身邊的植物，你會發現，這些沉默的夥伴正以它們的方式，讓你的世界變得更生動、更平衡。<br><br>🌿 蕨積 - 讓生活多一點綠
-    
-                    </div>
-                    <a href="2026-03-26-植物界的沉默魔術師：它們如何悄悄改變你的生活？.html" class="read-more">🔗 查看獨立頁面 →</a>
-                </div>
-                
-                <div class="section-title">📖 過往文章</div>
-                <ul class="past-list" id="past-list">
-
-                    <li class="past-item" data-category="未分類">
-                        <span class="past-badge" style="background: #6c757d;">未分類</span>
-                        <a class="past-link" href="2026-03-26-**穿梭時空的綠精靈：蕨類植物的生存智慧與生活美學**.html">**穿梭時空的綠精靈：蕨類植物的生存智慧與生活美學**</a>
-                        <div class="past-meta">📅 2026-03-26</div>
-                    </li>
-                    <li class="past-item" data-category="未分類">
-                        <span class="past-badge" style="background: #6c757d;">未分類</span>
-                        <a class="past-link" href="2026-03-26-蕨類植物：地球上的綠色活化石，不開花卻生生不息.html">蕨類植物：地球上的綠色活化石，不開花卻生生不息</a>
-                        <div class="past-meta">📅 2026-03-26</div>
-                    </li>
-                    <li class="past-item" data-category="未分類">
-                        <span class="past-badge" style="background: #6c757d;">未分類</span>
-                        <a class="past-link" href="2026-03-26-**穿梭億萬年的綠色精靈：蕨類植物的不思議世界**.html">**穿梭億萬年的綠色精靈：蕨類植物的不思議世界**</a>
-                        <div class="past-meta">📅 2026-03-26</div>
-                    </li>
-                </ul>
-            </div>
-            
-            <div class="sidebar">
-                <div class="section-title">📚 歷史歸檔</div>
-
-                <div class="archive-month">
-                    <div class="archive-month-title">2026年3月</div>
-                    <ul class="archive-list"><li><a href="2026-03-26-**穿梭時空的綠精靈：蕨類植物的生存智慧與生活美學**.html">**穿梭時空的綠精靈：蕨類植物的生存智慧與生活美學...</a></li><li><a href="2026-03-26-蕨類植物：地球上的綠色活化石，不開花卻生生不息.html">蕨類植物：地球上的綠色活化石，不開花卻生生不息</a></li><li><a href="2026-03-26-**穿梭億萬年的綠色精靈：蕨類植物的不思議世界**.html">**穿梭億萬年的綠色精靈：蕨類植物的不思議世界**</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-        <a href="/" class="back-link">← 返回首頁</a>
+        <li class="article-item">
+            <span class="category-badge" style="background: #6c757d;">未分類</span>
+            <a class="article-link" href="indextest.html">🌿 管理後台</a>
+            <div class="article-date">📅 indextest.</div>
+        </li>
+        <li class="article-item">
+            <span class="category-badge" style="background: #6c757d;">未分類</span>
+            <a class="article-link" href="admin.html">🌿 蕨積管理後台</a>
+            <div class="article-date">📅 admin.html</div>
+        </li>
+        <li class="article-item">
+            <span class="category-badge" style="background: #4a7c59;">植物</span>
+            <a class="article-link" href="2026-03-26-植物界的沉默魔術師：它們如何悄悄改變你的生活？.html">植物界的沉默魔術師：它們如何悄悄改變你的生活？</a>
+            <div class="article-date">📅 2026-03-26</div>
+        </li>
+        <li class="article-item">
+            <span class="category-badge" style="background: #6c757d;">未分類</span>
+            <a class="article-link" href="2026-03-26-**穿梭時空的綠精靈：蕨類植物的生存智慧與生活美學**.html">**穿梭時空的綠精靈：蕨類植物的生存智慧與生活美學**</a>
+            <div class="article-date">📅 2026-03-26</div>
+        </li>
+        <li class="article-item">
+            <span class="category-badge" style="background: #6c757d;">未分類</span>
+            <a class="article-link" href="2026-03-26-蕨類植物：地球上的綠色活化石，不開花卻生生不息.html">蕨類植物：地球上的綠色活化石，不開花卻生生不息</a>
+            <div class="article-date">📅 2026-03-26</div>
+        </li>
+        <li class="article-item">
+            <span class="category-badge" style="background: #6c757d;">未分類</span>
+            <a class="article-link" href="2026-03-26-**穿梭億萬年的綠色精靈：蕨類植物的不思議世界**.html">**穿梭億萬年的綠色精靈：蕨類植物的不思議世界**</a>
+            <div class="article-date">📅 2026-03-26</div>
+        </li>
+        <li class="article-item">
+            <span class="category-badge" style="background: #4a7c59;">植物</span>
+            <a class="article-link" href="2026-03-26-**標題：不只是裝飾你家裡的綠色室友，正悄悄為你施展「植物療癒力」**.html">**標題：不只是裝飾！你家裡的綠色室友，正悄悄為你施展「植物療癒力」**</a>
+            <div class="article-date">📅 2026-03-26</div>
+        </li>
+    </ul>
+    <div class="footer">
+        🌿 蕨積 - 讓生活多一點綠<br>
+        每日一篇，與你一起成長
     </div>
-    
-    <script>
-        function filterPastArticles(category) {
-            const items = document.querySelectorAll('#past-list .past-item');
-            items.forEach(item => {
-                if (category === 'all' || item.dataset.category === category) {
-                    item.style.display = '';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-    </script>
 </body>
 </html>
