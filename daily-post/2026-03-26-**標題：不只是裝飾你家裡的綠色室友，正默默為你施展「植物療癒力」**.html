@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>蕨積每日文章 - 植物・永續・碳盤查・生活</title>
+    <title>**標題：不只是裝飾！你家裡的綠色室友，正默默為你施展「植物療癒力」** - 蕨積每日文章</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -256,49 +256,13 @@
         flex-wrap: wrap;
       }
     }
-    /* ===== 每日文章專用樣式 ===== */
-    .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .page-header { text-align: center; margin-bottom: 2rem; }
-    .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
-    .page-header p { color: var(--stone); margin-top: 0.5rem; }
-    
-    .categories {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        flex-wrap: wrap;
-        margin-bottom: 2rem;
+    /* ===== 獨立文章專用樣式 ===== */
+    .article-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
-    .category-btn {
-        padding: 0.5rem 1.5rem;
-        border-radius: 30px;
-        border: none;
-        cursor: pointer;
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition: transform 0.2s;
-        background: #e8e0d8;
-        color: #4a5b4e;
-    }
-    .category-btn:hover { transform: translateY(-2px); }
-    .category-btn.active { background: #4a7c59; color: white; }
-    .category-植物.active { background: #4a7c59; }
-    .category-永續.active { background: #2c7a4d; }
-    .category-碳盤查.active { background: #1e6f5c; }
-    .category-生活.active { background: #b88b4a; }
-    
-    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
-    .main-col { flex: 3; min-width: 250px; }
-    .sidebar-col { flex: 1; min-width: 200px; background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); height: fit-content; }
-    
-    .latest-article {
-        background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    }
-    .latest-category {
+    .article-category {
         display: inline-block;
         background: #4a7c59;
         color: white;
@@ -307,29 +271,38 @@
         font-size: 0.8rem;
         margin-bottom: 1rem;
     }
-    .latest-title { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.5rem; }
-    .latest-date { color: var(--stone); margin-bottom: 1.5rem; font-size: 0.9rem; }
-    .latest-content { line-height: 1.8; }
-    .read-more { display: inline-block; margin-top: 1rem; color: var(--fern); text-decoration: none; font-weight: 500; }
-    
-    .section-title { font-size: 1.2rem; color: var(--moss); border-bottom: 2px solid #e0d6cc; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-    .past-list { list-style: none; }
-    .past-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0e8e0; }
-    .past-link { font-size: 0.95rem; font-weight: 500; color: var(--fern); text-decoration: none; display: block; }
-    .past-link:hover { text-decoration: underline; }
-    .past-meta { font-size: 0.7rem; color: #aaa; margin-top: 0.25rem; }
-    .past-badge { display: inline-block; font-size: 0.65rem; padding: 0.1rem 0.5rem; border-radius: 12px; color: white; margin-right: 0.5rem; }
-    .archive-month { margin-bottom: 1rem; }
-    .archive-month-title { font-weight: 600; color: var(--moss); margin-bottom: 0.5rem; }
-    .archive-list { list-style: none; padding-left: 0.5rem; }
-    .archive-list li { margin-bottom: 0.3rem; }
-    .archive-list a { color: var(--stone); text-decoration: none; font-size: 0.85rem; }
-    .archive-list a:hover { color: var(--fern); text-decoration: underline; }
-    
+    .article-title {
+        font-size: 2rem;
+        color: var(--moss);
+        margin-bottom: 0.5rem;
+        font-family: 'Noto Serif TC', serif;
+    }
+    .article-date {
+        color: var(--stone);
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+    }
+    .article-content {
+        line-height: 1.8;
+        font-size: 1rem;
+    }
+    .article-footer {
+        text-align: center;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid #e0d6cc;
+        color: var(--stone);
+        font-size: 0.9rem;
+    }
+    .back-link {
+        display: inline-block;
+        margin-top: 1rem;
+        color: var(--fern);
+        text-decoration: none;
+    }
     @media (max-width: 768px) {
-        .two-columns { flex-direction: column; }
-        .latest-title { font-size: 1.4rem; }
-        .daily-container { padding: 0 1rem; }
+        .article-title { font-size: 1.5rem; }
+        .article-container { padding: 0 1rem; }
     }
     </style>
 </head>
@@ -337,49 +310,16 @@
     <div id="nav-placeholder"></div>
     
     <main class="content">
-        <div class="daily-container">
-            <div class="page-header">
-                <h1>🌿 蕨積每日文章</h1>
-                <p>植物・永續・碳盤查・生活 — 每天一篇，與你一起成長</p>
+        <div class="article-container">
+            <div class="article-category">📌 植物</div>
+            <h1 class="article-title">**標題：不只是裝飾！你家裡的綠色室友，正默默為你施展「植物療癒力」**</h1>
+            <div class="article-date">📅 2026年03月26日</div>
+            <div class="article-content">**標題：不只是裝飾！你家裡的綠色室友，正默默為你施展「植物療癒力」**<br><br>你是否曾覺得，在辦公室或家裡擺上一盆綠植後，整個空間的氛圍都變得柔和了？這不只是心理作用。科學研究發現，植物確實擁有實質的「療癒超能力」，它們不僅是靜態的裝飾品，更是我們身邊最安靜、最盡責的身心靈健康夥伴。<br><br>首先，植物是頂尖的「空氣淨化師」。NASA的潔淨空氣研究早已指出，如虎尾蘭、黃金葛、和平百合等常見室內植物，能有效吸收甲醛、苯、三氯乙烯等揮發於油漆、清潔劑中的有害物質。它們透過葉片氣孔與根部微生物協同作用，將毒素分解轉化，默默為你過濾出更乾淨的呼吸環境。<br><br>更重要的是，植物是舒緩壓力的「天然鎮定劑」。凝視一片綠意，能幫助我們的大腦從高壓的「β腦波」狀態，過渡到放鬆的「α腦波」狀態。園藝活動本身，如澆水、擦拭葉片、修剪，更是一種正念練習，能將注意力拉回當下，緩解焦慮與疲憊。日本「森林浴」的療效概念，其核心便是植物釋放的「芬多精」，這些揮發性物質被證實能降低壓力荷爾蒙、提升免疫力。<br><br>對於居家辦公或常使用3C產品的人來說，植物更是不可或缺的「視力保健員」。長時間注視近距離螢幕，會導致眼睛肌肉緊繃。在視線範圍內放置綠植，能提供遠近視覺交替的焦點，讓睫狀肌有放鬆的機會，減少眼睛疲勞。<br><br>那麼，如何邀請這位綠色室友入住，並讓它健康地施展療癒力呢？關鍵在於「匹配」：<br>1.  **光照配對**：先觀察你家窗戶的朝向。朝南陽臺適合需要充足直射光的多肉植物、九重葛；明亮的散射光處（如東向窗邊）則是觀葉植物（龜背竹、蔓綠絨）的天堂；光線微弱的角落，就請出耐陰的黃金葛、虎尾蘭或心葉蔓綠絨。<br>2.  **澆水哲學**：「見乾見濕」是通用法則。手指插入土壤約一節指關節深，感覺乾了再澆透，直到水從盆底流出。多數植物懼怕「愛心氾濫」，根部長期潮濕反而會窒息爛根。<br>3.  **不求完美**：接受植物會有黃葉、落葉的自然新陳代謝。與其追求完美無瑕的塑膠感，不如欣賞它隨季節生長的動態生命力，這正是療癒過程的一部分。<br><br>從今天開始，試著把一盆植物當成一位有生命的朋友吧。它不索取太多，卻以靜默的姿態，淨化你的空氣、平靜你的思緒、溫柔你的目光。在充滿不確定的世界裡，這份穩定生長的綠意，或許正是我們內心最需要扎根的力量。<br><br>🌿 蕨積 - 讓生活多一點綠</div>
+            <div class="article-footer">
+                🌿 蕨積 - 讓生活多一點綠<br>
+                每日一篇，與你一起成長
             </div>
-            
-            <div class="categories">
-                <button class="category-btn active" data-category="all">📋 全部</button>
-                <button class="category-btn category-植物" data-category="植物">🌿 植物</button>
-                <button class="category-btn category-永續" data-category="永續">♻️ 永續</button>
-                <button class="category-btn category-碳盤查" data-category="碳盤查">📊 碳盤查</button>
-                <button class="category-btn category-生活" data-category="生活">🏡 生活</button>
-            </div>
-            
-            <div class="two-columns">
-                <div class="main-col">
-                    <div class="latest-article">
-                        <div class="latest-category">📌 植物</div>
-                        <h1 class="latest-title">**標題：不只是裝飾！你家裡的綠色室友，正默默為你施展「植物療癒力」**</h1>
-                        <div class="latest-date">📅 2026-03-26</div>
-                        <div class="latest-content">**標題：不只是裝飾！你家裡的綠色室友，正默默為你施展「植物療癒力」**<br><br>你是否曾覺得，在辦公室或家裡擺上一盆綠植後，整個空間的氛圍都變得柔和了？這不只是心理作用。科學研究發現，植物確實擁有實質的「療癒超能力」，它們不僅是靜態的裝飾品，更是我們身邊最安靜、最盡責的身心靈健康夥伴。<br><br>首先，植物是頂尖的「空氣淨化師」。NASA的潔淨空氣研究早已指出，如虎尾蘭、黃金葛、和平百合等常見室內植物，能有效吸收甲醛、苯、三氯乙烯等揮發於油漆、清潔劑中的有害物質。它們透過葉片氣孔與根部微生物協同作用，將毒素分解轉化，默默為你過濾出更乾淨的呼吸環境。<br><br>更重要的是，植物是舒緩壓力的「天然鎮定劑」。凝視一片綠意，能幫助我們的大腦從高壓的「β腦波」狀態，過渡到放鬆的「α腦波」狀態。園藝活動本身，如澆水、擦拭葉片、修剪，更是一種正念練習，能將注意力拉回當下，緩解焦慮與疲憊。日本「森林浴」的療效概念，其核心便是植物釋放的「芬多精」，這些揮發性物質被證實能降低壓力荷爾蒙、提升免疫力。<br><br>對於居家辦公或常使用3C產品的人來說，植物更是不可或缺的「視力保健員」。長時間注視近距離螢幕，會導致眼睛肌肉緊繃。在視線範圍內放置綠植，能提供遠近視覺交替的焦點，讓睫狀肌有放鬆的機會，減少眼睛疲勞。<br><br>那麼，如何邀請這位綠色室友入住，並讓它健康地施展療癒力呢？關鍵在於「匹配」：<br>1.  **光照配對**：先觀察你家窗戶的朝向。朝南陽臺適合需要充足直射光的多肉植物、九重葛；明亮的散射光處（如東向窗邊）則是觀葉植物（龜背竹、蔓綠絨）的天堂；光線微弱的角落，就請出耐陰的黃金葛、虎尾蘭或心葉蔓綠絨。<br>2.  **澆水哲學**：「見乾見濕」是通用法則。手指插入土壤約一節指關節深，感覺乾了再澆透，直到水從盆底流出。多數植物懼怕「愛心氾濫」，根部長期潮濕反而會窒息爛根。<br>3.  **不求完美**：接受植物會有黃葉、落葉的自然新陳代謝。與其追求完美無瑕的塑膠感，不如欣賞它隨季節生長的動態生命力，這正是療癒過程的一部分。<br><br>從今天開始，試著把一盆植物當成一位有生命的朋友吧。它不索取太多，卻以靜默的姿態，淨化你的空氣、平靜你的思緒、溫柔你的目光。在充滿不確定的世界裡，這份穩定生長的綠意，或許正是我們內心最需要扎根的力量。<br><br>🌿 蕨積 - 讓生活多一點綠</div>
-                        <a href="2026-03-26-**標題：不只是裝飾你家裡的綠色室友，正默默為你施展「植物療癒力」**.html" class="read-more">🔗 查看獨立頁面 →</a>
-                    </div>
-                    
-                    <div class="section-title">📖 過往文章</div>
-                    <ul class="past-list" id="pastList">
-                        <li class="past-item" data-category="植物">
-                            <span class="past-badge" style="background: #4a7c59;">植物</span>
-                            <a class="past-link" href="2026-03-26-**標題：不只是裝飾你的室內植物，其實是位沉默的「全能生活教練」**.html">**標題：不只是裝飾！你的室內植物，其實是位沉默的「全能生活教練」**</a>
-                            <div class="past-meta">📅 2026-03-26</div>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="sidebar-col">
-                    <div class="section-title">📚 歷史歸檔</div>
-                    <div class="archive-month">
-                        <div class="archive-month-title">2026年3月</div>
-                        <ul class="archive-list"><li><a href="2026-03-26-**標題：不只是裝飾你的室內植物，其實是位沉默的「全能生活教練」**.html">**標題：不只是裝飾！你的室內植物，其實是位沉默的...</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <a href="index.html" class="back-link">← 返回文章列表</a>
         </div>
     </main>
     
@@ -449,26 +389,6 @@
         });
         if (typeof lucide !== 'undefined') lucide.createIcons();
       }
-    });
-    // 分類篩選功能
-    const filterBtns = document.querySelectorAll('.category-btn');
-    const pastItems = document.querySelectorAll('#pastList .past-item');
-    
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const category = btn.dataset.category;
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            pastItems.forEach(item => {
-                if (category === 'all' || item.dataset.category === category) {
-                    item.style.display = '';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
-    });
-    </script>
+    });</script>
 </body>
 </html>
