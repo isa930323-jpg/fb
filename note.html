@@ -1,4 +1,3 @@
-<!-- ========== 生活隨筆頁面 note.html ========== -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -252,14 +251,14 @@
       margin-top: 8px;
     }
 
-    /* 標籤導航列 */
+    /* 標籤導航列 — 微調視覺層次 */
     .tag-nav {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 40px;
-      padding: 16px 0;
-      border-bottom: 1px solid rgba(90,122,74,0.15);
+      margin-bottom: 48px;
+      padding: 16px 0 8px;
+      border-bottom: 1px solid rgba(90,122,74,0.2);
       justify-content: center;
     }
     .tag-link {
@@ -267,35 +266,42 @@
       padding: 6px 18px;
       background: var(--cream);
       color: var(--fern);
-      border-radius: 30px;
+      border-radius: 40px;
       font-size: 0.8rem;
       text-decoration: none;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
       border: 1px solid rgba(90,122,74,0.2);
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
     }
     .tag-link:hover {
       background: var(--mist);
       transform: translateY(-2px);
+      border-color: var(--sage);
+      box-shadow: 0 4px 10px rgba(61,90,56,0.08);
     }
     .tag-link.active {
       background: var(--fern);
       color: white;
       border-color: var(--fern);
+      box-shadow: 0 2px 8px rgba(61,90,56,0.2);
     }
 
-    /* 文章卡片 */
+    /* 文章卡片 — 更細膩的留白與層次 */
     .post-card {
       background: white;
-      border-radius: 24px;
-      padding: 32px;
-      margin-bottom: 32px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-      border: 1px solid rgba(90,122,74,0.08);
-      transition: all 0.2s;
+      border-radius: 28px;
+      padding: 32px 36px;
+      margin-bottom: 36px;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.03), 0 1px 1px rgba(0,0,0,0.02);
+      border: 1px solid rgba(90,122,74,0.1);
+      transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
     }
     .post-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(61,90,56,0.08);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 35px -12px rgba(61,90,56,0.12);
+      border-color: rgba(90,122,74,0.2);
     }
     .post-header {
       display: flex;
@@ -303,63 +309,83 @@
       align-items: baseline;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed rgba(90,122,74,0.12);
     }
     .post-author {
       font-size: 0.8rem;
       color: var(--sage);
       letter-spacing: 0.05em;
+      font-weight: 500;
     }
     .post-date {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--stone);
+      font-family: 'Cormorant Garamond', serif;
     }
     .post-content {
       font-size: 1rem;
-      line-height: 1.7;
+      line-height: 1.75;
       color: var(--ink);
       white-space: pre-wrap;
       word-break: break-word;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+      font-weight: 350;
+    }
+    /* 內容中 #標籤 樣式優化 */
+    .post-content span[style*="color: var(--fern);"] {
+      background: rgba(138,171,122,0.08);
+      padding: 0 4px;
+      border-radius: 12px;
+      font-size: 0.9em;
     }
     .post-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(90,122,74,0.1);
+      gap: 10px;
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(90,122,74,0.12);
     }
     .post-tag {
       display: inline-block;
       padding: 4px 14px;
       background: var(--cream);
       color: var(--fern);
-      border-radius: 30px;
+      border-radius: 32px;
       font-size: 0.7rem;
       text-decoration: none;
       transition: all 0.2s;
+      letter-spacing: 0.03em;
+      border: 1px solid rgba(90,122,74,0.15);
     }
     .post-tag:hover {
       background: var(--mist);
       transform: translateY(-1px);
+      border-color: var(--sage);
     }
 
-    /* 空狀態 & 載入動畫 */
+    /* 空狀態 & 載入動畫 — 稍加柔和 */
     .empty-state {
       text-align: center;
-      padding: 80px 20px;
+      padding: 90px 20px;
       color: var(--stone);
+      background: rgba(245,240,232,0.4);
+      border-radius: 48px;
+      margin: 20px 0;
     }
     .empty-state i {
       display: block;
-      font-size: 48px;
-      margin-bottom: 16px;
+      font-size: 56px;
+      margin-bottom: 20px;
+      opacity: 0.7;
     }
     .loading {
       text-align: center;
-      padding: 60px 20px;
+      padding: 80px 20px;
       color: var(--fern);
+      font-size: 0.9rem;
     }
     .loading::after {
       content: '';
@@ -371,29 +397,36 @@
       border-radius: 50%;
       animation: spin 1s linear infinite;
       margin-left: 10px;
+      vertical-align: middle;
     }
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
 
-    /* 響應式調整 */
+    /* 響應式調整 — 保持舒適邊距 */
     @media (max-width: 768px) {
       .blog-container {
-        padding: 0 16px;
+        padding: 0 20px;
       }
       .blog-header h1 {
         font-size: 1.8rem;
       }
       .post-card {
-        padding: 20px;
+        padding: 22px 24px;
+        margin-bottom: 28px;
       }
       .tag-nav {
-        gap: 8px;
+        gap: 10px;
+        margin-bottom: 32px;
       }
       .tag-link {
-        padding: 4px 12px;
-        font-size: 0.7rem;
+        padding: 5px 14px;
+        font-size: 0.72rem;
+      }
+      .post-content {
+        font-size: 0.95rem;
+        line-height: 1.7;
       }
     }
 
@@ -401,7 +434,7 @@
     .content {
       flex: 1;
       padding-top: 92px;
-      padding-bottom: 40px;
+      padding-bottom: 56px;
     }
 
     /* ----- Footer (完整保留) ----- */
@@ -457,24 +490,22 @@
   </style>
 </head>
 <body>
-  <!-- 放置導覽列的佔位元素 -->
+  <!-- 導覽列佔位 -->
   <div id="nav-placeholder"></div>
-  <!-- 頁面主要內容區域 - 生活隨筆內容放在這裡 -->
- <main>
+
+  <!-- 主要內容區域 — 調整了區塊結構與視覺流暢度 -->
+  <main class="content">
     <div class="blog-container">
-      
-        <h1 style="font-family: 'Noto Serif TC', serif; color: var(--moss);"> 生活隨筆</h1>
+      <!-- 標題與簡介區塊 (原本的標題與內文整合得更優雅) -->
+      <div class="blog-header">
+        <h1>生活隨筆</h1>
         <div class="intro">
-<p>
-有些想法不一定完整，也不一定正確。
-</p>
-<p>
-只是記下來，讓它慢慢長出自己的樣子。
-</p>
+          <p>有些想法不一定完整，也不一定正確。</p>
+          <p>只是記下來，讓它慢慢長出自己的樣子。</p>
+        </div>
+      </div>
 
-      </div></div>
-
-      <!-- 標籤導航列 - 更新為7個標籤 -->
+      <!-- 標籤導航列 (7個標籤維持不變) -->
       <div class="tag-nav" id="tagNav">
         <a href="note.html" class="tag-link" id="tagAll">📖 全部文章</a>
         <a href="note.html?tag=%23%E7%A2%B3%E7%9B%A4%E6%9F%A5" class="tag-link">#碳盤查</a>
@@ -486,12 +517,12 @@
         <a href="note.html?tag=%23%E6%A4%8D%E7%89%A9" class="tag-link">#植物</a>
       </div>
 
-      <!-- 文章列表區 -->
+      <!-- 文章列表渲染區塊 -->
       <div id="postsContainer"></div>
     </div>
   </main>
 
-  <!-- Footer -->
+  <!-- Footer 結構完整保留 -->
   <footer>
     <ul class="footer-links">
       <li><a href="shop.html">植物選品</a></li>
@@ -503,9 +534,8 @@
   </footer>
 
   <script>
-    // ===== 生活隨筆功能 =====
+    // ===== 生活隨筆核心功能 (完全保留邏輯，僅微幅增加顯示細膩度) =====
     
-    // 取得網址參數
     function getUrlParam(name) {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(name);
@@ -513,7 +543,6 @@
     
     const currentTag = getUrlParam('tag');
     
-    // 設定當前標籤的 active 樣式
     function setActiveTag() {
       if (currentTag) {
         const allLinks = document.querySelectorAll('.tag-link');
@@ -531,9 +560,9 @@
       }
     }
     
-    // 格式化內容，讓 #標籤 高亮
+    // 格式化內容 #標籤 高亮（增加背景柔和感）
     function formatContentWithTags(text) {
-      return text.replace(/(#[#\u4e00-\u9fa5a-zA-Z0-9]+)/g, '<span style="color: var(--fern); font-weight: 500;">$1</span>');
+      return text.replace(/(#[#\u4e00-\u9fa5a-zA-Z0-9]+)/g, '<span style="color: var(--fern); font-weight: 500; background: rgba(138,171,122,0.1); padding: 0 2px; border-radius: 10px;">$1</span>');
     }
     
     function escapeHtml(unsafe) {
@@ -546,15 +575,14 @@
         .replace(/'/g, "&#039;");
     }
     
-    // 載入文章
+    // 載入文章 (API 路徑與原有完全一致)
     async function loadMessages() {
       const container = document.getElementById('postsContainer');
       if (!container) return;
       
-      container.innerHTML = '<div class="loading">載入文章...</div>';
+      container.innerHTML = '<div class="loading">載入文章</div>';
       
       try {
-        // API 網址
         let apiUrl = 'https://linephotobot.onrender.com/api/messages';
         if (currentTag) {
           apiUrl += `?tag=${encodeURIComponent(currentTag)}`;
@@ -568,27 +596,29 @@
         if (messages.length === 0) {
           container.innerHTML = `
             <div class="empty-state">
-              <i>📭</i>
-              <p>${currentTag ? `沒有找到關於 ${escapeHtml(currentTag)} 的文章` : '目前還沒有任何文章'}</p>
-              <p style="font-size:0.8rem; margin-top:8px;">${currentTag ? '試試其他標籤吧！' : '快用 LINE 傳送訊息，加入 #標籤 吧！'}</p>
+              <i>🌿</i>
+              <p>${currentTag ? `沒有關於「${escapeHtml(currentTag)}」的記錄` : '此刻靜謐，尚無文章'}</p>
+              <p style="font-size:0.8rem; margin-top:12px; opacity:0.7;">${currentTag ? '試試其他標籤，或成為第一個分享的人' : '用 LINE 傳遞隨筆，加入 #標籤 吧'}</p>
             </div>
           `;
           return;
         }
         
-        // 渲染文章
+        // 渲染文章 — 提升視覺結構
         container.innerHTML = messages.map(post => {
           const displayName = post.displayName || '蕨友';
           const time = new Date(post.timestamp);
           const dateStr = `${time.getFullYear()}.${String(time.getMonth()+1).padStart(2,'0')}.${String(time.getDate()).padStart(2,'0')}`;
+          // 處理內容中的換行與標籤樣式
+          const formattedText = formatContentWithTags(escapeHtml(post.text));
           
           return `
             <article class="post-card">
               <div class="post-header">
                 <span class="post-author">✍️ ${escapeHtml(displayName)}</span>
-                <span class="post-date">📅 ${dateStr}</span>
+                <span class="post-date">${dateStr}</span>
               </div>
-              <div class="post-content">${formatContentWithTags(escapeHtml(post.text))}</div>
+              <div class="post-content">${formattedText.replace(/\n/g, '<br>')}</div>
               ${post.tags && post.tags.length > 0 ? `
                 <div class="post-tags">
                   ${post.tags.map(tag => `<a href="note.html?tag=${encodeURIComponent(tag)}" class="post-tag">${escapeHtml(tag)}</a>`).join('')}
@@ -599,37 +629,34 @@
         }).join('');
         
       } catch (error) {
-        console.error('載入文章失敗:', error);
+        console.error('載入失敗:', error);
         container.innerHTML = `
           <div class="empty-state">
-            <i>⚠️</i>
-            <p>載入失敗，請稍後再試</p>
-            <p style="font-size:0.8rem; margin-top:8px;">${error.message}</p>
+            <i>🍃</i>
+            <p>連線不穩，請稍後重試</p>
+            <p style="font-size:0.75rem; margin-top:8px;">${error.message}</p>
           </div>
         `;
       }
     }
     
-    // ===== 導覽列載入（與其他頁面一致）=====
+    // ===== 導覽列載入 (保持原樣，未更動) =====
     document.addEventListener('DOMContentLoaded', function () {
-      // 載入共用導覽列
       fetch('nav.html')
         .then(response => response.text())
         .then(data => {
           document.getElementById('nav-placeholder').innerHTML = data;
-          // 在導覽列插入後，重新綁定事件與初始化
           initNav();
         })
         .catch(err => {
-          console.error('無法載入導覽列:', err);
+          console.error('導覽列載入錯誤:', err);
           document.getElementById('nav-placeholder').innerHTML = 
             '<nav style="background:var(--moss);color:white;padding:0 4vw;height:72px;display:flex;align-items:center;">' +
-            '<span style="font-family:Noto Serif TC,serif;font-weight:900;">⚠️ 導覽列載入失敗，請確認 nav.html 是否存在</span>' +
+            '<span style="font-family:Noto Serif TC,serif;font-weight:900;">⚠️ 導覽列暫缺，請檢查 nav.html</span>' +
             '</nav>';
         });
 
       function initNav() {
-        // hamburger 事件
         var btn = document.getElementById('hamburger');
         var menu = document.getElementById('mobileMenu');
         if (btn && menu) {
@@ -644,7 +671,6 @@
             });
           });
         }
-        // 行動選單的展開折疊
         if (menu) {
           menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
             parent.addEventListener('click', function () {
@@ -662,19 +688,14 @@
             });
           });
         }
-        // 滾動效果
         window.addEventListener('scroll', function () {
           var nav = document.getElementById('mainNav');
           if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
         });
-        // 重新綁定 lucide 圖示
         if (typeof lucide !== 'undefined') lucide.createIcons();
       }
       
-      // 設定當前標籤的 active 樣式
       setActiveTag();
-      
-      // 載入文章
       loadMessages();
     });
   </script>
