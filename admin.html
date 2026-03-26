@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蕨積管理後台 - 文章管理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #faf8f4;
+            color: #2c3e2f;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e0d6cc;
+        }
+        .header h1 {
+            color: #2c5e2e;
+            font-size: 1.8rem;
+        }
+        .header p {
+            color: #7f8c6d;
+            margin-top: 0.3rem;
+        }
+        .trigger-btn {
+            background: #4a7c59;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .trigger-btn:hover {
+            transform: translateY(-2px);
+            background: #2c5e2e;
+        }
+        .stats {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4a7c59;
+        }
+        .stat-label {
+            color: #7f8c6d;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+        }
+        .filters {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+        .filter-btn {
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            background: #e8e0d8;
+            color: #4a5b4e;
+        }
+        .filter-btn.active {
+            background: #4a7c59;
+            color: white;
+        }
+        .filter-btn:hover {
+            transform: translateY(-1px);
+        }
+        .search-box {
+            padding: 0.4rem 0.8rem;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            font-size: 0.85rem;
+            width: 200px;
+        }
+        .article-table {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            text-align: left;
+            padding: 1rem;
+            background: #f5f0ea;
+            font-weight: 600;
+            color: #4a5b4e;
+        }
+        td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #f0e8e0;
+            vertical-align: middle;
+        }
+        tr:hover {
+            background: #fef9f0;
+        }
+        .category-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: white;
+        }
+        .category-植物 { background: #4a7c59; }
+        .category-永續 { background: #2c7a4d; }
+        .category-碳盤查 { background: #1e6f5c; }
+        .category-生活 { background: #b88b4a; }
+        .category-未分類 { background: #aaa; }
+        .article-link {
+            color: #4a7c59;
+            text-decoration: none;
+        }
+        .article-link:hover {
+            text-decoration: underline;
+        }
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin: 0 0.2rem;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .action-btn:hover {
+            opacity: 1;
+        }
+        .view-btn { color: #4a7c59; }
+        .delete-btn { color: #c97e5a; }
+        .refresh-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+        }
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #7f8c6d;
+        }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2c3e2f;
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            th, td { padding: 0.5rem; font-size: 0.85rem; }
+            .stat-number { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>🌿 蕨積管理後台</h1>
+                <p>文章管理・分類統計・手動發文</p>
+            </div>
+            <a href="https://github.com/fangyung0323/fbnote/actions/workflows/daily-post.yml" target="_blank" class="trigger-btn">
+                🚀 手動發文
+            </a>
+        </div>
+
+        <div class="stats" id="statsArea">
+            <div class="stat-card"><div class="stat-number" id="totalCount">-</div><div class="stat-label">總文章數</div></div>
+            <div class="stat-card"><div class="stat-number" id="plantCount">-</div><div class="stat-label">植物</div></div>
+            <div class="stat-card"><div class="stat-number" id="sustainCount">-</div><div class="stat-label">永續</div></div>
+            <div class="stat-card"><div class="stat-number" id="carbonCount">-</div><div class="stat-label">碳盤查</div></div>
+            <div class="stat-card"><div class="stat-number" id="lifeCount">-</div><div class="stat-label">生活</div></div>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">📋 全部</button>
+            <button class="filter-btn" data-filter="植物">🌿 植物</button>
+            <button class="filter-btn" data-filter="永續">♻️ 永續</button>
+            <button class="filter-btn" data-filter="碳盤查">📊 碳盤查</button>
+            <button class="filter-btn" data-filter="生活">🏡 生活</button>
+            <input type="text" class="search-box" id="searchInput" placeholder="🔍 搜尋標題...">
+            <button class="refresh-btn" onclick="loadArticles()">🔄</button>
+        </div>
+
+        <div class="article-table">
+            <table>
+                <thead>
+                    <tr><th>日期</th><th>類別</th><th>標題</th><th>操作</th></tr>
+                </thead>
+                <tbody id="articleList">
+                    <tr><td colspan="4" class="loading">載入中...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="toast" class="toast"></div>
+
+    <script>
+        let allArticles = [];
+
+        async function loadArticles() {
+            const tbody = document.getElementById('articleList');
+            tbody.innerHTML = '<tr><td colspan="4" class="loading">載入中...</td></tr>';
+            
+            try {
+                const response = await fetch('/daily-post/');
+                const html = await response.text();
+                
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const links = doc.querySelectorAll('a');
+                
+                const articles = [];
+                for (const link of links) {
+                    const href = link.getAttribute('href');
+                    if (href && href.endsWith('.html') && href !== 'index.html' && !href.includes('/') && href.match(/^\d{4}-\d{2}-\d{2}-/)) {
+                        const filename = href;
+                        const date = filename.substring(0, 10);
+                        const titleRaw = filename.replace('.html', '').substring(11).replace(/-/g, ' / ');
+                        
+                        let category = '未分類';
+                        try {
+                            const articleRes = await fetch(`/daily-post/${filename}`);
+                            const articleHtml = await articleRes.text();
+                            let match = articleHtml.match(/<div class="article-category">📌 (.+?)<\/div>/);
+                            if (!match) match = articleHtml.match(/<div class="category-tag">📌 (.+?)<\/div>/);
+                            if (match) category = match[1];
+                        } catch(e) {}
+                        
+                        articles.push({ filename, date, title: titleRaw, category });
+                    }
+                }
+                
+                articles.sort((a, b) => b.date.localeCompare(a.date));
+                allArticles = articles;
+                updateStats();
+                renderArticles();
+                
+            } catch (error) {
+                console.error('載入失敗:', error);
+                tbody.innerHTML = '<tr><td colspan="4" class="loading">載入失敗，請確認 daily-post 目錄是否存在</td></tr>';
+            }
+        }
+
+        function updateStats() {
+            const total = allArticles.length;
+            const plant = allArticles.filter(a => a.category === '植物').length;
+            const sustain = allArticles.filter(a => a.category === '永續').length;
+            const carbon = allArticles.filter(a => a.category === '碳盤查').length;
+            const life = allArticles.filter(a => a.category === '生活').length;
+            
+            document.getElementById('totalCount').innerText = total;
+            document.getElementById('plantCount').innerText = plant;
+            document.getElementById('sustainCount').innerText = sustain;
+            document.getElementById('carbonCount').innerText = carbon;
+            document.getElementById('lifeCount').innerText = life;
+        }
+
+        function renderArticles() {
+            const filter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            let filtered = allArticles;
+            if (filter !== 'all') {
+                filtered = filtered.filter(a => a.category === filter);
+            }
+            if (searchTerm) {
+                filtered = filtered.filter(a => a.title.toLowerCase().includes(searchTerm));
+            }
+            
+            const tbody = document.getElementById('articleList');
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="loading">沒有找到文章</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = filtered.map(article => {
+                const catClass = `category-${article.category === '未分類' ? '未分類' : article.category}`;
+                return `
+                    <tr>
+                        <td>${article.date}</td>
+                        <td><span class="category-badge ${catClass}">${article.category}</span></td>
+                        <td><a href="/daily-post/${article.filename}" target="_blank" class="article-link">${article.title}</a></td>
+                        <td>
+                            <button class="action-btn view-btn" onclick="window.open('/daily-post/${article.filename}','_blank')">🔗</button>
+                            <button class="action-btn delete-btn" onclick="deleteArticle('${article.filename}')">🗑️</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function deleteArticle(filename) {
+            if (confirm(`確定要刪除「${filename}」嗎？此操作無法復原。`)) {
+                showToast('刪除功能需透過 GitHub 操作，請手動刪除檔案');
+                window.open('https://github.com/isa930323-jpg/fb/tree/main/daily-post', '_blank');
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderArticles();
+            });
+        });
+        document.getElementById('searchInput').addEventListener('input', () => renderArticles());
+
+        loadArticles();
+    </script>
+</body>
+</html>
