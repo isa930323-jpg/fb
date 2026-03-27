@@ -256,7 +256,6 @@
         flex-wrap: wrap;
       }
     }
-    /* ===== 每日文章專用樣式 ===== */
     .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
     .page-header { text-align: center; margin-bottom: 2rem; }
     .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
@@ -282,10 +281,6 @@
     }
     .category-btn:hover { transform: translateY(-2px); }
     .category-btn.active { background: #4a7c59; color: white; }
-    .category-植物.active { background: #4a7c59; }
-    .category-永續.active { background: #2c7a4d; }
-    .category-碳盤查.active { background: #1e6f5c; }
-    .category-生活.active { background: #b88b4a; }
     
     .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
     .main-col { flex: 3; min-width: 250px; }
@@ -300,7 +295,7 @@
     }
     .latest-category {
         display: inline-block;
-        background: #1e6f5c;
+        background: #b88b4a;
         color: white;
         padding: 0.2rem 0.8rem;
         border-radius: 20px;
@@ -345,24 +340,30 @@
             
             <div class="categories">
                 <button class="category-btn active" data-category="all">📋 全部</button>
-                <button class="category-btn category-植物" data-category="植物">🌿 植物</button>
-                <button class="category-btn category-永續" data-category="永續">♻️ 永續</button>
-                <button class="category-btn category-碳盤查" data-category="碳盤查">📊 碳盤查</button>
-                <button class="category-btn category-生活" data-category="生活">🏡 生活</button>
+                <button class="category-btn" data-category="植物">🌿 植物</button>
+                <button class="category-btn" data-category="永續">♻️ 永續</button>
+                <button class="category-btn" data-category="碳盤查">📊 碳盤查</button>
+                <button class="category-btn" data-category="生活">🏡 生活</button>
             </div>
             
             <div class="two-columns">
                 <div class="main-col">
                     <div class="latest-article">
-                        <div class="latest-category">📌 碳盤查</div>
-                        <h1 class="latest-title">從「碳盤查」開始，解鎖企業與個人的綠色未來</h1>
+                        <div class="latest-category">📌 生活</div>
+                        <h1 class="latest-title">在快時代裡，練習「慢」：找回質感生活的呼吸節奏</h1>
                         <div class="latest-date">📅 2026-03-27</div>
-                        <div class="latest-content">### 從「碳盤查」開始，解鎖企業與個人的綠色未來<br><br>在氣候變遷日益嚴峻的今天，「碳盤查」已成為企業與個人邁向永續的關鍵第一步。究竟什麼是碳盤查？它如何幫助我們對抗全球暖化？<br><br>#### 碳盤查是什麼？如何進行？<br><br>碳盤查，簡單來說就是「計算碳排放量的過程」。就像我們透過記帳掌握收支，碳盤查則是系統化地量化一個組織、產品或個人活動所產生的溫室氣體排放。這些排放主要來自燃燒化石燃料（如開車、用電）、工業製程、農業活動等。<br><br>國際上最廣泛使用的標準是《溫室氣體盤查議定書》（GHG Protocol），將排放分為三大範疇：<br>- **範疇一：直接排放**（如公司車輛燃油、工廠鍋爐燃燒）<br>- **範疇二：間接排放**（如外購電力、蒸汽）<br>- **範疇三：其他間接排放**（如供應鏈、員工通勤、產品使用階段）<br><br>企業透過收集能源帳單、運輸里程、原料用量等數據，並乘以排放係數，就能逐步拼湊出自身的碳足跡地圖。<br><br>#### 企業為何需要碳盤查？<br><br>1. **法規與市場要求**：歐盟碳邊境調整機制（CBAM）、台灣《氣候變遷因應法》已將碳管理列為強制義務，國際品牌也紛紛要求供應鏈提供碳數據。<br>2. **風險管理與成本節省**：盤查能找出高耗能環節，進而優化製程、降低能源支出。<br>3. **提升品牌價值**：具備碳盤查能力的企業，更容易獲得綠色投資人與消費者的青睞。<br>4. **奠定減碳基礎**：沒有盤查，就無法制定有效的減量策略，更遑論邁向碳中和。<br><br>#### 個人也能參與：計算你的碳足跡<br><br>碳管理不僅是企業的事，每個人的日常選擇都會累積碳足跡。你可以透過線上碳足跡計算器，輸入飲食習慣、交通方式、家用能源消耗等資料，了解自己的排放熱點。例如：<br>- 選擇植物性飲食、減少食物浪費<br>- 多使用大眾運輸或共享交通工具<br>- 節約用電、優先選購節能家電<br><br>這些行動看似微小，但集體實踐將形成可觀的減碳效益。<br><br>#### 碳中和與淨零排放：全球共同目標<br><br>在碳盤查的基礎上，企業與國家進一步設定「碳中和」（排放量與減碳量平衡）與「淨零排放」（全面消除溫室氣體排放）的目標。這不僅需要持續減量，也須透過植林、碳捕捉等技術抵換殘餘排放。<br><br>從碳盤查、減碳到碳中和，是一條需要科學方法與長期承諾的道路。無論是企業或個人，現在開始行動，就是為地球未來投下最關鍵的一票。<br><br>🌿 蕨積 - 讓生活多一點綠</div>
-                        <a href="2026-03-27-從「碳盤查」開始，解鎖企業與個人的綠色未來.html" class="read-more">🔗 查看獨立頁面 →</a>
+                        <div class="latest-content">## 在快時代裡，練習「慢」：找回質感生活的呼吸節奏<br><br>在這個訊息爆炸、步調飛快的時代，我們總被無形的鞭子驅趕著，追求效率、生產力與即時滿足。然而，真正的質感生活，或許不在於「擁有更多」，而在於「感受更深」。它是一種選擇——選擇在疾行的列車上，為自己按下暫停鍵，練習一種名為「慢」的生活藝術。<br><br>**慢，是一種有意識的選擇。** 它從最微小的日常開始。早晨，不急著抓過手機，而是先感受陽光灑落窗台的溫度，安靜地喝一杯溫水。通勤時，放下不斷刷新的社群動態，看看窗外流動的風景，或單純感受自己的呼吸。這些刻意留白的片刻，是我們為心靈安裝的「減速玻璃」，讓外在的紛擾得以緩衝，內在的從容得以滋生。<br><br>這便是**正念練習**的核心：將注意力溫柔地帶回當下。無論是專注品嚐一餐一飯的滋味，感受水流過指尖的觸感，或是認真聆聽一段對話。當我們全心投入此時此刻，生活便從模糊的背景雜音，轉為清晰而立體的體驗。焦慮與浮躁，往往源於對過去的執著與對未來的憂慮；而正念，則將我們穩穩錨定在當下的豐盛裡。<br><br>要涵養這樣的慢生活，環境是溫柔的推手。透過**居家佈置與收納美學**，我們打造一個能讓心緒沉澱的空間。不必追求奢華，而是選擇讓自己心動的物品，留下「需要、喜愛、適合」的。整齊有序的收納，並非壓抑的規訓，而是為了騰出物理與心理的空間，讓美與寧靜得以呼吸。一盞暖燈、一盆綠意、一處舒適的角落，都是向日常注入儀式感的邀請。<br><br>所謂**生活儀式感**，並非昂貴的排場，而是懷著珍重的心意去對待平凡之事。它可以是用一只喜愛的馬克杯，認真沖泡一杯咖啡的晨間序曲；也可以是點上蠟燭，專心享用晚餐的夜晚句點。這些小小的、重複的儀式，如同為生活譜寫的節奏點，累積出紮實的幸福感，告訴我們：「此刻，我正好好生活著。」<br><br>從「慢」出發，以「正念」覺察，用「美」來滋養，最後以「儀式」來慶祝。質感生活是一趟向內探索的旅程，讓我們在複雜的世界裡，練習活得簡單、深刻而溫柔。真正的富足，始於我們願意為一片落葉駐足，為一陣微風微笑，並在每一個當下，找回自己從容的呼吸。<br><br>> 🌿 蕨積 - 讓生活多一點綠</div>
+                        <a href="2026-03-27-在快時代裡，練習「慢」：找回質感生活的呼吸節奏.html" class="read-more">🔗 查看獨立頁面 →</a>
                     </div>
                     
                     <div class="section-title">📖 過往文章</div>
                     <ul class="past-list" id="pastList">
+                        
+                        <li class="past-item" data-category="碳盤查">
+                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
+                            <a class="past-link" href="2026-03-27-從「碳盤查」開始，解鎖企業與個人的綠色未來.html">從「碳盤查」開始，解鎖企業與個人的綠色未來</a>
+                            <div class="past-meta">📅 2026-03-27</div>
+                        </li>
                         <li class="past-item" data-category="植物">
                             <span class="past-badge" style="background: #4a7c59;">植物</span>
                             <a class="past-link" href="2026-03-26-**標題：不只會呼吸，還會開會植物界的「社交達人」與療癒魔法**.html">**標題：不只會呼吸，還會開會！植物界的「社交達人」與療癒魔法**</a>
@@ -418,9 +419,10 @@
                 
                 <div class="sidebar-col">
                     <div class="section-title">📚 歷史歸檔</div>
+                    
                     <div class="archive-month">
                         <div class="archive-month-title">2026年3月</div>
-                        <ul class="archive-list"><li><a href="2026-03-26-**標題：不只會呼吸，還會開會植物界的「社交達人」與療癒魔法**.html">**標題：不只會呼吸，還會開會！植物界的「社交達人...</a></li><li><a href="2026-03-26-在快時代裡，練習「慢」：找回質感生活的儀式感.html">在快時代裡，練習「慢」：找回質感生活的儀式感</a></li><li><a href="2026-03-26-植物界的沉默魔術師：你不知道的生存智慧.html">植物界的沉默魔術師：你不知道的生存智慧</a></li><li><a href="2026-03-26-**標題：從一杯咖啡開始的永續革命：你的日常選擇，如何改變世界？**.html">**標題：從一杯咖啡開始的永續革命：你的日常選擇，...</a></li><li><a href="2026-03-26-從日常小事做起，打造你的永續生活圈.html">從日常小事做起，打造你的永續生活圈</a></li><li><a href="2026-03-26-綠色療癒師：植物如何悄悄改善你的身心靈健康？.html">綠色療癒師：植物如何悄悄改善你的身心靈健康？</a></li><li><a href="2026-03-26-綠色療癒力：一盆植物如何改變你的身心靈？.html">綠色療癒力：一盆植物如何改變你的身心靈？</a></li><li><a href="2026-03-26-**標題：不只是裝飾你家裡的綠色室友，正默默為你施展「植物療癒力」**.html">**標題：不只是裝飾！你家裡的綠色室友，正默默為你...</a></li><li><a href="#" style="color:#aaa;">... 共10篇</a></li>
+                        <ul class="archive-list"><li><a href="2026-03-27-從「碳盤查」開始，解鎖企業與個人的綠色未來.html">從「碳盤查」開始，解鎖企業與個人的綠色未來</a></li><li><a href="2026-03-26-**標題：不只會呼吸，還會開會植物界的「社交達人」與療癒魔法**.html">**標題：不只會呼吸，還會開會！植物界的「社交達人...</a></li><li><a href="2026-03-26-在快時代裡，練習「慢」：找回質感生活的儀式感.html">在快時代裡，練習「慢」：找回質感生活的儀式感</a></li><li><a href="2026-03-26-植物界的沉默魔術師：你不知道的生存智慧.html">植物界的沉默魔術師：你不知道的生存智慧</a></li><li><a href="2026-03-26-**標題：從一杯咖啡開始的永續革命：你的日常選擇，如何改變世界？**.html">**標題：從一杯咖啡開始的永續革命：你的日常選擇，...</a></li><li><a href="2026-03-26-從日常小事做起，打造你的永續生活圈.html">從日常小事做起，打造你的永續生活圈</a></li><li><a href="2026-03-26-綠色療癒師：植物如何悄悄改善你的身心靈健康？.html">綠色療癒師：植物如何悄悄改善你的身心靈健康？</a></li><li><a href="2026-03-26-綠色療癒力：一盆植物如何改變你的身心靈？.html">綠色療癒力：一盆植物如何改變你的身心靈？</a></li><li><a href="#" style="color:#aaa;">... 共11篇</a></li>
                         </ul>
                     </div>
                 </div>
@@ -438,81 +440,97 @@
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
     
-    <script>document.addEventListener('DOMContentLoaded', function () {
-      fetch('/nav.html')
-        .then(response => response.text())
-        .then(data => {
-          let fixedData = data.replace(/href="(?!https?:\/\/|\/)([^"]+)"/g, 'href="/$1"');
-          fixedData = fixedData.replace(/href="\/([^"]+)"/g, 'href="/$1"');
-          document.getElementById('nav-placeholder').innerHTML = fixedData;
-          initNav();
-        })
-        .catch(err => {
-          console.error('無法載入導覽列:', err);
-          document.getElementById('nav-placeholder').innerHTML = 
-            '<nav style="background:var(--moss);color:white;padding:0 4vw;height:72px;display:flex;align-items:center;">' +
-            '<span style="font-family:Noto Serif TC,serif;font-weight:900;">🌿 蕨積</span>' +
-            '</nav>';
-        });
+    <script>
+        // 導覽列載入（外掛方式）
+        
+document.addEventListener('DOMContentLoaded', function () {
+  fetch('/nav.html')
+    .then(response => response.text())
+    .then(data => {
+      let fixedData = data.replace(/href="(?!https?:\/\/|\/)([^"]+)"/g, 'href="/$1"');
+      fixedData = fixedData.replace(/href="\/([^"]+)"/g, 'href="/$1"');
+      document.getElementById('nav-placeholder').innerHTML = fixedData;
+      initNav();
+    })
+    .catch(err => {
+      console.error('無法載入導覽列:', err);
+      document.getElementById('nav-placeholder').innerHTML = 
+        '<nav style="background:var(--moss);color:white;padding:0 4vw;height:72px;display:flex;align-items:center;">' +
+        '<span style="font-family:Noto Serif TC,serif;font-weight:900;">🌿 蕨積</span>' +
+        '</nav>';
+    });
 
-      function initNav() {
-        var btn = document.getElementById('hamburger');
-        var menu = document.getElementById('mobileMenu');
-        if (btn && menu) {
-          btn.addEventListener('click', function () {
-            btn.classList.toggle('open');
-            menu.classList.toggle('open');
-          });
-          menu.querySelectorAll('.mobile-link').forEach(function (a) {
-            a.addEventListener('click', function () {
-              btn.classList.remove('open');
-              menu.classList.remove('open');
-            });
-          });
-        }
-        if (menu) {
-          menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
-            parent.addEventListener('click', function () {
-              var id = parent.getAttribute('data-target');
-              var sub = document.getElementById(id);
-              var caretId = 'caret-' + id.replace('sub-', '');
-              var caret = document.getElementById(caretId);
-              var opening = !sub.classList.contains('open');
-              menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
-              menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
-              if (opening) {
-                sub.classList.add('open');
-                if (caret) caret.classList.add('open');
-              }
-            });
-          });
-        }
-        window.addEventListener('scroll', function () {
-          var nav = document.getElementById('mainNav');
-          if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
+  function initNav() {
+    var btn = document.getElementById('hamburger');
+    var menu = document.getElementById('mobileMenu');
+    if (btn && menu) {
+      btn.addEventListener('click', function () {
+        btn.classList.toggle('open');
+        menu.classList.toggle('open');
+      });
+      menu.querySelectorAll('.mobile-link').forEach(function (a) {
+        a.addEventListener('click', function () {
+          btn.classList.remove('open');
+          menu.classList.remove('open');
         });
-        if (typeof lucide !== 'undefined') lucide.createIcons();
-      }
+      });
+    }
+    if (menu) {
+      menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
+        parent.addEventListener('click', function () {
+          var id = parent.getAttribute('data-target');
+          var sub = document.getElementById(id);
+          var caretId = 'caret-' + id.replace('sub-', '');
+          var caret = document.getElementById(caretId);
+          var opening = !sub.classList.contains('open');
+          menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
+          menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
+          if (opening) {
+            sub.classList.add('open');
+            if (caret) caret.classList.add('open');
+          }
+        });
+      });
+    }
+    window.addEventListener('scroll', function () {
+      var nav = document.getElementById('mainNav');
+      if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
     });
-    // 分類篩選功能
-    const filterBtns = document.querySelectorAll('.category-btn');
-    const pastItems = document.querySelectorAll('#pastList .past-item');
-    
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const category = btn.dataset.category;
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+});
+
+        
+        // 分類篩選功能
+        (function() {
+            var filterBtns = document.querySelectorAll('.category-btn');
+            var pastItems = document.querySelectorAll('#pastList .past-item');
             
-            pastItems.forEach(item => {
-                if (category === 'all' || item.dataset.category === category) {
-                    item.style.display = '';
-                } else {
-                    item.style.display = 'none';
+            function filterArticles() {
+                var activeBtn = document.querySelector('.category-btn.active');
+                var category = activeBtn ? activeBtn.getAttribute('data-category') : 'all';
+                for (var i = 0; i < pastItems.length; i++) {
+                    var item = pastItems[i];
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
                 }
-            });
-        });
-    });
+            }
+            
+            for (var i = 0; i < filterBtns.length; i++) {
+                filterBtns[i].addEventListener('click', function() {
+                    for (var j = 0; j < filterBtns.length; j++) {
+                        filterBtns[j].classList.remove('active');
+                    }
+                    this.classList.add('active');
+                    filterArticles();
+                });
+            }
+            
+            filterArticles();
+        })();
     </script>
 </body>
 </html>
