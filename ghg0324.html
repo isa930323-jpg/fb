@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>蕨積 — 溫室氣體盤查 | 碳管理 x 數據洞察</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* ===== 共用樣式 (完整保留，與植生牆頁面一致) ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --ink: #1a1a14;
+      --moss: #3d5a38;
+      --fern: #5a7a4a;
+      --sage: #8aab7a;
+      --mist: #d4e4c8;
+      --cream: #f5f0e8;
+      --stone: #9a9080;
+      --paper: #faf7f2;
+    }
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ----- 導覽列 (完整保留) ----- */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4vw; height: 72px;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(90,122,74,0.12);
+    }
+    nav.scrolled { box-shadow: 0 2px 24px rgba(61,90,56,0.10); }
+
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .logo-mark { width: 38px; height: 38px; flex-shrink: 0; }
+    .logo-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .logo-text {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: 1.35rem;
+      color: var(--moss);
+      letter-spacing: 0.05em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .logo-text span {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--stone);
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+      white-space: nowrap;
+    }
+    .nav-links li {
+      position: relative;
+      padding: 0 2px;
+    }
+    .nav-links a {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      text-decoration: none;
+      padding-bottom: 3px;
+      opacity: 0.75;
+      display: inline-block;
+    }
+    .nav-links a:hover {
+      opacity: 1;
+      color: var(--fern);
+    }
+    .nav-contact {
+      padding: 8px 20px !important;
+      border: 1px solid var(--fern) !important;
+      border-radius: 2px;
+      color: var(--fern) !important;
+      opacity: 1 !important;
+      margin-left: 0.5rem;
+    }
+    .nav-contact:hover {
+      background: var(--fern);
+      color: white !important;
+    }
+    .has-dropdown > a::after { display: none; }
+
+    .nav-links li .dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 18px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(250,247,242,0.98);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(90,122,74,0.14);
+      border-top: 2px solid var(--fern);
+      box-shadow: 0 12px 40px rgba(61,90,56,0.12);
+      min-width: 148px;
+      list-style: none;
+      padding: 8px 0;
+      z-index: 300;
+    }
+    .nav-links li:hover .dropdown,
+    .nav-links li:focus-within .dropdown {
+      display: block;
+    }
+    .nav-links li .dropdown::before {
+      content: '';
+      position: absolute;
+      top: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 6px solid var(--fern);
+    }
+    .dropdown li a {
+      display: block;
+      padding: 10px 20px;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      opacity: 0.7;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .dropdown li a:hover {
+      opacity: 1;
+      color: var(--fern);
+      padding-left: 26px;
+      background: rgba(90,122,74,0.04);
+    }
+    .dropdown li + li { border-top: 1px solid rgba(90,122,74,0.08); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      width: 40px; height: 40px;
+      cursor: pointer;
+      background: none; border: none;
+      flex-shrink: 0;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 1.5px;
+      background: var(--moss);
+      transition: transform 0.2s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
+      background: #faf7f2;
+      border-bottom: 1px solid rgba(90,122,74,0.15);
+      padding: 0 6vw 40px;
+      z-index: 99;
+      overflow-y: auto;
+      transform: translateX(100%);
+      visibility: hidden;
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu.open { transform: translateX(0); visibility: visible; }
+    .mobile-menu ul { list-style: none; }
+    .mobile-menu > ul > li > a,
+    .mobile-parent {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 0;
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      color: var(--moss);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(90,122,74,0.1);
+      cursor: pointer;
+    }
+    .mobile-parent:hover, .mobile-menu > ul > li > a:hover { color: var(--fern); }
+    .mobile-caret { display: inline-block; transition: transform 0.2s; }
+    .mobile-caret.open { transform: rotate(180deg); }
+    .mobile-sub {
+      list-style: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .mobile-sub.open { max-height: 200px; }
+    .mobile-sub li a {
+      display: block;
+      padding: 11px 0 11px 16px;
+      font-size: 0.85rem;
+      color: var(--stone);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(90,122,74,0.06);
+      letter-spacing: 0.06em;
+    }
+    .mobile-sub li a:hover { color: var(--fern); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ----- 頁面內容區域 - 完全比照植生牆頁面的呼吸感與雜誌風格 (僅修改 main 區塊) ----- */
+    .content {
+      flex: 1;
+      padding-top: 112px; /* 增加上方留白，讓視覺舒適 */
+      padding-bottom: 60px;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 90%;
+    }
+
+    /* 碳故事介紹區塊 (與植生牆頁面結構一致) */
+    .carbon-story-intro {
+      margin-bottom: 56px;
+      border-bottom: 1px solid rgba(90,122,74,0.2);
+      padding-bottom: 32px;
+    }
+    .page-header h2 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--moss);
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      margin-bottom: 24px;
+      border-left: 5px solid var(--fern);
+      padding-left: 20px;
+    }
+    .story-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 16px;
+    }
+    .story-paragraph {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #2c2c26;
+      margin-bottom: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+    .insight-card {
+      background: #ffffffcc;
+      backdrop-filter: blur(2px);
+      border-radius: 24px;
+      padding: 20px 28px;
+      flex: 1 1 240px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      border: 1px solid rgba(90,122,74,0.2);
+      transition: all 0.2s ease;
+    }
+    .insight-card:hover {
+      border-color: var(--sage);
+      background: white;
+    }
+    .insight-card i {
+      color: var(--fern);
+      width: 28px;
+      height: 28px;
+      margin-bottom: 12px;
+    }
+    .insight-card h3 {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      color: var(--moss);
+    }
+    .extend-links {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      margin: 12px 0 8px;
+    }
+    .extend-links a {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-weight: 500;
+      color: var(--fern);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border 0.2s;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+    .extend-links a:hover {
+      border-bottom: 1px solid var(--fern);
+      color: var(--moss);
+    }
+    .footnote {
+      margin-top: 40px;
+      padding: 20px 28px;
+      background: var(--mist);
+      border-radius: 48px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--moss);
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+
+    /* 盤查論述專用容器 - 延續雜誌風格但保留深度內容 */
+    .ghg-in-depth {
+      margin: 32px 0 20px;
+    }
+    .discourse-block {
+      background: #fefaf5;
+      border-radius: 36px;
+      padding: 2rem 2rem;
+      box-shadow: 0 20px 35px -12px rgba(61,90,56,0.08);
+      border: 1px solid rgba(90,122,74,0.2);
+      margin-bottom: 48px;
+    }
+    .highlight-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 1.4;
+      color: var(--moss);
+      border-left: 3px solid var(--sage);
+      padding-left: 28px;
+      margin: 28px 0;
+      font-style: italic;
+    }
+    .stat-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin: 32px 0;
+    }
+    .stat-item {
+      background: white;
+      border-radius: 28px;
+      padding: 20px 24px;
+      flex: 1 1 200px;
+      text-align: center;
+      border: 1px solid rgba(90,122,74,0.15);
+      transition: all 0.2s;
+    }
+    .stat-number {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--fern);
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      color: var(--stone);
+      text-transform: uppercase;
+    }
+    .method-badge {
+      display: inline-block;
+      background: var(--mist);
+      border-radius: 40px;
+      padding: 4px 16px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--moss);
+      margin-right: 12px;
+      margin-bottom: 8px;
+    }
+    hr {
+      margin: 32px 0;
+      border: none;
+      border-top: 1px solid rgba(90,122,74,0.2);
+    }
+
+    footer {
+      border-top: 1px solid rgba(90,122,74,0.15);
+      padding: 40px 4vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--paper);
+      margin-top: auto;
+    }
+    .footer-logo {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: var(--moss);
+      letter-spacing: 0.05em;
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--stone);
+      letter-spacing: 0.1em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.75rem;
+      color: var(--stone);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .footer-links a:hover {
+      opacity: 1;
+      color: var(--fern);
+    }
+    @media (max-width: 768px) {
+      footer {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+      .footer-links {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .content {
+        width: 92%;
+        padding-top: 100px;
+      }
+      .page-header h2 {
+        font-size: 1.6rem;
+      }
+      .stat-number {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <main class="content">
+    <!-- 重新組織碳盤查內容：融合植生牆頁面的敘事結構，打造工程思維＋碳管理深度 -->
+    <div class="carbon-story-intro">
+      <div class="page-header">
+        <h2>碳盤查，是理解，<br>而不是答案。</h2>
+      </div>
+      <div class="story-grid">
+        <div class="insight-card">
+          <i data-lucide="bar-chart-3"></i>
+          <h3>範疇分類</h3>
+          <p class="story-paragraph" style="font-size:0.9rem;">直接排放、能源間接、其他間接，盤查架構決定管理邊界，讓熱點清晰浮現。</p>
+        </div>
+        <div class="insight-card">
+          <i data-lucide="database"></i>
+          <h3>係數・數據</h3>
+          <p class="story-paragraph" style="font-size:0.9rem;">排放係數本身帶有不確定性，與其追求「精準」，不如聚焦數據合理性與改善優先序。</p>
+        </div>
+        <div class="insight-card">
+          <i data-lucide="trending-down"></i>
+          <h3>結構洞察</h3>
+          <p class="story-paragraph" style="font-size:0.9rem;">排放結構比總量更重要，蕨積協助企業辨識高排放熱點，擬定減碳路徑。</p>
+        </div>
+      </div>
+      <p class="story-paragraph" style="margin-top: 20px; max-width: 780px;">
+        碳盤查不只是合規要求，更是組織內部能源流與資源效率的透視鏡。從用電、燃料到供應鏈，每一筆數據都指向改善的可能性。蕨積將盤查視為「綠化工程」的前置作業——唯有理解排放的來龍去脈，才能讓植生牆、低碳建材、循環設計發揮最大效益。
+      </p>
+    </div>
+
+    <!-- 深度探討區塊：融合原本ghg.html的思辨文字，轉換為更具雜誌風格的文章結構 -->
+    <div class="ghg-in-depth">
+      <div class="discourse-block">
+        <p class="story-paragraph" style="font-size: 1.05rem; font-weight: 500;">
+          在實務中，碳盤查涉及排放係數與估算，本身就帶有一定程度的不確定性。蕨積更關注的是：排放結構、熱點，以及數據的合理性。
+        </p>
+        <div class="highlight-quote">
+          「多數時候，問題不在於怎麼計算，而在於怎麼理解。」
+        </div>
+        <p class="story-paragraph">
+          傳統溫室氣體盤查（ISO 14064-1）將排放分為六大類別，從直接排放到運輸、組織使用產品等間接排放。但對多數企業而言，初次盤查最常見的痛點並非技術，而是數據溯源與邊界定義。蕨積的顧問服務強調「盤查＋綠化解決方案」，將排放熱點直接對應到植生牆、能源管理系統或低碳建材替換，讓碳管理不再只是紙上報告。
+        </p>
+        <div class="stat-grid">
+          <div class="stat-item">
+            <div class="stat-number">範疇1+2</div>
+            <div class="stat-label">通常占中小企業70%以上碳排</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">0.495</div>
+            <div class="stat-label">kg CO2e / kWh<br>(台灣電力係數)</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">30~40%</div>
+            <div class="stat-label">空調照明節能潛力</div>
+          </div>
+        </div>
+        <p class="story-paragraph">
+          垂直綠化與碳盤查之間的關聯不只是數字加減。透過盤查釐清用電熱點後，外牆植生牆可同時發揮隔熱降溫、減少空調負荷的功能，並透過植物固碳抵銷部分排放。從工程角度來看，碳盤查提供了「設計前的基準線」，讓每一分綠化投資都能追蹤其減碳效益。
+        </p>
+        <hr>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;">
+          <span class="method-badge">ISO 14064-1:2018</span>
+          <span class="method-badge">GWP 氣候變遷衝擊</span>
+          <span class="method-badge">排放係數法</span>
+          <span class="method-badge">活動數據蒐集</span>
+        </div>
+        <p class="story-paragraph">
+          蕨積提供的碳管理服務強調「可視化」與「工程對接」：從用電、燃料、冷媒洩漏到廢棄物，我們協助客戶建立排放清冊，同時提出對應的垂直綠化、再生能源、節能改善組合。盤查不是終點，而是循環減碳的起點。
+        </p>
+      </div>
+
+      <!-- 下一步與延伸連結（比照植生牆頁面的互動連結） -->
+      <div class="extend-links" style="margin: 20px 0 16px;">
+        <a href="greenwall.html">⟡ 植生牆碳效益計算機</a>
+        <a href="consulting.html">⟡ 回到顧問總覽</a>
+      </div>
+      <div class="footnote">
+        「數據不是答案，而是方向。盤查之後，讓綠化成為減碳的具體實踐。」
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <ul class="footer-links">
+      <li><a href="shop.html">植物選品</a></li>
+      <li><a href="consult.html">綠色顧問</a></li>
+      <li><a href="fbnote.html">蕨望筆記</a></li>
+      <li><a href="about.html">關於蕨積</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
+  </footer>
+
+  <script>
+    // 完整保留原有腳本邏輯，僅調整內容渲染 (維持 nav 載入及互動不變)
+    document.addEventListener('DOMContentLoaded', function () {
+      // 載入共用導覽列
+      fetch('nav.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('nav-placeholder').innerHTML = data;
+          initNav();
+        })
+        .catch(err => {
+          console.error('nav.html 載入失敗，使用預設替代導覽列', err);
+          document.getElementById('nav-placeholder').innerHTML = 
+            '<nav style="background:var(--paper);padding:0 4vw;height:72px;display:flex;align-items:center;justify-content:space-between;">' +
+            '<div class="logo"><div class="logo-text">蕨積<span>FERNBROM</span></div></div>' +
+            '<div style="display:flex;gap:20px;"><a href="#" style="text-decoration:none;color:var(--moss)">選單</a></div></nav>';
+          initNav();
+        });
+
+      function initNav() {
+        // hamburger 與 行動選單交互
+        var btn = document.getElementById('hamburger');
+        var menu = document.getElementById('mobileMenu');
+        if (btn && menu) {
+          btn.addEventListener('click', function () {
+            btn.classList.toggle('open');
+            menu.classList.toggle('open');
+          });
+          if(menu.querySelectorAll('.mobile-link')) {
+            menu.querySelectorAll('.mobile-link').forEach(function (a) {
+              a.addEventListener('click', function () {
+                btn.classList.remove('open');
+                menu.classList.remove('open');
+              });
+            });
+          }
+        }
+        // 行動版下拉選單功能 (mobile-parent)
+        if (menu) {
+          menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
+            parent.addEventListener('click', function () {
+              let targetId = parent.getAttribute('data-target');
+              let sub = document.getElementById(targetId);
+              let caretId = 'caret-' + (targetId ? targetId.replace('sub-', '') : '');
+              let caret = document.getElementById(caretId);
+              let opening = sub && !sub.classList.contains('open');
+              if(menu.querySelectorAll('.mobile-sub')) menu.querySelectorAll('.mobile-sub').forEach(s => s.classList.remove('open'));
+              if(menu.querySelectorAll('.mobile-caret')) menu.querySelectorAll('.mobile-caret').forEach(c => c.classList.remove('open'));
+              if(opening && sub) {
+                sub.classList.add('open');
+                if(caret) caret.classList.add('open');
+              }
+            });
+          });
+        }
+        // 滾動效果導覽列陰影
+        window.addEventListener('scroll', function () {
+          let nav = document.getElementById('mainNav');
+          if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
+        });
+        // lucide 圖示初始化
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      }
+      // 確保任何動態加入的圖示被渲染（若已有lucide）
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>
