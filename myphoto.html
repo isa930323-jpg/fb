@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>蕨積 — 植物 x 工程 x 碳生活 | LINE 相簿機器人</title>
+  <title>蕨積 — 屋頂相簿</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -231,45 +231,13 @@
       padding-bottom: 40px;
     }
 
-    /* ===== LINE 相簿機器人樣式 ===== */
+    /* ===== 相簿樣式 ===== */
     .photo-album-wrapper {
       max-width: 1400px;
       margin: 0 auto;
       padding: 0 24px;
     }
 
-    /* 標籤篩選欄 */
-    .tag-filter {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      margin-bottom: 40px;
-      padding: 20px;
-      background: white;
-      border-radius: 50px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    
-    .tag-btn {
-      padding: 8px 20px;
-      border: 1px solid var(--sage);
-      background: white;
-      color: var(--fern);
-      border-radius: 30px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: all 0.3s;
-      font-family: inherit;
-    }
-    
-    .tag-btn:hover,
-    .tag-btn.active {
-      background: var(--fern);
-      color: white;
-      border-color: var(--fern);
-    }
-    
     /* 相簿標題區 */
     .album-header {
       text-align: center;
@@ -293,110 +261,127 @@
       letter-spacing: 0.05em;
     }
 
-    /* 相簿網格 */
-    .album-grid {
+    /* 照片網格 - 電腦版 4x2，手機版 1 張 */
+    .photo-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 32px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
       margin-bottom: 48px;
     }
     
-    /* 相簿卡片 */
-    .album-card {
+    /* 照片卡片 */
+    .photo-card {
       background: white;
-      border-radius: 16px;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
-      text-decoration: none;
-      display: block;
-      color: inherit;
-    }
-    
-    .album-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(61, 90, 56, 0.12);
-    }
-    
-    .album-cover {
       position: relative;
-      width: 100%;
-      padding-top: 75%;
-      background: var(--mist);
-      overflow: hidden;
+      aspect-ratio: 4 / 3;
     }
     
-    .album-cover img {
-      position: absolute;
-      top: 0;
-      left: 0;
+    .photo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(61, 90, 56, 0.15);
+    }
+    
+    .photo-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s ease;
+      display: block;
     }
     
-    .album-card:hover .album-cover img {
+    .photo-card:hover img {
       transform: scale(1.05);
     }
     
-    .album-info {
-      padding: 20px;
+    /* 照片資訊浮層 */
+    .photo-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      padding: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
     
-    .album-info h3 {
-      font-family: 'Noto Serif TC', serif;
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--moss);
-      margin-bottom: 8px;
+    .photo-card:hover .photo-overlay {
+      opacity: 1;
     }
     
-    .album-date {
-      font-size: 0.8rem;
-      color: var(--stone);
-      margin-bottom: 8px;
+    .photo-date {
+      color: white;
+      font-size: 0.75rem;
       display: flex;
       align-items: center;
-      gap: 6px;
-    }
-    
-    .album-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid var(--mist);
-    }
-    
-    .album-tag {
-      background: var(--mist);
-      color: var(--moss);
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.7rem;
+      gap: 4px;
     }
     
     /* 載入狀態 */
     .loading-state {
       text-align: center;
-      padding: 60px 20px;
+      padding: 40px 20px;
     }
     
     .loading-spinner {
-      width: 48px;
-      height: 48px;
+      width: 40px;
+      height: 40px;
       border: 3px solid var(--mist);
       border-top-color: var(--fern);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
-      margin: 0 auto 20px;
+      margin: 0 auto 16px;
     }
     
     @keyframes spin {
       to { transform: rotate(360deg); }
+    }
+    
+    .loading-text {
+      color: var(--stone);
+      font-size: 0.9rem;
+    }
+    
+    /* 加載更多按鈕 */
+    .load-more-btn {
+      text-align: center;
+      padding: 20px 0 40px;
+    }
+    
+    .load-more {
+      background: var(--fern);
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 40px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+    
+    .load-more:hover {
+      background: var(--moss);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(61, 90, 56, 0.3);
+    }
+    
+    .load-more:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    /* 沒有更多照片 */
+    .no-more {
+      text-align: center;
+      padding: 40px;
+      color: var(--stone);
     }
     
     /* 錯誤狀態 */
@@ -404,32 +389,6 @@
       text-align: center;
       padding: 60px 20px;
       color: var(--stone);
-    }
-    
-    /* 響應式調整 */
-    @media (max-width: 768px) {
-      .photo-album-wrapper {
-        padding: 0 16px;
-      }
-      
-      .album-header h1 {
-        font-size: 1.8rem;
-      }
-      
-      .album-grid {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 20px;
-      }
-      
-      .tag-filter {
-        border-radius: 20px;
-        padding: 15px;
-      }
-      
-      .tag-btn {
-        padding: 6px 16px;
-        font-size: 0.75rem;
-      }
     }
     
     /* 燈箱效果 */
@@ -440,7 +399,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.95);
       z-index: 1000;
       justify-content: center;
       align-items: center;
@@ -461,6 +420,7 @@
       max-width: 100%;
       max-height: 90vh;
       object-fit: contain;
+      border-radius: 8px;
     }
     
     .lightbox-close {
@@ -473,6 +433,44 @@
       background: none;
       border: none;
       font-family: monospace;
+      z-index: 1001;
+    }
+    
+    .lightbox-info {
+      position: absolute;
+      bottom: -40px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: white;
+      font-size: 0.85rem;
+    }
+    
+    /* 響應式設計 */
+    @media (max-width: 1024px) {
+      .photo-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .photo-album-wrapper {
+        padding: 0 16px;
+      }
+      
+      .album-header h1 {
+        font-size: 1.8rem;
+      }
+      
+      .photo-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .photo-card {
+        aspect-ratio: 4 / 3;
+      }
     }
     
     /* ----- Footer (完整保留) ----- */
@@ -526,28 +524,16 @@
   <main class="content">
     <div class="photo-album-wrapper">
       <div class="album-header">
-        <h1>📷 LINE 相簿機器人</h1>
-        <p>自動備份與管理您的 LINE 相簿，珍藏每一刻美好回憶</p>
+        <h1>屋頂相簿</h1>
+        <p>這些是未上架的植物歡迎觀賞</p>
       </div>
       
-      <!-- 標籤篩選欄 -->
-      <div class="tag-filter" id="tagFilter">
-        <button class="tag-btn active" data-tag="all">全部</button>
-        <button class="tag-btn" data-tag="#碳盤查">#碳盤查</button>
-        <button class="tag-btn" data-tag="#永續">#永續</button>
-        <button class="tag-btn" data-tag="#淨零">#淨零</button>
-        <button class="tag-btn" data-tag="#生活">#生活</button>
-        <button class="tag-btn" data-tag="#鹿角蕨">#鹿角蕨</button>
-        <button class="tag-btn" data-tag="#積水鳳梨">#積水鳳梨</button>
-        <button class="tag-btn" data-tag="#植物">#植物</button>
-      </div>
+      <!-- 照片網格容器 -->
+      <div id="photoGrid" class="photo-grid"></div>
       
-      <!-- 相簿網格容器 -->
-      <div id="albumGrid" class="album-grid">
-        <div class="loading-state">
-          <div class="loading-spinner"></div>
-          <p>載入相簿中...</p>
-        </div>
+      <!-- 加載更多按鈕 -->
+      <div id="loadMoreContainer" class="load-more-btn">
+        <button id="loadMoreBtn" class="load-more">載入更多照片</button>
       </div>
     </div>
   </main>
@@ -557,6 +543,7 @@
     <div class="lightbox-content" onclick="event.stopPropagation()">
       <button class="lightbox-close" onclick="closeLightbox()">✕</button>
       <img id="lightboxImage" src="" alt="">
+      <div id="lightboxInfo" class="lightbox-info"></div>
     </div>
   </div>
 
@@ -573,38 +560,25 @@
   <script>
     // API 基礎網址
     const API_BASE = 'https://linephotobot.onrender.com';
-    let currentTag = 'all';
-    let allMessages = [];
-    let allImages = [];
+    let allImages = [];      // 所有照片
+    let displayedCount = 0;  // 已顯示的照片數量
+    const PAGE_SIZE = 8;      // 每次加載 8 張 (電腦版 4x2)
+    let isLoading = false;     // 是否正在加載
+    let hasMore = true;        // 是否還有更多照片
     
-    // 從 API 獲取訊息
-    async function fetchMessages(tag = null) {
-      try {
-        let url = `${API_BASE}/api/messages?limit=200`;
-        if (tag && tag !== 'all') {
-          url += `&tag=${encodeURIComponent(tag)}`;
-        }
-        const response = await fetch(url);
-        if (!response.ok) throw new Error('獲取訊息失敗');
-        const data = await response.json();
-        return data;
-      } catch (error) {
-        console.error('載入訊息失敗:', error);
-        return [];
-      }
-    }
-    
-    // 從 API 獲取照片
-    async function fetchImages() {
+    // 從 API 獲取所有照片
+    async function fetchAllImages() {
       try {
         const allImagesData = [];
         let cursor = null;
-        let hasMore = true;
+        let hasMorePages = true;
+        let pageNum = 1;
         
-        while (hasMore) {
+        while (hasMorePages) {
           let url = `${API_BASE}/api/images`;
           if (cursor) url += `?cursor=${cursor}`;
           
+          console.log(`正在載入第 ${pageNum} 頁照片...`);
           const response = await fetch(url);
           if (!response.ok) throw new Error('獲取照片失敗');
           
@@ -612,13 +586,18 @@
           allImagesData.push(...data.images);
           
           cursor = data.nextCursor;
-          hasMore = !!cursor;
+          hasMorePages = !!cursor;
+          pageNum++;
+          
+          // 避免無限循環，最多加載 50 頁
+          if (pageNum > 50) break;
         }
         
+        console.log(`總共載入 ${allImagesData.length} 張照片`);
         return allImagesData;
       } catch (error) {
         console.error('載入照片失敗:', error);
-        return [];
+        throw error;
       }
     }
     
@@ -629,90 +608,34 @@
       return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
     }
     
-    // 渲染內容
-    function renderContent(messages, images) {
-      const grid = document.getElementById('albumGrid');
+    // 渲染照片
+    function renderPhotos(startIndex, count) {
+      const grid = document.getElementById('photoGrid');
       if (!grid) return;
       
-      if ((!messages || messages.length === 0) && (!images || images.length === 0)) {
-        grid.innerHTML = `
-          <div class="empty-state">
-            <i>📭</i>
-            <p>目前沒有內容，請稍後再試</p>
+      const endIndex = Math.min(startIndex + count, allImages.length);
+      const newPhotos = allImages.slice(startIndex, endIndex);
+      
+      // 創建新照片的 HTML
+      const photosHTML = newPhotos.map(photo => `
+        <div class="photo-card" onclick="openLightbox('${photo.url}', '${formatDate(photo.time)}')">
+          <img src="${photo.url}" alt="照片" loading="lazy">
+          <div class="photo-overlay">
+            <div class="photo-date">
+              <i data-lucide="calendar" style="width: 12px; height: 12px;"></i>
+              ${formatDate(photo.time)}
+            </div>
           </div>
-        `;
-        return;
+        </div>
+      `).join('');
+      
+      // 如果是第一次加載，直接設置內容
+      if (startIndex === 0) {
+        grid.innerHTML = photosHTML;
+      } else {
+        // 否則追加內容
+        grid.insertAdjacentHTML('beforeend', photosHTML);
       }
-      
-      // 合併訊息和照片，按時間排序
-      const items = [];
-      
-      // 添加訊息
-      messages.forEach(msg => {
-        items.push({
-          type: 'message',
-          id: msg.id,
-          text: msg.text,
-          displayName: msg.displayName || 'FernBrom',
-          timestamp: msg.timestamp,
-          tags: msg.tags || [],
-          image: null
-        });
-      });
-      
-      // 添加照片
-      images.forEach(img => {
-        items.push({
-          type: 'image',
-          id: img.public_id,
-          url: img.url,
-          timestamp: img.time,
-          displayName: 'FernBrom',
-          text: null,
-          tags: []
-        });
-      });
-      
-      // 按時間排序（最新的在前）
-      items.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-      
-      // 渲染網格
-      grid.innerHTML = items.map(item => {
-        if (item.type === 'message') {
-          return `
-            <div class="album-card" onclick="showMessageDetail('${escapeHtml(item.text)}', '${item.displayName}', '${item.timestamp}', ${JSON.stringify(item.tags).replace(/"/g, '&quot;')})">
-              <div class="album-cover" style="background: linear-gradient(135deg, var(--sage) 0%, var(--moss) 100%);">
-                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 48px;">💬</div>
-              </div>
-              <div class="album-info">
-                <h3>${escapeHtml(item.text.substring(0, 50))}${item.text.length > 50 ? '...' : ''}</h3>
-                <div class="album-date">
-                  <i data-lucide="calendar" style="width: 14px; height: 14px;"></i>
-                  ${formatDate(item.timestamp)}
-                </div>
-                <div class="album-tags">
-                  ${item.tags.map(tag => `<span class="album-tag">${escapeHtml(tag)}</span>`).join('')}
-                </div>
-              </div>
-            </div>
-          `;
-        } else {
-          return `
-            <div class="album-card" onclick="openLightbox('${item.url}')">
-              <div class="album-cover">
-                <img src="${item.url}" alt="照片" loading="lazy">
-              </div>
-              <div class="album-info">
-                <h3>📸 照片</h3>
-                <div class="album-date">
-                  <i data-lucide="calendar" style="width: 14px; height: 14px;"></i>
-                  ${formatDate(item.timestamp)}
-                </div>
-              </div>
-            </div>
-          `;
-        }
-      }).join('');
       
       // 重新初始化 lucide 圖示
       if (typeof lucide !== 'undefined') {
@@ -720,63 +643,45 @@
       }
     }
     
-    // 顯示訊息詳情
-    function showMessageDetail(text, name, timestamp, tags) {
-      const modal = document.createElement('div');
-      modal.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.8);
-        z-index: 1001;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-      `;
-      modal.onclick = () => modal.remove();
+    // 加載更多照片
+    async function loadMore() {
+      if (isLoading || !hasMore) return;
       
-      const content = document.createElement('div');
-      content.style.cssText = `
-        background: white;
-        max-width: 500px;
-        width: 90%;
-        border-radius: 16px;
-        padding: 24px;
-        cursor: default;
-        max-height: 80vh;
-        overflow-y: auto;
-      `;
-      content.onclick = (e) => e.stopPropagation();
+      isLoading = true;
+      const loadMoreBtn = document.getElementById('loadMoreBtn');
+      loadMoreBtn.disabled = true;
+      loadMoreBtn.textContent = '載入中...';
       
-      content.innerHTML = `
-        <h3 style="color: var(--moss); margin-bottom: 16px;">💬 留言內容</h3>
-        <p style="margin-bottom: 16px; line-height: 1.6;">${escapeHtml(text)}</p>
-        <div style="margin-bottom: 12px; color: var(--stone); font-size: 0.85rem;">
-          👤 ${escapeHtml(name)}
-        </div>
-        <div style="margin-bottom: 12px; color: var(--stone); font-size: 0.85rem;">
-          📅 ${formatDate(timestamp)}
-        </div>
-        ${tags && tags.length > 0 ? `
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-            ${tags.map(tag => `<span style="background: var(--mist); color: var(--moss); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem;">${escapeHtml(tag)}</span>`).join('')}
-          </div>
-        ` : ''}
-        <button onclick="this.closest('div').parentElement.remove()" style="margin-top: 20px; padding: 8px 20px; background: var(--fern); color: white; border: none; border-radius: 8px; cursor: pointer;">關閉</button>
-      `;
+      // 模擬延遲，讓用戶體驗更好
+      await new Promise(resolve => setTimeout(resolve, 300));
       
-      modal.appendChild(content);
-      document.body.appendChild(modal);
+      const nextCount = displayedCount + PAGE_SIZE;
+      
+      if (nextCount >= allImages.length) {
+        // 最後一批
+        renderPhotos(displayedCount, allImages.length - displayedCount);
+        displayedCount = allImages.length;
+        hasMore = false;
+        loadMoreBtn.textContent = '沒有更多照片了';
+        loadMoreBtn.disabled = true;
+      } else {
+        // 正常加載
+        renderPhotos(displayedCount, PAGE_SIZE);
+        displayedCount = nextCount;
+        loadMoreBtn.disabled = false;
+        loadMoreBtn.textContent = '載入更多照片';
+      }
+      
+      isLoading = false;
     }
     
     // 開啟燈箱
-    function openLightbox(url) {
+    function openLightbox(url, date) {
       const lightbox = document.getElementById('lightbox');
       const lightboxImage = document.getElementById('lightboxImage');
+      const lightboxInfo = document.getElementById('lightboxInfo');
       lightboxImage.src = url;
+      lightboxInfo.textContent = date;
       lightbox.classList.add('active');
     }
     
@@ -786,79 +691,82 @@
       lightbox.classList.remove('active');
     }
     
-    // 防止 XSS 攻擊
-    function escapeHtml(str) {
-      if (!str) return '';
-      return str
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-    
     // 初始化頁面
     async function initPage() {
-      const grid = document.getElementById('albumGrid');
+      const grid = document.getElementById('photoGrid');
+      const loadMoreContainer = document.getElementById('loadMoreContainer');
+      
+      // 顯示載入狀態
       grid.innerHTML = `
-        <div class="loading-state">
+        <div class="loading-state" style="grid-column: 1/-1;">
           <div class="loading-spinner"></div>
-          <p>載入相簿中...</p>
+          <div class="loading-text">正在載入照片...</div>
         </div>
       `;
       
       try {
-        // 同時載入訊息和照片
-        const [messages, images] = await Promise.all([
-          fetchMessages(currentTag === 'all' ? null : currentTag),
-          fetchImages()
-        ]);
+        // 獲取所有照片
+        allImages = await fetchAllImages();
         
-        allMessages = messages;
-        allImages = images;
-        renderContent(messages, images);
+        if (allImages.length === 0) {
+          grid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1/-1;">
+              <i>📭</i>
+              <p>目前沒有照片，請稍後再試</p>
+            </div>
+          `;
+          loadMoreContainer.style.display = 'none';
+          return;
+        }
+        
+        // 重置顯示計數
+        displayedCount = 0;
+        hasMore = true;
+        
+        // 加載第一批照片 (8 張)
+        const initialLoad = Math.min(PAGE_SIZE, allImages.length);
+        renderPhotos(0, initialLoad);
+        displayedCount = initialLoad;
+        
+        // 如果照片數量少於等於 8 張，隱藏加載更多按鈕
+        if (allImages.length <= PAGE_SIZE) {
+          hasMore = false;
+          loadMoreContainer.innerHTML = '<div class="no-more">✨ 已顯示所有照片 ✨</div>';
+        } else {
+          // 綁定加載更多事件
+          const loadMoreBtn = document.getElementById('loadMoreBtn');
+          loadMoreBtn.onclick = loadMore;
+        }
+        
       } catch (error) {
-        console.error('載入失敗:', error);
+        console.error('初始化失敗:', error);
         grid.innerHTML = `
-          <div class="error-state">
+          <div class="error-state" style="grid-column: 1/-1;">
             <i>⚠️</i>
             <p>載入失敗，請稍後再試</p>
             <button onclick="location.reload()" style="margin-top: 16px; padding: 8px 20px; background: var(--fern); color: white; border: none; border-radius: 4px; cursor: pointer;">重新載入</button>
           </div>
         `;
+        loadMoreContainer.style.display = 'none';
       }
     }
     
-    // 標籤篩選功能
-    function setupTagFilter() {
-      const buttons = document.querySelectorAll('.tag-btn');
-      buttons.forEach(btn => {
-        btn.addEventListener('click', async () => {
-          // 更新 active 狀態
-          buttons.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          
-          // 更新當前標籤
-          currentTag = btn.dataset.tag;
-          
-          // 重新載入資料
-          const grid = document.getElementById('albumGrid');
-          grid.innerHTML = `
-            <div class="loading-state">
-              <div class="loading-spinner"></div>
-              <p>載入中...</p>
-            </div>
-          `;
-          
-          try {
-            const messages = await fetchMessages(currentTag === 'all' ? null : currentTag);
-            allMessages = messages;
-            renderContent(messages, allImages);
-          } catch (error) {
-            console.error('篩選失敗:', error);
-          }
-        });
-      });
+    // 無限滾動加載
+    let scrollTimeout;
+    function handleScroll() {
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      
+      scrollTimeout = setTimeout(() => {
+        if (!hasMore || isLoading) return;
+        
+        const scrollPosition = window.innerHeight + window.scrollY;
+        const pageHeight = document.documentElement.scrollHeight;
+        
+        // 當滾動到距離底部 300px 時自動加載
+        if (scrollPosition >= pageHeight - 300) {
+          loadMore();
+        }
+      }, 100);
     }
     
     // 導覽列初始化
@@ -914,7 +822,9 @@
       
       // 初始化相簿
       initPage();
-      setupTagFilter();
+      
+      // 監聽滾動事件，實現無限滾動
+      window.addEventListener('scroll', handleScroll);
     });
   </script>
 </body>
