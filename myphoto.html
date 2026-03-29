@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>蕨積 — 屋頂相簿</title>
+  <title>蕨積 — 屋頂植物相簿</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -278,7 +278,7 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
       position: relative;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 3 / 4;
     }
     
     .photo-card:hover {
@@ -322,70 +322,78 @@
       gap: 4px;
     }
     
+    /* 分頁控制區 */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 0 40px;
+    }
+    
+    .page-btn {
+      background: var(--fern);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: inherit;
+      min-width: 100px;
+    }
+    
+    .page-btn:hover:not(:disabled) {
+      background: var(--moss);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(61, 90, 56, 0.3);
+    }
+    
+    .page-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .page-info {
+      font-size: 1rem;
+      color: var(--stone);
+      padding: 8px 20px;
+      background: white;
+      border-radius: 40px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
     /* 載入狀態 */
     .loading-state {
       text-align: center;
-      padding: 40px 20px;
+      padding: 60px 20px;
     }
     
     .loading-spinner {
-      width: 40px;
-      height: 40px;
+      width: 48px;
+      height: 48px;
       border: 3px solid var(--mist);
       border-top-color: var(--fern);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
-      margin: 0 auto 16px;
+      margin: 0 auto 20px;
     }
     
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
     
-    .loading-text {
-      color: var(--stone);
-      font-size: 0.9rem;
-    }
-    
-    /* 加載更多按鈕 */
-    .load-more-btn {
-      text-align: center;
-      padding: 20px 0 40px;
-    }
-    
-    .load-more {
-      background: var(--fern);
-      color: white;
-      border: none;
-      padding: 12px 32px;
-      border-radius: 40px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-family: inherit;
-    }
-    
-    .load-more:hover {
-      background: var(--moss);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(61, 90, 56, 0.3);
-    }
-    
-    .load-more:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-    
-    /* 沒有更多照片 */
-    .no-more {
-      text-align: center;
-      padding: 40px;
-      color: var(--stone);
-    }
-    
     /* 錯誤狀態 */
     .error-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--stone);
+    }
+    
+    /* 空狀態 */
+    .empty-state {
       text-align: center;
       padding: 60px 20px;
       color: var(--stone);
@@ -469,7 +477,22 @@
       }
       
       .photo-card {
-        aspect-ratio: 4 / 3;
+        aspect-ratio: 3 / 4;
+      }
+      
+      .pagination {
+        gap: 12px;
+      }
+      
+      .page-btn {
+        padding: 8px 16px;
+        min-width: 70px;
+        font-size: 0.9rem;
+      }
+      
+      .page-info {
+        font-size: 0.85rem;
+        padding: 6px 12px;
       }
     }
     
@@ -524,16 +547,18 @@
   <main class="content">
     <div class="photo-album-wrapper">
       <div class="album-header">
-        <h1>屋頂相簿</h1>
-        <p>這些是未上架的植物歡迎觀賞</p>
+        <h1>屋頂植物相簿</h1>
+        <p>這裡是未上架的屋頂植物歡迎觀賞</p>
       </div>
       
       <!-- 照片網格容器 -->
       <div id="photoGrid" class="photo-grid"></div>
       
-      <!-- 加載更多按鈕 -->
-      <div id="loadMoreContainer" class="load-more-btn">
-        <button id="loadMoreBtn" class="load-more">載入更多照片</button>
+      <!-- 分頁控制 -->
+      <div class="pagination">
+        <button id="prevBtn" class="page-btn" onclick="prevPage()">◀ 上一頁</button>
+        <span id="pageInfo" class="page-info">第 1 / 1 頁</span>
+        <button id="nextBtn" class="page-btn" onclick="nextPage()">下一頁 ▶</button>
       </div>
     </div>
   </main>
@@ -561,10 +586,9 @@
     // API 基礎網址
     const API_BASE = 'https://linephotobot.onrender.com';
     let allImages = [];      // 所有照片
-    let displayedCount = 0;  // 已顯示的照片數量
-    const PAGE_SIZE = 8;      // 每次加載 8 張 (電腦版 4x2)
-    let isLoading = false;     // 是否正在加載
-    let hasMore = true;        // 是否還有更多照片
+    let currentPage = 1;     // 當前頁碼
+    const IMAGES_PER_PAGE = 8; // 每頁顯示 8 張照片 (4x2)
+    let totalPages = 1;       // 總頁數
     
     // 從 API 獲取所有照片
     async function fetchAllImages() {
@@ -608,16 +632,28 @@
       return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
     }
     
-    // 渲染照片
-    function renderPhotos(startIndex, count) {
+    // 渲染當前頁面的照片
+    function renderCurrentPage() {
       const grid = document.getElementById('photoGrid');
       if (!grid) return;
       
-      const endIndex = Math.min(startIndex + count, allImages.length);
-      const newPhotos = allImages.slice(startIndex, endIndex);
+      // 計算當前頁面要顯示的照片
+      const startIndex = (currentPage - 1) * IMAGES_PER_PAGE;
+      const endIndex = Math.min(startIndex + IMAGES_PER_PAGE, allImages.length);
+      const currentImages = allImages.slice(startIndex, endIndex);
       
-      // 創建新照片的 HTML
-      const photosHTML = newPhotos.map(photo => `
+      if (currentImages.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state" style="grid-column: 1/-1;">
+            <i>📭</i>
+            <p>暫無照片</p>
+          </div>
+        `;
+        return;
+      }
+      
+      // 渲染照片
+      grid.innerHTML = currentImages.map(photo => `
         <div class="photo-card" onclick="openLightbox('${photo.url}', '${formatDate(photo.time)}')">
           <img src="${photo.url}" alt="照片" loading="lazy">
           <div class="photo-overlay">
@@ -629,50 +665,53 @@
         </div>
       `).join('');
       
-      // 如果是第一次加載，直接設置內容
-      if (startIndex === 0) {
-        grid.innerHTML = photosHTML;
-      } else {
-        // 否則追加內容
-        grid.insertAdjacentHTML('beforeend', photosHTML);
-      }
-      
       // 重新初始化 lucide 圖示
       if (typeof lucide !== 'undefined') {
         lucide.createIcons();
       }
+      
+      // 更新分頁資訊
+      updatePagination();
+      
+      // 滾動到頂部，提升用戶體驗
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     
-    // 加載更多照片
-    async function loadMore() {
-      if (isLoading || !hasMore) return;
+    // 更新分頁控制按鈕狀態和資訊
+    function updatePagination() {
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const pageInfo = document.getElementById('pageInfo');
       
-      isLoading = true;
-      const loadMoreBtn = document.getElementById('loadMoreBtn');
-      loadMoreBtn.disabled = true;
-      loadMoreBtn.textContent = '載入中...';
+      // 更新總頁數
+      totalPages = Math.ceil(allImages.length / IMAGES_PER_PAGE);
       
-      // 模擬延遲，讓用戶體驗更好
-      await new Promise(resolve => setTimeout(resolve, 300));
+      // 更新按鈕狀態
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === totalPages || totalPages === 0;
       
-      const nextCount = displayedCount + PAGE_SIZE;
-      
-      if (nextCount >= allImages.length) {
-        // 最後一批
-        renderPhotos(displayedCount, allImages.length - displayedCount);
-        displayedCount = allImages.length;
-        hasMore = false;
-        loadMoreBtn.textContent = '沒有更多照片了';
-        loadMoreBtn.disabled = true;
+      // 更新頁碼顯示
+      if (totalPages === 0) {
+        pageInfo.textContent = '第 0 / 0 頁';
       } else {
-        // 正常加載
-        renderPhotos(displayedCount, PAGE_SIZE);
-        displayedCount = nextCount;
-        loadMoreBtn.disabled = false;
-        loadMoreBtn.textContent = '載入更多照片';
+        pageInfo.textContent = `第 ${currentPage} / ${totalPages} 頁`;
       }
-      
-      isLoading = false;
+    }
+    
+    // 上一頁
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        renderCurrentPage();
+      }
+    }
+    
+    // 下一頁
+    function nextPage() {
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderCurrentPage();
+      }
     }
     
     // 開啟燈箱
@@ -694,7 +733,7 @@
     // 初始化頁面
     async function initPage() {
       const grid = document.getElementById('photoGrid');
-      const loadMoreContainer = document.getElementById('loadMoreContainer');
+      const pagination = document.querySelector('.pagination');
       
       // 顯示載入狀態
       grid.innerHTML = `
@@ -703,6 +742,7 @@
           <div class="loading-text">正在載入照片...</div>
         </div>
       `;
+      pagination.style.display = 'none';
       
       try {
         // 獲取所有照片
@@ -715,28 +755,18 @@
               <p>目前沒有照片，請稍後再試</p>
             </div>
           `;
-          loadMoreContainer.style.display = 'none';
+          pagination.style.display = 'none';
           return;
         }
         
-        // 重置顯示計數
-        displayedCount = 0;
-        hasMore = true;
+        // 重置頁碼
+        currentPage = 1;
         
-        // 加載第一批照片 (8 張)
-        const initialLoad = Math.min(PAGE_SIZE, allImages.length);
-        renderPhotos(0, initialLoad);
-        displayedCount = initialLoad;
+        // 顯示分頁控制
+        pagination.style.display = 'flex';
         
-        // 如果照片數量少於等於 8 張，隱藏加載更多按鈕
-        if (allImages.length <= PAGE_SIZE) {
-          hasMore = false;
-          loadMoreContainer.innerHTML = '<div class="no-more">✨ 已顯示所有照片 ✨</div>';
-        } else {
-          // 綁定加載更多事件
-          const loadMoreBtn = document.getElementById('loadMoreBtn');
-          loadMoreBtn.onclick = loadMore;
-        }
+        // 渲染第一頁
+        renderCurrentPage();
         
       } catch (error) {
         console.error('初始化失敗:', error);
@@ -747,27 +777,29 @@
             <button onclick="location.reload()" style="margin-top: 16px; padding: 8px 20px; background: var(--fern); color: white; border: none; border-radius: 4px; cursor: pointer;">重新載入</button>
           </div>
         `;
-        loadMoreContainer.style.display = 'none';
+        pagination.style.display = 'none';
       }
     }
     
-    // 無限滾動加載
-    let scrollTimeout;
-    function handleScroll() {
-      if (scrollTimeout) clearTimeout(scrollTimeout);
+    // 鍵盤事件支援（左右鍵切換頁面）
+    document.addEventListener('keydown', function(e) {
+      const lightbox = document.getElementById('lightbox');
       
-      scrollTimeout = setTimeout(() => {
-        if (!hasMore || isLoading) return;
-        
-        const scrollPosition = window.innerHeight + window.scrollY;
-        const pageHeight = document.documentElement.scrollHeight;
-        
-        // 當滾動到距離底部 300px 時自動加載
-        if (scrollPosition >= pageHeight - 300) {
-          loadMore();
+      // 如果燈箱開啟，優先處理燈箱關閉
+      if (lightbox && lightbox.classList.contains('active')) {
+        if (e.key === 'Escape') {
+          closeLightbox();
         }
-      }, 100);
-    }
+        return;
+      }
+      
+      // 燈箱未開啟時，左右鍵切換頁面
+      if (e.key === 'ArrowLeft') {
+        prevPage();
+      } else if (e.key === 'ArrowRight') {
+        nextPage();
+      }
+    });
     
     // 導覽列初始化
     function initNav() {
@@ -822,9 +854,6 @@
       
       // 初始化相簿
       initPage();
-      
-      // 監聽滾動事件，實現無限滾動
-      window.addEventListener('scroll', handleScroll);
     });
   </script>
 </body>
