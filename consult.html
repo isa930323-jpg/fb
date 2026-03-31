@@ -304,6 +304,30 @@
       margin-top: 4px;
     }
 
+    /* 新的連結樣式 — 完全比照蕨望筆記 journal-sub-links */
+    .journal-sub-links {
+      margin-top: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+    .sub-link {
+      color: var(--stone);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      font-weight: 400;
+    }
+    .sub-link:hover {
+      color: var(--fern);
+      text-decoration: none;
+    }
+    .sub-sep {
+      color: var(--stone);
+      margin: 0 6px;
+      opacity: 0.6;
+    }
+
     .section-title {
       font-family: 'Noto Serif TC', serif;
       font-size: 1.8rem;
@@ -463,11 +487,11 @@
     <!-- 所有內容都放在一個統一的容器內 -->
     <div class="carbon-story">
       
-      <!-- 頁面標題區 -->
+      <!-- 頁面標題區：修正為與「蕨望筆記」完全相同的連結樣式 -->
       <div class="page-header">
-        <h2>數據之外，我們更在意真正存在的綠。</h2> <div class="journal-sub-links">
-        
-            <a href="ghg.html" class="sub-link">溫室氣體盤查</a>
+        <h2>數據之外，我們更在意真正存在的綠。</h2> 
+        <div class="journal-sub-links">
+          <a href="ghg.html" class="sub-link">溫室氣體盤查</a>
           <span class="sub-sep">·</span>
           <a href="greenwall.html" class="sub-link">植生牆綠化</a>
           <span class="sub-sep">·</span>
