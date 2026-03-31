@@ -496,6 +496,37 @@
       }
     }
     
+    /* 植物分類連結區塊 — 置中、無底線 */
+    .plant-categories {
+      text-align: center;
+      padding: 20px 0 40px;
+      margin-top: 8px;
+      border-top: 1px solid var(--mist);
+    }
+    
+    .category-links {
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+    }
+    
+    .category-link {
+      color: var(--stone);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      font-weight: 400;
+    }
+    
+    .category-link:hover {
+      color: var(--fern);
+      text-decoration: none;
+    }
+    
+    .category-sep {
+      color: var(--stone);
+      margin: 0 6px;
+      opacity: 0.6;
+    }
+    
     /* ----- Footer (完整保留) ----- */
     footer {
       border-top: 1px solid rgba(90,122,74,0.15);
@@ -560,17 +591,18 @@
         <span id="pageInfo" class="page-info">第 1 / 1 頁</span>
         <button id="nextBtn" class="page-btn" onclick="nextPage()">下一頁 ▶</button>
       </div>
-    </div> <div class="plant-categories">
+      
+      <!-- 三個連結：蕨類 · 積水鳳梨 · 其他植物 (置中、無底線) -->
+      <div class="plant-categories">
         <div class="category-links">
           <a href="fern.html" class="category-link">蕨類</a>
           <span class="category-sep">·</span>
           <a href="brom.html" class="category-link">積水鳳梨</a>
           <span class="category-sep">·</span>
-          <a href="otherplant" class="category-link">其他植物</a>
+          <a href="otherplant.html" class="category-link">其他植物</a>
         </div>
       </div>
     </div>
-    
   </main>
   
   <!-- 燈箱 -->
