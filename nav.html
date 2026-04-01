@@ -156,6 +156,95 @@
       display: none;
     }
   }
+  /* =======================================
+   蕨積 Mobile Menu 止血完整版（不動結構）
+   ======================================= */
+
+@media (max-width: 768px) {
+
+  /* ===== 整體背景與字體 ===== */
+  .mobile-menu {
+    background: #f8f7f4;
+  }
+
+  .mobile-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* ===== 主分類（植物選品、綠色顧問） ===== */
+  .mobile-parent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    font-size: 1.05rem;
+    color: #4f6b3c;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+
+  /* 第一個不要上邊線 */
+  .mobile-menu > ul > li:first-child .mobile-parent {
+    border-top: none;
+  }
+
+  /* 箭頭 */
+  .mobile-caret {
+    font-size: 0.8rem;
+    opacity: 0.6;
+  }
+
+  /* ===== 子選單區塊 ===== */
+  .mobile-sub {
+    margin-bottom: 10px; /* 👉 解決貼在一起的關鍵 */
+  }
+
+  /* 每一個子項目 */
+  .mobile-sub li {
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+
+  /* 強制最後一項也有線（修你現在的bug） */
+  .mobile-sub li:last-child {
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+
+  /* 子選單連結 */
+  .mobile-link {
+    display: block;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    color: #666;
+    text-decoration: none;
+  }
+
+  /* hover / 點擊感（手機其實是觸控，但這會影響active） */
+  .mobile-link:active {
+    background: rgba(90,122,74,0.08);
+  }
+
+  /* ===== 一般頁面（關於我們、聯絡我們） ===== */
+  .mobile-menu > ul > li > .mobile-link {
+    padding: 14px 16px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    color: #4f6b3c;
+  }
+
+  /* ===== 購物車區塊微調（你原本有寫，這裡補一致性） ===== */
+  .mobile-cart-item {
+    margin-top: 12px;
+    border-top: 1px solid rgba(90,122,74,0.15);
+    padding-top: 12px;
+  }
+
+  .cart-mobile-link {
+    background: rgba(90,122,74,0.08);
+    border-radius: 40px;
+    padding: 12px 16px !important;
+  }
+
+}
 </style>
 
 <!-- ========= 改善下拉選單消失問題的 JavaScript ========= -->
