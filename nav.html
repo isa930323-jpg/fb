@@ -190,52 +190,54 @@
 </style>
 
 <!-- ========= 購物車數量更新腳本 ========= -->
+<!-- ========= 購物車數量更新腳本 (強制同步版) ========= -->
 <script>
-  // 更新導覽列購物車數量的函數
+  // 強制更新導覽列購物車數量的函數
   function updateNavCartCount() {
     const cartCountSpan = document.getElementById('cartCount');
     const mobileCartCountSpan = document.getElementById('mobileCartCount');
-    if (!cartCountSpan && !mobileCartCountSpan) return;
     
+    // 直接從 localStorage 讀取，不依賴任何外部變數
+    let totalCount = 0;
     try {
-      const cart = JSON.parse(localStorage.getItem('myCart') || '[]');
-      const totalCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-      if (cartCountSpan) cartCountSpan.textContent = totalCount;
-      if (mobileCartCountSpan) mobileCartCountSpan.textContent = totalCount;
+      const cartData = localStorage.getItem('myCart');
+      if (cartData) {
+        const cart = JSON.parse(cartData);
+        if (Array.isArray(cart)) {
+          totalCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        }
+      }
     } catch (e) {
-      if (cartCountSpan) cartCountSpan.textContent = '0';
-      if (mobileCartCountSpan) mobileCartCountSpan.textContent = '0';
+      console.warn('讀取購物車失敗:', e);
     }
+    
+    // 更新顯示
+    if (cartCountSpan) cartCountSpan.textContent = totalCount;
+    if (mobileCartCountSpan) mobileCartCountSpan.textContent = totalCount;
+    
+    // 除錯用：在控制台顯示更新結果（正式環境可刪除此行）
+    console.log('購物車數量已更新:', totalCount);
   }
   
-  // 監聽 localStorage 變化（當購物車在其他頁面被修改時同步更新）
+  // 頁面載入時立即執行
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateNavCartCount);
+  } else {
+    updateNavCartCount();
+  }
+  
+  // 監聽 localStorage 變化（跨頁面同步）
   window.addEventListener('storage', function(e) {
     if (e.key === 'myCart') {
       updateNavCartCount();
     }
   });
   
-  // 自定義事件，讓其他頁面可以主動觸發更新
-  window.updateNavCart = updateNavCartCount;
-  
-  // 頁面載入時立即執行一次
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      updateNavCartCount();
-      // 如果 Cart 物件已載入，也呼叫它的更新方法
-      if (typeof Cart !== 'undefined' && Cart.updateNavCount) {
-        Cart.updateNavCount();
-      }
-    });
-  } else {
-    updateNavCartCount();
-    if (typeof Cart !== 'undefined' && Cart.updateNavCount) {
-      Cart.updateNavCount();
-    }
-  }
-  
-  // 每隔 0.5 秒檢查一次（確保跨頁面同步）
+  // 強制每 0.5 秒更新一次（確保任何情況都能同步）
   setInterval(updateNavCartCount, 500);
+  
+  // 將函數掛載到全域
+  window.updateNavCart = updateNavCartCount;
 </script>
 
 <!-- ========= 改善下拉選單消失問題的 JavaScript (緩衝 50px, 延遲 480ms) ========= -->
