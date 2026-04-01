@@ -347,4 +347,28 @@
       display: block;
     }
   }
-</style>
+</style><script>
+  // 監聽導覽列是否被插入到 DOM
+  if (window.MutationObserver) {
+    const observer = new MutationObserver(function(mutations) {
+      if (document.getElementById('cartCount')) {
+        // 找到購物車元素後，立即更新數字
+        setTimeout(function() {
+          try {
+            const cart = JSON.parse(localStorage.getItem('myCart') || '[]');
+            const count = cart.reduce(function(s, i) {
+              return s + (i.quantity || 1);
+            }, 0);
+            const cartSpan = document.getElementById('cartCount');
+            const mobileSpan = document.getElementById('mobileCartCount');
+            if (cartSpan) cartSpan.textContent = count;
+            if (mobileSpan) mobileSpan.textContent = count;
+          } catch(e) {}
+        }, 50);
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+</script>
+
