@@ -38,7 +38,7 @@
     </li>
     <li><a href="about.html">關於蕨積</a></li>
     <li><a href="contact.html" class="nav-contact">聯絡我們</a></li>
-    <!-- ========= 新增：購物車圖示（電腦版） ========= -->
+    <!-- ========= 購物車圖示（電腦版） ========= -->
     <li class="cart-nav-item">
       <a href="cart.html" id="cartIconLink" class="cart-icon-wrapper">
         <span class="cart-icon">🛒</span>
@@ -91,7 +91,7 @@
     </li>
     <li><a href="about.html" class="mobile-link">關於蕨積</a></li>
     <li><a href="contact.html" class="mobile-link">聯絡我們</a></li>
-    <!-- ========= 新增：手機版購物車連結 ========= -->
+    <!-- ========= 手機版購物車連結 ========= -->
     <li class="mobile-cart-item">
       <a href="cart.html" class="mobile-link cart-mobile-link">
         <span>🛒 購物車</span>
@@ -100,8 +100,11 @@
     </li>
   </ul>
 </div>
+
+<!-- ========= 載入購物車核心邏輯 ========= -->
 <script src="cart.js"></script>
-<!-- ========= 新增：購物車相關樣式（融入原有風格，不影響下拉選單） ========= -->
+
+<!-- ========= 購物車相關樣式（融入原有風格，不影響下拉選單） ========= -->
 <style>
   /* 購物車圖示樣式 - 與導覽列風格一致 */
   .cart-nav-item {
@@ -186,7 +189,7 @@
   }
 </style>
 
-<!-- 購物車數量更新腳本 (必須放在所有頁面都載入的位置) -->
+<!-- ========= 購物車數量更新腳本 ========= -->
 <script>
   // 更新導覽列購物車數量的函數
   function updateNavCartCount() {
@@ -217,16 +220,25 @@
   
   // 頁面載入時立即執行一次
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateNavCartCount);
+    document.addEventListener('DOMContentLoaded', function() {
+      updateNavCartCount();
+      // 如果 Cart 物件已載入，也呼叫它的更新方法
+      if (typeof Cart !== 'undefined' && Cart.updateNavCount) {
+        Cart.updateNavCount();
+      }
+    });
   } else {
     updateNavCartCount();
+    if (typeof Cart !== 'undefined' && Cart.updateNavCount) {
+      Cart.updateNavCount();
+    }
   }
   
-  // 每隔 0.5 秒檢查一次（確保跨頁面更新可靠，尤其當 storage 事件在某些瀏覽器不觸發時）
+  // 每隔 0.5 秒檢查一次（確保跨頁面同步）
   setInterval(updateNavCartCount, 500);
 </script>
 
-<!-- 改善下拉選單消失問題的 JavaScript (緩衝 50px, 延遲 480ms) -->
+<!-- ========= 改善下拉選單消失問題的 JavaScript (緩衝 50px, 延遲 480ms) ========= -->
 <script>
   (function() {
     // 確保只在電腦版執行
@@ -297,7 +309,7 @@
   })();
 </script>
 
-<!-- 原有 CSS 緩衝區樣式 (加大為 50px) -->
+<!-- ========= 原有 CSS 緩衝區樣式 (加大為 50px) ========= -->
 <style>
   @media (min-width: 769px) {
     .has-dropdown {
