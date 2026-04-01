@@ -220,9 +220,9 @@
       padding-bottom: 40px;
     }
 
-    /* ----- 購物車專屬樣式 (移除數量控制，僅顯示圖片/品名/售價/刪除/單項小計) ----- */
+    /* ----- 購物車專屬樣式 - 電腦版窄版面設計 ----- */
     .cart-container {
-      max-width: 1200px;
+      max-width: 860px;  /* 從原本1200px縮窄為860px，視覺更集中 */
       margin: 0 auto;
       padding: 0 1.5rem;
     }
@@ -276,20 +276,20 @@
       margin: 1.5rem 0;
     }
     
-    /* 電腦版：橫向表格排列 (移除數量控制欄位) */
+    /* 電腦版：橫向表格排列 (窄版優化，欄位比例更緊湊) */
     @media (min-width: 769px) {
       .cart-item {
         display: grid;
-        grid-template-columns: 100px 1fr 150px 100px 100px;
+        grid-template-columns: 80px 1fr 90px 70px 110px;
         align-items: center;
-        gap: 20px;
+        gap: 16px;
         padding: 1rem 0;
         border-bottom: 1px solid #e2ede5;
       }
       
       .item-image {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
         border-radius: 12px;
         overflow: hidden;
         background: #eef3ef;
@@ -307,41 +307,24 @@
       
       .item-name {
         font-weight: 600;
-        font-size: 1rem;
+        font-size: 0.95rem;
         color: var(--moss);
         margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       
       .item-price {
         color: #5a7a4a;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
       }
       
-      /* 移除數量控制樣式，只保留垃圾桶按鈕 */
-      .remove-btn {
-        background: none;
-        border: none;
-        color: #b1624b;
-        cursor: pointer;
-        font-size: 1.3rem;
-        padding: 0 8px;
-        transition: all 0.2s;
-        width: 40px;
+      /* 數量顯示樣式 */
+      .item-quantity-area {
         text-align: center;
       }
       
-      .remove-btn:hover {
-        color: #c44536;
-        transform: scale(1.05);
-      }
-      
-      .item-subtotal {
-        font-weight: 600;
-        text-align: right;
-        color: var(--moss);
-      }
-      
-      /* 數量文字簡單顯示，不可編輯 */
       .item-quantity-label {
         color: #7b8e7a;
         font-size: 0.9rem;
@@ -350,11 +333,39 @@
         padding: 4px 12px;
         border-radius: 30px;
         text-align: center;
-        min-width: 50px;
+        min-width: 55px;
+      }
+      
+      .item-remove-area {
+        text-align: center;
+      }
+      
+      .remove-btn {
+        background: none;
+        border: none;
+        color: #b1624b;
+        cursor: pointer;
+        font-size: 1.2rem;
+        padding: 6px 10px;
+        transition: all 0.2s;
+        border-radius: 30px;
+      }
+      
+      .remove-btn:hover {
+        color: #c44536;
+        background: rgba(177,98,75,0.1);
+        transform: scale(1.02);
+      }
+      
+      .item-subtotal {
+        font-weight: 600;
+        text-align: right;
+        color: var(--moss);
+        font-size: 0.95rem;
       }
     }
     
-    /* 手機版：垂直排列 (移除數量控制按鈕，僅顯示數量文字) */
+    /* 手機版：垂直排列 (保持舒適) */
     @media (max-width: 768px) {
       .cart-item {
         display: flex;
@@ -446,7 +457,7 @@
     .total-row {
       display: flex;
       justify-content: space-between;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 700;
       margin-bottom: 1.5rem;
       padding-top: 0.5rem;
@@ -470,7 +481,7 @@
       padding: 12px 16px;
       border: 1px solid #d4e4c8;
       border-radius: 40px;
-      font-size: 1rem;
+      font-size: 0.95rem;
       background: #fefcf8;
     }
     
@@ -556,6 +567,13 @@
         flex-wrap: wrap;
       }
     }
+
+    /* 窄版額外優化：讓整個版面在較大螢幕也不會過寬 */
+    @media (min-width: 1200px) {
+      .cart-container {
+        max-width: 880px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -608,9 +626,7 @@
   <script src="https://unpkg.com/@supabase/supabase-js@2.39.0/dist/umd/supabase.js"></script>
   <script>
     // ------------------------------
-    // 簡易購物車模組 (無數量調整按鈕，僅支援移除單一商品，購買數量固定為加入時的數量)
-    // 預期 localStorage key: myCart
-    // 商品格式: { id, name, price, quantity, image_url? }
+    // 購物車模組 (無 +/- 按鈕，僅保留刪除，數量為固定)
     // ------------------------------
     window.Cart = {
       getItems: function() {
@@ -668,7 +684,6 @@
       }
     }
     
-    // 輔助函式
     function escapeHtml(str) {
       if (!str) return '';
       return String(str).replace(/[&<>]/g, function(m) {
@@ -679,7 +694,7 @@
       });
     }
     
-    // 渲染購物車 (無 +/- 按鈕，只有垃圾桶刪除)
+    // 渲染購物車 (無 +/- 控制，僅顯示數量標籤)
     function renderCartPage() {
       if (typeof window.Cart === 'undefined') {
         document.getElementById('cartContent').innerHTML = '<div class="empty-cart">系統載入中，請稍後...</div>';
@@ -702,7 +717,6 @@
         const price = Number(item.price) || 0;
         const quantity = Number(item.quantity) || 1;
         const subtotal = price * quantity;
-        // 優先取商品本身 image_url，否則用快取或佔位圖
         let imgUrl = item.image_url || productImages[item.id] || '';
         if (!imgUrl) imgUrl = 'https://placehold.co/200x200/eef3ef/5a7a4a?text=🌿';
         
@@ -716,7 +730,7 @@
               <div class="item-price">NT$ ${price}</div>
             </div>
             <div class="item-quantity-area">
-              <span class="item-quantity-label">數量 ${quantity}</span>
+              <span class="item-quantity-label">✕ ${quantity}</span>
             </div>
             <div class="item-remove-area">
               <button type="button" class="remove-btn" data-index="${idx}" aria-label="移除商品">🗑️</button>
@@ -730,14 +744,13 @@
       summaryArea.style.display = 'block';
       totalSpan.innerText = window.Cart.getTotal();
 
-      // 綁定刪除按鈕事件
+      // 綁定刪除按鈕
       document.querySelectorAll('.remove-btn').forEach(btn => {
         btn.removeEventListener('click', handleRemoveClick);
         btn.addEventListener('click', handleRemoveClick);
       });
     }
     
-    // 刪除商品處理
     function handleRemoveClick(e) {
       e.preventDefault();
       e.stopPropagation();
@@ -752,7 +765,6 @@
       }
     }
     
-    // 清空購物車
     function clearCart() {
       if (confirm('⚠️ 確定要清空整個購物車嗎？')) {
         if (typeof window.Cart.clearCart === 'function') {
@@ -765,7 +777,6 @@
       }
     }
     
-    // 送出訂單 (與原本邏輯一致，無數量異動)
     async function submitOrder() {
       const items = window.Cart.getItems();
       if (items.length === 0) {
@@ -785,7 +796,7 @@
       const btn = document.getElementById('submitOrderBtn');
       const originalText = btn.textContent;
       btn.disabled = true;
-      btn.textContent = '送出中...';
+      btn.textContent = 'LineBot送出中，請稍後...';
       
       try {
         const total = window.Cart.getTotal();
@@ -812,7 +823,6 @@
       }
     }
     
-    // 初始化購物車
     async function initCart() {
       await fetchProductImages();
       renderCartPage();
@@ -834,7 +844,6 @@
       });
     }
     
-    // 等待 supabase 與 Cart 準備
     function waitForLibraries() {
       if (window.supabase && typeof window.Cart !== 'undefined') {
         initCart();
@@ -846,7 +855,7 @@
     waitForLibraries();
   </script>
   <script>
-    // 載入共用導覽列 (保留原始邏輯)
+    // 載入共用導覽列
     document.addEventListener('DOMContentLoaded', function () {
       fetch('nav.html')
         .then(response => response.text())
