@@ -189,3 +189,17 @@ const Cart = {
 
 // 將 Cart 掛載到全域，方便其他腳本呼叫
 window.Cart = Cart;
+// 確保導覽列更新
+if (typeof window.updateNavCart === 'function') {
+    window.updateNavCart();
+} else {
+    // 如果全域函數不存在，直接更新 DOM
+    setTimeout(function() {
+        const cart = JSON.parse(localStorage.getItem('myCart') || '[]');
+        const totalCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        const cartSpan = document.getElementById('cartCount');
+        const mobileSpan = document.getElementById('mobileCartCount');
+        if (cartSpan) cartSpan.textContent = totalCount;
+        if (mobileSpan) mobileSpan.textContent = totalCount;
+    }, 100);
+}
