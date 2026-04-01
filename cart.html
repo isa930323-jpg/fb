@@ -185,6 +185,10 @@
       border-top: 1px solid #e2ede5;
       margin-top: 3rem;
     }
+    /* 防止按鈕被當成連結 */
+    button {
+      pointer-events: auto;
+    }
     @media (max-width: 640px) {
       .cart-container {
         padding: 0 1rem;
@@ -208,7 +212,7 @@
   <div class="cart-container">
     <div class="cart-header">
       <h1>🛒 我的購物車</h1>
-      <button id="clearCartBtn">清空購物車</button>
+      <button id="clearCartBtn" type="button">清空購物車</button>
     </div>
 
     <div id="cartContent">
@@ -230,7 +234,7 @@
         <div class="form-group">
           <input type="email" id="custEmail" placeholder="Email *" autocomplete="email">
         </div>
-        <button class="checkout-btn" id="submitOrderBtn">📦 送出訂單</button>
+        <button class="checkout-btn" id="submitOrderBtn" type="button">📦 送出訂單</button>
       </div>
     </div>
   </div>
@@ -277,10 +281,9 @@
         return;
       }
 
-      // 建立列表 HTML
+      // 建立列表 HTML - 使用 button 的 type="button" 防止任何表單提交行為
       let html = `<ul class="cart-items">`;
       items.forEach((item, idx) => {
-        // 確保價格和數量是數字
         const price = Number(item.price) || 0;
         const quantity = Number(item.quantity) || 1;
         const subtotal = price * quantity;
@@ -292,10 +295,10 @@
               <div class="item-price">NT$ ${price} / 件</div>
             </div>
             <div class="item-controls">
-              <button class="qty-btn" data-index="${idx}" data-delta="-1">−</button>
+              <button type="button" class="qty-btn" data-index="${idx}" data-delta="-1">−</button>
               <span style="min-width: 32px; text-align: center;" class="item-qty">${quantity}</span>
-              <button class="qty-btn" data-index="${idx}" data-delta="+1">+</button>
-              <button class="remove-btn" data-index="${idx}" title="移除商品">🗑️</button>
+              <button type="button" class="qty-btn" data-index="${idx}" data-delta="+1">+</button>
+              <button type="button" class="remove-btn" data-index="${idx}" title="移除商品">🗑️</button>
             </div>
             <div style="font-weight: 500; min-width: 80px; text-align: right;">
               NT$ ${subtotal}
@@ -308,97 +311,94 @@
       summaryArea.style.display = 'block';
       totalSpan.innerText = Cart.getTotal();
 
-      // 綁定數量調整按鈕事件
-      document.querySelectorAll('.qty-btn').forEach(btn => {
-        btn.removeEventListener('click', handleQuantityClick);
-        btn.addEventListener('click', handleQuantityClick);
-      });
-
-      // 綁定移除按鈕事件
-      document.querySelectorAll('.remove-btn').forEach(btn => {
-        btn.removeEventListener('click', handleRemoveClick);
-        btn.addEventListener('click', handleRemoveClick);
-      });
-    }
-    
-    // 處理數量變更
-    function handleQuantityClick(e) {
-      const btn = e.currentTarget;
-      const index = parseInt(btn.dataset.index);
-      const delta = parseInt(btn.dataset.delta);
-      
-      if (isNaN(index)) return;
-      
-      const items = Cart.getItems();
-      const item = items[index];
-      if (!item) return;
-      
-      if (delta === 1) {
-        // 增加數量時檢查庫存上限（這裡暫時用較大值，實際可從商品資料取得）
-        const maxStock = 99;
-        const newQty = (item.quantity || 1) + 1;
-        if (newQty > maxStock) {
-          alert(`⚠️ 庫存僅剩 ${maxStock} 件，無法再增加`);
+      // 使用事件委託來綁定事件，避免重複綁定問題
+      container.addEventListener('click', function(e) {
+        // 找到實際點擊的按鈕
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        
+        // 阻止事件冒泡，防止任何意外跳轉
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // 處理數量調整按鈕
+        if (btn.classList.contains('qty-btn')) {
+          const index = parseInt(btn.dataset.index);
+          const delta = parseInt(btn.dataset.delta);
+          
+          if (isNaN(index)) return;
+          
+          const currentItems = Cart.getItems();
+          const item = currentItems[index];
+          if (!item) {
+            renderCartPage();
+            return;
+          }
+          
+          if (delta === 1) {
+            // 增加數量
+            const maxStock = 99;
+            const newQty = (item.quantity || 1) + 1;
+            if (newQty > maxStock) {
+              alert(`⚠️ 庫存僅剩 ${maxStock} 件，無法再增加`);
+              return;
+            }
+            if (typeof Cart.updateQuantity === 'function') {
+              Cart.updateQuantity(index, 1, maxStock);
+            } else {
+              item.quantity = newQty;
+              localStorage.setItem('myCart', JSON.stringify(currentItems));
+              if (typeof Cart.updateNavCount === 'function') Cart.updateNavCount();
+            }
+          } else if (delta === -1) {
+            const newQty = (item.quantity || 1) - 1;
+            if (newQty < 1) {
+              // 數量變為 0，刪除商品
+              if (typeof Cart.removeItem === 'function') {
+                Cart.removeItem(index);
+              } else {
+                currentItems.splice(index, 1);
+                localStorage.setItem('myCart', JSON.stringify(currentItems));
+                if (typeof Cart.updateNavCount === 'function') Cart.updateNavCount();
+              }
+            } else {
+              if (typeof Cart.updateQuantity === 'function') {
+                Cart.updateQuantity(index, -1);
+              } else {
+                item.quantity = newQty;
+                localStorage.setItem('myCart', JSON.stringify(currentItems));
+                if (typeof Cart.updateNavCount === 'function') Cart.updateNavCount();
+              }
+            }
+          }
+          
+          renderCartPage();
+          if (typeof Cart !== 'undefined' && Cart.updateNavCount) Cart.updateNavCount();
+          if (typeof window.updateNavCart === 'function') window.updateNavCart();
           return;
         }
-        // 使用 Cart 的方法更新
-        if (typeof Cart.updateQuantity === 'function') {
-          Cart.updateQuantity(index, 1, maxStock);
-        } else {
-          // 如果 updateQuantity 不存在，手動更新
-          item.quantity = newQty;
-          localStorage.setItem('myCart', JSON.stringify(items));
-          if (typeof Cart.updateNavCount === 'function') Cart.updateNavCount();
-        }
-      } else if (delta === -1) {
-        const newQty = (item.quantity || 1) - 1;
-        if (newQty < 1) {
-          // 數量變為 0，直接刪除該商品
-          if (typeof Cart.removeItem === 'function') {
-            Cart.removeItem(index);
-          } else {
-            items.splice(index, 1);
-            localStorage.setItem('myCart', JSON.stringify(items));
-            if (typeof Cart.updateNavCount === 'function') Cart.updateNavCount();
+        
+        // 處理移除按鈕
+        if (btn.classList.contains('remove-btn')) {
+          const index = parseInt(btn.dataset.index);
+          if (isNaN(index)) return;
+          
+          if (confirm('確定要移除這個商品嗎？')) {
+            if (typeof Cart.removeItem === 'function') {
+              Cart.removeItem(index);
+            } else {
+              const currentItems = Cart.getItems();
+              currentItems.splice(index, 1);
+              localStorage.setItem('myCart', JSON.stringify(currentItems));
+              if (typeof Cart.updateNavCount === 'function') Cart.updateNavCount();
+            }
+            renderCartPage();
+            if (typeof Cart !== 'undefined' && Cart.updateNavCount) Cart.updateNavCount();
+            if (typeof window.updateNavCart === 'function') window.updateNavCart();
           }
-        } else {
-          if (typeof Cart.updateQuantity === 'function') {
-            Cart.updateQuantity(index, -1);
-          } else {
-            item.quantity = newQty;
-            localStorage.setItem('myCart', JSON.stringify(items));
-            if (typeof Cart.updateNavCount === 'function') Cart.updateNavCount();
-          }
+          return;
         }
-      }
-      
-      // 重新渲染頁面
-      renderCartPage();
-      // 更新導覽列數字
-      if (typeof Cart !== 'undefined' && Cart.updateNavCount) Cart.updateNavCount();
-      if (typeof window.updateNavCart === 'function') window.updateNavCart();
-    }
-    
-    // 處理移除商品
-    function handleRemoveClick(e) {
-      const btn = e.currentTarget;
-      const index = parseInt(btn.dataset.index);
-      
-      if (isNaN(index)) return;
-      
-      if (confirm('確定要移除這個商品嗎？')) {
-        if (typeof Cart.removeItem === 'function') {
-          Cart.removeItem(index);
-        } else {
-          const items = Cart.getItems();
-          items.splice(index, 1);
-          localStorage.setItem('myCart', JSON.stringify(items));
-          if (typeof Cart.updateNavCount === 'function') Cart.updateNavCount();
-        }
-        renderCartPage();
-        if (typeof Cart !== 'undefined' && Cart.updateNavCount) Cart.updateNavCount();
-        if (typeof window.updateNavCart === 'function') window.updateNavCart();
-      }
+      });
     }
     
     // 清空購物車
@@ -492,16 +492,24 @@
       const clearBtn = document.getElementById('clearCartBtn');
       if (clearBtn) {
         clearBtn.removeEventListener('click', clearCart);
-        clearBtn.addEventListener('click', clearCart);
+        clearBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          clearCart();
+        });
       }
 
       const submitBtn = document.getElementById('submitOrderBtn');
       if (submitBtn) {
         submitBtn.removeEventListener('click', submitOrder);
-        submitBtn.addEventListener('click', submitOrder);
+        submitBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          submitOrder();
+        });
       }
 
-      // 監聽購物車變化（其他頁面修改時同步）
+      // 監聽購物車變化
       window.addEventListener('storage', (e) => {
         if (e.key === 'myCart') {
           renderCartPage();
@@ -509,7 +517,6 @@
         }
       });
       
-      // 監聽自定義購物車更新事件
       window.addEventListener('cartUpdated', () => {
         renderCartPage();
       });
