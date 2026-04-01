@@ -6,31 +6,47 @@
   <title>購物車｜蕨積</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+    
     body {
       font-family: 'Noto Sans TC', sans-serif;
       background: #faf7f2;
       color: #1a1a14;
       padding-top: 80px;
     }
+    
+    /* 導覽列容器 - 確保在頂層 */
     #nav-placeholder {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      z-index: 100;
+      z-index: 10000;
+      background: transparent;
     }
+    
+    /* 確保導覽列本身有正確的層級和背景 */
+    #nav-placeholder nav {
+      position: relative;
+      z-index: 10001;
+      background: rgba(250,247,242,0.95);
+      backdrop-filter: blur(12px);
+    }
+    
+    /* 購物車頁面主容器 */
     .cart-container {
       max-width: 1000px;
       margin: 2rem auto;
       padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
     }
+    
     .cart-header {
       display: flex;
       justify-content: space-between;
@@ -40,11 +56,13 @@
       margin-bottom: 2rem;
       flex-wrap: wrap;
     }
+    
     .cart-header h1 {
       font-family: 'Noto Serif TC', serif;
       color: #3d5a38;
       font-size: 1.8rem;
     }
+    
     .cart-header button {
       background: none;
       border: 1px solid #b1624b;
@@ -55,14 +73,17 @@
       font-size: 0.85rem;
       transition: all 0.2s;
     }
+    
     .cart-header button:hover {
       background: #b1624b;
       color: white;
     }
+    
     .cart-items {
       list-style: none;
       margin: 1.5rem 0;
     }
+    
     .cart-item {
       display: flex;
       justify-content: space-between;
@@ -72,22 +93,27 @@
       flex-wrap: wrap;
       gap: 12px;
     }
+    
     .item-info {
       flex: 3;
     }
+    
     .item-name {
       font-weight: 600;
       font-size: 1.1rem;
     }
+    
     .item-price {
       color: #5a7a4a;
       font-size: 0.9rem;
     }
+    
     .item-controls {
       display: flex;
       align-items: center;
       gap: 12px;
     }
+    
     .qty-btn {
       background: #eef3ef;
       border: none;
@@ -99,9 +125,11 @@
       font-weight: bold;
       transition: all 0.2s;
     }
+    
     .qty-btn:hover {
       background: #d4e4c8;
     }
+    
     .remove-btn {
       background: none;
       border: none;
@@ -111,10 +139,11 @@
       padding: 0 8px;
       transition: all 0.2s;
     }
+    
     .remove-btn:hover {
       color: #c44536;
-      transform: scale(1.1);
     }
+    
     .cart-summary {
       background: white;
       border-radius: 24px;
@@ -123,6 +152,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       border: 1px solid #e2ede5;
     }
+    
     .total-row {
       display: flex;
       justify-content: space-between;
@@ -131,9 +161,11 @@
       margin-bottom: 1.5rem;
       padding-top: 0.5rem;
     }
+    
     .form-group {
       margin-bottom: 1rem;
     }
+    
     .form-group input {
       width: 100%;
       padding: 12px 16px;
@@ -141,13 +173,13 @@
       border-radius: 40px;
       font-size: 1rem;
       background: #fefcf8;
-      transition: all 0.2s;
     }
+    
     .form-group input:focus {
       outline: none;
       border-color: #5a7a4a;
-      box-shadow: 0 0 0 2px rgba(90,122,74,0.2);
     }
+    
     .checkout-btn {
       width: 100%;
       background: #3d5a38;
@@ -161,22 +193,22 @@
       margin-top: 1rem;
       transition: 0.2s;
     }
+    
     .checkout-btn:hover {
       background: #2b4627;
     }
+    
     .empty-cart {
       text-align: center;
       padding: 3rem;
       color: #8ba18e;
     }
+    
     .empty-cart a {
       color: #3d5a38;
       text-decoration: none;
-      font-weight: 500;
     }
-    .empty-cart a:hover {
-      text-decoration: underline;
-    }
+    
     footer {
       text-align: center;
       padding: 2rem;
@@ -185,10 +217,7 @@
       border-top: 1px solid #e2ede5;
       margin-top: 3rem;
     }
-    /* 防止按鈕被當成連結 */
-    button {
-      pointer-events: auto;
-    }
+    
     @media (max-width: 640px) {
       .cart-container {
         padding: 0 1rem;
@@ -226,13 +255,13 @@
           <span>NT$ <span id="totalAmount">0</span></span>
         </div>
         <div class="form-group">
-          <input type="text" id="custName" placeholder="姓名 *" autocomplete="name">
+          <input type="text" id="custName" placeholder="姓名 *">
         </div>
         <div class="form-group">
-          <input type="tel" id="custPhone" placeholder="電話 *" autocomplete="tel">
+          <input type="tel" id="custPhone" placeholder="電話 *">
         </div>
         <div class="form-group">
-          <input type="email" id="custEmail" placeholder="Email *" autocomplete="email">
+          <input type="email" id="custEmail" placeholder="Email *">
         </div>
         <button class="checkout-btn" id="submitOrderBtn" type="button">📦 送出訂單</button>
       </div>
@@ -248,14 +277,20 @@
     // 等待導覽列載入
     async function loadNav() {
       try {
-        const res = await fetch('nav.html');
+        const res = await fetch('nav.html?t=' + Date.now());
         const html = await res.text();
         document.getElementById('nav-placeholder').innerHTML = html;
+        
+        // 重新初始化導覽列的下拉選單功能（如果有的話）
+        if (typeof window.initDropdownFix === 'function') {
+          window.initDropdownFix();
+        }
+        
         // 觸發導覽列內的角標更新
-        if (typeof window.updateNavCart === 'function') window.updateNavCart();
-        if (typeof Cart !== 'undefined' && Cart.updateNavCount) Cart.updateNavCount();
-        // 重新初始化 Lucide 圖示
-        if (typeof lucide !== 'undefined') lucide.createIcons();
+        setTimeout(() => {
+          if (typeof window.updateNavCart === 'function') window.updateNavCart();
+          if (typeof Cart !== 'undefined' && Cart.updateNavCount) Cart.updateNavCount();
+        }, 100);
       } catch(e) {
         console.warn('導覽列載入失敗', e);
       }
@@ -263,9 +298,7 @@
 
     // 渲染購物車頁面
     function renderCartPage() {
-      // 確保 Cart 物件存在
       if (typeof Cart === 'undefined') {
-        console.error('Cart 物件未載入');
         document.getElementById('cartContent').innerHTML = '<div class="empty-cart">系統載入中，請稍後...</div>';
         return;
       }
@@ -281,7 +314,6 @@
         return;
       }
 
-      // 建立列表 HTML - 使用 button 的 type="button" 防止任何表單提交行為
       let html = `<ul class="cart-items">`;
       items.forEach((item, idx) => {
         const price = Number(item.price) || 0;
@@ -289,20 +321,18 @@
         const subtotal = price * quantity;
         
         html += `
-          <li class="cart-item" data-index="${idx}">
+          <li class="cart-item">
             <div class="item-info">
               <div class="item-name">${escapeHtml(item.name)}</div>
               <div class="item-price">NT$ ${price} / 件</div>
             </div>
             <div class="item-controls">
               <button type="button" class="qty-btn" data-index="${idx}" data-delta="-1">−</button>
-              <span style="min-width: 32px; text-align: center;" class="item-qty">${quantity}</span>
+              <span class="item-qty">${quantity}</span>
               <button type="button" class="qty-btn" data-index="${idx}" data-delta="+1">+</button>
-              <button type="button" class="remove-btn" data-index="${idx}" title="移除商品">🗑️</button>
+              <button type="button" class="remove-btn" data-index="${idx}">🗑️</button>
             </div>
-            <div style="font-weight: 500; min-width: 80px; text-align: right;">
-              NT$ ${subtotal}
-            </div>
+            <div class="item-subtotal">NT$ ${subtotal}</div>
           </li>
         `;
       });
@@ -311,118 +341,82 @@
       summaryArea.style.display = 'block';
       totalSpan.innerText = Cart.getTotal();
 
-      // 使用事件委託來綁定事件，避免重複綁定問題
-      container.addEventListener('click', function(e) {
-        // 找到實際點擊的按鈕
-        const btn = e.target.closest('button');
-        if (!btn) return;
+      // 使用事件委託綁定按鈕事件
+      container.querySelectorAll('.qty-btn, .remove-btn').forEach(btn => {
+        btn.removeEventListener('click', handleButtonClick);
+        btn.addEventListener('click', handleButtonClick);
+      });
+    }
+    
+    // 按鈕點擊處理
+    function handleButtonClick(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const btn = e.currentTarget;
+      
+      // 移除按鈕
+      if (btn.classList.contains('remove-btn')) {
+        const index = parseInt(btn.dataset.index);
+        if (confirm('確定要移除這個商品嗎？')) {
+          Cart.removeItem(index);
+          renderCartPage();
+          if (Cart.updateNavCount) Cart.updateNavCount();
+          if (window.updateNavCart) window.updateNavCart();
+        }
+        return;
+      }
+      
+      // 數量調整按鈕
+      if (btn.classList.contains('qty-btn')) {
+        const index = parseInt(btn.dataset.index);
+        const delta = parseInt(btn.dataset.delta);
+        const items = Cart.getItems();
+        const item = items[index];
         
-        // 阻止事件冒泡，防止任何意外跳轉
-        e.preventDefault();
-        e.stopPropagation();
+        if (!item) {
+          renderCartPage();
+          return;
+        }
         
-        // 處理數量調整按鈕
-        if (btn.classList.contains('qty-btn')) {
-          const index = parseInt(btn.dataset.index);
-          const delta = parseInt(btn.dataset.delta);
-          
-          if (isNaN(index)) return;
-          
-          const currentItems = Cart.getItems();
-          const item = currentItems[index];
-          if (!item) {
-            renderCartPage();
+        if (delta === 1) {
+          const newQty = item.quantity + 1;
+          if (newQty > 99) {
+            alert('⚠️ 庫存不足，無法再增加');
             return;
           }
-          
-          if (delta === 1) {
-            // 增加數量
-            const maxStock = 99;
-            const newQty = (item.quantity || 1) + 1;
-            if (newQty > maxStock) {
-              alert(`⚠️ 庫存僅剩 ${maxStock} 件，無法再增加`);
-              return;
-            }
-            if (typeof Cart.updateQuantity === 'function') {
-              Cart.updateQuantity(index, 1, maxStock);
-            } else {
-              item.quantity = newQty;
-              localStorage.setItem('myCart', JSON.stringify(currentItems));
-              if (typeof Cart.updateNavCount === 'function') Cart.updateNavCount();
-            }
-          } else if (delta === -1) {
-            const newQty = (item.quantity || 1) - 1;
-            if (newQty < 1) {
-              // 數量變為 0，刪除商品
-              if (typeof Cart.removeItem === 'function') {
-                Cart.removeItem(index);
-              } else {
-                currentItems.splice(index, 1);
-                localStorage.setItem('myCart', JSON.stringify(currentItems));
-                if (typeof Cart.updateNavCount === 'function') Cart.updateNavCount();
-              }
-            } else {
-              if (typeof Cart.updateQuantity === 'function') {
-                Cart.updateQuantity(index, -1);
-              } else {
-                item.quantity = newQty;
-                localStorage.setItem('myCart', JSON.stringify(currentItems));
-                if (typeof Cart.updateNavCount === 'function') Cart.updateNavCount();
-              }
-            }
+          item.quantity = newQty;
+        } else if (delta === -1) {
+          const newQty = item.quantity - 1;
+          if (newQty < 1) {
+            Cart.removeItem(index);
+            renderCartPage();
+            if (Cart.updateNavCount) Cart.updateNavCount();
+            if (window.updateNavCart) window.updateNavCart();
+            return;
           }
-          
-          renderCartPage();
-          if (typeof Cart !== 'undefined' && Cart.updateNavCount) Cart.updateNavCount();
-          if (typeof window.updateNavCart === 'function') window.updateNavCart();
-          return;
+          item.quantity = newQty;
         }
         
-        // 處理移除按鈕
-        if (btn.classList.contains('remove-btn')) {
-          const index = parseInt(btn.dataset.index);
-          if (isNaN(index)) return;
-          
-          if (confirm('確定要移除這個商品嗎？')) {
-            if (typeof Cart.removeItem === 'function') {
-              Cart.removeItem(index);
-            } else {
-              const currentItems = Cart.getItems();
-              currentItems.splice(index, 1);
-              localStorage.setItem('myCart', JSON.stringify(currentItems));
-              if (typeof Cart.updateNavCount === 'function') Cart.updateNavCount();
-            }
-            renderCartPage();
-            if (typeof Cart !== 'undefined' && Cart.updateNavCount) Cart.updateNavCount();
-            if (typeof window.updateNavCart === 'function') window.updateNavCart();
-          }
-          return;
-        }
-      });
+        localStorage.setItem('myCart', JSON.stringify(items));
+        renderCartPage();
+        if (Cart.updateNavCount) Cart.updateNavCount();
+        if (window.updateNavCart) window.updateNavCart();
+      }
     }
     
     // 清空購物車
     function clearCart() {
-      if (confirm('⚠️ 確定要清空整個購物車嗎？此動作無法復原。')) {
-        if (typeof Cart.clearCart === 'function') {
-          Cart.clearCart();
-        } else {
-          localStorage.setItem('myCart', '[]');
-          if (typeof Cart.updateNavCount === 'function') Cart.updateNavCount();
-        }
+      if (confirm('⚠️ 確定要清空整個購物車嗎？')) {
+        Cart.clearCart();
         renderCartPage();
-        if (typeof Cart !== 'undefined' && Cart.updateNavCount) Cart.updateNavCount();
-        if (typeof window.updateNavCart === 'function') window.updateNavCart();
+        if (Cart.updateNavCount) Cart.updateNavCount();
+        if (window.updateNavCart) window.updateNavCart();
       }
     }
     
     // 送出訂單
     async function submitOrder() {
-      if (typeof Cart === 'undefined') {
-        alert('系統未就緒，請稍後再試');
-        return;
-      }
-      
       const items = Cart.getItems();
       if (items.length === 0) {
         alert('購物車是空的');
@@ -434,18 +428,11 @@
       const email = document.getElementById('custEmail').value.trim();
       
       if (!name || !phone || !email) {
-        alert('請填寫姓名、電話與 Email');
+        alert('請填寫完整資料');
         return;
       }
 
-      const orderPayload = {
-        name, phone, email,
-        items: items,
-        total: Cart.getTotal()
-      };
-
       const btn = document.getElementById('submitOrderBtn');
-      const originalText = btn.textContent;
       btn.disabled = true;
       btn.textContent = '送出中...';
       
@@ -453,24 +440,23 @@
         const res = await fetch('https://linebot-oh5o.onrender.com/order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(orderPayload)
+          body: JSON.stringify({ name, phone, email, items, total: Cart.getTotal() })
         });
         const result = await res.json();
         if (res.ok && result.status === 'success') {
-          alert('✅ 訂單送出成功！我們將盡快與您聯繫。');
+          alert('✅ 訂單送出成功！');
           localStorage.setItem('myCart', '[]');
-          if (typeof Cart.updateNavCount === 'function') Cart.updateNavCount();
-          if (typeof window.updateNavCart === 'function') window.updateNavCart();
           renderCartPage();
+          if (Cart.updateNavCount) Cart.updateNavCount();
+          if (window.updateNavCart) window.updateNavCart();
         } else {
           alert('訂單失敗：' + (result.message || '請稍後再試'));
         }
       } catch (err) {
-        console.error('訂單送出錯誤:', err);
-        alert('連線錯誤，請確認網路狀態後再試');
+        alert('連線錯誤，請稍後再試');
       } finally {
         btn.disabled = false;
-        btn.textContent = originalText;
+        btn.textContent = '📦 送出訂單';
       }
     }
     
@@ -484,42 +470,22 @@
       });
     }
 
-    // 初始化頁面
+    // 初始化
     async function init() {
       await loadNav();
       renderCartPage();
-
-      const clearBtn = document.getElementById('clearCartBtn');
-      if (clearBtn) {
-        clearBtn.removeEventListener('click', clearCart);
-        clearBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          clearCart();
-        });
-      }
-
-      const submitBtn = document.getElementById('submitOrderBtn');
-      if (submitBtn) {
-        submitBtn.removeEventListener('click', submitOrder);
-        submitBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          submitOrder();
-        });
-      }
-
-      // 監聽購物車變化
-      window.addEventListener('storage', (e) => {
-        if (e.key === 'myCart') {
-          renderCartPage();
-          if (typeof Cart !== 'undefined' && Cart.updateNavCount) Cart.updateNavCount();
-        }
+      
+      document.getElementById('clearCartBtn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        clearCart();
       });
       
-      window.addEventListener('cartUpdated', () => {
-        renderCartPage();
+      document.getElementById('submitOrderBtn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        submitOrder();
       });
+      
+      window.addEventListener('storage', () => renderCartPage());
     }
     
     init();
