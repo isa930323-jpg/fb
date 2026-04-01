@@ -1,4 +1,4 @@
-<!-- ========== 購物車頁面 cart.html ========== -->
+<!-- ========== 購物車頁面 cart.html（含商品照片） ========== -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -232,7 +232,7 @@
       padding-bottom: 40px;
     }
 
-    /* ----- 購物車專屬樣式 (保留原有設計) ----- */
+    /* ----- 購物車專屬樣式 (加入照片樣式) ----- */
     .cart-container {
       max-width: 1000px;
       margin: 0 auto;
@@ -298,8 +298,31 @@
       gap: 12px;
     }
     
-    .item-info {
+    /* 商品圖片樣式 */
+    .item-image {
+      width: 70px;
+      height: 70px;
+      flex-shrink: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #eef3ef;
+    }
+    
+    .item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .item-details {
       flex: 3;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    
+    .item-info {
+      flex: 1;
     }
     
     .item-name {
@@ -423,6 +446,7 @@
       text-decoration: underline;
     }
     
+    /* 手機版調整 */
     @media (max-width: 640px) {
       .cart-container {
         padding: 0 1rem;
@@ -434,11 +458,18 @@
         flex-direction: column;
         align-items: flex-start;
       }
+      .item-details {
+        width: 100%;
+      }
       .item-controls {
         align-self: flex-end;
       }
       .item-subtotal {
         align-self: flex-end;
+      }
+      .item-image {
+        width: 60px;
+        height: 60px;
       }
     }
 
@@ -546,63 +577,29 @@
 
   <script src="cart.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // 載入共用導覽列
-      fetch('nav.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('nav-placeholder').innerHTML = data;
-          initNav();
-        })
-        .catch(err => {
-          console.error('無法載入導覽列:', err);
-          document.getElementById('nav-placeholder').innerHTML = 
-            '<nav style="background:var(--moss);color:white;padding:0 4vw;height:72px;display:flex;align-items:center;">' +
-            '<span style="font-family:Noto Serif TC,serif;font-weight:900;">⚠️ 導覽列載入失敗，請確認 nav.html 是否存在</span>' +
-            '</nav>';
-        });
-
-      function initNav() {
-        var btn = document.getElementById('hamburger');
-        var menu = document.getElementById('mobileMenu');
-        if (btn && menu) {
-          btn.addEventListener('click', function () {
-            btn.classList.toggle('open');
-            menu.classList.toggle('open');
-          });
-          menu.querySelectorAll('.mobile-link').forEach(function (a) {
-            a.addEventListener('click', function () {
-              btn.classList.remove('open');
-              menu.classList.remove('open');
-            });
+    // 商品圖片快取（從 Supabase 取得）
+    let productImages = {};
+    
+    // 從 Supabase 取得所有商品圖片
+    async function fetchProductImages() {
+      try {
+        const supabase = window.supabase?.createClient(
+          'https://wrreydnppkhhssbnmnno.supabase.co',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndycmV5ZG5wcGtoaHNzYm5tbm5vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMjI0MjYsImV4cCI6MjA4ODc5ODQyNn0.7520TxecGoqhjkIcY497sCt4oG7eqDtShK1OQJe3N7o'
+        );
+        
+        const { data, error } = await supabase.from('products').select('id, image_url, name');
+        if (!error && data) {
+          data.forEach(product => {
+            productImages[product.id] = product.image_url || '';
           });
         }
-        if (menu) {
-          menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
-            parent.addEventListener('click', function () {
-              var id = parent.getAttribute('data-target');
-              var sub = document.getElementById(id);
-              var caretId = 'caret-' + id.replace('sub-', '');
-              var caret = document.getElementById(caretId);
-              var opening = !sub.classList.contains('open');
-              menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
-              menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
-              if (opening) {
-                sub.classList.add('open');
-                if (caret) caret.classList.add('open');
-              }
-            });
-          });
-        }
-        window.addEventListener('scroll', function () {
-          var nav = document.getElementById('mainNav');
-          if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
-        });
-        if (typeof lucide !== 'undefined') lucide.createIcons();
+      } catch (err) {
+        console.warn('無法載入商品圖片:', err);
       }
-    });
-
-    // ========= 購物車功能 =========
+    }
+    
+    // 渲染購物車頁面（含圖片）
     function renderCartPage() {
       if (typeof Cart === 'undefined') {
         document.getElementById('cartContent').innerHTML = '<div class="empty-cart">系統載入中，請稍後...</div>';
@@ -625,12 +622,18 @@
         const price = Number(item.price) || 0;
         const quantity = Number(item.quantity) || 1;
         const subtotal = price * quantity;
+        const imageUrl = productImages[item.id] || 'https://placehold.co/200x200/eef3ef/5a7a4a?text=🌿';
         
         html += `
           <li class="cart-item">
-            <div class="item-info">
-              <div class="item-name">${escapeHtml(item.name)}</div>
-              <div class="item-price">NT$ ${price} / 件</div>
+            <div class="item-details">
+              <div class="item-image">
+                <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.src='https://placehold.co/200x200/eef3ef/5a7a4a?text=🌿'">
+              </div>
+              <div class="item-info">
+                <div class="item-name">${escapeHtml(item.name)}</div>
+                <div class="item-price">NT$ ${price} / 件</div>
+              </div>
             </div>
             <div class="item-controls">
               <button type="button" class="qty-btn" data-index="${idx}" data-delta="-1">−</button>
@@ -773,7 +776,8 @@
     }
 
     // 初始化購物車
-    function initCart() {
+    async function initCart() {
+      await fetchProductImages();  // 先載入商品圖片
       renderCartPage();
       
       document.getElementById('clearCartBtn')?.addEventListener('click', (e) => {
@@ -789,17 +793,75 @@
       window.addEventListener('storage', () => renderCartPage());
     }
     
-    // 確保 Cart 載入完成後再初始化
-    if (typeof Cart !== 'undefined') {
-      initCart();
-    } else {
-      const checkCart = setInterval(function() {
-        if (typeof Cart !== 'undefined') {
-          clearInterval(checkCart);
-          initCart();
-        }
-      }, 100);
+    // 確保 Supabase 和 Cart 載入完成後再初始化
+    function waitForSupabase() {
+      if (window.supabase && typeof Cart !== 'undefined') {
+        initCart();
+      } else {
+        setTimeout(waitForSupabase, 200);
+      }
     }
+    
+    waitForSupabase();
+  </script>
+  <!-- 載入 Supabase SDK -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2.39.0/dist/umd/supabase.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // 載入共用導覽列
+      fetch('nav.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('nav-placeholder').innerHTML = data;
+          initNav();
+        })
+        .catch(err => {
+          console.error('無法載入導覽列:', err);
+          document.getElementById('nav-placeholder').innerHTML = 
+            '<nav style="background:var(--moss);color:white;padding:0 4vw;height:72px;display:flex;align-items:center;">' +
+            '<span style="font-family:Noto Serif TC,serif;font-weight:900;">⚠️ 導覽列載入失敗，請確認 nav.html 是否存在</span>' +
+            '</nav>';
+        });
+
+      function initNav() {
+        var btn = document.getElementById('hamburger');
+        var menu = document.getElementById('mobileMenu');
+        if (btn && menu) {
+          btn.addEventListener('click', function () {
+            btn.classList.toggle('open');
+            menu.classList.toggle('open');
+          });
+          menu.querySelectorAll('.mobile-link').forEach(function (a) {
+            a.addEventListener('click', function () {
+              btn.classList.remove('open');
+              menu.classList.remove('open');
+            });
+          });
+        }
+        if (menu) {
+          menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
+            parent.addEventListener('click', function () {
+              var id = parent.getAttribute('data-target');
+              var sub = document.getElementById(id);
+              var caretId = 'caret-' + id.replace('sub-', '');
+              var caret = document.getElementById(caretId);
+              var opening = !sub.classList.contains('open');
+              menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
+              menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
+              if (opening) {
+                sub.classList.add('open');
+                if (caret) caret.classList.add('open');
+              }
+            });
+          });
+        }
+        window.addEventListener('scroll', function () {
+          var nav = document.getElementById('mainNav');
+          if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
+        });
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      }
+    });
   </script>
 </body>
 </html>
