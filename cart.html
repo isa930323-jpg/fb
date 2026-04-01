@@ -17,34 +17,25 @@
       font-family: 'Noto Sans TC', sans-serif;
       background: #faf7f2;
       color: #1a1a14;
-      padding-top: 80px;
+      padding: 2rem 1rem;
     }
     
-    /* 導覽列容器 - 確保在頂層 */
-    #nav-placeholder {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 10000;
-      background: transparent;
+    /* 簡單返回按鈕 */
+    .back-link {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: #5a7a4a;
+      text-decoration: none;
+      font-size: 0.9rem;
     }
     
-    /* 確保導覽列本身有正確的層級和背景 */
-    #nav-placeholder nav {
-      position: relative;
-      z-index: 10001;
-      background: rgba(250,247,242,0.95);
-      backdrop-filter: blur(12px);
+    .back-link:hover {
+      text-decoration: underline;
     }
     
-    /* 購物車頁面主容器 */
     .cart-container {
       max-width: 1000px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-      position: relative;
-      z-index: 1;
+      margin: 0 auto;
     }
     
     .cart-header {
@@ -144,6 +135,12 @@
       color: #c44536;
     }
     
+    .item-subtotal {
+      font-weight: 500;
+      min-width: 80px;
+      text-align: right;
+    }
+    
     .cart-summary {
       background: white;
       border-radius: 24px;
@@ -209,6 +206,10 @@
       text-decoration: none;
     }
     
+    .empty-cart a:hover {
+      text-decoration: underline;
+    }
+    
     footer {
       text-align: center;
       padding: 2rem;
@@ -219,9 +220,6 @@
     }
     
     @media (max-width: 640px) {
-      .cart-container {
-        padding: 0 1rem;
-      }
       .cart-header h1 {
         font-size: 1.4rem;
       }
@@ -232,13 +230,16 @@
       .item-controls {
         align-self: flex-end;
       }
+      .item-subtotal {
+        align-self: flex-end;
+      }
     }
   </style>
 </head>
 <body>
-  <div id="nav-placeholder"></div>
-
   <div class="cart-container">
+    <a href="shop.html" class="back-link">← 返回購物</a>
+    
     <div class="cart-header">
       <h1>🛒 我的購物車</h1>
       <button id="clearCartBtn" type="button">清空購物車</button>
@@ -274,28 +275,6 @@
 
   <script src="cart.js"></script>
   <script>
-    // 等待導覽列載入
-    async function loadNav() {
-      try {
-        const res = await fetch('nav.html?t=' + Date.now());
-        const html = await res.text();
-        document.getElementById('nav-placeholder').innerHTML = html;
-        
-        // 重新初始化導覽列的下拉選單功能（如果有的話）
-        if (typeof window.initDropdownFix === 'function') {
-          window.initDropdownFix();
-        }
-        
-        // 觸發導覽列內的角標更新
-        setTimeout(() => {
-          if (typeof window.updateNavCart === 'function') window.updateNavCart();
-          if (typeof Cart !== 'undefined' && Cart.updateNavCount) Cart.updateNavCount();
-        }, 100);
-      } catch(e) {
-        console.warn('導覽列載入失敗', e);
-      }
-    }
-
     // 渲染購物車頁面
     function renderCartPage() {
       if (typeof Cart === 'undefined') {
@@ -341,77 +320,82 @@
       summaryArea.style.display = 'block';
       totalSpan.innerText = Cart.getTotal();
 
-      // 使用事件委託綁定按鈕事件
-      container.querySelectorAll('.qty-btn, .remove-btn').forEach(btn => {
-        btn.removeEventListener('click', handleButtonClick);
-        btn.addEventListener('click', handleButtonClick);
+      // 綁定按鈕事件
+      document.querySelectorAll('.qty-btn').forEach(btn => {
+        btn.removeEventListener('click', handleQtyClick);
+        btn.addEventListener('click', handleQtyClick);
+      });
+      
+      document.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.removeEventListener('click', handleRemoveClick);
+        btn.addEventListener('click', handleRemoveClick);
       });
     }
     
-    // 按鈕點擊處理
-    function handleButtonClick(e) {
+    // 數量調整
+    function handleQtyClick(e) {
       e.preventDefault();
       e.stopPropagation();
       
       const btn = e.currentTarget;
+      const index = parseInt(btn.dataset.index);
+      const delta = parseInt(btn.dataset.delta);
+      const items = Cart.getItems();
+      const item = items[index];
       
-      // 移除按鈕
-      if (btn.classList.contains('remove-btn')) {
-        const index = parseInt(btn.dataset.index);
-        if (confirm('確定要移除這個商品嗎？')) {
-          Cart.removeItem(index);
-          renderCartPage();
-          if (Cart.updateNavCount) Cart.updateNavCount();
-          if (window.updateNavCart) window.updateNavCart();
-        }
+      if (!item) {
+        renderCartPage();
         return;
       }
       
-      // 數量調整按鈕
-      if (btn.classList.contains('qty-btn')) {
-        const index = parseInt(btn.dataset.index);
-        const delta = parseInt(btn.dataset.delta);
-        const items = Cart.getItems();
-        const item = items[index];
-        
-        if (!item) {
-          renderCartPage();
+      if (delta === 1) {
+        const newQty = item.quantity + 1;
+        if (newQty > 99) {
+          alert('⚠️ 庫存不足，無法再增加');
           return;
         }
-        
-        if (delta === 1) {
-          const newQty = item.quantity + 1;
-          if (newQty > 99) {
-            alert('⚠️ 庫存不足，無法再增加');
-            return;
-          }
-          item.quantity = newQty;
-        } else if (delta === -1) {
-          const newQty = item.quantity - 1;
-          if (newQty < 1) {
-            Cart.removeItem(index);
-            renderCartPage();
-            if (Cart.updateNavCount) Cart.updateNavCount();
-            if (window.updateNavCart) window.updateNavCart();
-            return;
-          }
-          item.quantity = newQty;
+        item.quantity = newQty;
+      } else if (delta === -1) {
+        const newQty = item.quantity - 1;
+        if (newQty < 1) {
+          Cart.removeItem(index);
+          renderCartPage();
+          if (Cart.updateNavCount) Cart.updateNavCount();
+          return;
         }
-        
-        localStorage.setItem('myCart', JSON.stringify(items));
+        item.quantity = newQty;
+      }
+      
+      localStorage.setItem('myCart', JSON.stringify(items));
+      renderCartPage();
+      if (Cart.updateNavCount) Cart.updateNavCount();
+    }
+    
+    // 移除商品
+    function handleRemoveClick(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const btn = e.currentTarget;
+      const index = parseInt(btn.dataset.index);
+      
+      if (confirm('確定要移除這個商品嗎？')) {
+        Cart.removeItem(index);
         renderCartPage();
         if (Cart.updateNavCount) Cart.updateNavCount();
-        if (window.updateNavCart) window.updateNavCart();
       }
     }
     
     // 清空購物車
     function clearCart() {
       if (confirm('⚠️ 確定要清空整個購物車嗎？')) {
-        Cart.clearCart();
+        if (typeof Cart.clearCart === 'function') {
+          Cart.clearCart();
+        } else {
+          localStorage.setItem('myCart', '[]');
+        }
         renderCartPage();
         if (Cart.updateNavCount) Cart.updateNavCount();
-        if (window.updateNavCart) window.updateNavCart();
       }
     }
     
@@ -433,6 +417,7 @@
       }
 
       const btn = document.getElementById('submitOrderBtn');
+      const originalText = btn.textContent;
       btn.disabled = true;
       btn.textContent = '送出中...';
       
@@ -444,19 +429,19 @@
         });
         const result = await res.json();
         if (res.ok && result.status === 'success') {
-          alert('✅ 訂單送出成功！');
+          alert('✅ 訂單送出成功！我們將盡快與您聯繫。');
           localStorage.setItem('myCart', '[]');
           renderCartPage();
           if (Cart.updateNavCount) Cart.updateNavCount();
-          if (window.updateNavCart) window.updateNavCart();
         } else {
           alert('訂單失敗：' + (result.message || '請稍後再試'));
         }
       } catch (err) {
+        console.error('訂單錯誤:', err);
         alert('連線錯誤，請稍後再試');
       } finally {
         btn.disabled = false;
-        btn.textContent = '📦 送出訂單';
+        btn.textContent = originalText;
       }
     }
     
@@ -471,8 +456,7 @@
     }
 
     // 初始化
-    async function init() {
-      await loadNav();
+    function init() {
       renderCartPage();
       
       document.getElementById('clearCartBtn')?.addEventListener('click', (e) => {
@@ -485,6 +469,7 @@
         submitOrder();
       });
       
+      // 監聽購物車變化
       window.addEventListener('storage', () => renderCartPage());
     }
     
