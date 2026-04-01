@@ -1,4 +1,4 @@
-<!-- ========== 共用導覽列元件 nav.html (改善下拉選單消失問題 - 加大緩衝與延遲) ========== -->
+<!-- ========== 共用導覽列元件 nav.html ========== -->
 <nav id="mainNav">
   <a href="https://www.fernbrom.com/index.html" class="logo">
     <div class="logo-mark"><img src="logo.png" alt="蕨積"></div>
@@ -38,7 +38,7 @@
     </li>
     <li><a href="about.html">關於蕨積</a></li>
     <li><a href="contact.html" class="nav-contact">聯絡我們</a></li>
-    <!-- ========= 購物車圖示（電腦版） ========= -->
+    <!-- 購物車圖示（電腦版） -->
     <li class="cart-nav-item">
       <a href="cart.html" id="cartIconLink" class="cart-icon-wrapper">
         <span class="cart-icon">🛒</span>
@@ -91,7 +91,7 @@
     </li>
     <li><a href="about.html" class="mobile-link">關於蕨積</a></li>
     <li><a href="contact.html" class="mobile-link">聯絡我們</a></li>
-    <!-- ========= 手機版購物車連結 ========= -->
+    <!-- 手機版購物車連結 -->
     <li class="mobile-cart-item">
       <a href="cart.html" class="mobile-link cart-mobile-link">
         <span>🛒 購物車</span>
@@ -104,9 +104,8 @@
 <!-- ========= 載入購物車核心邏輯 ========= -->
 <script src="cart.js"></script>
 
-<!-- ========= 購物車相關樣式（融入原有風格，不影響下拉選單） ========= -->
+<!-- ========= 購物車相關樣式 ========= -->
 <style>
-  /* 購物車圖示樣式 - 與導覽列風格一致 */
   .cart-nav-item {
     margin-left: 0.25rem;
   }
@@ -120,12 +119,10 @@
     border-radius: 40px;
     background: rgba(90,122,74,0.08);
     transition: all 0.2s ease;
-    position: relative;
   }
   
   .cart-icon-wrapper:hover {
     background: rgba(90,122,74,0.15);
-    opacity: 1;
   }
   
   .cart-icon {
@@ -142,11 +139,8 @@
     padding: 2px 6px;
     min-width: 20px;
     text-align: center;
-    line-height: 1.2;
-    letter-spacing: normal;
   }
   
-  /* 手機版購物車樣式 */
   .mobile-cart-item {
     margin-top: 12px;
     border-top: 1px solid rgba(90,122,74,0.15);
@@ -159,7 +153,6 @@
     align-items: center !important;
     background: rgba(90,122,74,0.08);
     border-radius: 40px;
-    margin-top: 8px;
     padding: 12px 16px !important;
     font-weight: 500;
   }
@@ -174,14 +167,12 @@
     text-align: center;
   }
   
-  /* 確保購物車圖示在手機版導覽列不影響原有布局 */
   @media (max-width: 768px) {
     .cart-nav-item {
-      display: none;  /* 電腦版購物車在手機隱藏，用手機專屬選單代替 */
+      display: none;
     }
   }
   
-  /* 確保手機版購物車在手機選單內正常顯示 */
   @media (min-width: 769px) {
     .mobile-cart-item {
       display: none;
@@ -189,7 +180,6 @@
   }
 </style>
 
-<!-- ========= 購物車數量更新腳本 ========= -->
 <!-- ========= 購物車數量更新腳本 (強制同步版) ========= -->
 <script>
   // 強制更新導覽列購物車數量的函數
@@ -197,29 +187,29 @@
     const cartCountSpan = document.getElementById('cartCount');
     const mobileCartCountSpan = document.getElementById('mobileCartCount');
     
-    // 直接從 localStorage 讀取，不依賴任何外部變數
     let totalCount = 0;
     try {
       const cartData = localStorage.getItem('myCart');
       if (cartData) {
         const cart = JSON.parse(cartData);
         if (Array.isArray(cart)) {
-          totalCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+          totalCount = cart.reduce(function(sum, item) {
+            return sum + (item.quantity || 1);
+          }, 0);
         }
       }
     } catch (e) {
       console.warn('讀取購物車失敗:', e);
     }
     
-    // 更新顯示
     if (cartCountSpan) cartCountSpan.textContent = totalCount;
     if (mobileCartCountSpan) mobileCartCountSpan.textContent = totalCount;
-    
-    // 除錯用：在控制台顯示更新結果（正式環境可刪除此行）
-    console.log('購物車數量已更新:', totalCount);
   }
   
-  // 頁面載入時立即執行
+  // 將函數掛載到全域，讓其他頁面可以呼叫
+  window.updateNavCart = updateNavCartCount;
+  
+  // 頁面載入時立即執行（使用多種方式確保執行）
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', updateNavCartCount);
   } else {
@@ -233,17 +223,24 @@
     }
   });
   
-  // 強制每 0.5 秒更新一次（確保任何情況都能同步）
+  // 每 0.5 秒強制更新一次（確保同步）
   setInterval(updateNavCartCount, 500);
   
-  // 將函數掛載到全域
-  window.updateNavCart = updateNavCartCount;
+  // 當 DOM 變動時也嘗試更新（確保導覽列載入後更新）
+  if (window.MutationObserver) {
+    const observer = new MutationObserver(function(mutations) {
+      if (document.getElementById('cartCount')) {
+        updateNavCartCount();
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
 </script>
 
-<!-- ========= 改善下拉選單消失問題的 JavaScript (緩衝 50px, 延遲 480ms) ========= -->
+<!-- ========= 改善下拉選單消失問題的 JavaScript ========= -->
 <script>
   (function() {
-    // 確保只在電腦版執行
     function initDropdownFix() {
       if (window.innerWidth <= 768) return;
       
@@ -257,7 +254,6 @@
         let isMouseOnItem = false;
         let isMouseOnDropdown = false;
         
-        // 滑鼠進入主選單項目
         item.addEventListener('mouseenter', function() {
           isMouseOnItem = true;
           if (hideTimeout) {
@@ -267,7 +263,6 @@
           dropdown.style.display = 'block';
         });
         
-        // 滑鼠離開主選單項目
         item.addEventListener('mouseleave', function() {
           isMouseOnItem = false;
           hideTimeout = setTimeout(function() {
@@ -277,7 +272,6 @@
           }, 480);
         });
         
-        // 滑鼠進入下拉選單
         dropdown.addEventListener('mouseenter', function() {
           isMouseOnDropdown = true;
           if (hideTimeout) {
@@ -287,7 +281,6 @@
           dropdown.style.display = 'block';
         });
         
-        // 滑鼠離開下拉選單
         dropdown.addEventListener('mouseleave', function() {
           isMouseOnDropdown = false;
           if (!isMouseOnItem) {
@@ -311,7 +304,7 @@
   })();
 </script>
 
-<!-- ========= 原有 CSS 緩衝區樣式 (加大為 50px) ========= -->
+<!-- ========= 原有 CSS 緩衝區樣式 ========= -->
 <style>
   @media (min-width: 769px) {
     .has-dropdown {
@@ -333,7 +326,6 @@
       padding: 8px 0;
     }
     
-    /* 加大緩衝區到 50px */
     .has-dropdown::after {
       content: '';
       position: absolute;
@@ -345,7 +337,6 @@
       z-index: 1001;
     }
     
-    /* 下拉選單向上微調，與緩衝區更緊密 */
     .has-dropdown > .dropdown {
       margin-top: 0;
       top: calc(100% - 5px);
