@@ -5,7 +5,7 @@
     <div class="logo-text">蕨積<span>FernBrom</span></div>
   </a>
   <ul class="nav-links">
-    <!-- 植物選品（有下拉選單） -->
+    <!-- 植物選品 -->
     <li class="has-dropdown" id="nav-plant">
       <a href="shop.html">植物選品</a>
       <ul class="dropdown" id="dropdown-plant">
@@ -16,7 +16,7 @@
         <li><a href="myphoto.html">屋頂植物相簿</a></li>
       </ul>
     </li>
-    <!-- 綠色顧問（有下拉選單） -->
+    <!-- 綠色顧問 -->
     <li class="has-dropdown" id="nav-green">
       <a href="consult.html">綠色顧問</a>
       <ul class="dropdown" id="dropdown-green">
@@ -26,7 +26,7 @@
         <li><a href="lifestyle.html">生活提案</a></li>
       </ul>
     </li>
-    <!-- 蕨望筆記（有下拉） -->
+    <!-- 蕨望筆記 -->
     <li class="has-dropdown" id="nav-note">
       <a href="fbnote.html">蕨望筆記</a> 
       <ul class="dropdown" id="dropdown-note">
@@ -38,11 +38,10 @@
     </li>
     <li><a href="about.html">關於蕨積</a></li>
     <li><a href="contact.html" class="nav-contact">聯絡我們</a></li>
-    <!-- 購物車圖示（電腦版） -->
+    <!-- 購物車圖示（純連結，無數字） -->
     <li class="cart-nav-item">
-      <a href="cart.html" id="cartIconLink" class="cart-icon-wrapper">
+      <a href="cart.html" class="cart-icon-wrapper">
         <span class="cart-icon">🛒</span>
-        <span id="cartCount" class="cart-count-badge">0</span>
       </a>
     </li>
   </ul>
@@ -91,20 +90,16 @@
     </li>
     <li><a href="about.html" class="mobile-link">關於蕨積</a></li>
     <li><a href="contact.html" class="mobile-link">聯絡我們</a></li>
-    <!-- 手機版購物車連結 -->
+    <!-- 手機版購物車連結（無數字） -->
     <li class="mobile-cart-item">
       <a href="cart.html" class="mobile-link cart-mobile-link">
         <span>🛒 購物車</span>
-        <span id="mobileCartCount" class="mobile-cart-badge">0</span>
       </a>
     </li>
   </ul>
 </div>
 
-<!-- ========= 載入購物車核心邏輯 ========= -->
-<script src="cart.js"></script>
-
-<!-- ========= 購物車相關樣式 ========= -->
+<!-- ========= 購物車相關樣式（無數字版本） ========= -->
 <style>
   .cart-nav-item {
     margin-left: 0.25rem;
@@ -113,7 +108,6 @@
   .cart-icon-wrapper {
     display: flex;
     align-items: center;
-    gap: 6px;
     text-decoration: none;
     padding: 6px 12px;
     border-radius: 40px;
@@ -128,17 +122,6 @@
   .cart-icon {
     font-size: 1.2rem;
     line-height: 1;
-  }
-  
-  .cart-count-badge {
-    background-color: #b85c5c;
-    color: white;
-    font-size: 0.7rem;
-    font-weight: 500;
-    border-radius: 30px;
-    padding: 2px 6px;
-    min-width: 20px;
-    text-align: center;
   }
   
   .mobile-cart-item {
@@ -157,16 +140,6 @@
     font-weight: 500;
   }
   
-  .mobile-cart-badge {
-    background-color: #b85c5c;
-    color: white;
-    font-size: 0.75rem;
-    border-radius: 30px;
-    padding: 2px 10px;
-    min-width: 28px;
-    text-align: center;
-  }
-  
   @media (max-width: 768px) {
     .cart-nav-item {
       display: none;
@@ -179,64 +152,6 @@
     }
   }
 </style>
-
-<!-- ========= 購物車數量更新腳本 (強制同步版) ========= -->
-<script>
-  // 強制更新導覽列購物車數量的函數
-  function updateNavCartCount() {
-    const cartCountSpan = document.getElementById('cartCount');
-    const mobileCartCountSpan = document.getElementById('mobileCartCount');
-    
-    let totalCount = 0;
-    try {
-      const cartData = localStorage.getItem('myCart');
-      if (cartData) {
-        const cart = JSON.parse(cartData);
-        if (Array.isArray(cart)) {
-          totalCount = cart.reduce(function(sum, item) {
-            return sum + (item.quantity || 1);
-          }, 0);
-        }
-      }
-    } catch (e) {
-      console.warn('讀取購物車失敗:', e);
-    }
-    
-    if (cartCountSpan) cartCountSpan.textContent = totalCount;
-    if (mobileCartCountSpan) mobileCartCountSpan.textContent = totalCount;
-  }
-  
-  // 將函數掛載到全域，讓其他頁面可以呼叫
-  window.updateNavCart = updateNavCartCount;
-  
-  // 頁面載入時立即執行（使用多種方式確保執行）
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateNavCartCount);
-  } else {
-    updateNavCartCount();
-  }
-  
-  // 監聽 localStorage 變化（跨頁面同步）
-  window.addEventListener('storage', function(e) {
-    if (e.key === 'myCart') {
-      updateNavCartCount();
-    }
-  });
-  
-  // 每 0.5 秒強制更新一次（確保同步）
-  setInterval(updateNavCartCount, 500);
-  
-  // 當 DOM 變動時也嘗試更新（確保導覽列載入後更新）
-  if (window.MutationObserver) {
-    const observer = new MutationObserver(function(mutations) {
-      if (document.getElementById('cartCount')) {
-        updateNavCartCount();
-        observer.disconnect();
-      }
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-  }
-</script>
 
 <!-- ========= 改善下拉選單消失問題的 JavaScript ========= -->
 <script>
@@ -347,28 +262,4 @@
       display: block;
     }
   }
-</style><script>
-  // 監聽導覽列是否被插入到 DOM
-  if (window.MutationObserver) {
-    const observer = new MutationObserver(function(mutations) {
-      if (document.getElementById('cartCount')) {
-        // 找到購物車元素後，立即更新數字
-        setTimeout(function() {
-          try {
-            const cart = JSON.parse(localStorage.getItem('myCart') || '[]');
-            const count = cart.reduce(function(s, i) {
-              return s + (i.quantity || 1);
-            }, 0);
-            const cartSpan = document.getElementById('cartCount');
-            const mobileSpan = document.getElementById('mobileCartCount');
-            if (cartSpan) cartSpan.textContent = count;
-            if (mobileSpan) mobileSpan.textContent = count;
-          } catch(e) {}
-        }, 50);
-        observer.disconnect();
-      }
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-  }
-</script>
-
+</style>
