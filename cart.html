@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>購物車｜蕨積</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: #faf7f2;
+      color: #1a1a14;
+      padding-top: 80px;
+    }
+    /* 簡易導覽列佔位（因為 nav.html 會動態載入，此處留空） */
+    #nav-placeholder {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+    }
+    .cart-container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 2px solid #d4e4c8;
+      padding-bottom: 0.75rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .cart-header h1 {
+      font-family: 'Noto Serif TC', serif;
+      color: #3d5a38;
+      font-size: 1.8rem;
+    }
+    .cart-header button {
+      background: none;
+      border: 1px solid #b1624b;
+      color: #b1624b;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .cart-items {
+      list-style: none;
+      margin: 1.5rem 0;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid #e2ede5;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .item-info {
+      flex: 3;
+    }
+    .item-name {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .item-price {
+      color: #5a7a4a;
+      font-size: 0.9rem;
+    }
+    .item-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .qty-btn {
+      background: #eef3ef;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .remove-btn {
+      background: none;
+      border: none;
+      color: #b1624b;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+    .cart-summary {
+      background: white;
+      border-radius: 24px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 1px solid #e2ede5;
+    }
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      padding-top: 0.5rem;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #d4e4c8;
+      border-radius: 40px;
+      font-size: 1rem;
+      background: #fefcf8;
+    }
+    .checkout-btn {
+      width: 100%;
+      background: #3d5a38;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 40px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: 0.2s;
+    }
+    .checkout-btn:hover {
+      background: #2b4627;
+    }
+    .empty-cart {
+      text-align: center;
+      padding: 3rem;
+      color: #8ba18e;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #8aa79a;
+      font-size: 0.8rem;
+      border-top: 1px solid #e2ede5;
+      margin-top: 3rem;
+    }
+    @media (max-width: 640px) {
+      .cart-container {
+        padding: 0 1rem;
+      }
+      .cart-header h1 {
+        font-size: 1.4rem;
+      }
+      .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .item-controls {
+        align-self: flex-end;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <div class="cart-container">
+    <div class="cart-header">
+      <h1>🛒 我的購物車</h1>
+      <button id="clearCartBtn">清空購物車</button>
+    </div>
+
+    <div id="cartContent">
+      <!-- 動態渲染購物車列表 -->
+      <div class="empty-cart">載入中...</div>
+    </div>
+
+    <div id="summaryArea" style="display: none;">
+      <div class="cart-summary">
+        <div class="total-row">
+          <span>總金額</span>
+          <span>NT$ <span id="totalAmount">0</span></span>
+        </div>
+        <div class="form-group">
+          <input type="text" id="custName" placeholder="姓名 *" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <input type="tel" id="custPhone" placeholder="電話 *" autocomplete="tel">
+        </div>
+        <div class="form-group">
+          <input type="email" id="custEmail" placeholder="Email *" autocomplete="email">
+        </div>
+        <button class="checkout-btn" id="submitOrderBtn">📦 送出訂單</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 蕨積 FernBrom · 自然共生</p>
+  </footer>
+
+  <script src="cart.js"></script>
+  <script>
+    // 等待導覽列載入
+    async function loadNav() {
+      try {
+        const res = await fetch('nav.html');
+        const html = await res.text();
+        document.getElementById('nav-placeholder').innerHTML = html;
+        // 觸發導覽列內的角標更新函數（如果有的話）
+        if (typeof window.updateNavCart === 'function') window.updateNavCart();
+        // 重新初始化 Lucide 圖示
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      } catch(e) {
+        console.warn('導覽列載入失敗', e);
+      }
+    }
+
+    // 渲染購物車頁面
+    function renderCartPage() {
+      const items = Cart.getItems();
+      const container = document.getElementById('cartContent');
+      const summaryArea = document.getElementById('summaryArea');
+      const totalSpan = document.getElementById('totalAmount');
+
+      if (!items.length) {
+        container.innerHTML = '<div class="empty-cart">🌱 購物車空空如也，<a href="shop.html" style="color:#3d5a38;">去逛逛</a> 吧！</div>';
+        summaryArea.style.display = 'none';
+        return;
+      }
+
+      // 建立列表 HTML
+      let html = `<ul class="cart-items">`;
+      items.forEach((item, idx) => {
+        html += `
+          <li class="cart-item">
+            <div class="item-info">
+              <div class="item-name">${escapeHtml(item.name)}</div>
+              <div class="item-price">NT$ ${item.price} / 件</div>
+            </div>
+            <div class="item-controls">
+              <button class="qty-btn" data-index="${idx}" data-delta="-1">−</button>
+              <span style="min-width: 32px; text-align: center;">${item.quantity}</span>
+              <button class="qty-btn" data-index="${idx}" data-delta="+1">+</button>
+              <button class="remove-btn" data-index="${idx}">🗑️ 移除</button>
+            </div>
+            <div style="font-weight: 500; min-width: 80px; text-align: right;">
+              NT$ ${item.price * item.quantity}
+            </div>
+          </li>
+        `;
+      });
+      html += `</ul>`;
+      container.innerHTML = html;
+      summaryArea.style.display = 'block';
+      totalSpan.innerText = Cart.getTotal();
+
+      // 綁定數量按鈕事件
+      document.querySelectorAll('.qty-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(btn.dataset.index);
+          const delta = parseInt(btn.dataset.delta);
+          if (delta === 1) {
+            // 增加數量時需檢查庫存上限（從商品資料中取得，這裡簡單做）
+            const item = items[idx];
+            // 由於庫存上限需要從產品資料取得，這裡我們簡單允許增加，但可透過 API 檢查
+            Cart.updateQuantity(idx, delta, 99);
+          } else {
+            Cart.updateQuantity(idx, delta);
+          }
+          renderCartPage();     // 重新渲染
+          updateNavCount();     // 更新導覽列數字
+        });
+      });
+
+      document.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(btn.dataset.index);
+          Cart.removeItem(idx);
+          renderCartPage();
+          updateNavCount();
+        });
+      });
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+      });
+    }
+
+    function updateNavCount() {
+      // 如果導覽列已載入且提供更新函數
+      if (typeof window.updateNavCart === 'function') window.updateNavCart();
+      // 也可以直接觸發 storage 事件讓 nav.html 監聽
+      window.dispatchEvent(new Event('storage'));
+    }
+
+    // 送出訂單
+    async function submitOrder() {
+      const items = Cart.getItems();
+      if (items.length === 0) {
+        alert('購物車是空的');
+        return;
+      }
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const email = document.getElementById('custEmail').value.trim();
+      if (!name || !phone || !email) {
+        alert('請填寫姓名、電話與 Email');
+        return;
+      }
+
+      const orderPayload = {
+        name, phone, email,
+        items: items,
+        total: Cart.getTotal()
+      };
+
+      const btn = document.getElementById('submitOrderBtn');
+      btn.disabled = true;
+      btn.textContent = '送出中...';
+      try {
+        const res = await fetch('https://linebot-oh5o.onrender.com/order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderPayload)
+        });
+        const result = await res.json();
+        if (res.ok && result.status === 'success') {
+          alert('✅ 訂單送出成功！我們將盡快與您聯繫。');
+          localStorage.removeItem('myCart');
+          if (typeof Cart !== 'undefined' && Cart.updateUI) Cart.updateUI();
+          renderCartPage();
+          updateNavCount();
+        } else {
+          alert('訂單失敗：' + (result.message || '請稍後再試'));
+        }
+      } catch (err) {
+        console.error(err);
+        alert('連線錯誤，請確認網路狀態');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '📦 送出訂單';
+      }
+    }
+
+    // 初始化頁面
+    async function init() {
+      await loadNav();
+      renderCartPage();
+
+      const clearBtn = document.getElementById('clearCartBtn');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          if (confirm('確定要清空購物車嗎？')) {
+            localStorage.setItem('myCart', '[]');
+            renderCartPage();
+            updateNavCount();
+          }
+        });
+      }
+
+      const submitBtn = document.getElementById('submitOrderBtn');
+      if (submitBtn) submitBtn.addEventListener('click', submitOrder);
+
+      // 監聽購物車變化（其他頁面修改時同步）
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'myCart') renderCartPage();
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>
