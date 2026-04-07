@@ -707,7 +707,7 @@
       const totalSpan = document.getElementById('totalAmount');
 
       if (!items.length) {
-        container.innerHTML = '<div class="empty-cart">🌱 購物車空空如也，<a href="shop.html">去逛逛</a> 吧！</div>';
+        container.innerHTML = '<div class="empty-cart">🌱 購物車還沒有植物，快<a href="shop.html">去逛逛</a> 吧！</div>';
         summaryArea.style.display = 'none';
         return;
       }
@@ -807,7 +807,7 @@
         });
         const result = await res.json();
         if (res.ok && result.status === 'success') {
-          alert('✅ 訂單送出成功！我們將盡快與您聯繫。');
+          alert('✅ 訂單送出成功！我們將盡快與您聯繫。謝謝您！');
           localStorage.setItem('myCart', '[]');
           renderCartPage();
           if (typeof window.updateNavCart === 'function') window.updateNavCart();
