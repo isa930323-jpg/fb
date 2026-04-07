@@ -796,7 +796,7 @@
       const btn = document.getElementById('submitOrderBtn');
       const originalText = btn.textContent;
       btn.disabled = true;
-      btn.textContent = 'LineBot送出中，請稍後...';
+      btn.textContent = 'LineBot送出中，請耐心等候...';
       
       try {
         const total = window.Cart.getTotal();
