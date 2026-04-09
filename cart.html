@@ -9,35 +9,50 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- 在 <head> 或 <body> 開頭加入 LIFF SDK 與初始化腳本 -->
 <script src="https://static.line-sdn.net/liff/edge/2.1/sdk.js"></script>
+<!-- LIFF SDK -->
+<script src="https://static.line-sdn.net/liff/edge/2.1/sdk.js"></script>
+
 <script>
   async function initLiff() {
     try {
-      // 請將 'YOUR_LIFF_ID' 替換為您申請到的實際 LIFF ID
       await liff.init({ liffId: "2009073006-LOgV46pS" });
       
-      // 如果使用者尚未登入 LINE，則引導登入
+      // 檢查是否在 LINE 環境中
+      if (!liff.isInClient()) {
+        console.log('不在 LINE 環境中，跳過 LIFF 登入');
+        return;
+      }
+      
+      // 如果未登入，引導登入
       if (!liff.isLoggedIn()) {
         liff.login();
         return;
       }
 
-      // 取得使用者資料
+      // 取得使用者資料（需要 profile scope）
       const profile = await liff.getProfile();
       
-      // 自動填入「姓名」欄位 (假設您頁面上的姓名輸入框 id 為 "custName")
+      // 自動填入姓名欄位
       const nameInput = document.getElementById('custName');
       if (nameInput) {
         nameInput.value = profile.displayName;
       }
       
-      // 您可以選擇將 userId 存下來，未來作為發送通知的依據
-      // localStorage.setItem('lineUserId', profile.userId);
+      // 可選：把 userId 存下來
+      localStorage.setItem('lineUserId', profile.userId);
+      
+      console.log('LIFF 初始化成功，使用者：', profile.displayName);
       
     } catch (err) {
       console.error('LIFF 初始化失敗:', err);
     }
   }
-  initLiff();
+  
+  // 等待 DOM 和 LIFF SDK 都準備好
+  document.addEventListener('DOMContentLoaded', function() {
+    // 稍微延遲確保 liff 物件已載入
+    setTimeout(initLiff, 100);
+  });
 </script>
   <style>
     /* ===== 共用樣式 ===== */
