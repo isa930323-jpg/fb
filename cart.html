@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LIFF 測試</title>
-  <script src="https://static.line-sdn.net/liff/edge/2.1/sdk.js"></script>
+  <!-- 改用備用網址 -->
+  <script src="https://www.line-website.com/liff/edge/2.1/sdk.js"></script>
 </head>
 <body>
   <h1>LIFF 連線測試</h1>
@@ -15,6 +16,13 @@
     (async function() {
       const statusDiv = document.getElementById('status');
       const userDiv = document.getElementById('userInfo');
+      
+      // 先檢查 liff 物件是否存在
+      if (typeof liff === 'undefined') {
+        statusDiv.innerText = '❌ LIFF SDK 載入失敗，請檢查網路連線';
+        userDiv.innerText = '請確認能夠連線到 line-website.com';
+        return;
+      }
       
       try {
         statusDiv.innerText = '1. 初始化 LIFF...';
@@ -42,7 +50,6 @@
         userDiv.innerHTML = `
           <p><strong>你的 LINE 名稱：</strong> ${profile.displayName}</p>
           <p><strong>使用者 ID：</strong> ${profile.userId}</p>
-          <p><strong>大頭貼：</strong> <img src="${profile.pictureUrl}" width="80" style="border-radius: 50%;"></p>
         `;
         
       } catch (err) {
