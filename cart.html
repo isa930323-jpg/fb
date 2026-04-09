@@ -3,59 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LIFF 測試</title>
-  <!-- 改用 2.0 版本，相容性較高 -->
-  <script src="https://static.line-sdn.net/liff/edge/2.0/sdk.js"></script>
+  <title>LIFF 最簡測試</title>
 </head>
 <body>
-  <h1>LIFF 連線測試 (v2.0)</h1>
-  <div id="status">載入中...</div>
-  <div id="userInfo"></div>
+  <h1>LIFF 最簡測試</h1>
+  <div id="log"></div>
 
   <script>
-    (function() {
-      const statusDiv = document.getElementById('status');
-      const userDiv = document.getElementById('userInfo');
+    const logDiv = document.getElementById('log');
+    
+    function log(msg) {
+      console.log(msg);
+      logDiv.innerHTML += '<div>' + msg + '</div>';
+    }
+    
+    log('1. 開始載入 SDK...');
+    
+    // 動態載入 SDK
+    const script = document.createElement('script');
+    script.src = 'https://static.line-sdn.net/liff/edge/2.0/sdk.js';
+    script.onload = function() {
+      log('2. SDK 載入成功！');
+      log('3. liff 物件存在：' + (typeof liff !== 'undefined'));
       
-      // 檢查 liff 物件是否載入
-      if (typeof liff === 'undefined') {
-        statusDiv.innerText = '❌ LIFF SDK 載入失敗';
-        userDiv.innerText = 'LINE 版本可能太舊，請更新 LINE App';
-        return;
+      if (typeof liff !== 'undefined') {
+        log('4. 開始初始化...');
+        liff.init({ liffId: '2009073006-LOgV46pS' })
+          .then(() => {
+            log('5. 初始化成功！');
+            log('6. isLoggedIn: ' + liff.isLoggedIn());
+            if (!liff.isLoggedIn()) {
+              log('7. 未登入，準備跳轉...');
+              liff.login();
+            } else {
+              return liff.getProfile();
+            }
+          })
+          .then(profile => {
+            if (profile) {
+              log('8. 取得資料成功！名稱：' + profile.displayName);
+            }
+          })
+          .catch(err => {
+            log('❌ 初始化失敗：' + err.message);
+          });
       }
-      
-      statusDiv.innerText = 'LIFF SDK 已載入，初始化中...';
-      
-      liff.init({ liffId: '2009073006-LOgV46pS' })
-        .then(() => {
-          statusDiv.innerText = '初始化完成，檢查登入狀態...';
-          
-          if (!liff.isLoggedIn()) {
-            statusDiv.innerText = '未登入，跳轉登入頁面...';
-            liff.login();
-            return;
-          }
-          
-          return liff.getProfile();
-        })
-        .then(profile => {
-          if (!profile) return;
-          
-          statusDiv.innerText = '✅ 成功取得資料！';
-          userDiv.innerHTML = `
-            <p><strong>LINE 名稱：</strong> ${profile.displayName}</p>
-            <p><strong>使用者 ID：</strong> ${profile.userId}</p>
-          `;
-          
-          // 嘗試填入購物車頁面的姓名欄位（如果存在的話）
-          const nameInput = document.getElementById('custName');
-          if (nameInput) nameInput.value = profile.displayName;
-        })
-        .catch(err => {
-          statusDiv.innerText = '❌ 錯誤：' + err.message;
-          console.error(err);
-        });
-    })();
+    };
+    script.onerror = function() {
+      log('❌ SDK 載入失敗（網路問題）');
+    };
+    document.head.appendChild(script);
   </script>
 </body>
 </html>
