@@ -4,58 +4,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LIFF 測試</title>
-  <!-- 改用備用網址 -->
-  <script src="https://www.line-website.com/liff/edge/2.1/sdk.js"></script>
+  <!-- 改用 2.0 版本，相容性較高 -->
+  <script src="https://static.line-sdn.net/liff/edge/2.0/sdk.js"></script>
 </head>
 <body>
-  <h1>LIFF 連線測試</h1>
+  <h1>LIFF 連線測試 (v2.0)</h1>
   <div id="status">載入中...</div>
   <div id="userInfo"></div>
 
   <script>
-    (async function() {
+    (function() {
       const statusDiv = document.getElementById('status');
       const userDiv = document.getElementById('userInfo');
       
-      // 先檢查 liff 物件是否存在
+      // 檢查 liff 物件是否載入
       if (typeof liff === 'undefined') {
-        statusDiv.innerText = '❌ LIFF SDK 載入失敗，請檢查網路連線';
-        userDiv.innerText = '請確認能夠連線到 line-website.com';
+        statusDiv.innerText = '❌ LIFF SDK 載入失敗';
+        userDiv.innerText = 'LINE 版本可能太舊，請更新 LINE App';
         return;
       }
       
-      try {
-        statusDiv.innerText = '1. 初始化 LIFF...';
-        await liff.init({ liffId: '2009073006-LOgV46pS' });
-        statusDiv.innerText = '2. LIFF 初始化完成';
-        
-        statusDiv.innerText = '3. 檢查是否在 LINE 環境...';
-        if (!liff.isInClient()) {
-          statusDiv.innerText = '⚠️ 不在 LINE App 中，請用 LINE 打開此網頁';
-          userDiv.innerText = '請將此連結貼到 LINE 聊天室中打開';
-          return;
-        }
-        
-        statusDiv.innerText = '4. 檢查登入狀態...';
-        if (!liff.isLoggedIn()) {
-          statusDiv.innerText = '5. 未登入，跳轉登入中...';
-          liff.login();
-          return;
-        }
-        
-        statusDiv.innerText = '5. 已登入，取得個人資料...';
-        const profile = await liff.getProfile();
-        
-        statusDiv.innerText = '✅ 成功！';
-        userDiv.innerHTML = `
-          <p><strong>你的 LINE 名稱：</strong> ${profile.displayName}</p>
-          <p><strong>使用者 ID：</strong> ${profile.userId}</p>
-        `;
-        
-      } catch (err) {
-        statusDiv.innerText = '❌ 錯誤：' + err.message;
-        console.error(err);
-      }
+      statusDiv.innerText = 'LIFF SDK 已載入，初始化中...';
+      
+      liff.init({ liffId: '2009073006-LOgV46pS' })
+        .then(() => {
+          statusDiv.innerText = '初始化完成，檢查登入狀態...';
+          
+          if (!liff.isLoggedIn()) {
+            statusDiv.innerText = '未登入，跳轉登入頁面...';
+            liff.login();
+            return;
+          }
+          
+          return liff.getProfile();
+        })
+        .then(profile => {
+          if (!profile) return;
+          
+          statusDiv.innerText = '✅ 成功取得資料！';
+          userDiv.innerHTML = `
+            <p><strong>LINE 名稱：</strong> ${profile.displayName}</p>
+            <p><strong>使用者 ID：</strong> ${profile.userId}</p>
+          `;
+          
+          // 嘗試填入購物車頁面的姓名欄位（如果存在的話）
+          const nameInput = document.getElementById('custName');
+          if (nameInput) nameInput.value = profile.displayName;
+        })
+        .catch(err => {
+          statusDiv.innerText = '❌ 錯誤：' + err.message;
+          console.error(err);
+        });
     })();
   </script>
 </body>
