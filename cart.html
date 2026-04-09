@@ -811,6 +811,19 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, phone, email, items, total: total })
         });
+        // --- 新增：發送 Email 通知 (Google Apps Script) ---
+try {
+  await fetch('https://script.google.com/macros/s/AKfycbzm32bNW4c2ncvioeTs26NIB75Z9ekHctDp3Ps4lUZ7udwiNtvJVVotUxXVJyNyfAFT/exec', {
+    method: 'POST',
+    mode: 'no-cors', // 這個設定可以避免跨域問題，且不影響功能
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, phone, email, items, total: total })
+  });
+  console.log('📧 Email 通知已發送');
+} catch (emailErr) {
+  console.warn('⚠️ Email 發送失敗 (不影響訂單):', emailErr);
+}
+// --- 新增結束 ---
         const result = await res.json();
         if (res.ok && result.status === 'success') {
           alert('✅ 訂單送出成功！我們將盡快與您聯繫。謝謝您！');
