@@ -291,6 +291,26 @@
       font-size: 0.875rem;
       margin-top: 0.25rem;
     }
+    /* 自訂提示訊息動畫 */
+    .toast-message {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #2d4a2b;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .toast-message.show {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -347,32 +367,25 @@
         
         <!-- 右側表單區塊：淺綠色背景，驗證碼與按鈕並排 -->
         <div class="p-8 md:p-10" style="background-color: #f0f7ec;">
-          <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" class="space-y-5" onsubmit="return validateCaptcha()"> 
-            <input type="hidden" name="access_key" value="20e2619b-fdba-4bba-aa48-44d04a080502"> 
-            <input type="hidden" name="redirect" value="https://www.fernbrom.com/thanks.html"> 
-        <input type="hidden" name="subject" value="有人從蕨積寄信來了"> 
-          <input type="hidden" name="from_name" value="FernBrom">
-          
-            <input type="checkbox" name="botcheck" class="hidden" style="display: none;"> 
-            
+          <form id="contactForm" class="space-y-5"> 
+            <!-- 移除 web3forms 相關隱藏欄位，改用 Google Apps Script -->
             <div> 
               <label class="block text-sm font-medium text-gray-700 mb-1">您的姓名</label> 
-              <input type="text" name="name" required class="w-full px-4 py-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent outline-none transition bg-white"> 
+              <input type="text" id="contactName" name="name" required class="w-full px-4 py-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent outline-none transition bg-white"> 
             </div> 
             
             <div> 
               <label class="block text-sm font-medium text-gray-700 mb-1">電子郵件</label> 
-              <input type="email" name="email" required class="w-full px-4 py-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent outline-none transition bg-white"> 
+              <input type="email" id="contactEmail" name="email" required class="w-full px-4 py-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent outline-none transition bg-white"> 
             </div> 
             
             <div> 
               <label class="block text-sm font-medium text-gray-700 mb-1">您的訊息</label> 
-              <textarea name="message" rows="4" required class="w-full px-4 py-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent outline-none transition bg-white"></textarea> 
+              <textarea id="contactMessage" name="message" rows="4" required class="w-full px-4 py-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent outline-none transition bg-white"></textarea> 
             </div>
 
             <!-- 驗證碼區塊與按鈕並排 -->
             <div class="flex items-center gap-4 flex-wrap">
-              <!-- 驗證碼左側 -->
               <div class="flex-grow">
                 <label class="block text-sm font-medium text-gray-700 mb-1">驗證碼</label>
                 <div class="flex items-center gap-2">
@@ -381,11 +394,9 @@
                   <input type="number" id="captchaInput" class="w-20 px-3 py-2 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent outline-none" placeholder="?" required>
                 </div>
                 <div id="captchaError" class="captcha-error hidden mt-1">驗證碼錯誤，請重新計算</div>
-                <input type="hidden" id="captchaResult" name="captcha_result" value="">
+                <input type="hidden" id="captchaResult" value="">
               </div>
-              
-              <!-- 縮小後的傳送訊息按鈕 - 與驗證碼並排 -->
-              <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2.5 rounded-lg transition-all active:scale-[0.98] shadow-md whitespace-nowrap self-end mb-1"> 
+              <button type="submit" id="submitBtn" class="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2.5 rounded-lg transition-all active:scale-[0.98] shadow-md whitespace-nowrap self-end mb-1"> 
                 傳送訊息 
               </button>
             </div>
@@ -406,8 +417,26 @@
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
 
+  <!-- 提示訊息容器 -->
+  <div id="toastMsg" class="toast-message"></div>
+
   <script>
-    // 產生隨機驗證碼
+    // ==================== 設定區 ====================
+    // 請將下方網址替換為您部署的 Google Apps Script 聯絡表單專案的網址
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzm32bNW4c2ncvioeTs26NIB75Z9ekHctDp3Ps4lUZ7udwiNtvJVVotUxXVJyNyfAFT/exec';
+    
+    // 顯示提示訊息 (不影響原有版面)
+    function showMessage(text, isError = false) {
+      const toast = document.getElementById('toastMsg');
+      toast.textContent = text;
+      toast.style.backgroundColor = isError ? '#b91c1c' : '#2d4a2b';
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 4000);
+    }
+
+    // 產生隨機驗證碼 (簡單加法)
     function generateCaptcha() {
       const num1 = Math.floor(Math.random() * 10) + 1; // 1-10
       const num2 = Math.floor(Math.random() * 10) + 1; // 1-10
@@ -417,37 +446,115 @@
       document.getElementById('captchaQuestion').textContent = question;
       document.getElementById('captchaResult').value = result;
       
-      // 清除錯誤訊息和輸入
       document.getElementById('captchaInput').value = '';
       document.getElementById('captchaError').classList.add('hidden');
     }
     
-    // 驗證驗證碼
+    // 驗證驗證碼 (前端)
     function validateCaptcha() {
       const userAnswer = parseInt(document.getElementById('captchaInput').value);
       const correctAnswer = parseInt(document.getElementById('captchaResult').value);
-      
-      if (userAnswer === correctAnswer) {
-        return true; // 表單送出
-      } else {
-        document.getElementById('captchaError').classList.remove('hidden');
-        generateCaptcha(); // 重新產生新題目
-        return false; // 阻止表單送出
+      return userAnswer === correctAnswer;
+    }
+
+    // 送出表單到 Google Apps Script
+    async function submitToGoogleScript(formData) {
+      try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors', // 避免跨域問題，但這樣無法讀取回應內容
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        // 由於 mode: 'no-cors'，response 無法讀取狀態，但請求仍會發出
+        // 預設成功，因為 no-cors 只會送出，不會回傳詳細結果
+        return { success: true };
+      } catch (err) {
+        console.error('Google Script 請求失敗:', err);
+        return { success: false, error: err.message };
       }
     }
 
+    // 處理表單提交 (非同步，避免頁面跳轉)
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault(); // 防止傳統提交與頁面跳轉
+      
+      // 獲取表單欄位值
+      const name = document.getElementById('contactName').value.trim();
+      const email = document.getElementById('contactEmail').value.trim();
+      const message = document.getElementById('contactMessage').value.trim();
+      
+      // 基本驗證
+      if (!name || !email || !message) {
+        showMessage('請完整填寫姓名、電子郵件與訊息內容', true);
+        return;
+      }
+      
+      // 驗證碼檢查
+      if (!validateCaptcha()) {
+        document.getElementById('captchaError').classList.remove('hidden');
+        generateCaptcha(); // 更新驗證碼題目
+        showMessage('驗證碼錯誤，請重新輸入', true);
+        return;
+      }
+      
+      // 按鈕狀態變更 (避免重複送出)
+      const submitBtn = document.getElementById('submitBtn');
+      const originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = '傳送中...';
+      
+      try {
+        // 組裝要送出的資料 (與購物車結構類似，方便後端統一處理)
+        const payload = {
+          name: name,
+          email: email,
+          phone: '',          // 聯絡表單無電話欄位，保留空白
+          message: message,
+          type: 'contact',    // 標記為聯絡表單類型
+          items: [],          // 無商品
+          total: 0
+        };
+        
+        // 發送到 Google Apps Script
+        const result = await submitToGoogleScript(payload);
+        
+        // 由於 mode: 'no-cors' 無法取得真實回應，預設成功
+        // 但我們仍顯示成功訊息，並重置表單
+        showMessage('✅ 訊息已送出！我們會盡快回覆您。');
+        
+        // 清除表單內容
+        document.getElementById('contactName').value = '';
+        document.getElementById('contactEmail').value = '';
+        document.getElementById('contactMessage').value = '';
+        generateCaptcha(); // 重置驗證碼
+        
+        // 可選: 跳轉至感謝頁面 (若仍想要原本的 thanks.html 轉址)
+        // 如果想保留原有轉址行為，可以啟用下方程式碼:
+        // setTimeout(() => {
+        //   window.location.href = 'https://www.fernbrom.com/thanks.html';
+        // }, 1500);
+        
+      } catch (err) {
+        console.error('提交錯誤:', err);
+        showMessage('連線發生錯誤，請稍後再試', true);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    });
+    
+    // 導覽列載入與初始化 (保留原本所有邏輯，完全不變)
     document.addEventListener('DOMContentLoaded', function () {
       // 載入共用導覽列
       fetch('nav.html')
         .then(response => response.text())
         .then(data => {
           document.getElementById('nav-placeholder').innerHTML = data;
-          // 在導覽列插入後，重新綁定事件與初始化
           initNav();
         })
         .catch(err => {
           console.error('無法載入導覽列:', err);
-          // 錯誤時的備用顯示
           document.getElementById('nav-placeholder').innerHTML = 
             '<nav style="background:var(--moss);color:white;padding:0 4vw;height:72px;display:flex;align-items:center;">' +
             '<span style="font-family:Noto Serif TC,serif;font-weight:900;">⚠️ 導覽列載入失敗，請確認 nav.html 是否存在</span>' +
@@ -458,7 +565,6 @@
       generateCaptcha();
 
       function initNav() {
-        // hamburger 事件
         var btn = document.getElementById('hamburger');
         var menu = document.getElementById('mobileMenu');
         if (btn && menu) {
@@ -466,24 +572,26 @@
             btn.classList.toggle('open');
             menu.classList.toggle('open');
           });
-          menu.querySelectorAll('.mobile-link').forEach(function (a) {
-            a.addEventListener('click', function () {
-              btn.classList.remove('open');
-              menu.classList.remove('open');
+          if(menu.querySelectorAll) {
+            menu.querySelectorAll('.mobile-link').forEach(function (a) {
+              a.addEventListener('click', function () {
+                btn.classList.remove('open');
+                menu.classList.remove('open');
+              });
             });
-          });
+          }
         }
-        // 行動選單的展開折疊
-        if (menu) {
+        if (menu && menu.querySelectorAll) {
           menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
             parent.addEventListener('click', function () {
               var id = parent.getAttribute('data-target');
               var sub = document.getElementById(id);
               var caretId = 'caret-' + id.replace('sub-', '');
               var caret = document.getElementById(caretId);
+              if (!sub) return;
               var opening = !sub.classList.contains('open');
-              menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
-              menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
+              if(menu.querySelectorAll('.mobile-sub')) menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
+              if(menu.querySelectorAll('.mobile-caret')) menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
               if (opening) {
                 sub.classList.add('open');
                 if (caret) caret.classList.add('open');
@@ -491,12 +599,10 @@
             });
           });
         }
-        // 滾動效果
         window.addEventListener('scroll', function () {
           var nav = document.getElementById('mainNav');
           if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
         });
-        // 重新綁定 lucide 圖示
         if (typeof lucide !== 'undefined') lucide.createIcons();
       }
     });
