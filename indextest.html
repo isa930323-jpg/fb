@@ -8,17 +8,17 @@
   <link rel="canonical" href="https://www.fernbrom.com/">
   <link rel="icon" href="/favicon.ico">
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<link rel="mainfest" href="/site.webmanifest"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="mainfest" href="/site.webmanifest"/>
   <!-- OG -->
   <meta property="og:title" content="蕨積 FernBrom｜植物 × 碳 × 工程">
   <meta property="og:description" content="從植物到碳管理，打造真正可持續的綠色空間">
   <meta property="og:url" content="https://www.fernbrom.com/">
   <meta property="og:image" content="https://www.fernbrom.com/og-image.jpg">
   <meta property="og:type" content="website">
-   <meta property="og:locale" content="zh_TW">
+  <meta property="og:locale" content="zh_TW">
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="蕨積 FernBrom｜植物 × 碳 × 工程">
@@ -542,7 +542,7 @@
       <!-- 鹿角蕨：從 image/fern/ 隨機 -->
       <a href="fern.html" class="plant-card-link" id="staghorn-link">
         <div class="plant-image-box">
-          <img class="plant-image" id="staghorn-img" src="image/fern/" alt="鹿角蕨" loading="lazy">
+          <img class="plant-image" id="staghorn-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='450' viewBox='0 0 600 450'%3E%3Crect width='600' height='450' fill='%23e8ede9'/%3E%3Ctext x='300' y='225' font-size='20' font-family='monospace' text-anchor='middle' dy='.3em' fill='%233d5a38'%3E載入中...%3C/text%3E%3C/svg%3E" alt="鹿角蕨" loading="lazy">
         </div>
         <div class="plant-info">
           <div class="plant-name">鹿角蕨</div>
@@ -552,17 +552,17 @@
       <!-- 積水鳳梨：從 image/brom/ 隨機 -->
       <a href="brom.html" class="plant-card-link" id="bromeliad-link">
         <div class="plant-image-box">
-          <img class="plant-image" id="bromeliad-img" src="image/brom/" alt="積水鳳梨" loading="lazy">
+          <img class="plant-image" id="bromeliad-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='450' viewBox='0 0 600 450'%3E%3Crect width='600' height='450' fill='%23e8ede9'/%3E%3Ctext x='300' y='225' font-size='20' font-family='monospace' text-anchor='middle' dy='.3em' fill='%235a7a4a'%3E載入中...%3C/text%3E%3C/svg%3E" alt="積水鳳梨" loading="lazy">
         </div>
         <div class="plant-info">
           <div class="plant-name">積水鳳梨</div>
           <div class="plant-sub">Neoregelia · 雨林靈魂</div>
         </div>
       </a>
-      <!-- 其他植物：從 image/otherplants/ 隨機 -->
+      <!-- 其他植物：從 image/other/ 隨機 -->
       <a href="otherplant.html" class="plant-card-link" id="others-link">
         <div class="plant-image-box">
-          <img class="plant-image" id="others-img" src="image/other/" alt="其他蕨類植物" loading="lazy">
+          <img class="plant-image" id="others-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='450' viewBox='0 0 600 450'%3E%3Crect width='600' height='450' fill='%23d4e4c8'/%3E%3Ctext x='300' y='225' font-size='20' font-family='monospace' text-anchor='middle' dy='.3em' fill='%238aab7a'%3E載入中...%3C/text%3E%3C/svg%3E" alt="其他蕨類植物" loading="lazy">
         </div>
         <div class="plant-info">
           <div class="plant-name">其他植物</div>
@@ -621,35 +621,31 @@
     // ==================== 各資料夾圖片清單定義 ====================
     // 鹿角蕨圖片清單 (資料夾: image/fern/)
     const fernImageList = [
-      'fern01.jpg', 'fern02.jpg', 'fern03.jpg', 'fern04.jpg', 'fern_5.jpg',
-      
+      'fern01.jpg', 'fern02.jpg', 'fern03.jpg', 'fern04.jpg', 'fern_5.jpg'
     ];
     // 積水鳳梨圖片清單 (資料夾: image/brom/)
     const bromImageList = [
-      'brom01.jpg', 'brom02.jpg', 'brom03.jpg', 'brom04.jpg', 'brom05.jpg',
+      'brom01.jpg', 'brom02.jpg', 'brom03.jpg', 'brom04.jpg', 'brom05.jpg'
     ];
-    
     // 其他植物圖片清單 (資料夾: image/other/)
     const othersImageList = [
-      'otherplants01.jpg', 'otherplants02.jpg', 'otherplants03.jpg', 'otherplants04.jpg', 'otherplants05.jpg',
+      'otherplants01.jpg', 'otherplants02.jpg', 'otherplants03.jpg', 'otherplants04.jpg', 'otherplants05.jpg'
     ];
     
     // 過濾只留 .jpg 檔
     const validFern = fernImageList.filter(n => n.toLowerCase().endsWith('.jpg'));
-    const validBromeliad = bromeliadImageList.filter(n => n.toLowerCase().endsWith('.jpg'));
+    const validBrom = bromImageList.filter(n => n.toLowerCase().endsWith('.jpg'));
     const validOthers = othersImageList.filter(n => n.toLowerCase().endsWith('.jpg'));
     
     // 隨機選取圖片的函式
     function getRandomImagePath(imageList, folderPath) {
-      if (!imageList.length) {
-        return null;
-      }
+      if (!imageList.length) return null;
       const randomIndex = Math.floor(Math.random() * imageList.length);
       const fileName = imageList[randomIndex];
       return `${folderPath}${fileName}`;
     }
     
-    // 設定鹿角蕨圖片
+    // 設定鹿角蕨圖片 (資料夾: image/fern/)
     function setStaghornImage() {
       const imgElement = document.getElementById('staghorn-img');
       if (!imgElement) return;
@@ -665,11 +661,11 @@
       }
     }
     
-    // 設定積水鳳梨圖片
+    // 設定積水鳳梨圖片 (資料夾: image/brom/)
     function setBromeliadImage() {
       const imgElement = document.getElementById('bromeliad-img');
       if (!imgElement) return;
-      const randomPath = getRandomImagePath(validBromeliad, 'image/bromeliad/');
+      const randomPath = getRandomImagePath(validBrom, 'image/brom/');
       if (randomPath) {
         imgElement.src = randomPath;
         imgElement.onerror = () => {
@@ -681,11 +677,11 @@
       }
     }
     
-    // 設定其他植物圖片
+    // 設定其他植物圖片 (資料夾: image/other/)
     function setOthersImage() {
       const imgElement = document.getElementById('others-img');
       if (!imgElement) return;
-      const randomPath = getRandomImagePath(validOthers, 'image/others/');
+      const randomPath = getRandomImagePath(validOthers, 'image/other/');
       if (randomPath) {
         imgElement.src = randomPath;
         imgElement.onerror = () => {
