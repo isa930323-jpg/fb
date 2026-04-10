@@ -15,7 +15,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    /* ===== 共用樣式 ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --ink: #1a1a14;
@@ -37,7 +36,6 @@
       flex-direction: column;
     }
 
-    /* ----- 導覽列 (完整保留) ----- */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -231,7 +229,6 @@
       .hamburger { display: flex; }
     }
 
-    /* ----- 頁面內容區域 ----- */
     .content {
       flex: 1;
       padding-top: 92px;
@@ -243,7 +240,6 @@
       width: 100%;
     }
 
-    /* 植生牆文章專用樣式 */
     .content h1 {
       font-size: 2.2rem;
       font-weight: 800;
@@ -336,7 +332,6 @@
       margin: 1.8rem 0;
       border: 1px solid #dae9d3;
     }
-    /* 系列文章導航卡 */
     .series-nav-card {
       background: #eef3ea;
       border-radius: 40px;
@@ -391,7 +386,6 @@
       }
     }
 
-    /* ----- Footer (完整保留) ----- */
     footer {
       border-top: 1px solid rgba(90,122,74,0.15);
       padding: 40px 4vw;
@@ -400,13 +394,6 @@
       justify-content: space-between;
       background: var(--paper);
       margin-top: auto;
-    }
-    .footer-logo {
-      font-family: 'Noto Serif TC', serif;
-      font-weight: 900;
-      font-size: 1.1rem;
-      color: var(--moss);
-      letter-spacing: 0.05em;
     }
     .footer-copy {
       font-size: 0.75rem;
@@ -447,14 +434,13 @@
   <div id="nav-placeholder"></div>
 
   <main class="content">
-    <!-- 系列文章導航卡 (路徑為 /greenwall/ ) -->
     <div class="series-nav-card">
       <div class="series-nav-links">
         <span>📚 植生牆系列循環</span>
         <span>→</span>
-        <a href="/greenwall/green-wall-intro.html" class="active">① 植生牆是什麼？</a>
-        <a href="/greenwall/green-wall-failure.html">② 為什麼會失敗？</a>
-        <a href="/greenwall/green-wall-plants.html">③ 植物怎麼選？</a>
+        <a href="green-wall-intro.html" class="active">① 植生牆是什麼？</a>
+        <a href="green-wall-failure.html">② 為什麼會失敗？</a>
+        <a href="green-wall-plants.html">③ 植物怎麼選？</a>
       </div>
       <div class="series-hint">↻ 任一篇開始，循環閱讀</div>
     </div>
@@ -521,7 +507,7 @@
       <li><strong>攀爬式輔助網</strong>（Green Facade）：利用藤蔓植物攀附，但植物種類單一，較不屬於「植生牆系統」範疇。</li>
     </ul>
 
-    <p>👉 延伸閱讀：<a href="/greenwall/green-wall-plants.html">植生牆植物怎麼選？鹿角蕨與積水鳳梨配置指南</a></p>
+    <p>👉 延伸閱讀：<a href="green-wall-plants.html">植生牆植物怎麼選？鹿角蕨與積水鳳梨配置指南</a></p>
 
     <h2>植生牆的常見迷思與現實</h2>
     <ul>
@@ -543,7 +529,7 @@
     <div class="highlight-card">
       🌟 <strong>從了解環境開始，而非從植物開始</strong><br>
       這是蕨積一直以來的核心哲學。我們提供場勘與微氣候評估，確認植生牆長期可行的方案，再進入植物配置。
-      <div style="margin-top: 12px;">→ <a href="/green-wall.html">預約顧問諮詢</a></div>
+      <div style="margin-top: 12px;">→ <a href="../green-wall.html">預約顧問諮詢</a></div>
     </div>
 
     <h2>植生牆的未來 — 智慧化與生態多樣性</h2>
@@ -565,25 +551,24 @@
     </p>
 
     <p style="margin-top: 2rem;">
-      📖 繼續閱讀：<a href="/greenwall/green-wall-plants.html">植生牆植物怎麼選？鹿角蕨與積水鳳梨配置指南</a><br>
-      ⚠️ 常見失敗案例：<a href="/greenwall/green-wall-failure.html">植生牆為什麼會失敗？</a>
+      📖 繼續閱讀：<a href="green-wall-plants.html">植生牆植物怎麼選？鹿角蕨與積水鳳梨配置指南</a><br>
+      ⚠️ 常見失敗案例：<a href="green-wall-failure.html">植生牆為什麼會失敗？</a>
     </p>
   </main>
 
   <footer>
     <ul class="footer-links">
-      <li><a href="shop.html">植物選品</a></li>
-      <li><a href="consult.html">綠色顧問</a></li>
-      <li><a href="fbnote.html">蕨望筆記</a></li>
-      <li><a href="about.html">關於蕨積</a></li>
+      <li><a href="../shop.html">植物選品</a></li>
+      <li><a href="../consult.html">綠色顧問</a></li>
+      <li><a href="../fbnote.html">蕨望筆記</a></li>
+      <li><a href="../about.html">關於蕨積</a></li>
     </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // 導覽列在上一層目錄，從 /nav.html 載入
-      fetch('/nav.html')
+      fetch('../nav.html')
         .then(response => {
           if (!response.ok) throw new Error('nav.html 載入失敗');
           return response.text();
