@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>家庭植栽綠美化｜陽台・客廳・屋頂綠化｜蕨積 FernBrom</title>
+  <meta name="description" content="陽台、客廳、屋頂 — 用植栽打造低碳生活空間。從植物選擇到空間配置，讓每個家都成為會呼吸的綠洲。">
+  <link rel="canonical" href="https://www.fernbrom.com/lifestyle-home.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --ink: #1a1a14;
+      --moss: #3d5a38;
+      --fern: #5a7a4a;
+      --sage: #8aab7a;
+      --mist: #d4e4c8;
+      --cream: #f5f0e8;
+      --stone: #9a9080;
+      --paper: #faf7f2;
+    }
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4vw; height: 72px;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(90,122,74,0.12);
+    }
+    nav.scrolled { box-shadow: 0 2px 24px rgba(61,90,56,0.10); }
+
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .logo-mark { width: 38px; height: 38px; flex-shrink: 0; }
+    .logo-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .logo-text {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: 1.35rem;
+      color: var(--moss);
+      letter-spacing: 0.05em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .logo-text span {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--stone);
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+      white-space: nowrap;
+    }
+    .nav-links li { position: relative; padding: 0 2px; }
+    .nav-links a {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      text-decoration: none;
+      padding-bottom: 3px;
+      opacity: 0.75;
+      display: inline-block;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--fern); }
+    .nav-contact {
+      padding: 8px 20px !important;
+      border: 1px solid var(--fern) !important;
+      border-radius: 2px;
+      color: var(--fern) !important;
+      opacity: 1 !important;
+      margin-left: 0.5rem;
+    }
+    .nav-contact:hover { background: var(--fern); color: white !important; }
+
+    .nav-links li .dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 18px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(250,247,242,0.98);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(90,122,74,0.14);
+      border-top: 2px solid var(--fern);
+      box-shadow: 0 12px 40px rgba(61,90,56,0.12);
+      min-width: 148px;
+      list-style: none;
+      padding: 8px 0;
+      z-index: 300;
+    }
+    .nav-links li:hover .dropdown,
+    .nav-links li:focus-within .dropdown { display: block; }
+    .nav-links li .dropdown::before {
+      content: '';
+      position: absolute;
+      top: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 6px solid var(--fern);
+    }
+    .dropdown li a {
+      display: block;
+      padding: 10px 20px;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      opacity: 0.7;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .dropdown li a:hover { opacity: 1; color: var(--fern); padding-left: 26px; background: rgba(90,122,74,0.04); }
+    .dropdown li + li { border-top: 1px solid rgba(90,122,74,0.08); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      width: 40px; height: 40px;
+      cursor: pointer;
+      background: none; border: none;
+      flex-shrink: 0;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 1.5px;
+      background: var(--moss);
+      transition: transform 0.2s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
+      background: #faf7f2;
+      border-bottom: 1px solid rgba(90,122,74,0.15);
+      padding: 0 6vw 40px;
+      z-index: 99;
+      overflow-y: auto;
+      transform: translateX(100%);
+      visibility: hidden;
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu.open { transform: translateX(0); visibility: visible; }
+    .mobile-menu ul { list-style: none; }
+    .mobile-menu > ul > li > a,
+    .mobile-parent {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 0;
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      color: var(--moss);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(90,122,74,0.1);
+      cursor: pointer;
+    }
+    .mobile-parent:hover, .mobile-menu > ul > li > a:hover { color: var(--fern); }
+    .mobile-caret { display: inline-block; transition: transform 0.2s; }
+    .mobile-caret.open { transform: rotate(180deg); }
+    .mobile-sub {
+      list-style: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .mobile-sub.open { max-height: 200px; }
+    .mobile-sub li a {
+      display: block;
+      padding: 11px 0 11px 16px;
+      font-size: 0.85rem;
+      color: var(--stone);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(90,122,74,0.06);
+      letter-spacing: 0.06em;
+    }
+    .mobile-sub li a:hover { color: var(--fern); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    .content {
+      flex: 1;
+      padding-top: 112px;
+      padding-bottom: 60px;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 90%;
+    }
+
+    .series-nav-card {
+      background: #eef3ea;
+      border-radius: 40px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem;
+      border: 1px solid #cbe0c4;
+    }
+    .series-nav-links {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .series-nav-links span {
+      font-weight: 600;
+      color: #2d6a4f;
+    }
+    .series-nav-links a {
+      border-bottom: none;
+      background: white;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      text-decoration: none;
+      color: var(--moss);
+      transition: all 0.2s;
+    }
+    .series-nav-links a:hover { background: #cbe0c4; }
+    .series-nav-links a.active { background: #cbe0c4; font-weight: 500; }
+    .series-hint { font-size: 0.85rem; color: #4e6b56; }
+
+    .page-header {
+      margin-bottom: 2rem;
+    }
+    .page-header h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--moss);
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      border-left: 5px solid var(--fern);
+      padding-left: 20px;
+    }
+    .page-header p {
+      font-size: 1.1rem;
+      color: #5a6e60;
+      margin-left: 25px;
+    }
+
+    .service-card {
+      background: #ffffffdd;
+      backdrop-filter: blur(4px);
+      border: 1px solid var(--mist);
+      border-radius: 28px;
+      padding: 1.8rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 6px 18px rgba(90,122,74,0.05);
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .service-card:hover {
+      box-shadow: 0 12px 28px rgba(61,90,56,0.1);
+      border-color: var(--sage);
+      background: white;
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 1.2rem;
+    }
+    .card-header i {
+      color: var(--fern);
+      width: 32px;
+      height: 32px;
+      stroke-width: 1.6;
+    }
+    .card-header h2 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--moss);
+      letter-spacing: 0.02em;
+    }
+    .story-paragraph {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #2c2c26;
+      margin-bottom: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+
+    /* 空間配置網格 */
+    .space-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 20px 0;
+    }
+    .space-card {
+      background: #fefcf8;
+      border-radius: 24px;
+      padding: 1.5rem;
+      border: 1px solid var(--mist);
+      transition: all 0.2s;
+    }
+    .space-card:hover {
+      border-color: var(--sage);
+      background: white;
+      transform: translateY(-2px);
+    }
+    .space-icon {
+      background: var(--mist);
+      width: 48px;
+      height: 48px;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .space-icon i { color: var(--fern); width: 24px; height: 24px; }
+    .space-card h3 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--moss);
+      margin-bottom: 0.5rem;
+    }
+    .space-card h4 {
+      font-size: 0.85rem;
+      color: var(--sage);
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+    .space-card p { font-size: 0.9rem; line-height: 1.5; color: #5a6e60; }
+    .plant-list { margin-top: 1rem; padding-left: 1.2rem; font-size: 0.85rem; color: var(--stone); }
+    .plant-list li { margin-bottom: 0.25rem; }
+
+    /* 植物推薦網格 */
+    .plant-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+    .plant-item {
+      background: #fefcf8;
+      border-radius: 20px;
+      padding: 1rem;
+      text-align: center;
+      border: 1px solid var(--mist);
+      transition: all 0.2s;
+    }
+    .plant-item:hover {
+      border-color: var(--sage);
+      background: white;
+      transform: translateY(-2px);
+    }
+    .plant-emoji { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .plant-item h4 { font-family: 'Noto Serif TC', serif; font-weight: 600; color: var(--moss); margin-bottom: 0.25rem; }
+    .plant-item p { font-size: 0.75rem; color: var(--stone); }
+
+    .tips-list {
+      margin: 1rem 0 0 1.5rem;
+    }
+    .tips-list li {
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .card-link {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--fern);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border 0.2s;
+      letter-spacing: 0.05em;
+      margin-right: 1.5rem;
+    }
+    .card-link:hover {
+      border-bottom: 1px solid var(--fern);
+      color: var(--moss);
+    }
+
+    .footnote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--stone);
+      text-align: center;
+      margin: 3rem 0 1rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--mist);
+    }
+
+    @media (max-width: 768px) {
+      .content { width: 92%; padding-top: 100px; }
+      .page-header h1 { font-size: 1.7rem; padding-left: 16px; }
+      .service-card { padding: 1.3rem; }
+      .card-header h2 { font-size: 1.2rem; }
+      .series-nav-card { flex-direction: column; align-items: flex-start; }
+    }
+
+    footer {
+      border-top: 1px solid rgba(90,122,74,0.15);
+      padding: 40px 4vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--paper);
+      margin-top: auto;
+    }
+    .footer-copy { font-size: 0.75rem; color: var(--stone); letter-spacing: 0.1em; }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.75rem;
+      color: var(--stone);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .footer-links a:hover { opacity: 1; color: var(--fern); }
+    @media (max-width: 768px) {
+      footer { flex-direction: column; gap: 20px; text-align: center; }
+      .footer-links { justify-content: center; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <main class="content">
+    <div class="series-nav-card">
+      <div class="series-nav-links">
+        <span>🌱 生活提案循環</span>
+        <span>→</span>
+        <a href="lifestyle.html">① 從農場到家庭</a>
+        <a href="lifestyle-farm.html">② 農場碳計算與減量</a>
+        <a href="lifestyle-home.html" class="active">③ 家庭植栽綠美化</a>
+        <a href="lifestyle-education.html">④ 環境教育提案</a>
+      </div>
+      <div class="series-hint">↻ 從碳計算到行動，形成完整綠色循環</div>
+    </div>
+
+    <div class="page-header">
+      <h1>家庭植栽綠美化</h1>
+      <p>陽台、客廳、屋頂 — 用植栽打造低碳生活空間，讓每個家都成為會呼吸的綠洲。</p>
+    </div>
+
+    <!-- 空間配置方案 -->
+    <div class="service-card">
+      <div class="card-header">
+        <i data-lucide="home"></i>
+        <h2>空間綠化配置方案</h2>
+      </div>
+      <p class="story-paragraph">不同空間有不同的光照與濕度條件，選擇適合的植物與配置方式，才能讓綠化效果持久。</p>
+      <div class="space-grid">
+        <div class="space-card">
+          <div class="space-icon"><i data-lucide="sun"></i></div>
+          <h3>陽台空間</h3>
+          <h4>半日照～全日照</h4>
+          <p>陽台是居家最適合植栽的區域，依方位選擇耐曬或耐陰植物，可打造垂直綠牆或層架花園。</p>
+          <ul class="plant-list">
+            <li>🌿 推薦：鹿角蕨、積水鳳梨、香草植物</li>
+            <li>💧 澆水頻率：夏季每日 / 冬季2-3日</li>
+          </ul>
+        </div>
+        <div class="space-card">
+          <div class="space-icon"><i data-lucide="armchair"></i></div>
+          <h3>客廳空間</h3>
+          <h4>散射光～半陰</h4>
+          <p>客廳適合擺放大型觀葉植物作為焦點，搭配中小型植栽創造層次感，同時淨化室內空氣。</p>
+          <ul class="plant-list">
+            <li>🌿 推薦：琴葉榕、龜背芋、虎尾蘭</li>
+            <li>💧 澆水頻率：每週1-2次</li>
+          </ul>
+        </div>
+        <div class="space-card">
+          <div class="space-icon"><i data-lucide="cloud-sun"></i></div>
+          <h3>屋頂平台</h3>
+          <h4>全日照 · 風較大</h4>
+          <p>屋頂綠化能有效降溫、減少建築能耗，選擇耐旱、抗風的植物，搭配輕質介質與自動澆灌。</p>
+          <ul class="plant-list">
+            <li>🌿 推薦：多肉植物、芙蓉菊、蔓花生</li>
+            <li>💧 澆水頻率：夏季每日 / 冬季視雨量</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 推薦植物清單 -->
+    <div class="service-card">
+      <div class="card-header">
+        <i data-lucide="flower2"></i>
+        <h2>入門推薦植物</h2>
+      </div>
+      <p class="story-paragraph">以下植物容易照顧、適應性強，非常適合居家綠化新手：</p>
+      <div class="plant-grid">
+        <div class="plant-item"><div class="plant-emoji">🌿</div><h4>虎尾蘭</h4><p>耐陰耐旱 · 淨化空氣</p></div>
+        <div class="plant-item"><div class="plant-emoji">🍃</div><h4>黃金葛</h4><p>垂墜生長 · 超好照顧</p></div>
+        <div class="plant-item"><div class="plant-emoji">🌱</div><h4>琴葉榕</h4><p>大型焦點 · 北歐風格</p></div>
+        <div class="plant-item"><div class="plant-emoji">🪴</div><h4>龜背芋</h4><p>葉形獨特 · 網紅植栽</p></div>
+        <div class="plant-item"><div class="plant-emoji">🌸</div><h4>多肉植物</h4><p>耐旱多樣 · 療癒系</p></div>
+        <div class="plant-item"><div class="plant-emoji">🌿</div><h4>鹿角蕨</h4><p>上牆裝飾 · 立體感</p></div>
+      </div>
+    </div>
+
+    <!-- 植栽養護指南 -->
+    <div class="service-card">
+      <div class="card-header">
+        <i data-lucide="droplet"></i>
+        <h2>養護基礎指南</h2>
+      </div>
+      <p class="story-paragraph">掌握四個核心原則，讓植物健康成長：</p>
+      <ul class="tips-list">
+        <li><strong>💧 澆水原則</strong> — 「見乾見濕」，表土乾燥再澆透，避免積水爛根。</li>
+        <li><strong>☀️ 光照管理</strong> — 依植物特性擺放，耐陰植物勿直射陽光，多肉需充足日照。</li>
+        <li><strong>🌡️ 溫濕度控制</strong> — 多數觀葉植物喜歡溫暖濕潤，冬季避免冷風直吹。</li>
+        <li><strong>🌱 定期施肥</strong> — 生長季每月施一次稀釋液肥，冬季減少頻率。</li>
+        <li><strong>✂️ 修剪清潔</strong> — 移除枯黃葉片，保持通風，預防病蟲害。</li>
+      </ul>
+    </div>
+
+    <!-- 植栽固碳效益 -->
+    <div class="service-card">
+      <div class="card-header">
+        <i data-lucide="leaf"></i>
+        <h2>植栽的碳效益</h2>
+      </div>
+      <p class="story-paragraph">家庭植栽不僅美化空間，還能貢獻碳匯：</p>
+      <ul class="tips-list">
+        <li><strong>📊 單株中型觀葉植物</strong> — 年固碳量約 0.1～0.3 kg CO₂e</li>
+        <li><strong>🌿 陽台花園（約5m²）</strong> — 年固碳量可達 5～10 kg CO₂e</li>
+        <li><strong>🏠 室內植物群（10～20株）</strong> — 年固碳量約 2～5 kg CO₂e</li>
+        <li><strong>🌳 屋頂綠化（約10m²）</strong> — 年固碳量可達 15～30 kg CO₂e，同時節省空調能耗</li>
+      </ul>
+      <a href="lifestyle-farm.html" class="card-link">使用固碳計算工具 →</a>
+    </div>
+
+    <!-- 循環連結 -->
+    <div class="service-card">
+      <div class="card-header">
+        <i data-lucide="refresh-cw"></i>
+        <h2>延伸探索</h2>
+      </div>
+      <p class="story-paragraph">
+        從家庭植栽出發，你還可以了解農場端的碳計算，以及如何將永續觀念融入環境教育。
+      </p>
+      <a href="lifestyle.html" class="card-link">回到生活提案總覽 →</a>
+      <a href="lifestyle-farm.html" class="card-link">農場碳計算與減量 →</a>
+      <a href="lifestyle-education.html" class="card-link">環境教育提案 →</a>
+      <a href="greenwall.html" class="card-link">植生牆設計與施工 →</a>
+    </div>
+
+    <div class="footnote">
+      「每一片葉子，都是家的呼吸。」
+    </div>
+  </main>
+
+  <footer>
+    <ul class="footer-links">
+      <li><a href="shop.html">植物選品</a></li>
+      <li><a href="consult.html">綠色顧問</a></li>
+      <li><a href="fbnote.html">蕨望筆記</a></li>
+      <li><a href="about.html">關於蕨積</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      fetch('nav.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('nav-placeholder').innerHTML = data;
+          initNav();
+        })
+        .catch(err => {
+          console.warn('nav.html 未找到，使用內建導覽列');
+          document.getElementById('nav-placeholder').innerHTML = 
+            '<nav id="mainNav" style="background:rgba(250,247,242,0.96);padding:0 4vw;height:72px;display:flex;align-items:center;justify-content:space-between;">' +
+            '<div class="logo"><div class="logo-mark"><svg viewBox="0 0 40 40" fill="none" stroke="#3d5a38" stroke-width="1.2"><path d="M12,20 L20,8 L28,20 L20,32 Z" fill="#d4e4c8"/><circle cx="20" cy="20" r="4" fill="#5a7a4a"/></svg></div><div class="logo-text">蕨積<span>FERNBROM</span></div></div>' +
+            '<button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>' +
+            '</nav>' +
+            '<div class="mobile-menu" id="mobileMenu"><ul><li><a href="index.html">首頁</a></li><li><a href="consult.html">綠色顧問</a></li><li><a href="lifestyle.html">生活提案</a></li></ul></div>';
+          initNav();
+        });
+
+      function initNav() {
+        const btn = document.getElementById('hamburger');
+        const menu = document.getElementById('mobileMenu');
+        if (btn && menu) {
+          btn.addEventListener('click', function () {
+            btn.classList.toggle('open');
+            menu.classList.toggle('open');
+          });
+          const allMobileLinks = menu.querySelectorAll('.mobile-link, .mobile-sub a');
+          allMobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+              btn.classList.remove('open');
+              menu.classList.remove('open');
+            });
+          });
+        }
+        if (menu) {
+          const mobileParents = menu.querySelectorAll('.mobile-parent');
+          mobileParents.forEach(parent => {
+            parent.addEventListener('click', function (e) {
+              const targetId = parent.getAttribute('data-target');
+              const sub = document.getElementById(targetId);
+              const caretId = 'caret-' + targetId?.replace('sub-', '');
+              const caret = document.getElementById(caretId);
+              const opening = sub && !sub.classList.contains('open');
+              menu.querySelectorAll('.mobile-sub').forEach(s => s.classList.remove('open'));
+              menu.querySelectorAll('.mobile-caret').forEach(c => c.classList.remove('open'));
+              if (opening && sub) {
+                sub.classList.add('open');
+                if (caret) caret.classList.add('open');
+              }
+            });
+          });
+        }
+        const mainNav = document.getElementById('mainNav');
+        if (mainNav) {
+          window.addEventListener('scroll', () => {
+            mainNav.classList.toggle('scrolled', window.scrollY > 20);
+          });
+        }
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
