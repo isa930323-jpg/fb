@@ -582,9 +582,12 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // 載入共用導覽列
-      fetch('nav.html')
-        .then(response => response.text())
+      // 導覽列在上一層目錄，從 /nav.html 載入
+      fetch('/nav.html')
+        .then(response => {
+          if (!response.ok) throw new Error('nav.html 載入失敗');
+          return response.text();
+        })
         .then(data => {
           document.getElementById('nav-placeholder').innerHTML = data;
           initNav();
@@ -592,8 +595,8 @@
         .catch(err => {
           console.error('無法載入導覽列:', err);
           document.getElementById('nav-placeholder').innerHTML = 
-            '<nav style="background:var(--moss);color:white;padding:0 4vw;height:72px;display:flex;align-items:center;">' +
-            '<span style="font-family:Noto Serif TC,serif;font-weight:900;">⚠️ 導覽列載入失敗，請確認 nav.html 是否存在</span>' +
+            '<nav style="background:var(--moss);color:white;padding:0 4vw;height:72px;display:flex;align-items:center;justify-content:center;">' +
+            '<span style="font-family:Noto Serif TC,serif;font-weight:900;">🌿 蕨積 FernBrom</span>' +
             '</nav>';
         });
 
