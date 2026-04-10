@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>聯絡我們｜植生牆，碳盤查，生活提案合作｜蕨積 FernBrom</title>
-<meta name="description" content="聯絡蕨積，洽詢植生牆設計、植物選品與碳盤查顧問服務。">
-
-<link rel="canonical" href="https://www.fernbrom.com/contact.html">
+  <meta name="description" content="聯絡蕨積，洽詢植生牆設計、植物選品與碳盤查顧問服務。">
+  <link rel="canonical" href="https://www.fernbrom.com/contact.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -21,11 +20,11 @@
       --mist: #d4e4c8;
       --cream: #f5f0e8;
       --stone: #9a9080;
-      --paper: #faf7f2;      /* 統一底色 */
+      --paper: #faf7f2;
     }
     body {
       font-family: 'Noto Sans TC', sans-serif;
-      background: var(--paper);   /* 與 nav/footer 同色 */
+      background: var(--paper);
       color: var(--ink);
       overflow-x: hidden;
       min-height: 100vh;
@@ -33,7 +32,7 @@
       flex-direction: column;
     }
 
-    /* ----- 導覽列 (完整保留) ----- */
+    /* ----- 導覽列 ----- */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -73,10 +72,7 @@
       align-items: center;
       white-space: nowrap;
     }
-    .nav-links li {
-      position: relative;
-      padding: 0 2px;
-    }
+    .nav-links li { position: relative; padding: 0 2px; }
     .nav-links a {
       font-family: 'Noto Sans TC', sans-serif;
       font-size: 0.82rem;
@@ -88,10 +84,7 @@
       opacity: 0.75;
       display: inline-block;
     }
-    .nav-links a:hover {
-      opacity: 1;
-      color: var(--fern);
-    }
+    .nav-links a:hover { opacity: 1; color: var(--fern); }
     .nav-contact {
       padding: 8px 20px !important;
       border: 1px solid var(--fern) !important;
@@ -100,11 +93,7 @@
       opacity: 1 !important;
       margin-left: 0.5rem;
     }
-    .nav-contact:hover {
-      background: var(--fern);
-      color: white !important;
-    }
-    .has-dropdown > a::after { display: none; }
+    .nav-contact:hover { background: var(--fern); color: white !important; }
 
     .nav-links li .dropdown {
       display: none;
@@ -123,9 +112,7 @@
       z-index: 300;
     }
     .nav-links li:hover .dropdown,
-    .nav-links li:focus-within .dropdown {
-      display: block;
-    }
+    .nav-links li:focus-within .dropdown { display: block; }
     .nav-links li .dropdown::before {
       content: '';
       position: absolute;
@@ -234,7 +221,7 @@
       padding-bottom: 40px;
     }
 
-    /* ----- Footer (完整保留) ----- */
+    /* ----- Footer ----- */
     footer {
       border-top: 1px solid rgba(90,122,74,0.15);
       padding: 40px 4vw;
@@ -243,13 +230,6 @@
       justify-content: space-between;
       background: var(--paper);
       margin-top: auto;
-    }
-    .footer-logo {
-      font-family: 'Noto Serif TC', serif;
-      font-weight: 900;
-      font-size: 1.1rem;
-      color: var(--moss);
-      letter-spacing: 0.05em;
     }
     .footer-copy {
       font-size: 0.75rem;
@@ -285,13 +265,176 @@
       }
     }
 
-    /* 驗證碼錯誤訊息樣式 */
+    /* ----- 聯絡表單專屬樣式 (取代 Tailwind) ----- */
+    .contact-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .contact-card {
+      background: white;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      border: 1px solid #e5e7eb;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 768px) {
+      .contact-card {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* 左側區塊 */
+    .contact-left {
+      background-color: #e8f3e0;
+      padding: 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .contact-left h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #2d4a2b;
+      margin-bottom: 1.5rem;
+    }
+    .contact-left p {
+      line-height: 1.7;
+      color: #3f5e3c;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+    
+    /* 四個連結圖示 */
+    .contact-icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .contact-icon-link {
+      width: 4rem;
+      height: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #2d4a2b;
+      border-radius: 9999px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .contact-icon-link:hover {
+      background-color: #1f3a1d;
+      transform: translateY(-3px);
+    }
+    .contact-icon-link svg {
+      width: 1.75rem;
+      height: 1.75rem;
+      color: white;
+    }
+    @media (max-width: 640px) {
+      .contact-icon-link {
+        width: 3.5rem;
+        height: 3.5rem;
+      }
+      .contact-icon-link svg {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+    
+    /* 右側表單區塊 */
+    .contact-right {
+      background-color: #f0f7ec;
+      padding: 2rem 2rem;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #4b5563;
+      margin-bottom: 0.25rem;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid #a3c4a0;
+      border-radius: 0.5rem;
+      outline: none;
+      transition: all 0.2s;
+      background: white;
+      font-family: inherit;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #2d4a2b;
+      ring: 2px solid #2d4a2b;
+    }
+    
+    /* 驗證碼並排區塊 */
+    .captcha-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: flex-end;
+    }
+    .captcha-field {
+      flex: 1;
+    }
+    .captcha-question {
+      display: inline-block;
+      background-color: #e8f3e0;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid #a3c4a0;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .captcha-input {
+      width: 80px;
+      padding: 0.5rem;
+      border: 1px solid #a3c4a0;
+      border-radius: 0.5rem;
+      text-align: center;
+    }
+    .submit-btn {
+      background-color: #2d4a2b;
+      color: white;
+      font-weight: 500;
+      padding: 0.6rem 1.5rem;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      white-space: nowrap;
+    }
+    .submit-btn:hover {
+      background-color: #1f3a1d;
+      transform: scale(0.98);
+    }
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
     .captcha-error {
       color: #b91c1c;
-      font-size: 0.875rem;
+      font-size: 0.75rem;
       margin-top: 0.25rem;
+      display: none;
     }
-    /* 自訂提示訊息動畫 */
+    .captcha-error.show {
+      display: block;
+    }
+    
+    /* 提示訊息 */
     .toast-message {
       position: fixed;
       bottom: 30px;
@@ -311,99 +454,87 @@
     .toast-message.show {
       opacity: 1;
     }
+    .toast-message.error {
+      background-color: #b91c1c;
+    }
   </style>
 </head>
 <body>
-    <div id="nav-placeholder"></div>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <main class="flex-grow px-4 sm:px-6 lg:px-8" style="padding-top: 104px;">
-    <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"> 
-      <div class="grid grid-cols-1 md:grid-cols-2"> 
-        <!-- 左側區塊：背景淺綠色，四個連結水平平均置中 -->
-        <div class="p-8 md:p-10 text-gray-800 flex flex-col" style="background-color: #e8f3e0; min-height: 100%;"> 
-          <!-- 上方文字區域 -->
-          <div class="flex-grow"> 
-            <h2 class="text-2xl font-bold tracking-wider mb-6" style="color: #2d4a2b;">蕨積｜聯絡我們</h2>
-            <p class="leading-relaxed mb-8 text-lg" style="color: #3f5e3c;">  在鋼筋水泥的城市裡，為您積累一片綠意。 <br>
+  <div id="nav-placeholder"></div>
 
-              若您有溫室氣體盤查、植栽養護、植生牆、合作提案或淨零相關問題，歡迎隨時與我們聯繫。 <br>
-
-有時候，不一定是為了解決問題，
-也可能只是想問一株植物該怎麼活得更好，想知道我的網站怎麼做，LINE機器人怎麼跑。 <br>
-
-如果你願意說，我們會認真聽。
-如果剛好能幫上忙，那就更好了。
-            </p>
-          </div> 
+  <main class="content">
+    <div class="contact-wrapper">
+      <div class="contact-card">
+        <!-- 左側區塊 -->
+        <div class="contact-left">
+          <h2>蕨積｜聯絡我們</h2>
+          <p>在鋼筋水泥的城市裡，為您積累一片綠意。</p>
+          <p>若您有溫室氣體盤查、植栽養護、植生牆、合作提案或淨零相關問題，歡迎隨時與我們聯繫。</p>
+          <p>有時候，不一定是為了解決問題，也可能只是想問一株植物該怎麼活得更好，想知道我的網站怎麼做，LINE機器人怎麼跑。</p>
+          <p>如果你願意說，我們會認真聽。如果剛好能幫上忙，那就更好了。</p>
           
-          <!-- 四個連結按鈕：使用 flex 水平平均置中 -->
-          <div class="flex flex-wrap justify-center items-center gap-6 mt-8 md:mt-12">  
-            <!-- email -->
-            <a href="#" class="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-green-700 hover:bg-green-800 text-white rounded-full transition shadow-lg"> 
-              <svg class="w-7 h-7 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> 
-              </svg> 
+          <div class="contact-icons">
+            <a href="mailto:fernbrom@gmail.com" class="contact-icon-link">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
             </a>
-            <!-- facebook -->
-            <a href="http://www.facebook.com/lovefernabe" target="_blank" class="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-green-700 hover:bg-green-800 text-white rounded-full transition shadow-lg">
-              <svg class="w-7 h-7 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"> 
-                <path d="M24 12.073c0-6.627-5.373-12-12-12S0 5.446 0 12.073c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /> 
-              </svg> 
-            </a> 
-            <!-- instagram -->
-            <a href="http://www.instagram.com/fernbrom"  target="_blank"  class="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-green-700 hover:bg-green-800 text-white rounded-full transition shadow-lg"> 
-              <svg class="w-7 h-7 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"> 
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z" /> 
-              </svg> 
-            </a> 
-            <!-- message (原 mail 圖示, 保留信件圖) -->
-            <a href="http://line.me/ti/p/@837diqub" class="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-green-700 hover:bg-green-800 text-white rounded-full transition shadow-lg"> 
-              <svg class="w-7 h-7 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"> 
-                <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.304z" /> 
-              </svg> 
-            </a> 
-          </div> 
-        </div> 
+            <a href="http://www.facebook.com/lovefernabe" target="_blank" rel="noopener noreferrer" class="contact-icon-link">
+              <svg fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12S0 5.446 0 12.073c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            </a>
+            <a href="http://www.instagram.com/fernbrom" target="_blank" rel="noopener noreferrer" class="contact-icon-link">
+              <svg fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z" />
+              </svg>
+            </a>
+            <a href="http://line.me/ti/p/@837diqub" target="_blank" rel="noopener noreferrer" class="contact-icon-link">
+              <svg fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.304z" />
+              </svg>
+            </a>
+          </div>
+        </div>
         
-        <!-- 右側表單區塊：淺綠色背景，驗證碼與按鈕並排 -->
-        <div class="p-8 md:p-10" style="background-color: #f0f7ec;">
-          <form id="contactForm" class="space-y-5"> 
-            <!-- 移除 web3forms 相關隱藏欄位，改用 Google Apps Script -->
-            <div> 
-              <label class="block text-sm font-medium text-gray-700 mb-1">您的姓名</label> 
-              <input type="text" id="contactName" name="name" required class="w-full px-4 py-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent outline-none transition bg-white"> 
-            </div> 
+        <!-- 右側表單區塊 -->
+        <div class="contact-right">
+          <form id="contactForm">
+            <div class="form-group">
+              <label>您的姓名</label>
+              <input type="text" id="contactName" name="name" required>
+            </div>
             
-            <div> 
-              <label class="block text-sm font-medium text-gray-700 mb-1">電子郵件</label> 
-              <input type="email" id="contactEmail" name="email" required class="w-full px-4 py-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent outline-none transition bg-white"> 
-            </div> 
+            <div class="form-group">
+              <label>電子郵件</label>
+              <input type="email" id="contactEmail" name="email" required>
+            </div>
             
-            <div> 
-              <label class="block text-sm font-medium text-gray-700 mb-1">您的訊息</label> 
-              <textarea id="contactMessage" name="message" rows="4" required class="w-full px-4 py-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent outline-none transition bg-white"></textarea> 
+            <div class="form-group">
+              <label>您的訊息</label>
+              <textarea id="contactMessage" name="message" rows="4" required></textarea>
             </div>
 
-            <!-- 驗證碼區塊與按鈕並排 -->
-            <div class="flex items-center gap-4 flex-wrap">
-              <div class="flex-grow">
-                <label class="block text-sm font-medium text-gray-700 mb-1">驗證碼</label>
-                <div class="flex items-center gap-2">
-                  <span class="text-lg font-bold bg-green-100 px-4 py-2 rounded-lg border border-green-300" id="captchaQuestion"></span>
-                  <span class="text-gray-600">=</span>
-                  <input type="number" id="captchaInput" class="w-20 px-3 py-2 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-transparent outline-none" placeholder="?" required>
+            <!-- 驗證碼區塊 -->
+            <div class="form-group">
+              <label>驗證碼</label>
+              <div class="captcha-row">
+                <div class="captcha-field">
+                  <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    <span class="captcha-question" id="captchaQuestion">0 + 0</span>
+                    <span>=</span>
+                    <input type="number" id="captchaInput" class="captcha-input" placeholder="?" required>
+                  </div>
+                  <div id="captchaError" class="captcha-error">驗證碼錯誤，請重新計算</div>
+                  <input type="hidden" id="captchaResult" value="">
                 </div>
-                <div id="captchaError" class="captcha-error hidden mt-1">驗證碼錯誤，請重新計算</div>
-                <input type="hidden" id="captchaResult" value="">
+                <button type="submit" id="submitBtn" class="submit-btn">傳送訊息</button>
               </div>
-              <button type="submit" id="submitBtn" class="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2.5 rounded-lg transition-all active:scale-[0.98] shadow-md whitespace-nowrap self-end mb-1"> 
-                傳送訊息 
-              </button>
             </div>
           </form>
-        </div> 
-      </div> 
-    </div> 
+        </div>
+      </div>
+    </div>
   </main>
 
   <!-- Footer -->
@@ -417,57 +548,46 @@
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
 
-  <!-- 提示訊息容器 -->
   <div id="toastMsg" class="toast-message"></div>
 
   <script>
-    // ==================== 設定區 ====================
-    // 請將下方網址替換為您部署的 Google Apps Script 聯絡表單專案的網址
+    // Google Apps Script 網址
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyTG4qQhEmCfPw-TN1zCgmk7FymYjf5y6aW-0WXYMw1WcNPhlY9-e5tHKVNEufcsslhdw/exec';
     
-    // 顯示提示訊息 (不影響原有版面)
     function showMessage(text, isError = false) {
       const toast = document.getElementById('toastMsg');
       toast.textContent = text;
-      toast.style.backgroundColor = isError ? '#b91c1c' : '#2d4a2b';
+      toast.classList.remove('error');
+      if (isError) toast.classList.add('error');
       toast.classList.add('show');
       setTimeout(() => {
         toast.classList.remove('show');
       }, 4000);
     }
 
-    // 產生隨機驗證碼 (簡單加法)
     function generateCaptcha() {
-      const num1 = Math.floor(Math.random() * 10) + 1; // 1-10
-      const num2 = Math.floor(Math.random() * 10) + 1; // 1-10
-      const question = `${num1} + ${num2}`;
-      const result = num1 + num2;
-      
-      document.getElementById('captchaQuestion').textContent = question;
-      document.getElementById('captchaResult').value = result;
-      
+      const num1 = Math.floor(Math.random() * 10) + 1;
+      const num2 = Math.floor(Math.random() * 10) + 1;
+      document.getElementById('captchaQuestion').textContent = `${num1} + ${num2}`;
+      document.getElementById('captchaResult').value = num1 + num2;
       document.getElementById('captchaInput').value = '';
-      document.getElementById('captchaError').classList.add('hidden');
+      document.getElementById('captchaError').classList.remove('show');
     }
     
-    // 驗證驗證碼 (前端)
     function validateCaptcha() {
       const userAnswer = parseInt(document.getElementById('captchaInput').value);
       const correctAnswer = parseInt(document.getElementById('captchaResult').value);
       return userAnswer === correctAnswer;
     }
 
-    // 送出表單到 Google Apps Script
     async function submitToGoogleScript(formData) {
       try {
         const response = await fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
-          mode: 'no-cors', // 避免跨域問題，但這樣無法讀取回應內容
+          mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
         });
-        // 由於 mode: 'no-cors'，response 無法讀取狀態，但請求仍會發出
-        // 預設成功，因為 no-cors 只會送出，不會回傳詳細結果
         return { success: true };
       } catch (err) {
         console.error('Google Script 請求失敗:', err);
@@ -475,65 +595,53 @@
       }
     }
 
-    // 處理表單提交 (非同步，避免頁面跳轉)
     document.getElementById('contactForm').addEventListener('submit', async function(e) {
-      e.preventDefault(); // 防止傳統提交與頁面跳轉
+      e.preventDefault();
       
-      // 獲取表單欄位值
       const name = document.getElementById('contactName').value.trim();
       const email = document.getElementById('contactEmail').value.trim();
       const message = document.getElementById('contactMessage').value.trim();
       
-      // 基本驗證
       if (!name || !email || !message) {
         showMessage('請完整填寫姓名、電子郵件與訊息內容', true);
         return;
       }
       
-      // 驗證碼檢查
       if (!validateCaptcha()) {
-        document.getElementById('captchaError').classList.remove('hidden');
-        generateCaptcha(); // 更新驗證碼題目
+        document.getElementById('captchaError').classList.add('show');
+        generateCaptcha();
         showMessage('驗證碼錯誤，請重新輸入', true);
         return;
       }
       
-      // 按鈕狀態變更 (避免重複送出)
       const submitBtn = document.getElementById('submitBtn');
       const originalText = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = '傳送中...';
       
       try {
-        // 組裝要送出的資料 (與購物車結構類似，方便後端統一處理)
         const payload = {
           name: name,
           email: email,
-          phone: '',          // 聯絡表單無電話欄位，保留空白
+          phone: '',
           message: message,
-          type: 'contact',    // 標記為聯絡表單類型
-          items: [],          // 無商品
+          type: 'contact',
+          items: [],
           total: 0
         };
         
-        // 發送到 Google Apps Script
-        const result = await submitToGoogleScript(payload);
-        
-        // 由於 mode: 'no-cors' 無法取得真實回應，預設成功
-        // 但我們仍顯示成功訊息，並重置表單
+        await submitToGoogleScript(payload);
         showMessage('✅ 訊息已送出！我們會盡快回覆您。');
         
-        // 清除表單內容
         document.getElementById('contactName').value = '';
         document.getElementById('contactEmail').value = '';
         document.getElementById('contactMessage').value = '';
-        generateCaptcha(); // 重置驗證碼
+        generateCaptcha();
         
-        // 可選: 跳轉至感謝頁面 (若仍想要原本的 thanks.html 轉址)
-        // 如果想保留原有轉址行為，可以啟用下方程式碼:
-         setTimeout(() => {
-           window.location.href = 'https://www.fernbrom.com/thanks.html';
-         }, 300);
+        // 可選：跳轉至感謝頁面
+        setTimeout(() => {
+          window.location.href = 'https://www.fernbrom.com/thanks.html';
+        }, 1500);
         
       } catch (err) {
         console.error('提交錯誤:', err);
@@ -544,9 +652,8 @@
       }
     });
     
-    // 導覽列載入與初始化 (保留原本所有邏輯，完全不變)
+    // 導覽列載入
     document.addEventListener('DOMContentLoaded', function () {
-      // 載入共用導覽列
       fetch('nav.html')
         .then(response => response.text())
         .then(data => {
@@ -556,55 +663,58 @@
         .catch(err => {
           console.error('無法載入導覽列:', err);
           document.getElementById('nav-placeholder').innerHTML = 
-            '<nav style="background:var(--moss);color:white;padding:0 4vw;height:72px;display:flex;align-items:center;">' +
-            '<span style="font-family:Noto Serif TC,serif;font-weight:900;">⚠️ 導覽列載入失敗，請確認 nav.html 是否存在</span>' +
-            '</nav>';
+            '<nav style="background:rgba(250,247,242,0.96);border-bottom:1px solid rgba(90,122,74,0.12);padding:0 4vw;height:72px;display:flex;align-items:center;justify-content:space-between;">' +
+            '<div class="logo" style="display:flex;align-items:center;gap:10px;"><div class="logo-mark"><svg width="38" height="38" viewBox="0 0 40 40" fill="none" stroke="#3d5a38" stroke-width="1.2"><path d="M12,20 L20,8 L28,20 L20,32 Z" fill="#d4e4c8"/><circle cx="20" cy="20" r="4" fill="#5a7a4a"/></svg></div><div class="logo-text">蕨積<span>FERNBROM</span></div></div>' +
+            '<button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>' +
+            '</nav>' +
+            '<div class="mobile-menu" id="mobileMenu"><ul><li><a href="index.html">首頁</a></li><li><a href="consult.html">綠色顧問</a></li><li><a href="lifestyle.html">生活提案</a></li></ul></div>';
+          initNav();
         });
 
-      // 產生初始驗證碼
-      generateCaptcha();
-
       function initNav() {
-        var btn = document.getElementById('hamburger');
-        var menu = document.getElementById('mobileMenu');
+        const btn = document.getElementById('hamburger');
+        const menu = document.getElementById('mobileMenu');
         if (btn && menu) {
           btn.addEventListener('click', function () {
             btn.classList.toggle('open');
             menu.classList.toggle('open');
           });
-          if(menu.querySelectorAll) {
-            menu.querySelectorAll('.mobile-link').forEach(function (a) {
-              a.addEventListener('click', function () {
-                btn.classList.remove('open');
-                menu.classList.remove('open');
-              });
+          const allMobileLinks = menu.querySelectorAll('.mobile-link, .mobile-sub a');
+          allMobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+              btn.classList.remove('open');
+              menu.classList.remove('open');
             });
-          }
+          });
         }
-        if (menu && menu.querySelectorAll) {
-          menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
+        if (menu) {
+          const mobileParents = menu.querySelectorAll('.mobile-parent');
+          mobileParents.forEach(parent => {
             parent.addEventListener('click', function () {
-              var id = parent.getAttribute('data-target');
-              var sub = document.getElementById(id);
-              var caretId = 'caret-' + id.replace('sub-', '');
-              var caret = document.getElementById(caretId);
-              if (!sub) return;
-              var opening = !sub.classList.contains('open');
-              if(menu.querySelectorAll('.mobile-sub')) menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
-              if(menu.querySelectorAll('.mobile-caret')) menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
-              if (opening) {
+              const targetId = parent.getAttribute('data-target');
+              const sub = document.getElementById(targetId);
+              const caretId = 'caret-' + targetId?.replace('sub-', '');
+              const caret = document.getElementById(caretId);
+              const opening = sub && !sub.classList.contains('open');
+              menu.querySelectorAll('.mobile-sub').forEach(s => s.classList.remove('open'));
+              menu.querySelectorAll('.mobile-caret').forEach(c => c.classList.remove('open'));
+              if (opening && sub) {
                 sub.classList.add('open');
                 if (caret) caret.classList.add('open');
               }
             });
           });
         }
-        window.addEventListener('scroll', function () {
-          var nav = document.getElementById('mainNav');
-          if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
-        });
+        const mainNav = document.getElementById('mainNav');
+        if (mainNav) {
+          window.addEventListener('scroll', () => {
+            mainNav.classList.toggle('scrolled', window.scrollY > 20);
+          });
+        }
         if (typeof lucide !== 'undefined') lucide.createIcons();
       }
+      
+      generateCaptcha();
     });
   </script>
 </body>
