@@ -3,315 +3,639 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>植生牆植物怎麼選？鹿角蕨與積水鳳梨配置指南｜蕨積 FernBrom</title>
-  <meta name="description" content="植生牆適合哪些植物？從鹿角蕨到積水鳳梨，解析植物選擇與環境條件，打造穩定的綠化系統。">
-  <link rel="canonical" href="https://www.fernbrom.com/blog/green-wall-plants.html">
-  <!-- OG -->
-  <meta property="og:title" content="植生牆植物怎麼選？｜蕨積 FernBrom">
-  <meta property="og:description" content="不是所有植物都適合上牆，環境決定植物生存。">
-  <meta property="og:url" content="https://www.fernbrom.com/blog/green-wall-plants.html">
-  <meta property="og:image" content="https://www.fernbrom.com/og-image.jpg">
+  <title>植生牆是什麼？完整解析綠牆系統與應用｜蕨積 FernBrom</title>
+  <meta name="description" content="植生牆不僅是植物上牆，更是一套整合結構、灌溉與環境的生態系統。從基礎定義到設計思維，帶你認識真正的綠牆。">
+  <link rel="canonical" href="https://www.fernbrom.com/greenwall/green-wall-intro.html">
+  <meta property="og:title" content="植生牆是什麼？｜蕨積 FernBrom">
+  <meta property="og:description" content="不只是垂直綠化 — 看懂植生牆的系統思維、結構與植物生存條件">
+  <meta property="og:url" content="https://www.fernbrom.com/greenwall/green-wall-intro.html">
+  <meta property="og:image" content="https://www.fernbrom.com/og-wall-intro.jpg">
   <meta property="og:type" content="article">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ===== 共用樣式 ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --ink: #1a1a14;
+      --moss: #3d5a38;
+      --fern: #5a7a4a;
+      --sage: #8aab7a;
+      --mist: #d4e4c8;
+      --cream: #f5f0e8;
+      --stone: #9a9080;
+      --paper: #faf7f2;
     }
     body {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 48px 32px;
-      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-      line-height: 1.7;
-      background-color: #fefef7;
-      color: #1e2a2b;
+      font-family: 'Noto Sans TC', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    h1 {
+
+    /* ----- 導覽列 (完整保留) ----- */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4vw; height: 72px;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(90,122,74,0.12);
+    }
+    nav.scrolled { box-shadow: 0 2px 24px rgba(61,90,56,0.10); }
+
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .logo-mark { width: 38px; height: 38px; flex-shrink: 0; }
+    .logo-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .logo-text {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: 1.35rem;
+      color: var(--moss);
+      letter-spacing: 0.05em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .logo-text span {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--stone);
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+      white-space: nowrap;
+    }
+    .nav-links li {
+      position: relative;
+      padding: 0 2px;
+    }
+    .nav-links a {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      text-decoration: none;
+      padding-bottom: 3px;
+      opacity: 0.75;
+      display: inline-block;
+    }
+    .nav-links a:hover {
+      opacity: 1;
+      color: var(--fern);
+    }
+    .nav-contact {
+      padding: 8px 20px !important;
+      border: 1px solid var(--fern) !important;
+      border-radius: 2px;
+      color: var(--fern) !important;
+      opacity: 1 !important;
+      margin-left: 0.5rem;
+    }
+    .nav-contact:hover {
+      background: var(--fern);
+      color: white !important;
+    }
+    .has-dropdown > a::after { display: none; }
+
+    .nav-links li .dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 18px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(250,247,242,0.98);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(90,122,74,0.14);
+      border-top: 2px solid var(--fern);
+      box-shadow: 0 12px 40px rgba(61,90,56,0.12);
+      min-width: 148px;
+      list-style: none;
+      padding: 8px 0;
+      z-index: 300;
+    }
+    .nav-links li:hover .dropdown,
+    .nav-links li:focus-within .dropdown {
+      display: block;
+    }
+    .nav-links li .dropdown::before {
+      content: '';
+      position: absolute;
+      top: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 6px solid var(--fern);
+    }
+    .dropdown li a {
+      display: block;
+      padding: 10px 20px;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      opacity: 0.7;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .dropdown li a:hover {
+      opacity: 1;
+      color: var(--fern);
+      padding-left: 26px;
+      background: rgba(90,122,74,0.04);
+    }
+    .dropdown li + li { border-top: 1px solid rgba(90,122,74,0.08); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      width: 40px; height: 40px;
+      cursor: pointer;
+      background: none; border: none;
+      flex-shrink: 0;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 1.5px;
+      background: var(--moss);
+      transition: transform 0.2s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
+      background: #faf7f2;
+      border-bottom: 1px solid rgba(90,122,74,0.15);
+      padding: 0 6vw 40px;
+      z-index: 99;
+      overflow-y: auto;
+      transform: translateX(100%);
+      visibility: hidden;
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu.open { transform: translateX(0); visibility: visible; }
+    .mobile-menu ul { list-style: none; }
+    .mobile-menu > ul > li > a,
+    .mobile-parent {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 0;
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      color: var(--moss);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(90,122,74,0.1);
+      cursor: pointer;
+    }
+    .mobile-parent:hover, .mobile-menu > ul > li > a:hover { color: var(--fern); }
+    .mobile-caret { display: inline-block; transition: transform 0.2s; }
+    .mobile-caret.open { transform: rotate(180deg); }
+    .mobile-sub {
+      list-style: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .mobile-sub.open { max-height: 200px; }
+    .mobile-sub li a {
+      display: block;
+      padding: 11px 0 11px 16px;
+      font-size: 0.85rem;
+      color: var(--stone);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(90,122,74,0.06);
+      letter-spacing: 0.06em;
+    }
+    .mobile-sub li a:hover { color: var(--fern); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ----- 頁面內容區域 ----- */
+    .content {
+      flex: 1;
+      padding-top: 92px;
+      padding-bottom: 40px;
+      max-width: 880px;
+      margin: 0 auto;
+      padding-left: 32px;
+      padding-right: 32px;
+      width: 100%;
+    }
+
+    /* 植生牆文章專用樣式 */
+    .content h1 {
       font-size: 2.2rem;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: -0.01em;
       line-height: 1.2;
       margin-bottom: 1rem;
-      color: #1f4e3c;
-      border-left: 6px solid #7caf7a;
-      padding-left: 24px;
+      color: #2d6a4f;
+      border-left: 6px solid #74a57f;
+      padding-left: 26px;
+      font-family: 'Noto Serif TC', serif;
     }
-    h2 {
+    .content h2 {
       font-size: 1.7rem;
-      font-weight: 600;
-      margin: 2rem 0 1rem;
-      color: #2c5a44;
+      font-weight: 700;
+      margin: 2.2rem 0 1rem;
+      color: #388e6b;
+      border-bottom: 2px solid #d4e2cf;
       padding-bottom: 0.3rem;
-      border-bottom: 2px solid #dde6d5;
+      font-family: 'Noto Serif TC', serif;
     }
-    h3 {
+    .content h3 {
       font-size: 1.35rem;
       font-weight: 600;
-      margin: 1.5rem 0 0.75rem;
-      color: #3b6e54;
+      margin: 1.6rem 0 0.7rem;
+      color: #4c7a62;
+      font-family: 'Noto Serif TC', serif;
     }
-    p {
+    .content p {
       margin-bottom: 1.25rem;
       font-size: 1.05rem;
-      color: #2c3a35;
+      color: #2c3f37;
+      line-height: 1.7;
     }
-    ul, ol {
+    .content ul, .content ol {
       margin: 1rem 0 1.5rem 1.8rem;
     }
-    li {
+    .content li {
       margin-bottom: 0.5rem;
-      font-size: 1.02rem;
+      font-size: 1rem;
     }
-    a {
-      color: #2f6b47;
+    .content a {
+      color: #2f7d5c;
       text-decoration: none;
       font-weight: 500;
-      border-bottom: 1px solid #bdd6b0;
-      transition: all 0.2s ease;
+      border-bottom: 1px solid #cbe5cf;
+      transition: 0.2s;
     }
-    a:hover {
-      color: #144d34;
-      border-bottom-color: #2f6b47;
+    .content a:hover {
+      color: #1a533c;
+      border-bottom-color: #2f7d5c;
     }
-    hr {
+    .content hr {
       margin: 2rem 0;
       border: none;
       height: 2px;
-      background: linear-gradient(90deg, #cbdcc6, #e8f0e4, #cbdcc6);
+      background: linear-gradient(90deg, #d3e6cf, #eff7ea, #d3e6cf);
     }
-    .insight-box {
-      background: #f1f7ef;
-      padding: 1.2rem 1.8rem;
-      border-radius: 28px;
-      margin: 1.8rem 0;
-      border-left: 4px solid #7caf7a;
-    }
-    .nav-back {
-      display: inline-block;
-      margin-bottom: 2rem;
-      font-size: 0.9rem;
-      background: #eef3ea;
-      padding: 0.4rem 1rem;
-      border-radius: 40px;
-      border-bottom: none;
-    }
-    .nav-back:hover {
-      background: #e0ead9;
-    }
-    .callout {
-      background: #ffffffdd;
-      border: 1px solid #cfe2c7;
-      border-radius: 28px;
-      padding: 1.2rem 1.8rem;
+    .highlight-card {
+      background: #ecf5e9;
+      padding: 1.5rem 2rem;
+      border-radius: 32px;
       margin: 2rem 0;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+      border-left: 5px solid #538e6e;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
     }
-    footer {
-      margin-top: 4rem;
-      padding-top: 2rem;
-      text-align: center;
+    .system-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin: 1.5rem 0 1rem;
+    }
+    .sys-item {
+      background: white;
+      border-radius: 24px;
+      padding: 1rem 1.5rem;
+      flex: 1 1 180px;
+      border: 1px solid #dae9d3;
+      transition: all 0.2s;
+    }
+    .sys-item strong {
+      display: block;
+      font-size: 1.2rem;
+      color: #2c6e4f;
+      margin-bottom: 0.3rem;
+    }
+    .badge-principle {
+      background: #ffffffc9;
+      border-radius: 28px;
+      padding: 1.2rem 1.6rem;
+      margin: 1.8rem 0;
+      border: 1px solid #dae9d3;
+    }
+    /* 系列文章導航卡 */
+    .series-nav-card {
+      background: #eef3ea;
+      border-radius: 40px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem;
+      border: 1px solid #cbe0c4;
+    }
+    .series-nav-links {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .series-nav-links span {
+      font-weight: 600;
+      color: #2d6a4f;
+    }
+    .series-nav-links a {
+      border-bottom: none;
+      background: white;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
       font-size: 0.85rem;
-      color: #6f8f7a;
-      border-top: 1px solid #dee9d8;
     }
-    @media (max-width: 600px) {
-      body {
-        padding: 28px 20px;
+    .series-nav-links a.active {
+      background: #cbe0c4;
+      font-weight: 500;
+    }
+    .series-hint {
+      font-size: 0.85rem;
+      color: #4e6b56;
+    }
+    @media (max-width: 640px) {
+      .content {
+        padding-left: 20px;
+        padding-right: 20px;
       }
-      h1 {
-        font-size: 1.8rem;
+      .content h1 {
+        font-size: 1.85rem;
         padding-left: 16px;
       }
-      h2 {
-        font-size: 1.4rem;
+      .system-grid {
+        flex-direction: column;
+      }
+      .series-nav-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* ----- Footer (完整保留) ----- */
+    footer {
+      border-top: 1px solid rgba(90,122,74,0.15);
+      padding: 40px 4vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--paper);
+      margin-top: auto;
+    }
+    .footer-logo {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: var(--moss);
+      letter-spacing: 0.05em;
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--stone);
+      letter-spacing: 0.1em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.75rem;
+      color: var(--stone);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .footer-links a:hover {
+      opacity: 1;
+      color: var(--fern);
+    }
+    @media (max-width: 768px) {
+      footer {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+      .footer-links {
+        justify-content: center;
+        flex-wrap: wrap;
       }
     }
   </style>
 </head>
 <body>
+  <div id="nav-placeholder"></div>
 
-<!-- 模擬從「首頁 > 植生牆介紹」延伸的導航，加強上下文關聯 -->
-<a href="/blog/green-wall-intro.html" class="nav-back">← 植生牆基礎介紹</a>
+  <main class="content">
+    <!-- 系列文章導航卡 (路徑為 /greenwall/ ) -->
+    <div class="series-nav-card">
+      <div class="series-nav-links">
+        <span>📚 植生牆系列循環</span>
+        <span>→</span>
+        <a href="/greenwall/green-wall-intro.html" class="active">① 植生牆是什麼？</a>
+        <a href="/greenwall/green-wall-failure.html">② 為什麼會失敗？</a>
+        <a href="/greenwall/green-wall-plants.html">③ 植物怎麼選？</a>
+      </div>
+      <div class="series-hint">↻ 任一篇開始，循環閱讀</div>
+    </div>
 
-<h1>植生牆植物怎麼選？不是好看就好，而是能不能活</h1>
+    <h1>植生牆是什麼？<br>不只是「種在牆上的植物」</h1>
 
-<p>
-在規劃植生牆時，很多人會從「想種什麼植物」開始。<br>
-但實際上，正確的順序應該是——
-</p>
+    <p>
+      許多人第一次看到植生牆，都會被滿滿的綠意吸引。<br>
+      但植生牆不只是一面「會呼吸的裝飾」——它是一個<strong>整合結構、灌溉、植物與環境控制的微型生態系統</strong>。
+    </p>
 
-<p>
-<strong>這個環境，適合什麼植物？</strong>
-</p>
+    <div class="highlight-card">
+      <strong>🌱 核心定義</strong><br>
+      植生牆（Green Wall / Living Wall）是一種垂直綠化系統，藉由模組化結構、介質與自動灌溉，讓植物在垂直表面上穩定生長。與單純的爬藤綠牆不同，真正的「植生牆系統」能容納多樣植物，並長期維持健康狀態。
+    </div>
 
-<p>
-植物選錯，是植生牆最常見的失敗原因之一。
-</p>
+    <hr>
 
-<p>
-👉 如果你還不熟悉系統概念，建議先看：
-<a href="/blog/green-wall-intro.html">植生牆是什麼？</a>
-</p>
+    <h2>植生牆 ≠ 一般盆栽上牆</h2>
+    <p>
+      很多人誤以為只要把盆栽掛在牆上就是植生牆，但真正的系統需要考量：
+    </p>
+    <ul>
+      <li><strong>結構承重與防水</strong> — 植栽模組 + 濕介質的重量不容小覷。</li>
+      <li><strong>均勻給水與排水</strong> — 避免上方淹水、下方乾旱。</li>
+      <li><strong>植物根系發展空間</strong> — 垂直面必須維持透氣與保水平衡。</li>
+      <li><strong>長期維護可行性</strong> — 修剪、更換植物、養分補充。</li>
+    </ul>
+    <p>缺少任何一環，植生牆就會在幾個月內快速衰退 — 這正是「好看但活不久」的主因。</p>
 
-<hr>
+    <h2>植生牆的核心組成</h2>
+    <div class="system-grid">
+      <div class="sys-item"><strong>📐 結構系統</strong> 金屬骨架、防水背板、模組化植栽槽或毛氈口袋</div>
+      <div class="sys-item"><strong>💧 灌溉系統</strong> 滴灌、潮汐灌溉或循環式給水 ＋ 智能控制</div>
+      <div class="sys-item"><strong>🌿 介質與濾層</strong> 輕質混合介質、不織布濾層、防止介質流失</div>
+      <div class="sys-item"><strong>🧑‍🌾 植物群落</strong> 依據光照/濕度挑選的垂直適配物種</div>
+    </div>
 
-<h2>植物選擇的核心原則</h2>
+    <p>一個成熟的植生牆專案，會將上述四個層面整合設計，並搭配監測設備（濕度傳感器、排水偵測）。</p>
 
-<p>
-在植生牆系統中，植物不是主角，而是「條件的結果」。
-</p>
+    <hr>
 
-<ul>
-<li>光線決定植物種類</li>
-<li>濕度影響生長狀態</li>
-<li>通風影響病害風險</li>
-</ul>
+    <h2>為什麼要採用植生牆系統？</h2>
+    <h3>🌆 都市生態與美學價值</h3>
+    <p>植生牆能降低建築表面溫度、吸附落塵、減緩熱島效應，同時提供令人療癒的視覺體驗。對於商業空間或辦公環境，一面健康的大型植生牆更能提升品牌形象與空間質感。</p>
 
-<p>
-也就是說，不是你選植物，而是環境在選。
-</p>
+    <h3>🔊 降噪與微氣候調節</h3>
+    <p>植物葉片與介質能吸收部分噪音，並透過蒸散作用增加局部濕度，讓室內外環境更舒適。</p>
 
-<div class="insight-box">
-  🌿 <strong>設計觀點</strong> — 每一面植生牆都是一個微氣候資料庫。先評估光照時數、風向、濕度波動，植物清單自然浮現。
-</div>
+    <h3>🧘 心理效益</h3>
+    <p>研究指出，垂直綠化空間有助於降低壓力、提升專注力 — 這也是為什麼許多醫院、大廳開始導入植生牆。</p>
 
-<h2>常見可用於植生牆的植物類型</h2>
+    <div class="badge-principle">
+      💡 <strong>蕨積觀點：</strong> 植生牆不是「把植物塞滿就成功」，而是精準的環境工程。我們常說：「一面健康的植生牆，背後有看不見的系統邏輯。」
+    </div>
 
-<h3>1. 耐陰觀葉植物</h3>
-<p>
-適合室內光線較弱的空間，例如常見的觀葉植物。
-</p>
+    <hr>
 
-<h3>2. 蕨類植物</h3>
-<p>
-如鹿角蕨，適合濕度較高、通風良好的環境，
-具有良好的附著性與造型特色。
-</p>
+    <h2>常見植生牆形式</h2>
+    <ul>
+      <li><strong>毛氈式系統</strong>（Felt System）：適合輕量、短期展示或室內低負荷場景，植物根系直接扎入毛氈層。</li>
+      <li><strong>模組式系統</strong>（Modular System）：最常見的專業型，使用獨立植栽盒堆疊或卡扣，利於更換與維護。</li>
+      <li><strong>容器式系統</strong>（Tray System）：多層層架或盆器組合，適合陽台或半戶外，但需留意排水。</li>
+      <li><strong>攀爬式輔助網</strong>（Green Facade）：利用藤蔓植物攀附，但植物種類單一，較不屬於「植生牆系統」範疇。</li>
+    </ul>
 
-<h3>3. 積水鳳梨</h3>
-<p>
-積水鳳梨（Bromeliad）具有儲水能力，
-在特定系統中可降低澆水壓力，
-同時具有強烈的視覺表現。
-</p>
+    <p>👉 延伸閱讀：<a href="/greenwall/green-wall-plants.html">植生牆植物怎麼選？鹿角蕨與積水鳳梨配置指南</a></p>
 
-<hr>
+    <h2>植生牆的常見迷思與現實</h2>
+    <ul>
+      <li><strong>迷思：植生牆不太需要澆水。</strong> 事實：垂直結構水分蒸散快，自動灌溉系統不可或缺。</li>
+      <li><strong>迷思：所有植物都能上牆。</strong> 事實：根系淺、耐旱或耐陰的物種才適合，且需考慮生長速度。</li>
+      <li><strong>迷思：裝完就不用管了。</strong> 事實：每季都需要修剪、補肥、更換弱勢植株，維護計畫才是長壽關鍵。</li>
+    </ul>
 
-<h2>鹿角蕨：適合上牆，但不是任何地方都可以</h2>
+    <hr>
 
-<p>
-鹿角蕨常被認為是植生牆的代表植物，
-但它其實對環境有明確要求：
-</p>
+    <h2>如何判斷你的空間適合植生牆？</h2>
+    <p>在規劃之前，請先回答三個問題：</p>
+    <ol>
+      <li><strong>光照條件：</strong> 每日直射/散射光多少小時？室內可能需輔助植物燈。</li>
+      <li><strong>空間高度與動線：</strong> 是否方便進行高空修剪與灌溉檢修？</li>
+      <li><strong>預算與維護週期：</strong> 自動灌溉+定期維護成本是否在規劃內？</li>
+    </ol>
 
-<ul>
-<li>需要穩定濕度</li>
-<li>避免長時間直射強光</li>
-<li>需要良好通風</li>
-</ul>
+    <div class="highlight-card">
+      🌟 <strong>從了解環境開始，而非從植物開始</strong><br>
+      這是蕨積一直以來的核心哲學。我們提供場勘與微氣候評估，確認植生牆長期可行的方案，再進入植物配置。
+      <div style="margin-top: 12px;">→ <a href="/green-wall.html">預約顧問諮詢</a></div>
+    </div>
 
-<p>
-如果條件不符合，即使再漂亮的配置，也難以維持。
-</p>
+    <h2>植生牆的未來 — 智慧化與生態多樣性</h2>
+    <p>
+      結合感測器與自動控制，新一代植生牆能根據即時濕度、溫度調整灌溉與燈光。同時，生態設計趨勢開始引入原生蜜源植物，讓垂直綠化成為城市生物多樣性的跳島。
+    </p>
+    <p>
+      蕨積致力於「會演化的植生牆」— 讓牆上的植物群落隨著時間自然平衡，而不是每年砍掉重練。
+    </p>
 
-<div class="callout">
-  <strong>📌 實務提醒：</strong> 鹿角蕨在植生牆上容易因介質排水與通風不良而爛心。建議採用透氣毛氈或專用掛板，並配合循環扇增加空氣流動。
-</div>
+    <hr>
 
-<h2>積水鳳梨：視覺強，但系統要配合</h2>
+    <h2>結語：植生牆是活的系統，需要被理解</h2>
+    <p>
+      植生牆不只是一種設計潮流，它是一種人與植物共構的垂直生態。當你理解它的結構、限制與潛力，你會發現 —— 真正的植生牆不是「把植物黏上去」，而是為植物打造一個能健康活著的垂直家園。
+    </p>
+    <p>
+      <strong>下一篇文章，我們將深入解析植物選擇的關鍵，並告訴你為什麼鹿角蕨與積水鳳梨常被誤解。</strong>
+    </p>
 
-<p>
-積水鳳梨色彩鮮明，常被用於設計亮點，
-但它的特性也代表：
-</p>
+    <p style="margin-top: 2rem;">
+      📖 繼續閱讀：<a href="/greenwall/green-wall-plants.html">植生牆植物怎麼選？鹿角蕨與積水鳳梨配置指南</a><br>
+      ⚠️ 常見失敗案例：<a href="/greenwall/green-wall-failure.html">植生牆為什麼會失敗？</a>
+    </p>
+  </main>
 
-<ul>
-<li>需要特定水分管理方式</li>
-<li>不適合過度積水的環境</li>
-</ul>
+  <footer>
+    <ul class="footer-links">
+      <li><a href="shop.html">植物選品</a></li>
+      <li><a href="consult.html">綠色顧問</a></li>
+      <li><a href="fbnote.html">蕨望筆記</a></li>
+      <li><a href="about.html">關於蕨積</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
+  </footer>
 
-<p>
-如果系統沒有搭配好，反而容易出問題。
-</p>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // 載入共用導覽列
+      fetch('nav.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('nav-placeholder').innerHTML = data;
+          initNav();
+        })
+        .catch(err => {
+          console.error('無法載入導覽列:', err);
+          document.getElementById('nav-placeholder').innerHTML = 
+            '<nav style="background:var(--moss);color:white;padding:0 4vw;height:72px;display:flex;align-items:center;">' +
+            '<span style="font-family:Noto Serif TC,serif;font-weight:900;">⚠️ 導覽列載入失敗，請確認 nav.html 是否存在</span>' +
+            '</nav>';
+        });
 
-<hr>
-
-<h2>為什麼不能只看「好不好看」？</h2>
-
-<p>
-許多失敗的植生牆，都是從「好看」出發。
-</p>
-
-<p>
-但當植物不適應環境時：
-</p>
-
-<ul>
-<li>會逐漸衰退</li>
-<li>需要頻繁更換</li>
-<li>維護成本大幅提高</li>
-</ul>
-
-<p>
-👉 延伸閱讀：
-<a href="/blog/green-wall-failure.html">植生牆為什麼會失敗？</a>
-</p>
-
-<h2>植物配置，其實是系統設計的一部分</h2>
-
-<p>
-真正穩定的植生牆，
-不是選「最漂亮的植物」，而是選「最適合的組合」。
-</p>
-
-<p>
-這包含：
-</p>
-
-<ul>
-<li>不同植物的生長速度</li>
-<li>水分需求差異</li>
-<li>空間配置比例</li>
-</ul>
-
-<div class="insight-box">
-  🌱 <strong>蕨積觀點：</strong> 穩定的植生牆就像一個微型生態系，鹿角蕨與積水鳳梨若能搭配耐陰基底植物（如黃金葛、皺葉椒草），能創造層次感同時緩衝環境波動。
-</div>
-
-<h2>如果你正在規劃植生牆</h2>
-
-<p>
-與其先挑植物，
-不如先了解你的空間條件。
-</p>
-
-<p>
-👉 了解你的空間適合什麼植物與系統：
-<a href="/green-wall.html">植生牆顧問與規劃服務</a>
-</p>
-
-<hr>
-
-<h2>結語</h2>
-
-<p>
-植生牆的植物選擇，不是美學問題，而是生存問題。
-</p>
-
-<p>
-當環境與系統匹配時，植物自然會長得好；
-反之，再精緻的設計，也難以維持。
-</p>
-
-<p>
-<strong>我們選的不是植物，而是讓植物能活下來的方式。</strong>
-</p>
-
-<footer>
-  <p>蕨積 FernBrom — 植生牆設計與生態系統顧問</p>
-  <p>© 2025 植生牆植物指南 | 延伸自 <a href="/blog/green-wall-intro.html">植生牆完整介紹</a></p>
-</footer>
-
+      function initNav() {
+        var btn = document.getElementById('hamburger');
+        var menu = document.getElementById('mobileMenu');
+        if (btn && menu) {
+          btn.addEventListener('click', function () {
+            btn.classList.toggle('open');
+            menu.classList.toggle('open');
+          });
+          menu.querySelectorAll('.mobile-link').forEach(function (a) {
+            a.addEventListener('click', function () {
+              btn.classList.remove('open');
+              menu.classList.remove('open');
+            });
+          });
+        }
+        if (menu) {
+          menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
+            parent.addEventListener('click', function () {
+              var id = parent.getAttribute('data-target');
+              var sub = document.getElementById(id);
+              var caretId = 'caret-' + id.replace('sub-', '');
+              var caret = document.getElementById(caretId);
+              var opening = !sub.classList.contains('open');
+              menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
+              menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
+              if (opening) {
+                sub.classList.add('open');
+                if (caret) caret.classList.add('open');
+              }
+            });
+          });
+        }
+        window.addEventListener('scroll', function () {
+          var nav = document.getElementById('mainNav');
+          if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
+        });
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      }
+    });
+  </script>
 </body>
 </html>
