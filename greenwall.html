@@ -328,6 +328,91 @@
       letter-spacing: 0.02em;
     }
 
+    /* 系列文章知識卡 — 新增區塊，不影響原有結構 */
+    .knowledge-series {
+      margin: 32px 0 40px;
+      background: #ffffffdd;
+      border-radius: 32px;
+      border: 1px solid rgba(90,122,74,0.25);
+      overflow: hidden;
+      backdrop-filter: blur(2px);
+    }
+    .knowledge-header {
+      background: var(--moss);
+      padding: 16px 24px;
+      color: white;
+    }
+    .knowledge-header h3 {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 600;
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .knowledge-header h3 i {
+      width: 20px;
+      height: 20px;
+    }
+    .knowledge-body {
+      padding: 20px 24px;
+    }
+    .series-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: space-between;
+    }
+    .series-item {
+      flex: 1;
+      min-width: 180px;
+      background: #fefaf5;
+      border-radius: 20px;
+      padding: 16px 20px;
+      border: 1px solid #e2efdb;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: block;
+    }
+    .series-item:hover {
+      transform: translateY(-3px);
+      border-color: var(--sage);
+      box-shadow: 0 8px 20px rgba(61,90,56,0.1);
+    }
+    .series-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--stone);
+      margin-bottom: 8px;
+    }
+    .series-title {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--moss);
+      margin-bottom: 8px;
+    }
+    .series-desc {
+      font-size: 0.8rem;
+      color: #6a7c6e;
+      line-height: 1.4;
+    }
+    .series-item.active {
+      background: #ecf5e9;
+      border-color: var(--fern);
+    }
+    .series-badge {
+      display: inline-block;
+      background: var(--sage);
+      color: white;
+      font-size: 0.65rem;
+      padding: 2px 10px;
+      border-radius: 20px;
+      margin-top: 10px;
+    }
+
     /* 計算機容器精修 - 融合品牌風格 */
     .calculator-container {
       margin: 32px 0 20px;
@@ -412,6 +497,9 @@
       .page-header h2 {
         font-size: 1.6rem;
       }
+      .series-grid {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -444,6 +532,38 @@
       <p class="story-paragraph" style="margin-top: 20px; max-width: 780px;">
         適當維護下的垂直綠化，能為都市帶來降溫、空氣淨化，並參與碳循環。但每一座綠牆背後，都藏著材料選擇、能源消耗與植物固碳的真實平衡。以下工具將協助您評估植生牆的碳足跡與回收年限，讓永續決策有跡可循。
       </p>
+    </div>
+
+    <!-- ===== 新增：植生牆知識系列文章連結區塊 ===== -->
+    <div class="knowledge-series">
+      <div class="knowledge-header">
+        <h3>
+          <i data-lucide="book-open"></i>
+          植生牆知識系列 — 延伸閱讀
+        </h3>
+      </div>
+      <div class="knowledge-body">
+        <div class="series-grid">
+          <a href="green-wall-intro.html" class="series-item">
+            <div class="series-num">① 基礎入門</div>
+            <div class="series-title">植生牆是什麼？</div>
+            <div class="series-desc">系統思維、結構組成與核心定義 — 看懂垂直綠化的本質。</div>
+            <span class="series-badge">開始閱讀 →</span>
+          </a>
+          <a href="green-wall-failure.html" class="series-item">
+            <div class="series-num">② 實務解析</div>
+            <div class="series-title">植生牆為什麼會失敗？</div>
+            <div class="series-desc">六大致命陷阱：灌溉、通風、植物選擇⋯⋯如何避開？</div>
+            <span class="series-badge">開始閱讀 →</span>
+          </a>
+          <a href="green-wall-plants.html" class="series-item">
+            <div class="series-num">③ 配置指南</div>
+            <div class="series-title">植物怎麼選？</div>
+            <div class="series-desc">鹿角蕨與積水鳳梨的上牆條件，環境匹配才是關鍵。</div>
+            <span class="series-badge">開始閱讀 →</span>
+          </a>
+        </div>
+      </div>
     </div>
 
     <!-- 植生牆碳效益計算機區塊 (將原本的 wrapper 完美融入，提升格式與間距) -->
