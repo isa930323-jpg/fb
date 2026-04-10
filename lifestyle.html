@@ -4,14 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>綠色生活提案｜植物與永續｜蕨積 FernBrom</title>
-<meta name="description" content="將植物融入生活，從空間到日常實踐永續理念。">
-
-<link rel="canonical" href="https://www.fernbrom.com/lifestyle.html">
+  <meta name="description" content="將植物融入生活，從空間到日常實踐永續理念。農場碳計算、家庭植栽、環境教育 — 打造完整綠色生活循環。">
+  <link rel="canonical" href="https://www.fernbrom.com/lifestyle.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    /* ===== 共用樣式 (與綠色顧問、碳計算機頁面風格一致) ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --ink: #1a1a14;
@@ -33,7 +31,7 @@
       flex-direction: column;
     }
 
-    /* ----- 導覽列 (與其他頁面一致) ----- */
+    /* 導覽列樣式 (與其他頁面一致) */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -73,10 +71,7 @@
       align-items: center;
       white-space: nowrap;
     }
-    .nav-links li {
-      position: relative;
-      padding: 0 2px;
-    }
+    .nav-links li { position: relative; padding: 0 2px; }
     .nav-links a {
       font-family: 'Noto Sans TC', sans-serif;
       font-size: 0.82rem;
@@ -88,10 +83,7 @@
       opacity: 0.75;
       display: inline-block;
     }
-    .nav-links a:hover {
-      opacity: 1;
-      color: var(--fern);
-    }
+    .nav-links a:hover { opacity: 1; color: var(--fern); }
     .nav-contact {
       padding: 8px 20px !important;
       border: 1px solid var(--fern) !important;
@@ -100,10 +92,7 @@
       opacity: 1 !important;
       margin-left: 0.5rem;
     }
-    .nav-contact:hover {
-      background: var(--fern);
-      color: white !important;
-    }
+    .nav-contact:hover { background: var(--fern); color: white !important; }
 
     .nav-links li .dropdown {
       display: none;
@@ -122,9 +111,7 @@
       z-index: 300;
     }
     .nav-links li:hover .dropdown,
-    .nav-links li:focus-within .dropdown {
-      display: block;
-    }
+    .nav-links li:focus-within .dropdown { display: block; }
     .nav-links li .dropdown::before {
       content: '';
       position: absolute;
@@ -146,12 +133,7 @@
       white-space: nowrap;
       text-decoration: none;
     }
-    .dropdown li a:hover {
-      opacity: 1;
-      color: var(--fern);
-      padding-left: 26px;
-      background: rgba(90,122,74,0.04);
-    }
+    .dropdown li a:hover { opacity: 1; color: var(--fern); padding-left: 26px; background: rgba(90,122,74,0.04); }
     .dropdown li + li { border-top: 1px solid rgba(90,122,74,0.08); }
 
     .hamburger {
@@ -226,7 +208,7 @@
       .hamburger { display: flex; }
     }
 
-    /* ----- 頁面內容區域：與綠色顧問、碳計算機頁面風格完全對齊 ----- */
+    /* 頁面內容區域 */
     .content {
       flex: 1;
       padding-top: 112px;
@@ -236,7 +218,51 @@
       width: 90%;
     }
 
-    /* 品牌故事區塊 (雜誌感開場) */
+    /* 系列文章導航卡 — 生活提案循環 */
+    .series-nav-card {
+      background: #eef3ea;
+      border-radius: 40px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem;
+      border: 1px solid #cbe0c4;
+    }
+    .series-nav-links {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .series-nav-links span {
+      font-weight: 600;
+      color: #2d6a4f;
+    }
+    .series-nav-links a {
+      border-bottom: none;
+      background: white;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      text-decoration: none;
+      color: var(--moss);
+      transition: all 0.2s;
+    }
+    .series-nav-links a:hover {
+      background: #cbe0c4;
+    }
+    .series-nav-links a.active {
+      background: #cbe0c4;
+      font-weight: 500;
+    }
+    .series-hint {
+      font-size: 0.85rem;
+      color: #4e6b56;
+    }
+
+    /* 品牌開場區塊 */
     .lifestyle-hero {
       margin-bottom: 56px;
       border-bottom: 1px solid rgba(90,122,74,0.2);
@@ -295,7 +321,7 @@
       letter-spacing: 0.01em;
     }
 
-    /* 服務卡片 (與綠色顧問卡片風格完全一致) */
+    /* 服務卡片 */
     .service-card {
       background: #ffffffdd;
       backdrop-filter: blur(4px);
@@ -305,7 +331,6 @@
       margin-bottom: 2rem;
       box-shadow: 0 6px 18px rgba(90,122,74,0.05);
       transition: box-shadow 0.2s, border-color 0.2s;
-      overflow-x: auto;
     }
     .service-card:hover {
       box-shadow: 0 12px 28px rgba(61,90,56,0.1);
@@ -331,11 +356,6 @@
       color: var(--moss);
       letter-spacing: 0.02em;
     }
-    .service-card .story-paragraph {
-      margin-bottom: 1rem;
-      opacity: 0.85;
-    }
-    /* iframe 樣式 */
     .iframe-wrapper {
       margin: 1rem 0 0.75rem;
       border-radius: 20px;
@@ -367,16 +387,78 @@
       border-bottom: 1px solid transparent;
       transition: border 0.2s;
       letter-spacing: 0.05em;
+      margin-right: 1.5rem;
     }
     .card-link:hover {
       border-bottom: 1px solid var(--fern);
       color: var(--moss);
     }
 
-    /* 額外提案卡片 (生活減碳指南) */
+    /* 三主題循環卡片 (農場碳、家庭植栽、環境教育) */
+    .cycle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 24px 0 16px;
+    }
+    .cycle-card {
+      background: #fefcf8;
+      border-radius: 28px;
+      padding: 1.5rem;
+      border: 1px solid var(--mist);
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: block;
+      color: inherit;
+    }
+    .cycle-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--sage);
+      box-shadow: 0 12px 24px rgba(61,90,56,0.1);
+      background: white;
+    }
+    .cycle-icon {
+      background: var(--mist);
+      width: 56px;
+      height: 56px;
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .cycle-icon i {
+      color: var(--fern);
+      width: 28px;
+      height: 28px;
+    }
+    .cycle-card h3 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--moss);
+      margin-bottom: 0.75rem;
+    }
+    .cycle-card p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #5a6e60;
+      margin-bottom: 1rem;
+    }
+    .cycle-badge {
+      display: inline-block;
+      background: var(--sage);
+      color: white;
+      font-size: 0.7rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-top: 8px;
+    }
+
+    /* 生活減碳指南網格 */
     .tips-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
       margin: 24px 0 16px;
     }
@@ -421,7 +503,6 @@
       border-top: 1px solid var(--mist);
     }
 
-    /* 手機板微調 */
     @media (max-width: 768px) {
       .content {
         width: 92%;
@@ -440,12 +521,12 @@
       .iframe-wrapper iframe {
         height: 380px;
       }
-      .insight-card {
-        padding: 16px 20px;
+      .series-nav-card {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
 
-    /* ----- Footer (與主頁一致) ----- */
     footer {
       border-top: 1px solid rgba(90,122,74,0.15);
       padding: 40px 4vw;
@@ -494,51 +575,86 @@
   <div id="nav-placeholder"></div>
 
   <main class="content">
-    <!-- 品牌開場：與綠色顧問頁面風格一致 -->
+    <!-- 生活提案系列導航卡 — 形成循環概念 -->
+    <div class="series-nav-card">
+      <div class="series-nav-links">
+        <span>🌱 生活提案循環</span>
+        <span>→</span>
+        <a href="lifestyle.html" class="active">① 從農場到家庭</a>
+        <a href="lifestyle-farm.html">② 農場碳計算與減量</a>
+        <a href="lifestyle-home.html">③ 家庭植栽綠美化</a>
+        <a href="lifestyle-education.html">④ 環境教育提案</a>
+      </div>
+      <div class="series-hint">↻ 從碳計算到行動，形成完整綠色循環</div>
+    </div>
+
+    <!-- 品牌開場 -->
     <div class="lifestyle-hero">
       <div class="page-header">
-        <h2>環境，發生在日常之中。</h2>
+        <h2>環境，發生在日常之中。<br>從農場到家庭，從計算到行動。</h2>
       </div>
       <div class="story-grid">
         <div class="insight-card">
-          <i data-lucide="bike"></i>
-          <h3>移動減碳</h3>
-          <p class="story-paragraph" style="font-size:0.9rem;">步行、單車、大眾運輸，讓通勤成為低碳起點。</p>
-        </div>
-        <div class="insight-card">
-          <i data-lucide="utensils"></i>
-          <h3>飲食選擇</h3>
-          <p class="story-paragraph" style="font-size:0.9rem;">減少食物浪費、優先在地食材，每一餐都有影響力。</p>
+          <i data-lucide="tractor"></i>
+          <h3>農場碳計算</h3>
+          <p class="story-paragraph" style="font-size:0.9rem;">量化農業碳排，找到減量熱點，讓永續農業有數據可循。</p>
         </div>
         <div class="insight-card">
           <i data-lucide="home"></i>
-          <h3>居住能耗</h3>
-          <p class="story-paragraph" style="font-size:0.9rem;">節電、自然通風、綠植擺設，打造低碳家園。</p>
+          <h3>家庭植栽</h3>
+          <p class="story-paragraph" style="font-size:0.9rem;">陽台、客廳、屋頂 — 用綠美化打造低碳生活空間。</p>
+        </div>
+        <div class="insight-card">
+          <i data-lucide="graduation-cap"></i>
+          <h3>環境教育</h3>
+          <p class="story-paragraph" style="font-size:0.9rem;">將永續觀念轉化為教案與體驗，讓改變從認識開始。</p>
         </div>
       </div>
       <p class="story-paragraph" style="margin-top: 24px; max-width: 780px;">
-        環境並不只存在於制度與企業中，而是在日常生活的每一個選擇裡。透過簡單的工具與提案，我們可以重新理解這些行為背後的碳足跡，並找到更輕盈的生活路徑。
+        環境行動不只有一種形式。從農場端的碳足跡計算與減量策略，到家庭空間的植栽綠美化，再到環境教育的知識傳遞 — 這三個環節彼此串聯，形成一個完整的綠色生活循環。以下每個主題都是一個入口，邀請你深入了解並開始行動。
       </p>
     </div>
 
-    <!-- 碳排放簡易試算卡片 (與綠色顧問卡片風格對齊) -->
+    <!-- 三大主題循環區塊 (農場碳、家庭植栽、環境教育) -->
+    <div class="cycle-grid">
+      <a href="lifestyle-farm.html" class="cycle-card">
+        <div class="cycle-icon">
+          <i data-lucide="bar-chart-3"></i>
+        </div>
+        <h3>農場碳計算與減量</h3>
+        <p>從土壤碳匯到農機碳排放，量化農業碳足跡，找出最具效益的減碳熱點。提供碳計算工具與減量策略建議。</p>
+        <span class="cycle-badge">深入了解 →</span>
+      </a>
+      <a href="lifestyle-home.html" class="cycle-card">
+        <div class="cycle-icon">
+          <i data-lucide="leaf"></i>
+        </div>
+        <h3>家庭植栽綠美化</h3>
+        <p>陽台植栽、室內觀葉、垂直綠牆 — 用植物改善空氣品質、調節微氣候，同時記錄植物的固碳貢獻。</p>
+        <span class="cycle-badge">深入了解 →</span>
+      </a>
+      <a href="lifestyle-education.html" class="cycle-card">
+        <div class="cycle-icon">
+          <i data-lucide="graduation-cap"></i>
+        </div>
+        <h3>環境教育提案</h3>
+        <p>將碳知識轉化為教案、工作坊與體驗活動，讓學生與社區居民在實作中理解永續價值。</p>
+        <span class="cycle-badge">深入了解 →</span>
+      </a>
+    </div>
+
+    <!-- 碳排放簡易試算卡片 (原有) -->
     <div class="service-card">
       <div class="card-header">
         <i data-lucide="calculator"></i>
-        <a href="https://gw-yxjx.onrender.com/" class="card-link" target="_blank"><h3>植栽固碳簡易試算</h3></a>
+        <h3>植栽固碳簡易試算</h3>
       </div>
       <p class="story-paragraph">以下數據為屋頂植栽數量與固碳貢獻</p>
       <div class="iframe-wrapper">
         <iframe src="https://gw-yxjx.onrender.com/show.html" title="植栽簡易固碳試算" loading="lazy"></iframe>
       </div>
-      <div class="iframe-note"> 每一天的養護，都在增加對地球的貢獻
-
-，基於學理自主計算結果未經驗證，
-
-數據基礎：參考農業試驗所植物固碳係數基算，
-
-生物質碳匯估算(不確定度 ±20%)，
-      本試算為簡化估算，用於理解屋頂植栽固碳貢獻實際數值。
+      <div class="iframe-note">
+        每一天的養護，都在增加對地球的貢獻。基於學理自主計算結果未經驗證，數據基礎：參考農業試驗所植物固碳係數基算，生物質碳匯估算(不確定度 ±20%)。本試算為簡化估算，用於理解屋頂植栽固碳貢獻實際數值。
       </div>
     </div>
 
@@ -571,7 +687,6 @@
           <p>夏季每月可省下6~8%用電，年減約 40kgCO₂e。</p>
         </div>
       </div>
-      
     </div>
 
     <!-- 延伸：綠色顧問服務連結 -->
@@ -583,7 +698,8 @@
       <p class="story-paragraph">
         如果希望將減碳概念應用於辦公空間、社區或商業場域，蕨積提供專業顧問服務，協助規劃植生牆、碳盤查與永續設計。
       </p>
-      <a href="consulting.html" class="card-link">回到綠色顧問總覽 →</a>   <a href="contact.html" class="card-link">預約免費諮詢 →</a>
+      <a href="consulting.html" class="card-link">回到綠色顧問總覽 →</a>
+      <a href="contact.html" class="card-link">預約免費諮詢 →</a>
     </div>
 
     <div class="footnote">
@@ -603,7 +719,6 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // 載入共用導覽列 nav.html
       fetch('nav.html')
         .then(response => response.text())
         .then(data => {
@@ -637,7 +752,6 @@
             });
           });
         }
-        // 行動版下拉選單折疊邏輯
         if (menu) {
           const mobileParents = menu.querySelectorAll('.mobile-parent');
           mobileParents.forEach(parent => {
