@@ -1,0 +1,269 @@
+<!-- ========== 共用導覽列元件 nav.html ========== -->
+<nav id="mainNav">
+  <a href="https://www.fernbrom.com/index.html" class="logo">
+    <div class="logo-mark"><img src="logo.png" alt="蕨積"></div>
+    <div class="logo-text">蕨積<span>FernBrom</span></div>
+  </a>
+  <ul class="nav-links">
+    <!-- 植物選品 -->
+    <li class="has-dropdown" id="nav-plant">
+      <a href="all.html">植物選品</a>
+      <ul class="dropdown" id="dropdown-plant">
+        <li><a href="fern.html">蕨類</a></li>
+        <li><a href="brom.html">積水鳳梨</a></li>
+        <li><a href="otherplant.html">其他植物</a></li>
+        <li><a href="myphoto.html">屋頂植物相簿</a></li>
+      </ul>
+    </li>
+    <!-- 綠色顧問 -->
+    <li class="has-dropdown" id="nav-green">
+      <a href="consult.html">綠色顧問</a>
+      <ul class="dropdown" id="dropdown-green">
+        <li><a href="consulting.html">綠色顧問總覽</a></li>
+        <li><a href="ghg.html">溫室氣體盤查</a></li>
+        <li><a href="greenwall.html">植生牆綠化</a></li>
+        <li><a href="lifestyle.html">生活提案</a></li>
+      </ul>
+    </li>
+    <!-- 蕨望筆記 -->
+    <li class="has-dropdown" id="nav-note">
+      <a href="fbnote.html">蕨望筆記</a> 
+      <ul class="dropdown" id="dropdown-note">
+        <li><a href="daily-post/index.html">每日文章</a></li>
+        <li><a href="note.html">生活隨筆</a></li>
+        <li><a href="forever.html">永續淨零</a></li>
+        <li><a href="greenlab.html">綠色實驗室</a></li>
+      </ul>
+    </li>
+    <li><a href="about.html">關於蕨積</a></li>
+    <li><a href="contact.html" class="nav-contact">聯絡我們</a></li>
+    <!-- 購物車圖示（純連結，無數字） -->
+    <li class="cart-nav-item">
+      <a href="cart.html" class="cart-icon-wrapper">
+        <span class="cart-icon">🛒</span>
+      </a>
+    </li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="開啟選單"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- 行動選單結構（手機版） -->
+<!-- 行動選單結構（手機版 - 修正版） -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <!-- 植物選品 -->
+    <li>
+      <div class="mobile-parent" data-target="sub-plant">
+        植物選品
+        <span class="mobile-caret" id="caret-sub-plant">▼</span>
+      </div>
+      <ul class="mobile-sub" id="sub-plant">
+        <li><a href="fern.html" class="mobile-link">蕨類</a></li>
+        <li><a href="brom.html" class="mobile-link">積水鳳梨</a></li>
+        <li><a href="otherplant.html" class="mobile-link">其他植物</a></li>
+        <li><a href="myphoto.html" class="mobile-link">屋頂植物相簿</a></li>
+      </ul>
+    </li>
+    <!-- 綠色顧問 -->
+    <li>
+      <div class="mobile-parent" data-target="sub-green">
+        綠色顧問
+        <span class="mobile-caret" id="caret-sub-green">▼</span>
+      </div>
+      <ul class="mobile-sub" id="sub-green">
+        <li><a href="consulting.html" class="mobile-link">綠色顧問總覽</a></li>
+        <li><a href="ghg.html" class="mobile-link">溫室氣體盤查</a></li>
+        <li><a href="greenwall.html" class="mobile-link">植生牆綠化</a></li>
+        <li><a href="lifestyle.html" class="mobile-link">生活提案</a></li>
+      </ul>
+    </li>
+    <!-- 蕨望筆記 -->
+    <li>
+      <div class="mobile-parent" data-target="sub-note">
+        蕨望筆記
+        <span class="mobile-caret" id="caret-sub-note">▼</span>
+      </div>
+      <ul class="mobile-sub" id="sub-note">
+        <li><a href="daily-post/index.html" class="mobile-link">每日文章</a></li>
+        <li><a href="note.html" class="mobile-link">生活隨筆</a></li>
+        <li><a href="forever.html" class="mobile-link">永續淨零</a></li>
+        <li><a href="greenlab.html" class="mobile-link">綠色實驗室</a></li>
+      </ul>
+    </li>
+    <!-- 一般頁面 -->
+    <li><a href="about.html" class="mobile-link">關於蕨積</a></li>
+    <li><a href="contact.html" class="mobile-link">聯絡我們</a></li>
+    <!-- 購物車（獨立一項） -->
+    <li class="mobile-cart-item">
+      <a href="cart.html" class="mobile-link cart-mobile-link">
+        <span>🛒 購物車</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- ========= 購物車相關樣式（無數字版本） ========= -->
+<style>
+  .cart-nav-item {
+    margin-left: 0.25rem;
+  }
+  
+  .cart-icon-wrapper {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 40px;
+    background: rgba(90,122,74,0.08);
+    transition: all 0.2s ease;
+  }
+  
+  .cart-icon-wrapper:hover {
+    background: rgba(90,122,74,0.15);
+  }
+  
+  .cart-icon {
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+  
+  .mobile-cart-item {
+    margin-top: 12px;
+    border-top: 1px solid rgba(90,122,74,0.15);
+    padding-top: 12px;
+  }
+  
+  .cart-mobile-link {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background: rgba(90,122,74,0.08);
+    border-radius: 40px;
+    padding: 12px 16px !important;
+    font-weight: 500;
+  }
+  
+  @media (max-width: 768px) {
+    .cart-nav-item {
+      display: none;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .mobile-cart-item {
+      display: none;
+    }
+  }
+  
+</style>
+
+<!-- ========= 改善下拉選單消失問題的 JavaScript ========= -->
+<script>
+  (function() {
+    function initDropdownFix() {
+      if (window.innerWidth <= 768) return;
+      
+      const dropdownItems = document.querySelectorAll('.has-dropdown');
+      
+      dropdownItems.forEach(item => {
+        const dropdown = item.querySelector('.dropdown');
+        if (!dropdown) return;
+        
+        let hideTimeout = null;
+        let isMouseOnItem = false;
+        let isMouseOnDropdown = false;
+        
+        item.addEventListener('mouseenter', function() {
+          isMouseOnItem = true;
+          if (hideTimeout) {
+            clearTimeout(hideTimeout);
+            hideTimeout = null;
+          }
+          dropdown.style.display = 'block';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+          isMouseOnItem = false;
+          hideTimeout = setTimeout(function() {
+            if (!isMouseOnDropdown) {
+              dropdown.style.display = 'none';
+            }
+          }, 480);
+        });
+        
+        dropdown.addEventListener('mouseenter', function() {
+          isMouseOnDropdown = true;
+          if (hideTimeout) {
+            clearTimeout(hideTimeout);
+            hideTimeout = null;
+          }
+          dropdown.style.display = 'block';
+        });
+        
+        dropdown.addEventListener('mouseleave', function() {
+          isMouseOnDropdown = false;
+          if (!isMouseOnItem) {
+            dropdown.style.display = 'none';
+          }
+        });
+      });
+    }
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDropdownFix);
+    } else {
+      initDropdownFix();
+    }
+    
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768) {
+        initDropdownFix();
+      }
+    });
+  })();
+</script>
+
+<!-- ========= 原有 CSS 緩衝區樣式 ========= -->
+<style>
+  @media (min-width: 769px) {
+    .has-dropdown {
+      position: relative;
+    }
+    
+    .has-dropdown > .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 180px;
+      background: white;
+      border: 1px solid #ddd;
+      border-top: 2px solid var(--fern, #5a7a4a);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 1000;
+      display: none;
+      padding: 8px 0;
+    }
+    
+    .has-dropdown::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      background: transparent;
+      z-index: 1001;
+    }
+    
+    .has-dropdown > .dropdown {
+      margin-top: 0;
+      top: calc(100% - 5px);
+    }
+    
+    .has-dropdown:hover > .dropdown,
+    .has-dropdown > .dropdown:hover {
+      display: block;
+    }
+  }
+</style>
