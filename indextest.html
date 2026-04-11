@@ -755,5 +755,73 @@
       reveals.forEach(el => observer.observe(el));
     });
   </script>
+  <!-- 浮動客服按鈕 (直接寫在 index.html) -->
+<script>
+  (function() {
+    // 防止重複載入
+    if (document.getElementById('floating-chat-style')) return;
+    
+    // 加入 CSS
+    const style = document.createElement('style');
+    style.id = 'floating-chat-style';
+    style.textContent = `
+      .chat-float-btn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #3d5a38 0%, #5a7a4a 100%);
+        border-radius: 50%;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+        cursor: pointer;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+      .chat-float-btn:hover {
+        transform: scale(1.1);
+      }
+      .chat-float-icon {
+        font-size: 28px;
+        animation: gentleBounce 1.5s ease infinite;
+      }
+      @keyframes gentleBounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+      }
+      @media (max-width: 768px) {
+        .chat-float-btn {
+          width: 50px;
+          height: 50px;
+          bottom: 20px;
+          right: 20px;
+        }
+        .chat-float-icon { font-size: 24px; }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // 建立按鈕
+    const btn = document.createElement('div');
+    btn.className = 'chat-float-btn';
+    btn.innerHTML = '<span class="chat-float-icon">🌿</span>';
+    btn.onclick = function() {
+      const isLINE = /LINE/.test(navigator.userAgent);
+      if (isLINE) {
+        window.location.href = 'https://www.fernbrom.com/webchat.html';
+      } else {
+        if (confirm('建議使用 LINE App 開啟\n\n確定要在瀏覽器中開啟嗎？')) {
+          window.open('https://www.fernbrom.com/webchat.html', '_blank');
+        }
+      }
+    };
+    document.body.appendChild(btn);
+    
+    console.log('🌿 浮動按鈕已加入');
+  })();
+</script>
 </body>
 </html>
