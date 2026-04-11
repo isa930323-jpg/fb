@@ -207,11 +207,6 @@
       font-size: 1.1rem;
     }
 
-    .chat-actions {
-      display: flex;
-      gap: 8px;
-    }
-
     .chat-btn {
       background: rgba(255, 255, 255, 0.2);
       border: none;
@@ -519,13 +514,53 @@
       display: block;
     }
 
-    @media (max-width: 768px) {
+    /* ===== 小螢幕優化 ===== */
+    @media (max-width: 600px) {
+      .chat-section {
+        padding: 0 12px 20px;
+      }
+      
+      .chat-messages {
+        height: 380px;
+      }
+      
+      .input-row {
+        flex-wrap: wrap;
+      }
+      
+      .chat-input {
+        min-width: 100%;
+        order: 1;
+      }
+      
+      .action-buttons {
+        order: 2;
+        justify-content: flex-end;
+        width: 100%;
+        margin-top: 8px;
+      }
+      
+      .icon-btn {
+        width: 36px;
+        height: 36px;
+      }
+      
+      .send-button {
+        padding: 8px 20px;
+      }
+      
+      .chat-btn {
+        padding: 4px 10px;
+        font-size: 0.7rem;
+      }
+      
+      .chat-title {
+        font-size: 0.9rem;
+      }
+      
       .history-sidebar {
         width: 100%;
         left: -100%;
-      }
-      .chat-messages {
-        height: 400px;
       }
     }
 
@@ -611,10 +646,7 @@
             <span>🌿</span>
             <span>蕨積 AI 助手</span>
           </div>
-          <div class="chat-actions">
-            <button class="chat-btn" id="historyBtn">📋 記錄</button>
-            <button class="chat-btn" id="logoutBtn">🚪 登出</button>
-          </div>
+          <button class="chat-btn" id="historyBtn">📋 記錄</button>
         </div>
 
         <div class="chat-messages" id="messages">
@@ -634,6 +666,7 @@
             <div class="action-buttons">
               <button class="icon-btn" id="voiceBtn" title="語音輸入">🎤</button>
               <button class="icon-btn" id="imageBtn" title="上傳圖片">📷</button>
+              <button class="icon-btn" id="logoutBtn" title="登出">🚪</button>
               <button class="send-button" id="sendBtn" disabled>發送</button>
             </div>
           </div>
@@ -664,11 +697,6 @@
     let isWaiting = false;
     let pollInterval = null;
     let currentImage = null;
-    let mediaRecorder = null;
-    let audioChunks = [];
-    let isRecording = false;
-    
-    // 對話歷史記錄
     let chatHistory = [];
     
     // ========== DOM 元素 ==========
@@ -721,13 +749,11 @@
       return messageDiv;
     }
     
-    // 儲存對話歷史到 localStorage
     function saveHistory() {
       localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
       renderHistory();
     }
     
-    // 載入對話歷史
     function loadHistory() {
       const saved = localStorage.getItem('chatHistory');
       if (saved) {
@@ -736,7 +762,6 @@
       }
     }
     
-    // 渲染歷史記錄
     function renderHistory() {
       if (!historyList) return;
       if (chatHistory.length === 0) {
@@ -745,7 +770,7 @@
       }
       
       historyList.innerHTML = '';
-      chatHistory.slice().reverse().forEach((item, idx) => {
+      chatHistory.slice().reverse().forEach((item) => {
         const div = document.createElement('div');
         div.className = 'history-item';
         div.innerHTML = `
@@ -766,7 +791,6 @@
       return div.innerHTML;
     }
     
-    // 新增對話到歷史
     function addToHistory(question, answer) {
       const now = new Date();
       const timeStr = `${now.getMonth()+1}/${now.getDate()} ${now.getHours()}:${now.getMinutes().toString().padStart(2,'0')}`;
@@ -776,12 +800,10 @@
         time: timeStr,
         timestamp: now.getTime()
       });
-      // 保留最近50筆
       if (chatHistory.length > 50) chatHistory.pop();
       saveHistory();
     }
     
-    // 清除歷史
     function clearHistory() {
       if (confirm('確定要清除所有對話記錄嗎？')) {
         chatHistory = [];
@@ -790,7 +812,6 @@
       }
     }
     
-    // 打開/關閉歷史記錄
     function openHistoryPanel() {
       historySidebar.classList.add('open');
       historyOverlay.classList.add('open');
@@ -801,26 +822,20 @@
       historyOverlay.classList.remove('open');
     }
     
-    // 圖片上傳處理
     function handleImageUpload(file) {
       if (!file) return;
       const reader = new FileReader();
       reader.onload = function(e) {
         currentImage = e.target.result;
         previewImg.src = currentImage;
-        previewImg.style.display = 'block';
         document.getElementById('previewText').innerText = file.name;
         imagePreview.classList.add('active');
       };
       reader.readAsDataURL(file);
     }
     
-    // 上傳圖片到後端並發送
     async function sendImage(imageBase64) {
-      if (!lineUserId) {
-        alert('請先登入 LINE');
-        return false;
-      }
+      if (!lineUserId) return false;
       
       isWaiting = true;
       sendBtn.disabled = true;
@@ -848,7 +863,7 @@
         sendBtn.disabled = false;
         return true;
       } catch (error) {
-        console.error('圖片上傳錯誤:', error);
+        console.error(error);
         const tempMsg = document.getElementById('temp-message');
         if (tempMsg) tempMsg.remove();
         addMessage('網路錯誤，請稍後再試', 'bot');
@@ -858,8 +873,7 @@
       }
     }
     
-    // 語音輸入
-    async function startVoiceInput() {
+    function startVoiceInput() {
       if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
         addSystemMessage('您的瀏覽器不支援語音輸入', true);
         return;
@@ -881,12 +895,10 @@
         inputEl.value = transcript;
         voiceBtn.classList.remove('recording');
         voiceBtn.innerHTML = '🎤';
-        // 自動發送
         sendMessage();
       };
       
-      recognition.onerror = (event) => {
-        console.error('語音錯誤:', event.error);
+      recognition.onerror = () => {
         voiceBtn.classList.remove('recording');
         voiceBtn.innerHTML = '🎤';
         addSystemMessage('語音辨識失敗，請手動輸入', true);
@@ -898,7 +910,6 @@
       };
     }
     
-    // ========== 輪詢取得 AI 回覆 ==========
     function startPolling() {
       if (pollInterval) clearInterval(pollInterval);
       pollInterval = setInterval(async () => {
@@ -919,7 +930,6 @@
       }, 1500);
     }
     
-    // ========== 送出訊息 ==========
     async function sendMessage() {
       if (!lineUserId) {
         alert('請先登入 LINE');
@@ -929,7 +939,6 @@
       const message = inputEl.value.trim();
       if ((!message && !currentImage) || isWaiting) return;
       
-      // 如果有圖片，先處理圖片
       if (currentImage) {
         const imageCopy = currentImage;
         currentImage = null;
@@ -963,7 +972,6 @@
           isWaiting = false;
           sendBtn.disabled = false;
         }
-        // 成功時保留 thinking，等輪詢回覆
       } catch (err) {
         console.error(err);
         const tempMsg = document.getElementById('temp-message');
@@ -974,7 +982,6 @@
       }
     }
     
-    // ========== LIFF 初始化 ==========
     async function initLIFF() {
       try {
         await liff.init({ liffId: LIFF_ID });
@@ -1037,7 +1044,6 @@
       }
     }
     
-    // ========== 導覽列初始化 ==========
     function initNav() {
       const btn = document.getElementById('hamburger');
       const menu = document.getElementById('mobileMenu');
@@ -1054,7 +1060,7 @@
       if (typeof lucide !== 'undefined') lucide.createIcons();
     }
     
-    // ========== 載入導覽列 ==========
+    // ========== 事件綁定 ==========
     document.addEventListener('DOMContentLoaded', function() {
       fetch('nav.html')
         .then(response => response.text())
@@ -1071,7 +1077,6 @@
           initNav();
         });
       
-      // 綁定事件
       sendBtn.addEventListener('click', sendMessage);
       inputEl.addEventListener('keypress', (e) => {
         if (e.key === 'Enter' && !inputEl.disabled) sendMessage();
