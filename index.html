@@ -649,6 +649,89 @@
     console.log('🤖 AI 智能客服按鈕已加入');
   })();
 </script>
-  
+  <!-- 浮動客服按鈕 (圖片版本) -->
+<script>
+  (function() {
+    if (document.getElementById('floating-chat-style')) return;
+    
+    const style = document.createElement('style');
+    style.id = 'floating-chat-style';
+    style.textContent = `
+      .chat-float-img {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        cursor: pointer;
+        z-index: 9999;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .chat-float-img:hover {
+        transform: scale(1.05);
+      }
+      .chat-float-img img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+        object-fit: cover;
+      }
+      .chat-label {
+        margin-top: 8px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #5a7a4a;
+        background: white;
+        padding: 4px 10px;
+        border-radius: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .chat-float-img:hover .chat-label {
+        opacity: 1;
+      }
+      @media (max-width: 768px) {
+        .chat-float-img {
+          bottom: 20px;
+          right: 20px;
+        }
+        .chat-float-img img {
+          width: 50px;
+          height: 50px;
+        }
+        .chat-label {
+          font-size: 10px;
+          padding: 3px 8px;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // 建立按鈕容器
+    const btn = document.createElement('div');
+    btn.className = 'chat-float-img';
+    btn.innerHTML = `
+      <img src="https://www.fernbrom.com/images/chat-icon.png" alt="AI 智能客服">
+      <span class="chat-label">🌿 AI 智能客服</span>
+    `;
+    btn.onclick = function() {
+      const isLINE = /LINE/.test(navigator.userAgent);
+      if (isLINE) {
+        window.location.href = 'https://www.fernbrom.com/webchat.html';
+      } else {
+        if (confirm('建議使用 LINE App 開啟以獲得完整體驗\n\n確定要在瀏覽器中開啟嗎？')) {
+          window.open('https://www.fernbrom.com/webchat.html', '_blank');
+        }
+      }
+    };
+    document.body.appendChild(btn);
+    
+    console.log('🌿 圖片客服按鈕已加入');
+  })();
+</script>
 </body>
 </html>
