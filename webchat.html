@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>蕨積 — 植物 x 工程 x 碳生活</title>
-  <meta name="description" content="蕨積 AI 助手 — 植物問題、天氣查詢、圖片識別、語音輸入">
+  <meta name="description" content="蕨積 AI 助手 — 植物問題、天氣查詢、專業顧問">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -307,15 +307,7 @@
       border: 1px solid #e0d6c5;
     }
 
-    .message-image {
-      max-width: 200px;
-      max-height: 200px;
-      border-radius: 12px;
-      margin-top: 8px;
-      cursor: pointer;
-    }
-
-    /* 輸入區域 - 所有按鈕在同一行 */
+    /* 輸入區域 */
     .chat-input-area {
       display: flex;
       flex-direction: column;
@@ -352,25 +344,6 @@
       flex-wrap: wrap;
     }
 
-    .icon-btn {
-      background: none;
-      border: 1px solid #ddd0bc;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-      color: var(--stone);
-    }
-    .icon-btn:hover {
-      background: var(--mist);
-      border-color: var(--fern);
-      color: var(--fern);
-    }
-
     .send-button {
       padding: 10px 24px;
       background: linear-gradient(135deg, var(--moss) 0%, var(--fern) 100%);
@@ -387,7 +360,7 @@
       cursor: not-allowed;
     }
 
-    /* 底部功能按鈕 - 與發送同一行 */
+    /* 底部功能按鈕 */
     .bottom-btn {
       background: none;
       border: 1px solid #ddd0bc;
@@ -405,40 +378,6 @@
       background: var(--mist);
       border-color: var(--fern);
       color: var(--fern);
-    }
-
-    /* 圖片預覽 */
-    .image-preview {
-      display: none;
-      padding: 10px;
-      background: var(--mist);
-      border-radius: 12px;
-      align-items: center;
-      gap: 10px;
-    }
-    .image-preview.active { display: flex; }
-    .preview-img {
-      width: 50px;
-      height: 50px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    .preview-remove {
-      background: none;
-      border: none;
-      color: var(--stone);
-      cursor: pointer;
-      font-size: 18px;
-    }
-
-    .recording {
-      animation: pulse 1s infinite;
-      background: var(--fern);
-      color: white;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
     }
 
     .system-message {
@@ -618,27 +557,19 @@
       <div class="chat-container">
         <div class="chat-messages" id="messages">
           <div class="message bot">
-            <div class="message-content">嗨！我是蕨積 🌿<br>可以問我植物問題、查天氣、上傳圖片或使用語音輸入～</div>
+            <div class="message-content">嗨！我是蕨積AI 🌿<br>輸入問題看AI能不能幫你～</div>
           </div>
         </div>
 
         <div class="chat-input-area">
-          <div class="image-preview" id="imagePreview">
-            <img class="preview-img" id="previewImg">
-            <span id="previewText"></span>
-            <button class="preview-remove" id="removeImage">✕</button>
-          </div>
           <div class="input-row">
             <input type="text" class="chat-input" id="input" placeholder="輸入訊息..." disabled>
             <div class="action-buttons">
-              <button class="icon-btn" id="voiceBtn" title="語音輸入">🎤</button>
-              <button class="icon-btn" id="imageBtn" title="上傳圖片">📷</button>
-              <button class="bottom-btn" id="historyBtn" title="對話記錄">📋</button>
-              <button class="bottom-btn" id="logoutBtn" title="登出">🚪</button>
+              <button class="bottom-btn" id="historyBtn" title="對話記錄">📋 記錄</button>
+              <button class="bottom-btn" id="logoutBtn" title="登出">🚪 登出</button>
               <button class="send-button" id="sendBtn" disabled>發送</button>
             </div>
           </div>
-          <input type="file" id="fileInput" accept="image/*" style="display: none;">
         </div>
       </div>
     </div>
@@ -664,7 +595,6 @@
     let lineUserId = null;
     let isWaiting = false;
     let pollInterval = null;
-    let currentImage = null;
     let chatHistory = [];
     
     // ========== DOM 元素 ==========
@@ -672,12 +602,6 @@
     const inputEl = document.getElementById('input');
     const sendBtn = document.getElementById('sendBtn');
     const logoutBtn = document.getElementById('logoutBtn');
-    const voiceBtn = document.getElementById('voiceBtn');
-    const imageBtn = document.getElementById('imageBtn');
-    const fileInput = document.getElementById('fileInput');
-    const imagePreview = document.getElementById('imagePreview');
-    const previewImg = document.getElementById('previewImg');
-    const removeImage = document.getElementById('removeImage');
     const historyBtn = document.getElementById('historyBtn');
     const historySidebar = document.getElementById('historySidebar');
     const historyOverlay = document.getElementById('historyOverlay');
@@ -695,21 +619,13 @@
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
     
-    function addMessage(text, sender, isTemp = false, imageUrl = null) {
+    function addMessage(text, sender, isTemp = false) {
       const messageDiv = document.createElement('div');
       messageDiv.className = `message ${sender}`;
       const contentDiv = document.createElement('div');
       contentDiv.className = 'message-content';
       contentDiv.innerHTML = text.replace(/\n/g, '<br>');
       messageDiv.appendChild(contentDiv);
-      
-      if (imageUrl) {
-        const img = document.createElement('img');
-        img.src = imageUrl;
-        img.className = 'message-image';
-        img.onclick = () => window.open(imageUrl, '_blank');
-        messageDiv.appendChild(img);
-      }
       
       if (isTemp) messageDiv.id = 'temp-message';
       messagesDiv.appendChild(messageDiv);
@@ -790,94 +706,6 @@
       historyOverlay.classList.remove('open');
     }
     
-    function handleImageUpload(file) {
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        currentImage = e.target.result;
-        previewImg.src = currentImage;
-        document.getElementById('previewText').innerText = file.name;
-        imagePreview.classList.add('active');
-      };
-      reader.readAsDataURL(file);
-    }
-    
-    async function sendImage(imageBase64) {
-      if (!lineUserId) return false;
-      
-      isWaiting = true;
-      sendBtn.disabled = true;
-      addMessage('📷 正在識別圖片...', 'bot', true);
-      
-      try {
-        const response = await fetch(`${API_BASE}/webchat/vision`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ user_id: lineUserId, image: imageBase64 })
-        });
-        const data = await response.json();
-        
-        const tempMsg = document.getElementById('temp-message');
-        if (tempMsg) tempMsg.remove();
-        
-        if (data.success) {
-          addMessage(data.reply, 'bot');
-          addToHistory('[圖片識別]', data.reply);
-        } else {
-          addMessage('圖片識別失敗：' + (data.error || '請稍後再試'), 'bot');
-        }
-        
-        isWaiting = false;
-        sendBtn.disabled = false;
-        return true;
-      } catch (error) {
-        console.error(error);
-        const tempMsg = document.getElementById('temp-message');
-        if (tempMsg) tempMsg.remove();
-        addMessage('網路錯誤，請稍後再試', 'bot');
-        isWaiting = false;
-        sendBtn.disabled = false;
-        return false;
-      }
-    }
-    
-    function startVoiceInput() {
-      if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
-        addSystemMessage('您的瀏覽器不支援語音輸入', true);
-        return;
-      }
-      
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
-      recognition.lang = 'zh-TW';
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      
-      voiceBtn.classList.add('recording');
-      voiceBtn.innerHTML = '⏹️';
-      
-      recognition.start();
-      
-      recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        inputEl.value = transcript;
-        voiceBtn.classList.remove('recording');
-        voiceBtn.innerHTML = '🎤';
-        sendMessage();
-      };
-      
-      recognition.onerror = () => {
-        voiceBtn.classList.remove('recording');
-        voiceBtn.innerHTML = '🎤';
-        addSystemMessage('語音辨識失敗，請手動輸入', true);
-      };
-      
-      recognition.onend = () => {
-        voiceBtn.classList.remove('recording');
-        voiceBtn.innerHTML = '🎤';
-      };
-    }
-    
     function startPolling() {
       if (pollInterval) clearInterval(pollInterval);
       
@@ -901,7 +729,6 @@
       }, 1500);
     }
     
-    // ========== 修正後的 sendMessage ==========
     async function sendMessage() {
       if (!lineUserId) {
         alert('請先登入 LINE');
@@ -909,18 +736,7 @@
       }
       
       const message = inputEl.value.trim();
-      if ((!message && !currentImage) || isWaiting) return;
-      
-      if (currentImage) {
-        const imageCopy = currentImage;
-        currentImage = null;
-        imagePreview.classList.remove('active');
-        await sendImage(imageCopy);
-        inputEl.value = '';
-        return;
-      }
-      
-      if (!message) return;
+      if (!message || isWaiting) return;
       
       addMessage(message, 'user');
       addToHistory(message, '');
@@ -945,7 +761,6 @@
           isWaiting = false;
           sendBtn.disabled = false;
         }
-        // 成功時不做任何事，等待輪詢處理回覆
       } catch (err) {
         console.error(err);
         const tempMsg = document.getElementById('temp-message');
@@ -1092,18 +907,6 @@
         if (e.key === 'Enter' && !inputEl.disabled) sendMessage();
       });
       logoutBtn.addEventListener('click', handleLogout);
-      voiceBtn.addEventListener('click', startVoiceInput);
-      imageBtn.addEventListener('click', () => fileInput.click());
-      fileInput.addEventListener('change', (e) => {
-        if (e.target.files && e.target.files[0]) {
-          handleImageUpload(e.target.files[0]);
-        }
-        fileInput.value = '';
-      });
-      removeImage.addEventListener('click', () => {
-        currentImage = null;
-        imagePreview.classList.remove('active');
-      });
       historyBtn.addEventListener('click', openHistoryPanel);
       closeHistory.addEventListener('click', closeHistoryPanel);
       historyOverlay.addEventListener('click', closeHistoryPanel);
