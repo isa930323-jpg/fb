@@ -755,8 +755,7 @@
       reveals.forEach(el => observer.observe(el));
     });
   </script>
- 
-<!-- 浮動客服按鈕 -->
+ <!-- 浮動客服按鈕 (圖片版) -->
 <script>
   (function() {
     if (document.getElementById('floating-chat-style')) return;
@@ -764,59 +763,53 @@
     const style = document.createElement('style');
     style.id = 'floating-chat-style';
     style.textContent = `
-      .chat-float-btn {
+      .chat-float-img {
         position: fixed;
         bottom: 30px;
         right: 30px;
-        padding: 12px 20px;
-        width: auto;
-        min-width: 120px;
-        height: auto;
-        background: linear-gradient(135deg, #3d5a38 0%, #5a7a4a 100%);
-        border-radius: 40px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
         cursor: pointer;
         z-index: 9999;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
         transition: all 0.3s ease;
-        font-family: 'Noto Sans TC', sans-serif;
       }
-      .chat-float-btn:hover {
-        transform: scale(1.05);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      .chat-float-img:hover { transform: scale(1.05); }
+      .chat-float-img img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+        object-fit: cover;
       }
-      .chat-float-text {
-        font-size: 16px;
+      .chat-label {
+        margin-top: 8px;
+        font-size: 12px;
         font-weight: 500;
-        color: white;
+        color: #5a7a4a;
+        background: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.3s ease;
       }
-      @keyframes gentleBounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-3px); }
-      }
-      .chat-float-btn {
-        animation: gentleBounce 1.5s ease infinite;
-      }
+      .chat-float-img:hover .chat-label { opacity: 1; }
       @media (max-width: 768px) {
-        .chat-float-btn {
-          padding: 8px 16px;
-          bottom: 20px;
-          right: 20px;
-          min-width: 100px;
-        }
-        .chat-float-text {
-          font-size: 14px;
-        }
+        .chat-float-img { bottom: 20px; right: 20px; }
+        .chat-float-img img { width: 50px; height: 50px; }
+        .chat-label { font-size: 10px; padding: 3px 10px; }
       }
     `;
     document.head.appendChild(style);
     
     const btn = document.createElement('div');
-    btn.className = 'chat-float-btn';
-    btn.innerHTML = '<span class="chat-float-text">🤖 AI 智能客服</span>';
+    btn.className = 'chat-float-img';
+    btn.innerHTML = `
+      <img src="/chat-icon.png" alt="AI 智能客服" onerror="this.style.display='none'; this.nextSibling.style.display='block'">
+      <span class="chat-label" style="display: none;">🌿 AI 智能客服</span>
+    `;
     btn.onclick = function() {
       const isLINE = /LINE/.test(navigator.userAgent);
       if (isLINE) {
@@ -829,8 +822,9 @@
     };
     document.body.appendChild(btn);
     
-    console.log('🤖 AI 智能客服按鈕已加入');
+    console.log('🌿 圖片客服按鈕已加入');
   })();
 </script>
+
 </body>
 </html>
