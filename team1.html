@@ -269,24 +269,34 @@
       margin-bottom: 48px;
     }
 
-    .group-illustration {
+    /* 好朋友專用標題區塊 (保留原有視覺，調整後更乾淨) */
+    .friends-header-block {
       text-align: center;
-      margin-bottom: 48px;
+      margin: 32px 0 24px 0;
     }
-    .group-illustration img {
+    .friends-header-block .section-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #3d5a38;
+      letter-spacing: 0.02em;
+    }
+    .friends-header-block .hero-subhead {
+      font-size: 0.95rem;
+      color: #7f6e58;
+      max-width: 700px;
+      margin: 12px auto 0;
+      line-height: 1.5;
+    }
+    .illustration-top {
+      text-align: center;
+      margin: 20px 0 40px;
+    }
+    .illustration-top img {
       max-width: 100%;
       border-radius: 32px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.08);
       background: #dbd0bf;
-    }
-    .group-caption {
-      margin-top: 16px;
-      font-size: 0.95rem;
-      color: #6c604c;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.5;
     }
 
     .friends-grid {
@@ -507,7 +517,7 @@
   <!-- 導覽列佔位 -->
   <div id="nav-placeholder"></div>
 
-  <!-- 頁面主要內容：已塞入完整的蕨積角色介紹區塊，其他完全沒動到 -->
+  <!-- 頁面主要內容：已塞入完整的蕨積角色介紹區塊，其餘完全不變動 -->
   <main class="content">
     <div class="container">
       <!-- 標題區 -->
@@ -522,7 +532,7 @@
         <div class="character-card">
           <div class="card-layout">
             <div class="card-photo">
-              <img src="https://placehold.co/400x400/d8e6cb/4a6b3c?text=阿蕨+Fern" alt="阿蕨"
+              <img src="fern.png?text=阿蕨+Fern" alt="阿蕨"
                    onerror="this.onerror=null; this.src='https://placehold.co/400x400/c2d4b2/5a7a4a?text=蕨類·阿蕨';">
             </div>
             <div class="card-info">
@@ -551,7 +561,7 @@
         <div class="character-card">
           <div class="card-layout">
             <div class="card-photo">
-              <img src="https://placehold.co/400x400/d2e2c5/4a6b3c?text=小積+Brom" alt="小積"
+              <img src="brom.png?text=小積+Brom" alt="小積"
                    onerror="this.onerror=null; this.src='https://placehold.co/400x400/bdd2ab/5a7a4a?text=積水鳳梨·小積';">
             </div>
             <div class="card-info">
@@ -576,17 +586,19 @@
           </div>
         </div>
       </div>
- <div class="friends-section">
-      <div class="section-title">🌿 阿蕨與小積的好朋友們 🌿</div>
-      <div class="hero-subhead" style="margin-bottom: 2rem;">
-        在「蕨積綠色宇宙」裡可不是孤單的兩人組～他們有一群超有個性的植物好朋友！每個朋友都保留了真實植物特性，是辦公室的植物人，一起推廣綠色生活。
-      </div><!-- 圖片放在這裡其他完全不要更動) -->
-    <div class="illustration-top">
-      <img src="team1.png" alt="蕨積好朋友全員集合" onerror="this.onerror=null; this.src='https://placehold.co/800x500/d4e4c8/5a7a4a?text=蕨積+好朋友+插畫';">
-    </div>
- </div>
 
-      <!-- 第一排三位好朋友：小龜、虎妹、肉肉 (3欄) -->
+      <!-- ========= 調整後：好朋友標題＋插圖區（僅修改此區塊，其餘完全不變） ========= -->
+      <div class="friends-header-block">
+        <div class="section-title">🌿 阿蕨與小積的好朋友們 🌿</div>
+        <div class="hero-subhead">
+          在「蕨積綠色宇宙」裡可不是孤單的兩人組～他們有一群超有個性的植物好朋友！每個朋友都保留了真實植物特性，是辦公室的植物人，一起推廣綠色生活。
+        </div>
+      </div>
+      <div class="illustration-top">
+        <img src="team1.png" alt="蕨積好朋友全員集合" onerror="this.onerror=null; this.src='https://placehold.co/800x500/d4e4c8/5a7a4a?text=蕨積+好朋友+插畫';">
+      </div>
+
+      <!-- 第一排三位好朋友：小龜、虎妹、肉肉 (3欄) 完全保持原樣 -->
       <div class="friends-grid">
         <!-- 小龜 -->
         <div class="character-card">
@@ -635,7 +647,7 @@
         </div>
       </div>
 
-      <!-- 第二排兩位好朋友：琴哥、空空 (2欄置中) -->
+      <!-- 第二排兩位好朋友：琴哥、空空 (2欄置中) 完全保持原樣 -->
       <div class="friends-row2">
         <!-- 琴哥 -->
         <div class="character-card">
@@ -669,7 +681,7 @@
         </div>
       </div>
 
-      <!-- 辦公室日常 -->
+      <!-- 辦公室日常 (完全保持原樣) -->
       <div class="team-spirit">
         <div style="font-family:'Noto Serif TC'; font-weight:600; font-size:1.2rem; color:#4a6b3c;">🌱 蕨積辦公室日常 🌱</div>
         <div style="color: #5e5b52; margin-top: 10px;">這些好朋友們平常就在蕨積辦公室一起上班、一起光合作用、一起推廣「植物減碳」的綠色生活理念。<br>從洞洞西裝小龜到漂浮上班的空空，每個植物人都有獨一無二的綠色超能力，讓每一天充滿療癒與永續的靈感。</div>
