@@ -37,7 +37,7 @@
       flex-direction: column;
     }
 
-    /* ===== 導覽列樣式 (與nav.html一致，直接寫入) ===== */
+    /* ===== 導覽列樣式 ===== */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -159,7 +159,7 @@
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
 
-    /* 手機選單 */
+    /* 手機選單 - 修正樣式 */
     .mobile-menu {
       position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
       background: #faf7f2;
@@ -173,8 +173,24 @@
     }
     .mobile-menu.open { transform: translateX(0); visibility: visible; }
     .mobile-menu ul { list-style: none; }
+    
+    /* 一般選單項目 (關於、聯絡) */
+    .mobile-menu > ul > li > a:not(.cart-mobile-link) {
+      display: block;
+      padding: 16px 0;
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      color: var(--moss);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(90,122,74,0.1);
+    }
+    
     .mobile-parent {
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: 16px 0;
       font-family: 'Noto Serif TC', serif;
       font-weight: 600;
@@ -185,12 +201,15 @@
       border-bottom: 1px solid rgba(90,122,74,0.1);
       cursor: pointer;
     }
+    
     .mobile-caret {
       display: inline-block;
       transition: transform 0.2s;
       font-size: 0.7rem;
+      color: var(--stone);
     }
     .mobile-caret.open { transform: rotate(180deg); }
+    
     .mobile-sub {
       list-style: none;
       max-height: 0;
@@ -201,7 +220,7 @@
     .mobile-sub.open { max-height: 300px; }
     .mobile-sub li a {
       display: block;
-      padding: 10px 0;
+      padding: 12px 0;
       font-size: 0.85rem;
       color: var(--stone);
       text-decoration: none;
@@ -209,7 +228,30 @@
     }
     .mobile-sub li a:hover { color: var(--fern); }
 
-    /* 購物車樣式 */
+    /* 購物車樣式 (手機版獨立樣式修正) */
+    .mobile-cart-item {
+      margin-top: 16px;
+      border-top: 1px solid rgba(90,122,74,0.15);
+      padding-top: 16px;
+      list-style: none;
+    }
+    .cart-mobile-link {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      background: rgba(90,122,74,0.08);
+      border-radius: 48px;
+      padding: 12px 20px !important;
+      font-weight: 600;
+      color: var(--fern) !important;
+      margin-top: 4px;
+      transition: all 0.2s;
+    }
+    .cart-mobile-link:hover {
+      background: rgba(90,122,74,0.16);
+    }
+
+    /* 桌面版購物車 */
     .cart-nav-item { margin-left: 0.25rem; }
     .cart-icon-wrapper {
       display: flex;
@@ -222,20 +264,6 @@
     }
     .cart-icon-wrapper:hover { background: rgba(90,122,74,0.15); }
     .cart-icon { font-size: 1.2rem; line-height: 1; }
-    .mobile-cart-item {
-      margin-top: 12px;
-      border-top: 1px solid rgba(90,122,74,0.15);
-      padding-top: 12px;
-    }
-    .cart-mobile-link {
-      display: flex !important;
-      justify-content: space-between !important;
-      align-items: center !important;
-      background: rgba(90,122,74,0.08);
-      border-radius: 40px;
-      padding: 12px 16px !important;
-      font-weight: 500;
-    }
 
     @media (max-width: 768px) {
       .nav-links { display: none; }
@@ -246,14 +274,13 @@
       .mobile-cart-item { display: none; }
     }
 
-    /* 主要內容區塊 */
+    /* 主要內容區塊 (完全保持不動) */
     .content {
       flex: 1;
       padding-top: 92px;
       padding-bottom: 60px;
     }
 
-    /* 圖片往上擺放 */
     .illustration-top {
       max-width: 1000px;
       margin: 0 auto 1.2rem auto;
@@ -271,7 +298,6 @@
     }
     .illustration-top img:hover { transform: scale(1.01); }
 
-    /* 雙主角區塊 */
     .duo-hero {
       max-width: 1280px;
       margin: 0.5rem auto 2rem auto;
@@ -398,8 +424,6 @@
       color: var(--moss);
       margin-top: 0.8rem;
     }
-
-    /* 好朋友網格 */
     .friends-section {
       max-width: 1280px;
       margin: 2rem auto;
@@ -547,7 +571,7 @@
   </style>
 </head>
 <body>
-  <!-- 導覽列直接內嵌，不靠外部 fetch -->
+  <!-- 導覽列直接內嵌，手機版樣式已修正 -->
   <nav id="mainNav">
     <a href="https://www.fernbrom.com/index.html" class="logo">
       <div class="logo-mark"><img src="logo.png" alt="蕨積" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20fill%3D%22%235a7a4a%22%2F%3E%3C%2Fsvg%3E'"></div>
@@ -592,7 +616,7 @@
     <button class="hamburger" id="hamburger" aria-label="開啟選單"><span></span><span></span><span></span></button>
   </nav>
 
-  <!-- 手機版選單結構 -->
+  <!-- 手機版選單結構 (完整修正關於/聯絡/購物車樣式) -->
   <div class="mobile-menu" id="mobileMenu">
     <ul>
       <li>
@@ -631,20 +655,24 @@
           <li><a href="greenlab.html" class="mobile-link">綠色實驗室</a></li>
         </ul>
       </li>
+      <!-- 關於蕨積 (獨立連結，樣式正確) -->
       <li><a href="about.html" class="mobile-link">關於蕨積</a></li>
+      <!-- 聯絡我們 (獨立連結) -->
       <li><a href="contact.html" class="mobile-link">聯絡我們</a></li>
+      <!-- 購物車區塊 (獨立樣式) -->
       <li class="mobile-cart-item">
-        <a href="cart.html" class="mobile-link cart-mobile-link">
+        <a href="cart.html" class="cart-mobile-link">
           <span>🛒 購物車</span>
+          <span>→</span>
         </a>
       </li>
     </ul>
   </div>
 
   <main class="content">
-  
+    
 
-    <!-- 雙主角區塊 -->
+    <!-- 雙主角區塊 (完全保持原樣) -->
     <div class="duo-hero">
       <div class="hero-title-banner">
         <h1>蕨積宇宙 · 靈魂雙人組<br><span>阿蕨 Fern ╳ 小積 Brom</span></h1>
@@ -688,16 +716,16 @@
       </div>
     </div>
 
-    <!-- 五位好朋友 -->
+    <!-- 五位好朋友區塊 (完全保持原樣) -->
     <div class="friends-section">
       <div class="section-title">🌿 阿蕨與小積的好朋友們 🌿</div>
       <div class="hero-subhead" style="margin-bottom: 2rem;">
         在「蕨積綠色宇宙」裡可不是孤單的兩人組～他們有一群超有個性的植物好朋友！每個朋友都保留了真實植物特性，是辦公室的植物人，一起推廣綠色生活。
-      </div>
-        <!-- 圖片放在最上面 -->
+      </div><!-- 圖片放在這裡其他完全不要更動) -->
     <div class="illustration-top">
       <img src="dgZsI.png" alt="蕨積好朋友全員集合" onerror="this.onerror=null; this.src='https://placehold.co/800x500/d4e4c8/5a7a4a?text=蕨積+好朋友+插畫';">
     </div>
+      
       <div class="friends-grid">
         <div class="friend-card"><div class="card-header"><div class="friend-name">小龜</div><div class="friend-sci">Monstera</div></div><div class="card-body"><div class="personality-tag">🌿 龜背芋・洞洞西裝</div><div class="friend-desc"><strong>外型：</strong>頭上長滿可愛的大洞葉子，像穿了件「洞洞西裝」，眼睛總是好奇地眨啊眨。<br><strong>個性：</strong>超級好奇寶寶、冒險王，愛爬藤、愛探索新事物。</div><div class="friend-detail"><span class="detail-icon"><i data-lucide="map-pin"></i> 活動策劃部長</span><span class="detail-icon"><i data-lucide="compass"></i> 探索力MAX</span></div><div class="office-role">🏢 團體活動策劃部長</div></div></div>
         <div class="friend-card"><div class="card-header"><div class="friend-name">虎妹</div><div class="friend-sci">Sansevieria</div></div><div class="card-body"><div class="personality-tag">⚡ 虎尾蘭・劍葉戰士</div><div class="friend-desc"><strong>外型：</strong>頭頂直挺挺的劍狀葉，穿西裝時像女戰士，戴一副酷酷的墨鏡。<br><strong>個性：</strong>超耐操、超獨立，24小時都能「光合作用」。</div><div class="friend-detail"><span class="detail-icon"><i data-lucide="moon"></i> 夜貓子光合</span><span class="detail-icon"><i data-lucide="dumbbell"></i> 健身教練</span></div><div class="office-role">💪 夜間特訓・健身擔當</div></div></div>
@@ -720,7 +748,7 @@
 
   <script>
     (function() {
-      // 手機版選單 hamburger 控制
+      // 手機版 hamburger 控制
       const btn = document.getElementById('hamburger');
       const menu = document.getElementById('mobileMenu');
       if (btn && menu) {
@@ -729,7 +757,7 @@
           btn.classList.toggle('open');
           menu.classList.toggle('open');
         });
-        // 點擊手機選單內任何連結關閉選單
+        // 點擊手機選單內任何連結關閉選單 (包含購物車)
         menu.querySelectorAll('a, .mobile-parent').forEach(el => {
           if (el.tagName === 'A') {
             el.addEventListener('click', () => {
@@ -762,7 +790,7 @@
         });
       });
 
-      // 滾動陰影效果
+      // 滾動陰影
       window.addEventListener('scroll', () => {
         const nav = document.getElementById('mainNav');
         if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
