@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>蕨積 | 阿蕨與小積 · 植物好朋友宇宙</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --ink: #1a1a14;
+      --moss: #3d5a38;
+      --fern: #5a7a4a;
+      --sage: #8aab7a;
+      --mist: #d4e4c8;
+      --cream: #f5f0e8;
+      --stone: #9a9080;
+      --paper: #faf7f2;
+      --shadow-soft: 0 12px 28px rgba(61, 90, 56, 0.08);
+      --shadow-card: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== 導覽列樣式 (與nav.html一致，直接寫入) ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4vw; height: 72px;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(90,122,74,0.12);
+    }
+    nav.scrolled { box-shadow: 0 2px 24px rgba(61,90,56,0.10); }
+
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .logo-mark { width: 38px; height: 38px; flex-shrink: 0; }
+    .logo-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .logo-text {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: 1.35rem;
+      color: var(--moss);
+      letter-spacing: 0.05em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .logo-text span {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--stone);
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+      white-space: nowrap;
+    }
+    .nav-links li { position: relative; padding: 0 2px; }
+    .nav-links a {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      text-decoration: none;
+      padding-bottom: 3px;
+      opacity: 0.75;
+      display: inline-block;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--fern); }
+    .nav-contact {
+      padding: 8px 20px !important;
+      border: 1px solid var(--fern) !important;
+      border-radius: 2px;
+      color: var(--fern) !important;
+      opacity: 1 !important;
+      margin-left: 0.5rem;
+    }
+    .nav-contact:hover { background: var(--fern); color: white !important; }
+
+    /* 下拉選單 */
+    .has-dropdown .dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(250,247,242,0.98);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(90,122,74,0.14);
+      border-top: 2px solid var(--fern);
+      box-shadow: 0 12px 40px rgba(61,90,56,0.12);
+      min-width: 160px;
+      list-style: none;
+      padding: 8px 0;
+      z-index: 300;
+    }
+    .has-dropdown:hover .dropdown,
+    .has-dropdown:focus-within .dropdown {
+      display: block;
+    }
+    .dropdown li a {
+      display: block;
+      padding: 10px 20px;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      opacity: 0.7;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .dropdown li a:hover {
+      opacity: 1;
+      color: var(--fern);
+      padding-left: 26px;
+      background: rgba(90,122,74,0.04);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      width: 40px; height: 40px;
+      cursor: pointer;
+      background: none; border: none;
+      flex-shrink: 0;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 1.5px;
+      background: var(--moss);
+      transition: transform 0.2s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    /* 手機選單 */
+    .mobile-menu {
+      position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
+      background: #faf7f2;
+      border-bottom: 1px solid rgba(90,122,74,0.15);
+      padding: 0 6vw 40px;
+      z-index: 99;
+      overflow-y: auto;
+      transform: translateX(100%);
+      visibility: hidden;
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu.open { transform: translateX(0); visibility: visible; }
+    .mobile-menu ul { list-style: none; }
+    .mobile-parent {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 0;
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      color: var(--moss);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(90,122,74,0.1);
+      cursor: pointer;
+    }
+    .mobile-caret {
+      display: inline-block;
+      transition: transform 0.2s;
+      font-size: 0.7rem;
+    }
+    .mobile-caret.open { transform: rotate(180deg); }
+    .mobile-sub {
+      list-style: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding-left: 16px;
+    }
+    .mobile-sub.open { max-height: 300px; }
+    .mobile-sub li a {
+      display: block;
+      padding: 10px 0;
+      font-size: 0.85rem;
+      color: var(--stone);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(90,122,74,0.06);
+    }
+    .mobile-sub li a:hover { color: var(--fern); }
+
+    /* 購物車樣式 */
+    .cart-nav-item { margin-left: 0.25rem; }
+    .cart-icon-wrapper {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 40px;
+      background: rgba(90,122,74,0.08);
+      transition: all 0.2s ease;
+    }
+    .cart-icon-wrapper:hover { background: rgba(90,122,74,0.15); }
+    .cart-icon { font-size: 1.2rem; line-height: 1; }
+    .mobile-cart-item {
+      margin-top: 12px;
+      border-top: 1px solid rgba(90,122,74,0.15);
+      padding-top: 12px;
+    }
+    .cart-mobile-link {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      background: rgba(90,122,74,0.08);
+      border-radius: 40px;
+      padding: 12px 16px !important;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .cart-nav-item { display: none; }
+    }
+    @media (min-width: 769px) {
+      .mobile-cart-item { display: none; }
+    }
+
+    /* 主要內容區塊 */
+    .content {
+      flex: 1;
+      padding-top: 92px;
+      padding-bottom: 60px;
+    }
+
+    /* 圖片往上擺放 */
+    .illustration-top {
+      max-width: 1000px;
+      margin: 0 auto 1.2rem auto;
+      padding: 0 2rem;
+      text-align: center;
+    }
+    .illustration-top img {
+      width: 100%;
+      max-width: 680px;
+      height: auto;
+      border-radius: 32px;
+      box-shadow: 0 16px 30px -12px rgba(61, 90, 56, 0.18);
+      transition: transform 0.2s ease;
+      background: #ece4d8;
+    }
+    .illustration-top img:hover { transform: scale(1.01); }
+
+    /* 雙主角區塊 */
+    .duo-hero {
+      max-width: 1280px;
+      margin: 0.5rem auto 2rem auto;
+      padding: 0 2rem;
+    }
+    .hero-title-banner {
+      text-align: center;
+      margin-bottom: 1.2rem;
+    }
+    .hero-title-banner h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: var(--moss);
+      letter-spacing: 0.02em;
+    }
+    .hero-title-banner h1 span {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--fern);
+    }
+    .hero-subhead {
+      text-align: center;
+      color: var(--stone);
+      font-size: 1rem;
+      max-width: 680px;
+      margin: 0.25rem auto 0;
+    }
+    .main-duo {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-top: 0.8rem;
+    }
+    .duo-card {
+      flex: 1;
+      min-width: 280px;
+      background: white;
+      border-radius: 40px;
+      box-shadow: 0 20px 35px -12px rgba(61, 90, 56, 0.2);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(90,122,74,0.2);
+      overflow: hidden;
+    }
+    .duo-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 28px 40px -16px rgba(61, 90, 56, 0.25);
+      border-color: var(--sage);
+    }
+    .duo-header {
+      padding: 1.8rem 2rem 0.5rem 2rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      border-bottom: 2px solid var(--mist);
+    }
+    .duo-name {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: var(--moss);
+      line-height: 1.1;
+    }
+    .duo-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      background: var(--mist);
+      padding: 0.2rem 1rem;
+      border-radius: 60px;
+      color: var(--fern);
+    }
+    .duo-body {
+      padding: 1.4rem 2rem 2rem;
+    }
+    .plant-icon {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--sage);
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.05em;
+    }
+    .duo-desc {
+      font-size: 1rem;
+      line-height: 1.55;
+      margin: 0.8rem 0;
+      color: #2a2a24;
+    }
+    .trait-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 1rem 0 0.8rem;
+    }
+    .trait {
+      background: var(--cream);
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--fern);
+    }
+    .quote {
+      margin-top: 1rem;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      border-left: 3px solid var(--sage);
+      padding-left: 1rem;
+      color: var(--stone);
+    }
+    .role-tag {
+      display: inline-block;
+      background: var(--mist);
+      border-radius: 40px;
+      padding: 0.2rem 1rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--moss);
+      margin-top: 0.8rem;
+    }
+
+    /* 好朋友網格 */
+    .friends-section {
+      max-width: 1280px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    .section-title {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 600;
+      font-size: 1.9rem;
+      color: var(--moss);
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .friends-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+    .friend-card {
+      background: white;
+      border-radius: 28px;
+      box-shadow: var(--shadow-card);
+      transition: all 0.25s ease;
+      border: 1px solid rgba(138, 171, 122, 0.2);
+      overflow: hidden;
+    }
+    .friend-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 32px rgba(61, 90, 56, 0.12);
+    }
+    .card-header {
+      padding: 1.6rem 1.8rem 0.8rem 1.8rem;
+      border-bottom: 2px solid var(--mist);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .friend-name {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: var(--moss);
+    }
+    .friend-sci {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      background: var(--mist);
+      padding: 0.2rem 0.6rem;
+      border-radius: 40px;
+      color: var(--sage);
+    }
+    .card-body {
+      padding: 1.4rem 1.8rem 1.8rem;
+    }
+    .personality-tag {
+      display: inline-block;
+      background: rgba(90,122,74,0.08);
+      color: var(--fern);
+      font-size: 0.7rem;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      margin-bottom: 1rem;
+    }
+    .friend-desc {
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: #2c2c26;
+      margin: 0.8rem 0;
+    }
+    .friend-detail {
+      margin-top: 1rem;
+      border-top: 1px dashed rgba(90,122,74,0.2);
+      padding-top: 0.9rem;
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .detail-icon {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--cream);
+      padding: 0.2rem 0.7rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+    }
+    .office-role {
+      margin-top: 0.8rem;
+      font-weight: 500;
+      color: var(--fern);
+      background: var(--mist);
+      display: inline-block;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+    }
+    .team-spirit {
+      max-width: 880px;
+      margin: 2rem auto 1rem;
+      padding: 2rem;
+      background: rgba(212, 228, 200, 0.3);
+      border-radius: 48px;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .duo-name { font-size: 2rem; }
+      .hero-title-banner h1 { font-size: 2rem; }
+      .friends-grid { gap: 1.5rem; }
+    }
+
+    footer {
+      border-top: 1px solid rgba(90,122,74,0.15);
+      padding: 40px 4vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--paper);
+      margin-top: auto;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.75rem;
+      color: var(--stone);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+    }
+    .footer-links a:hover { opacity: 1; color: var(--fern); }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--stone);
+      letter-spacing: 0.1em;
+    }
+    @media (max-width: 768px) {
+      footer { flex-direction: column; gap: 20px; text-align: center; }
+      .footer-links { justify-content: center; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 導覽列直接內嵌，不靠外部 fetch -->
+  <nav id="mainNav">
+    <a href="https://www.fernbrom.com/index.html" class="logo">
+      <div class="logo-mark"><img src="logo.png" alt="蕨積" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20fill%3D%22%235a7a4a%22%2F%3E%3C%2Fsvg%3E'"></div>
+      <div class="logo-text">蕨積<span>FernBrom</span></div>
+    </a>
+    <ul class="nav-links">
+      <li class="has-dropdown" id="nav-plant">
+        <a href="all.html">植物選品</a>
+        <ul class="dropdown" id="dropdown-plant">
+          <li><a href="fern.html">蕨類</a></li>
+          <li><a href="brom.html">積水鳳梨</a></li>
+          <li><a href="otherplant.html">其他植物</a></li>
+          <li><a href="myphoto.html">屋頂植物相簿</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown" id="nav-green">
+        <a href="consult.html">綠色顧問</a>
+        <ul class="dropdown" id="dropdown-green">
+          <li><a href="consulting.html">綠色顧問總覽</a></li>
+          <li><a href="ghg.html">溫室氣體盤查</a></li>
+          <li><a href="greenwall.html">植生牆綠化</a></li>
+          <li><a href="lifestyle.html">生活提案</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown" id="nav-note">
+        <a href="fbnote.html">蕨望筆記</a>
+        <ul class="dropdown" id="dropdown-note">
+          <li><a href="daily-post/index.html">每日文章</a></li>
+          <li><a href="note.html">生活隨筆</a></li>
+          <li><a href="forever.html">永續淨零</a></li>
+          <li><a href="greenlab.html">綠色實驗室</a></li>
+        </ul>
+      </li>
+      <li><a href="about.html">關於蕨積</a></li>
+      <li><a href="contact.html" class="nav-contact">聯絡我們</a></li>
+      <li class="cart-nav-item">
+        <a href="cart.html" class="cart-icon-wrapper">
+          <span class="cart-icon">🛒</span>
+        </a>
+      </li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="開啟選單"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- 手機版選單結構 -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li>
+        <div class="mobile-parent" data-target="sub-plant">
+          植物選品
+          <span class="mobile-caret" id="caret-sub-plant">▼</span>
+        </div>
+        <ul class="mobile-sub" id="sub-plant">
+          <li><a href="fern.html" class="mobile-link">蕨類</a></li>
+          <li><a href="brom.html" class="mobile-link">積水鳳梨</a></li>
+          <li><a href="otherplant.html" class="mobile-link">其他植物</a></li>
+          <li><a href="myphoto.html" class="mobile-link">屋頂植物相簿</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="mobile-parent" data-target="sub-green">
+          綠色顧問
+          <span class="mobile-caret" id="caret-sub-green">▼</span>
+        </div>
+        <ul class="mobile-sub" id="sub-green">
+          <li><a href="consulting.html" class="mobile-link">綠色顧問總覽</a></li>
+          <li><a href="ghg.html" class="mobile-link">溫室氣體盤查</a></li>
+          <li><a href="greenwall.html" class="mobile-link">植生牆綠化</a></li>
+          <li><a href="lifestyle.html" class="mobile-link">生活提案</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="mobile-parent" data-target="sub-note">
+          蕨望筆記
+          <span class="mobile-caret" id="caret-sub-note">▼</span>
+        </div>
+        <ul class="mobile-sub" id="sub-note">
+          <li><a href="daily-post/index.html" class="mobile-link">每日文章</a></li>
+          <li><a href="note.html" class="mobile-link">生活隨筆</a></li>
+          <li><a href="forever.html" class="mobile-link">永續淨零</a></li>
+          <li><a href="greenlab.html" class="mobile-link">綠色實驗室</a></li>
+        </ul>
+      </li>
+      <li><a href="about.html" class="mobile-link">關於蕨積</a></li>
+      <li><a href="contact.html" class="mobile-link">聯絡我們</a></li>
+      <li class="mobile-cart-item">
+        <a href="cart.html" class="mobile-link cart-mobile-link">
+          <span>🛒 購物車</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <main class="content">
+    <!-- 圖片放在最上面 -->
+    <div class="illustration-top">
+      <img src="dgZsI.png" alt="蕨積好朋友全員集合" onerror="this.onerror=null; this.src='https://placehold.co/800x500/d4e4c8/5a7a4a?text=蕨積+好朋友+插畫';">
+    </div>
+
+    <!-- 雙主角區塊 -->
+    <div class="duo-hero">
+      <div class="hero-title-banner">
+        <h1>蕨積宇宙 · 靈魂雙人組<br><span>阿蕨 Fern ╳ 小積 Brom</span></h1>
+        <div class="hero-subhead">理性與務實交織，綠色生活的策劃者與實踐者</div>
+      </div>
+      <div class="main-duo">
+        <div class="duo-card">
+          <div class="duo-header">
+            <div class="duo-name">阿蕨 Fern</div>
+            <div class="duo-sub">Nephrolepis / 蕨類</div>
+          </div>
+          <div class="duo-body">
+            <div class="plant-icon"><i data-lucide="leaf"></i> 老派知識份子・系統派解題專家</div>
+            <div class="duo-desc">
+              <strong>🌿 外型</strong>：高瘦挺拔，葉片像展開的書頁，永遠站得比別人高一點（但不是在擺架子）。<br>
+              <strong>🧠 個性</strong>：冷靜理性、邏輯派，講話不多但每一句都像重點整理。<br>
+              <strong>📚 習性</strong>：耐陰、慢長，習慣在角落默默把事情做到最好。
+            </div>
+            <div class="trait-grid"><span class="trait">綠色顧問本體</span><span class="trait">系統派解題專家</span><span class="trait">邏輯構築者</span></div>
+            <div class="quote">「問題不急，先釐清脈絡。」</div>
+            <div class="role-tag">🌱 蕨積策略長・首席顧問</div>
+          </div>
+        </div>
+        <div class="duo-card">
+          <div class="duo-header">
+            <div class="duo-name">小積 Brom</div>
+            <div class="duo-sub">Guzmania / 積水鳳梨</div>
+          </div>
+          <div class="duo-body">
+            <div class="plant-icon"><i data-lucide="droplets"></i> 務實生活派・現場執行擔當</div>
+            <div class="duo-desc">
+              <strong>🌱 外型</strong>：矮胖圓潤，葉片層層包覆像在存東西，中心永遠有水（也可能是靈感）。<br>
+              <strong>💬 個性</strong>：親切直接、帶點厭世幽默，什麼都可以聊，什麼都能落地。<br>
+              <strong>🛠 習性</strong>：能存水、能撐環境，在哪都活得下來。
+            </div>
+            <div class="trait-grid"><span class="trait">人間翻譯機</span><span class="trait">落地執行王</span><span class="trait">厭世但可靠</span></div>
+            <div class="quote">「講人話，我幫你做到。」</div>
+            <div class="role-tag">⚙️ 蕨積營運總監・專案實現者</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 五位好朋友 -->
+    <div class="friends-section">
+      <div class="section-title">🌿 阿蕨與小積的好朋友們 🌿</div>
+      <div class="hero-subhead" style="margin-bottom: 2rem;">
+        在「蕨積綠色宇宙」裡可不是孤單的兩人組～他們有一群超有個性的植物好朋友！每個朋友都保留了真實植物特性，是辦公室的植物人，一起推廣綠色生活。
+      </div>
+      <div class="friends-grid">
+        <div class="friend-card"><div class="card-header"><div class="friend-name">小龜</div><div class="friend-sci">Monstera</div></div><div class="card-body"><div class="personality-tag">🌿 龜背芋・洞洞西裝</div><div class="friend-desc"><strong>外型：</strong>頭上長滿可愛的大洞葉子，像穿了件「洞洞西裝」，眼睛總是好奇地眨啊眨。<br><strong>個性：</strong>超級好奇寶寶、冒險王，愛爬藤、愛探索新事物。</div><div class="friend-detail"><span class="detail-icon"><i data-lucide="map-pin"></i> 活動策劃部長</span><span class="detail-icon"><i data-lucide="compass"></i> 探索力MAX</span></div><div class="office-role">🏢 團體活動策劃部長</div></div></div>
+        <div class="friend-card"><div class="card-header"><div class="friend-name">虎妹</div><div class="friend-sci">Sansevieria</div></div><div class="card-body"><div class="personality-tag">⚡ 虎尾蘭・劍葉戰士</div><div class="friend-desc"><strong>外型：</strong>頭頂直挺挺的劍狀葉，穿西裝時像女戰士，戴一副酷酷的墨鏡。<br><strong>個性：</strong>超耐操、超獨立，24小時都能「光合作用」。</div><div class="friend-detail"><span class="detail-icon"><i data-lucide="moon"></i> 夜貓子光合</span><span class="detail-icon"><i data-lucide="dumbbell"></i> 健身教練</span></div><div class="office-role">💪 夜間特訓・健身擔當</div></div></div>
+        <div class="friend-card"><div class="card-header"><div class="friend-name">肉肉</div><div class="friend-sci">Succulent</div></div><div class="card-body"><div class="personality-tag">🌵 多肉植物・Q彈教主</div><div class="friend-desc"><strong>外型：</strong>圓圓胖胖的一顆顆小肉球頭，穿西裝顯得特別Q彈，像個會走路的多肉盆栽。<br><strong>個性：</strong>超會存水、超佛系，講話永遠慢半拍。</div><div class="friend-detail"><span class="detail-icon"><i data-lucide="droplet"></i> 儲水大師</span><span class="detail-icon"><i data-lucide="heart"></i> 療癒系</span></div><div class="office-role">🌸 療癒系吉祥物</div></div></div>
+        <div class="friend-card"><div class="card-header"><div class="friend-name">琴哥</div><div class="friend-sci">Ficus lyrata</div></div><div class="card-body"><div class="personality-tag">🎻 琴葉榕・大提琴紳士</div><div class="friend-desc"><strong>外型：</strong>高挑的大提琴狀葉子，穿西裝超有型，像個溫文儒雅的音樂家。<br><strong>個性：</strong>文青、愛音樂、講話輕聲細語。</div><div class="friend-detail"><span class="detail-icon"><i data-lucide="music"></i> 氛圍大師</span><span class="detail-icon"><i data-lucide="feather"></i> 優雅擔當</span></div><div class="office-role">🎵 辦公室氛圍擔當</div></div></div>
+        <div class="friend-card"><div class="card-header"><div class="friend-name">空空</div><div class="friend-sci">Tillandsia</div></div><div class="card-body"><div class="personality-tag">☁️ 空氣鳳梨・漂浮旅人</div><div class="friend-desc"><strong>外型：</strong>全身銀灰色細葉，像一團會飛的雲，永遠不用盆栽，直接「漂浮」上班。<br><strong>個性：</strong>自由奔放、零負擔，講話超快。</div><div class="friend-detail"><span class="detail-icon"><i data-lucide="wind"></i> 無土栽培</span><span class="detail-icon"><i data-lucide="send"></i> 外派特派員</span></div><div class="office-role">✈️ 跨部門外派特派員</div></div></div>
+      </div>
+    </div>
+
+    <div class="team-spirit">
+      <div style="font-family:'Noto Serif TC'; font-weight:600; font-size:1.2rem; color:var(--moss);">🌱 蕨積辦公室日常 🌱</div>
+      <div style="color: var(--stone);">這些好朋友們平常就在蕨積辦公室一起上班、一起光合作用、一起推廣「植物減碳」的綠色生活理念。<br>從洞洞西裝小龜到漂浮上班的空空，每個植物人都有獨一無二的綠色超能力，讓每一天充滿療癒與永續的靈感。</div>
+    </div>
+  </main>
+
+  <footer>
+    <ul class="footer-links"><li><a href="shop.html">植物選品</a></li><li><a href="consult.html">綠色顧問</a></li><li><a href="fbnote.html">蕨望筆記</a></li><li><a href="about.html">關於蕨積</a></li></ul>
+    <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
+  </footer>
+
+  <script>
+    (function() {
+      // 手機版選單 hamburger 控制
+      const btn = document.getElementById('hamburger');
+      const menu = document.getElementById('mobileMenu');
+      if (btn && menu) {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          btn.classList.toggle('open');
+          menu.classList.toggle('open');
+        });
+        // 點擊手機選單內任何連結關閉選單
+        menu.querySelectorAll('a, .mobile-parent').forEach(el => {
+          if (el.tagName === 'A') {
+            el.addEventListener('click', () => {
+              btn.classList.remove('open');
+              menu.classList.remove('open');
+            });
+          }
+        });
+      }
+
+      // 手機版折疊子選單邏輯
+      const parents = document.querySelectorAll('.mobile-parent');
+      parents.forEach(parent => {
+        parent.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const targetId = this.getAttribute('data-target');
+          const subMenu = document.getElementById(targetId);
+          const caretId = 'caret-' + targetId;
+          const caret = document.getElementById(caretId);
+          if (subMenu) {
+            const isOpen = subMenu.classList.contains('open');
+            // 關閉其他所有子選單
+            document.querySelectorAll('.mobile-sub').forEach(sub => sub.classList.remove('open'));
+            document.querySelectorAll('.mobile-caret').forEach(c => c.classList.remove('open'));
+            if (!isOpen) {
+              subMenu.classList.add('open');
+              if (caret) caret.classList.add('open');
+            }
+          }
+        });
+      });
+
+      // 滾動陰影效果
+      window.addEventListener('scroll', () => {
+        const nav = document.getElementById('mainNav');
+        if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
+      });
+
+      // lucide 圖標
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      } else {
+        const iconTimer = setInterval(() => {
+          if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+            clearInterval(iconTimer);
+          }
+        }, 200);
+      }
+    })();
+  </script>
+</body>
+</html>
