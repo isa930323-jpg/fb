@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>蕨積宇宙 · 綠色角色圖鑑</title>
-    <!-- Lucide 圖示庫 -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -18,436 +17,411 @@
             background: #ece5d8;
             font-family: 'Inter', sans-serif;
             color: #2c2a25;
-            padding: 40px 24px;
+            padding: 40px 32px;
         }
 
-        /* 主容器 */
+        /* 主容器 — 電腦版固定寬度置中 */
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
         }
 
-        /* 每個角色卡片 — 精靈圖鑑風格 */
+        /* ========== 標題區 ========== */
+        .hero-section {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .hero-section h1 {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #3f6030;
+        }
+        .hero-section h1 span {
+            font-size: 1.6rem;
+            color: #7f6e58;
+            display: block;
+            margin-top: 8px;
+        }
+        .hero-sub {
+            color: #8b7a64;
+            margin-top: 12px;
+            font-size: 1rem;
+            border-top: 1px solid #d9cfc0;
+            display: inline-block;
+            padding-top: 12px;
+        }
+
+        /* ========== 雙主角 2欄網格 ========== */
+        .duo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        /* ========== 團體大圖區 ========== */
+        .group-illustration {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+        .group-illustration img {
+            max-width: 100%;
+            border-radius: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            background: #dbd0bf;
+        }
+        .group-caption {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: #8b7a64;
+        }
+
+        /* ========== 好朋友 3+2 網格 ========== */
+        .friends-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-bottom: 32px;
+        }
+        /* 琴哥與空空：跨欄位處理 — 第一欄留空，實際上前兩個佔2欄? 不對，需求是第三列只有兩個: 琴哥在左，空空在右 */
+        /* 更優雅的方式：用另一個grid放下面兩個 */
+        .friends-row2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            max-width: 66.66%;
+            margin: 0 auto 48px auto;
+        }
+        /* 讓下方兩個卡片置中且不超過寬度 */
+        @media (min-width: 900px) {
+            .friends-row2 {
+                max-width: 66%;
+            }
+        }
+
+        /* ========== 角色卡片 (左圖右文，完全一致風格) ========== */
         .character-card {
             background: #fffdf9;
-            border-radius: 28px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.02);
+            border-radius: 24px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.05);
             border: 1px solid #e2d9ce;
             overflow: hidden;
-            transition: transform 0.2s ease, box-shadow 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            height: 100%;
         }
-
         .character-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 16px 28px rgba(0,0,0,0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 14px 26px rgba(0,0,0,0.08);
         }
 
-        /* 左右並排的核心佈局 */
         .card-layout {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: row;
+            height: 100%;
         }
 
-        /* 左側圖片區 — 固定寬度，置中 */
+        /* 左側圖片區 */
         .card-photo {
-            flex: 0 0 200px;
+            flex: 0 0 140px;
             background: #eef2e7;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 24px 16px;
+            padding: 20px 12px;
             border-right: 2px solid #e8e0d4;
         }
-
         .card-photo img {
-            width: 150px;
-            height: 150px;
+            width: 110px;
+            height: 110px;
             object-fit: cover;
-            border-radius: 24px;
+            border-radius: 20px;
             background: #cfdec2;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-            transition: 0.2s;
-            display: block;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
         }
 
-        /* 右側文字區 — 完整保留所有資訊 */
+        /* 右側文字區 */
         .card-info {
             flex: 1;
-            padding: 20px 24px 24px 24px;
+            padding: 16px 18px;
         }
-
-        /* 標題區塊：名稱 + 學名 */
         .title-block {
-            margin-bottom: 12px;
-            border-bottom: 2px solid #e6ddcf;
-            padding-bottom: 10px;
+            margin-bottom: 8px;
         }
         .name {
-            font-size: 1.9rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: #3f6030;
-            letter-spacing: -0.3px;
-            line-height: 1.2;
             font-family: 'Noto Serif TC', serif;
+            letter-spacing: -0.2px;
         }
         .sci-name {
-            font-size: 0.85rem;
-            color: #8b7a64;
+            font-size: 0.7rem;
+            color: #9b8a70;
             font-style: italic;
-            margin-top: 4px;
         }
-
-        /* 老派知識份子那行標籤 */
         .badge-tag {
             display: inline-block;
             background: #e7e0d3;
-            padding: 4px 14px;
-            border-radius: 40px;
-            font-size: 0.75rem;
+            padding: 3px 12px;
+            border-radius: 30px;
+            font-size: 0.65rem;
             font-weight: 600;
             color: #5a4a32;
-            margin: 12px 0 14px 0;
-            letter-spacing: 0.3px;
+            margin: 8px 0 10px 0;
         }
-
-        /* 描述區塊 (外型、個性、習性) */
         .desc-section {
-            margin-bottom: 18px;
+            margin-bottom: 10px;
         }
         .desc-line {
-            font-size: 0.9rem;
-            line-height: 1.55;
-            margin-bottom: 8px;
-            color: #3d3a33;
+            font-size: 0.75rem;
+            line-height: 1.45;
+            margin-bottom: 4px;
+            color: #4a463e;
         }
         .desc-line strong {
             color: #4a6b3c;
-            font-weight: 600;
         }
-
-        /* 三特質小標籤 (綠色顧問本體等) */
         .trait-bubbles {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin: 16px 0 14px;
+            gap: 6px;
+            margin: 10px 0 8px;
         }
         .trait-bubble {
             background: #f2ede4;
-            padding: 4px 16px;
+            padding: 2px 12px;
             border-radius: 30px;
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             font-weight: 500;
             color: #5a4d38;
         }
-
-        /* 引言區塊 */
         .quote-block {
             font-style: italic;
             border-left: 3px solid #c2aa7a;
-            padding-left: 14px;
-            margin: 16px 0 12px;
-            font-size: 0.9rem;
+            padding-left: 10px;
+            margin: 10px 0 10px;
+            font-size: 0.75rem;
             color: #6a5d48;
-            font-weight: 450;
         }
-
-        /* 職位標籤 */
         .role-tag {
             background: #4a6b3c;
             color: white;
             display: inline-block;
-            padding: 6px 18px;
-            border-radius: 40px;
-            font-size: 0.7rem;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.6rem;
             font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        /* 好朋友的群體標題 */
-        .friends-header {
-            text-align: center;
-            margin: 48px 0 24px;
-        }
-        .friends-header h2 {
-            font-family: 'Noto Serif TC', serif;
-            font-size: 2rem;
-            color: #3f6030;
-        }
-        .friends-sub {
-            color: #7f6e58;
-            font-size: 0.95rem;
-            margin-top: 8px;
-        }
-        .group-illustration {
-            text-align: center;
-            margin: 28px 0 32px;
-        }
-        .group-illustration img {
-            max-width: 100%;
-            border-radius: 40px;
-            background: #dbd0bf;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            letter-spacing: 0.3px;
         }
 
         /* 團隊精神區塊 */
         .team-spirit {
-            margin-top: 48px;
+            margin-top: 56px;
             background: #e9e1d2;
-            border-radius: 32px;
+            border-radius: 28px;
             padding: 28px 24px;
             text-align: center;
         }
 
-        /* RWD 手機版: 左圖改為上圖 */
-        @media (max-width: 680px) {
-            .card-photo {
-                flex: 0 0 100%;
-                border-right: none;
-                border-bottom: 2px solid #e8e0d4;
-                padding: 20px;
+        /* RWD 平板/手機 */
+        @media (max-width: 860px) {
+            body {
+                padding: 24px 20px;
             }
-            .card-photo img {
-                width: 130px;
-                height: 130px;
-            }
-            .container {
+            .duo-grid {
+                grid-template-columns: 1fr;
                 gap: 24px;
             }
+            .friends-grid {
+                grid-template-columns: 1fr;
+            }
+            .friends-row2 {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+                margin: 0 0 32px 0;
+            }
+            .card-photo {
+                flex: 0 0 110px;
+            }
+            .card-photo img {
+                width: 85px;
+                height: 85px;
+            }
             .name {
-                font-size: 1.6rem;
+                font-size: 1.2rem;
             }
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <!-- ========================= 雙主角區塊 ========================= -->
-    <!-- 1. 阿蕨 -->
-    <div class="character-card">
-        <div class="card-layout">
-            <div class="card-photo">
-                <img src="https://placehold.co/400x400/d8e6cb/4a6b3c?text=阿蕨+Fern" 
-                     alt="阿蕨 Fern"
-                     onerror="this.onerror=null; this.src='https://placehold.co/400x400/c2d4b2/5a7a4a?text=蕨類·阿蕨';">
+    <!-- 標題區 -->
+    <div class="hero-section">
+        <h1>蕨積宇宙 · 靈魂雙人組<br><span>阿蕨 Fern ╳ 小積 Brom</span></h1>
+        <div class="hero-sub">理性與務實交織，綠色生活的策劃者與實踐者</div>
+    </div>
+
+    <!-- 雙主角：阿蕨 + 小積 (2欄) -->
+    <div class="duo-grid">
+        <!-- 阿蕨 -->
+        <div class="character-card">
+            <div class="card-layout">
+                <div class="card-photo">
+                    <img src="https://placehold.co/400x400/d8e6cb/4a6b3c?text=阿蕨+Fern" alt="阿蕨"
+                         onerror="this.onerror=null; this.src='https://placehold.co/400x400/c2d4b2/5a7a4a?text=蕨類·阿蕨';">
+                </div>
+                <div class="card-info">
+                    <div class="title-block">
+                        <div class="name">阿蕨 Fern</div>
+                        <div class="sci-name">Nephrolepis / 蕨類</div>
+                    </div>
+                    <div class="badge-tag">🌿 老派知識份子・系統派解題專家</div>
+                    <div class="desc-section">
+                        <div class="desc-line"><strong>🌿 外型</strong>：高瘦挺拔，葉片像展開的書頁，永遠站得比別人高一點。</div>
+                        <div class="desc-line"><strong>🧠 個性</strong>：冷靜理性、邏輯派，講話不多但每一句都像重點整理。</div>
+                        <div class="desc-line"><strong>📚 習性</strong>：耐陰、慢長，習慣在角落默默把事情做到最好。</div>
+                    </div>
+                    <div class="trait-bubbles">
+                        <span class="trait-bubble">綠色顧問本體</span>
+                        <span class="trait-bubble">系統派解題專家</span>
+                        <span class="trait-bubble">邏輯構築者</span>
+                    </div>
+                    <div class="quote-block">「問題不急，先釐清脈絡。」</div>
+                    <div class="role-tag">🌱 蕨積策略長・首席顧問</div>
+                </div>
             </div>
-            <div class="card-info">
-                <div class="title-block">
-                    <div class="name">阿蕨 Fern</div>
-                    <div class="sci-name">Nephrolepis / 蕨類</div>
+        </div>
+
+        <!-- 小積 -->
+        <div class="character-card">
+            <div class="card-layout">
+                <div class="card-photo">
+                    <img src="https://placehold.co/400x400/d2e2c5/4a6b3c?text=小積+Brom" alt="小積"
+                         onerror="this.onerror=null; this.src='https://placehold.co/400x400/bdd2ab/5a7a4a?text=積水鳳梨·小積';">
                 </div>
-                <div class="badge-tag">🌿 老派知識份子・系統派解題專家</div>
-                <div class="desc-section">
-                    <div class="desc-line"><strong>🌿 外型</strong>：高瘦挺拔，葉片像展開的書頁，永遠站得比別人高一點（但不是在擺架子）。</div>
-                    <div class="desc-line"><strong>🧠 個性</strong>：冷靜理性、邏輯派，講話不多但每一句都像重點整理。</div>
-                    <div class="desc-line"><strong>📚 習性</strong>：耐陰、慢長，習慣在角落默默把事情做到最好。</div>
+                <div class="card-info">
+                    <div class="title-block">
+                        <div class="name">小積 Brom</div>
+                        <div class="sci-name">Guzmania / 積水鳳梨</div>
+                    </div>
+                    <div class="badge-tag">💧 務實生活派・現場執行擔當</div>
+                    <div class="desc-section">
+                        <div class="desc-line"><strong>🌱 外型</strong>：矮胖圓潤，葉片層層包覆像在存東西，中心永遠有水。</div>
+                        <div class="desc-line"><strong>💬 個性</strong>：親切直接、帶點厭世幽默，什麼都可以聊，什麼都能落地。</div>
+                        <div class="desc-line"><strong>🛠 習性</strong>：能存水、能撐環境，在哪都活得下來。</div>
+                    </div>
+                    <div class="trait-bubbles">
+                        <span class="trait-bubble">人間翻譯機</span>
+                        <span class="trait-bubble">落地執行王</span>
+                        <span class="trait-bubble">厭世但可靠</span>
+                    </div>
+                    <div class="quote-block">「講人話，我幫你做到。」</div>
+                    <div class="role-tag">⚙️ 蕨積營運總監・專案實現者</div>
                 </div>
-                <div class="trait-bubbles">
-                    <span class="trait-bubble">綠色顧問本體</span>
-                    <span class="trait-bubble">系統派解題專家</span>
-                    <span class="trait-bubble">邏輯構築者</span>
-                </div>
-                <div class="quote-block">「問題不急，先釐清脈絡。」</div>
-                <div class="role-tag">🌱 蕨積策略長・首席顧問</div>
             </div>
         </div>
     </div>
 
-    <!-- 2. 小積 -->
-    <div class="character-card">
-        <div class="card-layout">
-            <div class="card-photo">
-                <img src="https://placehold.co/400x400/d2e2c5/4a6b3c?text=小積+Brom" 
-                     alt="小積 Brom"
-                     onerror="this.onerror=null; this.src='https://placehold.co/400x400/bdd2ab/5a7a4a?text=積水鳳梨·小積';">
-            </div>
-            <div class="card-info">
-                <div class="title-block">
-                    <div class="name">小積 Brom</div>
-                    <div class="sci-name">Guzmania / 積水鳳梨</div>
-                </div>
-                <div class="badge-tag">💧 務實生活派・現場執行擔當</div>
-                <div class="desc-section">
-                    <div class="desc-line"><strong>🌱 外型</strong>：矮胖圓潤，葉片層層包覆像在存東西，中心永遠有水（也可能是靈感）。</div>
-                    <div class="desc-line"><strong>💬 個性</strong>：親切直接、帶點厭世幽默，什麼都可以聊，什麼都能落地。</div>
-                    <div class="desc-line"><strong>🛠 習性</strong>：能存水、能撐環境，在哪都活得下來。</div>
-                </div>
-                <div class="trait-bubbles">
-                    <span class="trait-bubble">人間翻譯機</span>
-                    <span class="trait-bubble">落地執行王</span>
-                    <span class="trait-bubble">厭世但可靠</span>
-                </div>
-                <div class="quote-block">「講人話，我幫你做到。」</div>
-                <div class="role-tag">⚙️ 蕨積營運總監・專案實現者</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 五位好朋友標題＋團體圖 -->
-    <div class="friends-header">
-        <h2>🌿 阿蕨與小積的好朋友們 🌿</h2>
-        <div class="friends-sub">在「蕨積綠色宇宙」裡可不是孤單的兩人組～他們有一群超有個性的植物好朋友！</div>
-    </div>
+    <!-- 團體大圖 -->
     <div class="group-illustration">
-        <img src="team1.png" alt="蕨積好朋友全員集合" onerror="this.onerror=null; this.src='https://placehold.co/800x450/d4e4c8/5a7a4a?text=蕨積+好朋友+插畫';">
+        <img src="team1.png" alt="蕨積好朋友全員集合" onerror="this.onerror=null; this.src='https://placehold.co/1000x500/d4e4c8/5a7a4a?text=蕨積+好朋友+插畫';">
+        <div class="group-caption">🌱 蕨積好朋友 · 全員集合 🌱</div>
     </div>
 
-    <!-- ========================= 五位好朋友卡片 (完全一樣左圖右文風格) ========================= -->
-    <!-- 3. 小龜 -->
-    <div class="character-card">
-        <div class="card-layout">
-            <div class="card-photo">
-                <img src="https://placehold.co/400x400/dbe9cf/4a6b3c?text=小龜+Monstera" 
-                     alt="小龜"
-                     onerror="this.onerror=null; this.src='https://placehold.co/400x400/cadfb5/5a7a4a?text=龜背芋·小龜';">
+    <!-- 第一排三位好朋友：小龜、虎妹、肉肉 (3欄) -->
+    <div class="friends-grid">
+        <!-- 小龜 -->
+        <div class="character-card">
+            <div class="card-layout">
+                <div class="card-photo"><img src="https://placehold.co/400x400/dbe9cf/4a6b3c?text=小龜" alt="小龜"></div>
+                <div class="card-info">
+                    <div class="title-block"><div class="name">小龜</div><div class="sci-name">Monstera</div></div>
+                    <div class="badge-tag">🌿 龜背芋・洞洞西裝</div>
+                    <div class="desc-line"><strong>外型：</strong>頭上長滿可愛的大洞葉子，像穿了件「洞洞西裝」。</div>
+                    <div class="desc-line"><strong>個性：</strong>超級好奇寶寶、冒險王。</div>
+                    <div class="trait-bubbles"><span class="trait-bubble">活動策劃部長</span><span class="trait-bubble">探索力MAX</span></div>
+                    <div class="quote-block">「新路線？我第一個去踩點！」</div>
+                    <div class="role-tag">🏢 團體活動策劃部長</div>
+                </div>
             </div>
-            <div class="card-info">
-                <div class="title-block">
-                    <div class="name">小龜</div>
-                    <div class="sci-name">Monstera</div>
+        </div>
+        <!-- 虎妹 -->
+        <div class="character-card">
+            <div class="card-layout">
+                <div class="card-photo"><img src="https://placehold.co/400x400/cce0bd/4a6b3c?text=虎妹" alt="虎妹"></div>
+                <div class="card-info">
+                    <div class="title-block"><div class="name">虎妹</div><div class="sci-name">Sansevieria</div></div>
+                    <div class="badge-tag">⚡ 虎尾蘭・劍葉戰士</div>
+                    <div class="desc-line"><strong>外型：</strong>頭頂直挺挺的劍狀葉，戴一副酷酷的墨鏡。</div>
+                    <div class="desc-line"><strong>個性：</strong>超耐操、超獨立，24小時都能光合作用。</div>
+                    <div class="trait-bubbles"><span class="trait-bubble">夜貓子光合</span><span class="trait-bubble">健身教練</span></div>
+                    <div class="quote-block">「半夜運動最安靜，要跟嗎？」</div>
+                    <div class="role-tag">💪 夜間特訓・健身擔當</div>
                 </div>
-                <div class="badge-tag">🌿 龜背芋・洞洞西裝</div>
-                <div class="desc-section">
-                    <div class="desc-line"><strong>外型：</strong>頭上長滿可愛的大洞葉子，像穿了件「洞洞西裝」，眼睛總是好奇地眨啊眨。</div>
-                    <div class="desc-line"><strong>個性：</strong>超級好奇寶寶、冒險王，愛爬藤、愛探索新事物。</div>
+            </div>
+        </div>
+        <!-- 肉肉 -->
+        <div class="character-card">
+            <div class="card-layout">
+                <div class="card-photo"><img src="https://placehold.co/400x400/e3f0d5/4a6b3c?text=肉肉" alt="肉肉"></div>
+                <div class="card-info">
+                    <div class="title-block"><div class="name">肉肉</div><div class="sci-name">Succulent</div></div>
+                    <div class="badge-tag">🌵 多肉植物・Q彈教主</div>
+                    <div class="desc-line"><strong>外型：</strong>圓圓胖胖的小肉球頭，穿西裝特別Q彈。</div>
+                    <div class="desc-line"><strong>個性：</strong>超會存水、超佛系，講話慢半拍。</div>
+                    <div class="trait-bubbles"><span class="trait-bubble">儲水大師</span><span class="trait-bubble">療癒系</span></div>
+                    <div class="quote-block">「慢慢來，水要存，心情也要。」</div>
+                    <div class="role-tag">🌸 療癒系吉祥物</div>
                 </div>
-                <div class="trait-bubbles">
-                    <span class="trait-bubble">活動策劃部長</span>
-                    <span class="trait-bubble">探索力MAX</span>
-                </div>
-                <div class="quote-block">「新路線？我第一個去踩點！」</div>
-                <div class="role-tag">🏢 團體活動策劃部長</div>
             </div>
         </div>
     </div>
 
-    <!-- 4. 虎妹 -->
-    <div class="character-card">
-        <div class="card-layout">
-            <div class="card-photo">
-                <img src="https://placehold.co/400x400/cce0bd/4a6b3c?text=虎妹+Sansevieria" 
-                     alt="虎妹"
-                     onerror="this.onerror=null; this.src='https://placehold.co/400x400/bad3a8/5a7a4a?text=虎尾蘭·虎妹';">
-            </div>
-            <div class="card-info">
-                <div class="title-block">
-                    <div class="name">虎妹</div>
-                    <div class="sci-name">Sansevieria</div>
-                </div>
-                <div class="badge-tag">⚡ 虎尾蘭・劍葉戰士</div>
-                <div class="desc-section">
-                    <div class="desc-line"><strong>外型：</strong>頭頂直挺挺的劍狀葉，穿西裝時像女戰士，戴一副酷酷的墨鏡。</div>
-                    <div class="desc-line"><strong>個性：</strong>超耐操、超獨立，24小時都能「光合作用」。</div>
-                </div>
-                <div class="trait-bubbles">
-                    <span class="trait-bubble">夜貓子光合</span>
-                    <span class="trait-bubble">健身教練</span>
-                </div>
-                <div class="quote-block">「半夜運動最安靜，要跟嗎？」</div>
-                <div class="role-tag">💪 夜間特訓・健身擔當</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 5. 肉肉 -->
-    <div class="character-card">
-        <div class="card-layout">
-            <div class="card-photo">
-                <img src="https://placehold.co/400x400/e3f0d5/4a6b3c?text=肉肉+Succulent" 
-                     alt="肉肉"
-                     onerror="this.onerror=null; this.src='https://placehold.co/400x400/d0e3bc/5a7a4a?text=多肉·肉肉';">
-            </div>
-            <div class="card-info">
-                <div class="title-block">
-                    <div class="name">肉肉</div>
-                    <div class="sci-name">Succulent</div>
-                </div>
-                <div class="badge-tag">🌵 多肉植物・Q彈教主</div>
-                <div class="desc-section">
-                    <div class="desc-line"><strong>外型：</strong>圓圓胖胖的一顆顆小肉球頭，穿西裝顯得特別Q彈，像個會走路的多肉盆栽。</div>
-                    <div class="desc-line"><strong>個性：</strong>超會存水、超佛系，講話永遠慢半拍。</div>
-                </div>
-                <div class="trait-bubbles">
-                    <span class="trait-bubble">儲水大師</span>
-                    <span class="trait-bubble">療癒系</span>
-                </div>
-                <div class="quote-block">「慢慢來，水要存，心情也要。」</div>
-                <div class="role-tag">🌸 療癒系吉祥物</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 6. 琴哥 -->
-    <div class="character-card">
-        <div class="card-layout">
-            <div class="card-photo">
-                <img src="https://placehold.co/400x400/cfdfc2/4a6b3c?text=琴哥+Ficus" 
-                     alt="琴哥"
-                     onerror="this.onerror=null; this.src='https://placehold.co/400x400/bdd6a6/5a7a4a?text=琴葉榕·琴哥';">
-            </div>
-            <div class="card-info">
-                <div class="title-block">
-                    <div class="name">琴哥</div>
-                    <div class="sci-name">Ficus lyrata</div>
-                </div>
-                <div class="badge-tag">🎻 琴葉榕・大提琴紳士</div>
-                <div class="desc-section">
-                    <div class="desc-line"><strong>外型：</strong>高挑的大提琴狀葉子，穿西裝超有型，像個溫文儒雅的音樂家。</div>
+    <!-- 第二排兩位好朋友：琴哥、空空 (2欄置中) -->
+    <div class="friends-row2">
+        <!-- 琴哥 -->
+        <div class="character-card">
+            <div class="card-layout">
+                <div class="card-photo"><img src="https://placehold.co/400x400/cfdfc2/4a6b3c?text=琴哥" alt="琴哥"></div>
+                <div class="card-info">
+                    <div class="title-block"><div class="name">琴哥</div><div class="sci-name">Ficus lyrata</div></div>
+                    <div class="badge-tag">🎻 琴葉榕・大提琴紳士</div>
+                    <div class="desc-line"><strong>外型：</strong>高挑的大提琴狀葉子，穿西裝超有型。</div>
                     <div class="desc-line"><strong>個性：</strong>文青、愛音樂、講話輕聲細語。</div>
+                    <div class="trait-bubbles"><span class="trait-bubble">氛圍大師</span><span class="trait-bubble">優雅擔當</span></div>
+                    <div class="quote-block">「今天想聽巴哈，還是蕭邦？」</div>
+                    <div class="role-tag">🎵 辦公室氛圍擔當</div>
                 </div>
-                <div class="trait-bubbles">
-                    <span class="trait-bubble">氛圍大師</span>
-                    <span class="trait-bubble">優雅擔當</span>
-                </div>
-                <div class="quote-block">「今天想聽巴哈，還是蕭邦？」</div>
-                <div class="role-tag">🎵 辦公室氛圍擔當</div>
             </div>
         </div>
-    </div>
-
-    <!-- 7. 空空 -->
-    <div class="character-card">
-        <div class="card-layout">
-            <div class="card-photo">
-                <img src="https://placehold.co/400x400/d4e4c4/4a6b3c?text=空空+Tillandsia" 
-                     alt="空空"
-                     onerror="this.onerror=null; this.src='https://placehold.co/400x400/c2daaf/5a7a4a?text=空氣鳳梨·空空';">
-            </div>
-            <div class="card-info">
-                <div class="title-block">
-                    <div class="name">空空</div>
-                    <div class="sci-name">Tillandsia</div>
-                </div>
-                <div class="badge-tag">☁️ 空氣鳳梨・漂浮旅人</div>
-                <div class="desc-section">
-                    <div class="desc-line"><strong>外型：</strong>全身銀灰色細葉，像一團會飛的雲，永遠不用盆栽，直接「漂浮」上班。</div>
+        <!-- 空空 -->
+        <div class="character-card">
+            <div class="card-layout">
+                <div class="card-photo"><img src="https://placehold.co/400x400/d4e4c4/4a6b3c?text=空空" alt="空空"></div>
+                <div class="card-info">
+                    <div class="title-block"><div class="name">空空</div><div class="sci-name">Tillandsia</div></div>
+                    <div class="badge-tag">☁️ 空氣鳳梨・漂浮旅人</div>
+                    <div class="desc-line"><strong>外型：</strong>銀灰色細葉，像一團會飛的雲，直接漂浮上班。</div>
                     <div class="desc-line"><strong>個性：</strong>自由奔放、零負擔，講話超快。</div>
+                    <div class="trait-bubbles"><span class="trait-bubble">無土栽培</span><span class="trait-bubble">外派特派員</span></div>
+                    <div class="quote-block">「不用土壤，哪裡都是我的座位。」</div>
+                    <div class="role-tag">✈️ 跨部門外派特派員</div>
                 </div>
-                <div class="trait-bubbles">
-                    <span class="trait-bubble">無土栽培</span>
-                    <span class="trait-bubble">外派特派員</span>
-                </div>
-                <div class="quote-block">「不用土壤，哪裡都是我的座位。」</div>
-                <div class="role-tag">✈️ 跨部門外派特派員</div>
             </div>
         </div>
     </div>
 
-    <!-- 辦公室日常區塊 -->
+    <!-- 辦公室日常 -->
     <div class="team-spirit">
         <div style="font-family:'Noto Serif TC'; font-weight:600; font-size:1.2rem; color:#4a6b3c;">🌱 蕨積辦公室日常 🌱</div>
-        <div style="color: #5e5b52; margin-top: 12px;">這些好朋友們平常就在蕨積辦公室一起上班、一起光合作用、一起推廣「植物減碳」的綠色生活理念。<br>從洞洞西裝小龜到漂浮上班的空空，每個植物人都有獨一無二的綠色超能力，讓每一天充滿療癒與永續的靈感。</div>
+        <div style="color: #5e5b52; margin-top: 10px;">這些好朋友們平常就在蕨積辦公室一起上班、一起光合作用、一起推廣「植物減碳」的綠色生活理念。<br>從洞洞西裝小龜到漂浮上班的空空，每個植物人都有獨一無二的綠色超能力，讓每一天充滿療癒與永續的靈感。</div>
     </div>
 </div>
 
 <script>
     lucide.createIcons();
-    window.addEventListener('load', () => {
-        lucide.createIcons();
-    });
+    window.addEventListener('load', () => lucide.createIcons());
 </script>
 </body>
 </html>
