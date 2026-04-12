@@ -574,22 +574,23 @@
       if (typeof lucide !== 'undefined') lucide.createIcons();
     });
   </script>
- <!-- 浮動客服按鈕 -->
+<!-- 浮動客服按鈕 (圖片版) -->
 <script>
   (function() {
     if (document.getElementById('floating-chat-btn')) return;
     
-    // 建立按鈕
     const btn = document.createElement('div');
     btn.id = 'floating-chat-btn';
-    btn.innerHTML = '🤖 AI 智能客服';
+    btn.innerHTML = `
+      <img src="/chat-icon.png" style="width: 24px; height: 24px; margin-right: 8px; vertical-align: middle;">
+      <span>AI 智能客服</span>
+    `;
     
-    // 樣式
     btn.style.cssText = `
       position: fixed;
       bottom: 30px;
       right: 30px;
-      padding: 12px 24px;
+      padding: 10px 20px;
       background: linear-gradient(135deg, #3d5a38, #5a7a4a);
       color: white;
       font-size: 16px;
@@ -601,10 +602,11 @@
       z-index: 9999;
       box-shadow: 0 4px 15px rgba(0,0,0,0.25);
       transition: all 0.3s ease;
-      animation: gentleBounce 1.5s ease infinite;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     `;
     
-    // 滑鼠懸停效果
     btn.onmouseenter = () => {
       btn.style.transform = 'scale(1.08)';
       btn.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
@@ -616,7 +618,6 @@
       btn.style.background = 'linear-gradient(135deg, #3d5a38, #5a7a4a)';
     };
     
-    // 點擊事件
     btn.onclick = () => {
       const isLINE = /LINE/.test(navigator.userAgent);
       if (isLINE) {
@@ -628,18 +629,20 @@
       }
     };
     
-    // 加入動畫 keyframes
     const style = document.createElement('style');
     style.textContent = `
       @keyframes gentleBounce {
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-5px); }
       }
+      #floating-chat-btn {
+        animation: gentleBounce 1.5s ease infinite;
+      }
     `;
     document.head.appendChild(style);
     
     document.body.appendChild(btn);
-    console.log('🤖 AI 智能客服按鈕已加入');
+    console.log('🤖 AI 智能客服按鈕(圖片版)已加入');
   })();
 </script>
 </body>
