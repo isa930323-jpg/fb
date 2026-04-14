@@ -33,7 +33,7 @@
       flex-direction: column;
     }
 
-    /* ----- 導覽列 ----- */
+    /* ----- 導覽列 (固定結構，但內容將由 nav.html 動態載入) ----- */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -154,7 +154,7 @@
       .hamburger { display: flex; }
     }
 
-    /* 主內容 */
+    /* 主內容區塊 */
     .content {
       flex: 1;
       padding-top: 92px;
@@ -303,7 +303,7 @@
     }
     hr { margin: 1rem 0; border-color: #E2DCC8; }
 
-    /* 辦公室日常區塊 (全新調整) */
+    /* 辦公室日常區塊 */
     .team-spirit {
       max-width: 1280px;
       margin: 1.5rem auto 2rem;
@@ -326,10 +326,6 @@
       gap: 12px;
       flex-wrap: wrap;
     }
-    .team-spirit-title i {
-      font-size: 1.8rem;
-      color: #5A8F4C;
-    }
     .team-spirit-desc {
       font-size: 1rem;
       line-height: 1.5;
@@ -341,11 +337,6 @@
       margin: 0 auto;
       backdrop-filter: blur(2px);
     }
-    .team-spirit-desc i {
-      margin-right: 4px;
-      color: #6B8C5C;
-    }
-
     /* 遊戲連結卡片 */
     .game-links-section {
       display: flex;
@@ -415,39 +406,8 @@
   </style>
 </head>
 <body>
-  <nav id="mainNav">
-    <a href="index.html" class="logo">
-      <div class="logo-mark">蕨</div>
-      <div class="logo-text">蕨積 FERNBROM<span>GREEN LIVING</span></div>
-    </a>
-    <ul class="nav-links">
-      <li><a href="index.html">首頁</a></li>
-      <li class="has-dropdown">
-        <a href="#">探索</a>
-        <ul class="dropdown">
-          <li><a href="greenlab.html">綠色實驗室</a></li>
-          <li><a href="shop.html">植物選品</a></li>
-          <li><a href="fbnote.html">蕨望筆記</a></li>
-        </ul>
-      </li>
-      <li><a href="consult.html">綠色顧問</a></li>
-      <li><a href="about.html">關於蕨積</a></li>
-      <li><a href="contact.html" class="nav-contact">聯絡我們</a></li>
-    </ul>
-    <div class="hamburger" id="hamburger">
-      <span></span><span></span><span></span>
-    </div>
-    <div class="mobile-menu" id="mobileMenu">
-      <ul>
-        <li><a href="index.html">首頁</a></li>
-        <li><a href="greenlab.html">綠色實驗室</a></li>
-        <li><a href="shop.html">植物選品</a></li>
-        <li><a href="consult.html">綠色顧問</a></li>
-        <li><a href="about.html">關於蕨積</a></li>
-        <li><a href="contact.html">聯絡我們</a></li>
-      </ul>
-    </div>
-  </nav>
+  <!-- 導覽列容器：nav.html 動態掛載 -->
+  <div id="nav-container"></div>
 
   <main class="content">
     <div style="text-align: center; padding: 20px 20px 0;">
@@ -564,7 +524,7 @@
       </div>
     </div>
 
-    <!-- 🌱 蕨積辦公室日常 (重新調整，活潑且完整保留文案) -->
+    <!-- 蕨積辦公室日常區塊 (完整保留並美化) -->
     <div class="team-spirit">
       <div class="team-spirit-title">
         <i class="fas fa-leaf"></i> 蕨積辦公室日常 🌱
@@ -606,7 +566,7 @@
   </footer>
 
   <script>
-    // 植栽碳管理資料庫
+    // 植栽碳管理系統
     const plantDB = {
       "腎蕨_強效": { name: "波士頓腎蕨", baseCarbon: 450 },
       "山蘇_中效": { name: "山蘇", baseCarbon: 280 },
@@ -683,8 +643,34 @@
       updateUI();
     }
 
-    // 導覽列互動
-    function initNav() {
+    // 導覽列動態載入 (外部 nav.html) + 事件綁定
+    function loadNavAndInit() {
+      const navContainer = document.getElementById('nav-container');
+      if (!navContainer) return;
+      fetch('nav.html')
+        .then(response => {
+          if (!response.ok) throw new Error('nav.html 不存在或無法載入');
+          return response.text();
+        })
+        .then(html => {
+          navContainer.innerHTML = html;
+          initNavBehavior();      // 初始化漢堡選單、滾動效果
+        })
+        .catch(err => {
+          console.warn('導覽列載入失敗，使用內建導覽替代：', err);
+          // 友善備用 nav 結構
+          navContainer.innerHTML = `
+            <nav id="mainNav">
+              <a href="index.html" class="logo"><div class="logo-mark">蕨</div><div class="logo-text">蕨積 FERNBROM<span>GREEN LIVING</span></div></a>
+              <ul class="nav-links"><li><a href="index.html">首頁</a></li><li class="has-dropdown"><a href="#">探索</a><ul class="dropdown"><li><a href="greenlab.html">綠色實驗室</a></li><li><a href="shop.html">植物選品</a></li><li><a href="fbnote.html">蕨望筆記</a></li></ul></li><li><a href="consult.html">綠色顧問</a></li><li><a href="about.html">關於蕨積</a></li><li><a href="contact.html" class="nav-contact">聯絡我們</a></li></ul>
+              <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+              <div class="mobile-menu" id="mobileMenu"><ul><li><a href="index.html">首頁</a></li><li><a href="greenlab.html">綠色實驗室</a></li><li><a href="shop.html">植物選品</a></li><li><a href="consult.html">綠色顧問</a></li><li><a href="about.html">關於蕨積</a></li><li><a href="contact.html">聯絡我們</a></li></ul></div>
+            </nav>`;
+          initNavBehavior();
+        });
+    }
+
+    function initNavBehavior() {
       const hamburger = document.getElementById('hamburger');
       const mobileMenu = document.getElementById('mobileMenu');
       if (hamburger && mobileMenu) {
@@ -706,7 +692,7 @@
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      initNav();
+      loadNavAndInit();
       const addBtn = document.getElementById("addPlantBtn");
       const clearBtn = document.getElementById("clearAllBtn");
       if (addBtn) addBtn.addEventListener("click", addPlantHandler);
