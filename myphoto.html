@@ -527,6 +527,75 @@
       margin: 0 6px;
       opacity: 0.6;
     }
+
+    /* ===== 全新團隊圖片區塊：無框、懸浮文字、連結 ===== */
+    .team-section {
+      text-align: center;
+      margin: 20px 0 30px;
+      padding: 0 24px;
+    }
+    .team-link {
+      display: inline-block;
+      position: relative;
+      text-decoration: none;
+      line-height: 0; /* 消除圖片下方空隙 */
+      border: none;
+      outline: none;
+      background: transparent;
+      cursor: pointer;
+    }
+    .team-img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border: none;
+      box-shadow: none;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      border-radius: 0; /* 完全無框無圓角 */
+    }
+    /* hover 時輕輕浮起 + 微光澤，但不加框線 */
+    .team-link:hover .team-img {
+      transform: scale(1.02);
+      opacity: 0.92;
+    }
+    /* 懸浮文字提示 — 優雅滑入效果 */
+    .team-hover-text {
+      position: absolute;
+      bottom: -28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      background: rgba(61, 90, 56, 0.85);
+      backdrop-filter: blur(4px);
+      color: white;
+      font-size: 0.85rem;
+      font-family: 'Noto Serif TC', serif;
+      letter-spacing: 0.12em;
+      padding: 6px 16px;
+      border-radius: 30px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 10;
+      font-weight: 400;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .team-link:hover .team-hover-text {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    /* 手機版稍微調整間距避免遮擋 */
+    @media (max-width: 640px) {
+      .team-hover-text {
+        font-size: 0.7rem;
+        white-space: nowrap;
+        bottom: -24px;
+        padding: 4px 12px;
+      }
+      .team-section {
+        margin: 20px 0 30px;
+      }
+    }
     
     /* ----- Footer (完整保留) ----- */
     footer {
@@ -588,12 +657,12 @@
       
       <!-- 分頁控制 -->
       <div class="pagination">
-        <button id="prevBtn" class="page-btn" onclick="prevPage()">◀ 上一頁</button>
+        <button id="prevBtn" class="page-btn">◀ 上一頁</button>
         <span id="pageInfo" class="page-info">第 1 / 1 頁</span>
-        <button id="nextBtn" class="page-btn" onclick="nextPage()">下一頁 ▶</button>
+        <button id="nextBtn" class="page-btn">下一頁 ▶</button>
       </div>
       
-      <!-- 三個連結：蕨類 · 積水鳳梨 · 其他植物 (置中、無底線) -->
+      <!-- 植物分類三連結 (蕨類選品 · 積水鳳梨選品 · 其他植物選品) -->
       <div class="plant-categories">
         <div class="category-links">
           <a href="fern.html" class="category-link">蕨類選品</a>
@@ -603,6 +672,17 @@
           <a href="otherplant.html" class="category-link">其他植物選品</a>
         </div>
       </div>
+      
+      <!-- ========= 新區塊：團隊圖片 teamsss.png，無框，滑鼠滑過出現文字，連結到 team.html ========= -->
+      <div class="team-section">
+        <a href="team.html" class="team-link">
+          <!-- 請確保 images/teamsss.png 路徑正確，若圖片位於根目錄則使用 ./teamsss.png -->
+          <img src="teamsss.png" alt="阿蕨與小積的好朋友們" class="team-img" onerror="this.src='https://placehold.co/800x300/e8e0d4/5a7a4a?text=teamsss.png+未找到'; this.onerror=null;">
+          <span class="team-hover-text">🌿 阿蕨與小積的好朋友們 🌱</span>
+        </a>
+      </div>
+      <!-- ========= 團隊區塊結束 ========= -->
+      
     </div>
   </main>
   
@@ -656,7 +736,6 @@
           hasMorePages = !!cursor;
           pageNum++;
           
-          // 避免無限循環，最多加載 50 頁
           if (pageNum > 50) break;
         }
         
@@ -680,7 +759,6 @@
       const grid = document.getElementById('photoGrid');
       if (!grid) return;
       
-      // 計算當前頁面要顯示的照片
       const startIndex = (currentPage - 1) * IMAGES_PER_PAGE;
       const endIndex = Math.min(startIndex + IMAGES_PER_PAGE, allImages.length);
       const currentImages = allImages.slice(startIndex, endIndex);
@@ -695,10 +773,9 @@
         return;
       }
       
-      // 渲染照片
       grid.innerHTML = currentImages.map(photo => `
         <div class="photo-card" onclick="openLightbox('${photo.url}', '${formatDate(photo.time)}')">
-          <img src="${photo.url}" alt="照片" loading="lazy">
+          <img src="${photo.url}" alt="屋頂植物" loading="lazy">
           <div class="photo-overlay">
             <div class="photo-date">
               <i data-lucide="calendar" style="width: 12px; height: 12px;"></i>
@@ -708,87 +785,71 @@
         </div>
       `).join('');
       
-      // 重新初始化 lucide 圖示
       if (typeof lucide !== 'undefined') {
         lucide.createIcons();
       }
       
-      // 更新分頁資訊
       updatePagination();
-      
-      // 滾動到頂部，提升用戶體驗
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     
-    // 更新分頁控制按鈕狀態和資訊
     function updatePagination() {
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
       const pageInfo = document.getElementById('pageInfo');
       
-      // 更新總頁數
       totalPages = Math.ceil(allImages.length / IMAGES_PER_PAGE);
       
-      // 更新按鈕狀態
-      prevBtn.disabled = currentPage === 1;
-      nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+      if (prevBtn) prevBtn.disabled = currentPage === 1;
+      if (nextBtn) nextBtn.disabled = currentPage === totalPages || totalPages === 0;
       
-      // 更新頁碼顯示
-      if (totalPages === 0) {
-        pageInfo.textContent = '第 0 / 0 頁';
-      } else {
-        pageInfo.textContent = `第 ${currentPage} / ${totalPages} 頁`;
+      if (pageInfo) {
+        if (totalPages === 0) pageInfo.textContent = '第 0 / 0 頁';
+        else pageInfo.textContent = `第 ${currentPage} / ${totalPages} 頁`;
       }
     }
     
-    // 上一頁
-    function prevPage() {
+    window.prevPage = function() {
       if (currentPage > 1) {
         currentPage--;
         renderCurrentPage();
       }
-    }
+    };
     
-    // 下一頁
-    function nextPage() {
+    window.nextPage = function() {
       if (currentPage < totalPages) {
         currentPage++;
         renderCurrentPage();
       }
-    }
+    };
     
-    // 開啟燈箱
-    function openLightbox(url, date) {
+    window.openLightbox = function(url, date) {
       const lightbox = document.getElementById('lightbox');
       const lightboxImage = document.getElementById('lightboxImage');
       const lightboxInfo = document.getElementById('lightboxInfo');
       lightboxImage.src = url;
       lightboxInfo.textContent = date;
       lightbox.classList.add('active');
-    }
+    };
     
-    // 關閉燈箱
-    function closeLightbox() {
+    window.closeLightbox = function() {
       const lightbox = document.getElementById('lightbox');
       lightbox.classList.remove('active');
-    }
+    };
     
-    // 初始化頁面
     async function initPage() {
       const grid = document.getElementById('photoGrid');
       const pagination = document.querySelector('.pagination');
       
-      // 顯示載入狀態
       grid.innerHTML = `
         <div class="loading-state" style="grid-column: 1/-1;">
           <div class="loading-spinner"></div>
           <div class="loading-text">正在載入照片...</div>
         </div>
       `;
-      pagination.style.display = 'none';
+      if (pagination) pagination.style.display = 'none';
       
       try {
-        // 獲取所有照片
         allImages = await fetchAllImages();
         
         if (allImages.length === 0) {
@@ -798,17 +859,12 @@
               <p>目前沒有照片，請稍後再試</p>
             </div>
           `;
-          pagination.style.display = 'none';
+          if (pagination) pagination.style.display = 'none';
           return;
         }
         
-        // 重置頁碼
         currentPage = 1;
-        
-        // 顯示分頁控制
-        pagination.style.display = 'flex';
-        
-        // 渲染第一頁
+        if (pagination) pagination.style.display = 'flex';
         renderCurrentPage();
         
       } catch (error) {
@@ -820,27 +876,21 @@
             <button onclick="location.reload()" style="margin-top: 16px; padding: 8px 20px; background: var(--fern); color: white; border: none; border-radius: 4px; cursor: pointer;">重新載入</button>
           </div>
         `;
-        pagination.style.display = 'none';
+        if (pagination) pagination.style.display = 'none';
       }
     }
     
-    // 鍵盤事件支援（左右鍵切換頁面）
+    // 鍵盤事件支援（左右鍵切換頁面，ESC關燈箱）
     document.addEventListener('keydown', function(e) {
       const lightbox = document.getElementById('lightbox');
-      
-      // 如果燈箱開啟，優先處理燈箱關閉
       if (lightbox && lightbox.classList.contains('active')) {
-        if (e.key === 'Escape') {
-          closeLightbox();
-        }
+        if (e.key === 'Escape') closeLightbox();
         return;
       }
-      
-      // 燈箱未開啟時，左右鍵切換頁面
       if (e.key === 'ArrowLeft') {
-        prevPage();
+        if (typeof window.prevPage === 'function') window.prevPage();
       } else if (e.key === 'ArrowRight') {
-        nextPage();
+        if (typeof window.nextPage === 'function') window.nextPage();
       }
     });
     
@@ -878,9 +928,7 @@
       if (typeof lucide !== 'undefined') lucide.createIcons();
     }
     
-    // DOM 載入完成
     document.addEventListener('DOMContentLoaded', function () {
-      // 載入導覽列
       fetch('nav.html')
         .then(response => response.text())
         .then(data => {
@@ -895,8 +943,13 @@
             '</nav>';
         });
       
-      // 初始化相簿
       initPage();
+      
+      // 確保分頁按鈕綁定全域函數 (因為html onclick 引用)
+      const prev = document.getElementById('prevBtn');
+      const next = document.getElementById('nextBtn');
+      if (prev) prev.onclick = () => window.prevPage();
+      if (next) next.onclick = () => window.nextPage();
     });
   </script>
 </body>
