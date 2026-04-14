@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>🎨 第四步 · 一起來種植物</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Comic Neue', 'Noto Sans TC', sans-serif;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background: #6eb56e;
+            background-image: radial-gradient(circle at 10% 20%, rgba(255,255,200,0.2) 2%, transparent 2.5%);
+            background-size: 28px 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .card {
+            max-width: 1100px;
+            width: 100%;
+            background: #fffef7;
+            border-radius: 64px;
+            padding: 28px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+            border: 3px solid #ffdd99;
+        }
+        h1 {
+            color: #3a7a2a;
+            font-size: 1.6rem;
+            text-align: center;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .info-bar {
+            background: #e8f5e0;
+            border-radius: 40px;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.9rem;
+            border: 2px dashed #aad48a;
+        }
+        .plants-summary {
+            background: #fff5e8;
+            border-radius: 40px;
+            padding: 16px;
+            margin-bottom: 20px;
+            border: 2px solid #ddeec0;
+        }
+        .plants-summary-title {
+            font-weight: bold;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .plant-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+        .plant-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 40px;
+            border: 2px solid #ddeec0;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+        .plant-item.selected {
+            background: #ffdd99;
+            border-color: #ffaa44;
+            transform: scale(1.02);
+        }
+        .plant-color-box {
+            width: 28px;
+            height: 28px;
+            border-radius: 28px;
+        }
+        .progress-bar {
+            background: #e0e0d0;
+            border-radius: 40px;
+            height: 24px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: #ffaa44;
+            transition: width 0.1s linear;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        .canvas-container {
+            background: #e8e0c8;
+            border-radius: 32px;
+            padding: 12px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        canvas {
+            background: #f5f0e0;
+            border-radius: 24px;
+            display: block;
+            margin: 0 auto;
+            cursor: pointer;
+            width: 100%;
+            height: auto;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .click-hint {
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #ffaa44;
+            background: #fff0c0;
+            display: inline-block;
+            width: auto;
+            margin: 10px auto 0;
+            padding: 6px 20px;
+            border-radius: 40px;
+        }
+        .worker-section {
+            margin: 15px 0;
+        }
+        .worker-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 10px 0;
+            justify-content: center;
+        }
+        .worker-card {
+            background: white;
+            border-radius: 60px;
+            padding: 6px 16px 6px 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 2px solid #ddeec0;
+        }
+        .worker-avatar {
+            width: 45px;
+            height: 45px;
+            background: #ddeec0;
+            border-radius: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            overflow: hidden;
+        }
+        .worker-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .worker-name {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #3a7a2a;
+        }
+        .worker-talk {
+            font-size: 0.65rem;
+            color: #c07a2a;
+            background: #fff0c0;
+            border-radius: 20px;
+            padding: 4px 10px;
+            max-width: 160px;
+            white-space: nowrap;
+            overflow-x: auto;
+            cursor: pointer;
+        }
+        .flex-btns {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        button {
+            background: #ffaa44;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 60px;
+            cursor: pointer;
+            flex: 1;
+            min-width: 120px;
+            box-shadow: 0 4px 0 #cc8833;
+            transition: 0.05s linear;
+        }
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #cc8833;
+        }
+        button:disabled {
+            opacity: 0.5;
+            transform: none;
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background: #8aaa6e;
+            box-shadow: 0 4px 0 #6a8a4e;
+        }
+        .btn-warning {
+            background: #ff8866;
+            box-shadow: 0 4px 0 #cc6644;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #8aaa6e;
+            margin-top: 20px;
+        }
+        .selected-tool {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 0.9rem;
+            color: #ffaa44;
+            font-weight: bold;
+            background: #fff0c0;
+            padding: 8px;
+            border-radius: 40px;
+        }
+        .fly-talk {
+            position: fixed;
+            background: #fff0c0;
+            color: #c07a2a;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            white-space: nowrap;
+            z-index: 1000;
+            pointer-events: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 1px solid #ffcc88;
+            animation: flyAway 1s ease-out forwards;
+        }
+        @keyframes flyAway {
+            0% { opacity: 1; transform: translate(0, 0) scale(1); }
+            30% { opacity: 1; transform: translate(15px, -35px) scale(1.08); }
+            100% { opacity: 0; transform: translate(40px, -90px) scale(0.7); }
+        }
+        @media (max-width: 700px) {
+            .card { padding: 18px; }
+            .worker-talk { max-width: 120px; font-size: 0.6rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>
+        <span>🎨</span>
+        第四步 · 一起來種植物
+        <span>🌱</span>
+    </h1>
+
+    <div class="info-bar" id="infoBar">載入中...</div>
+
+    <div class="plants-summary">
+        <div class="plants-summary-title">🌱 點擊顏色，選擇要種的植物！</div>
+        <div class="plant-list" id="plantList"></div>
+    </div>
+
+    <div class="selected-tool" id="selectedTool">🎨 點擊上面的色塊選擇植物～</div>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill">0%</div>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="greenCanvas" width="600" height="400" style="width:100%; height:auto; max-width:600px; aspect-ratio:600/400"></canvas>
+        <div class="click-hint">✨ 點擊格子 = 種植物！ ✨</div>
+    </div>
+
+    <div class="worker-section">
+        <div class="worker-list" id="workerList"></div>
+    </div>
+
+    <div class="flex-btns">
+        <button id="resetBtn" class="btn-secondary">🔄 全部清除</button>
+        <button id="autoFillBtn" class="btn-warning">🎲 魔法一鍵種滿</button>
+        <button id="completeBtn" disabled>🏆 完成！領獎章 🏆</button>
+    </div>
+    <footer>🌱 點一下種一株！把所有格子種滿，就可以拿到綠手指獎章喔！</footer>
+</div>
+
+<script>
+    // 兒童版可愛語錄
+    const FUN_TALKS = [
+        "🌱 種下一棵小植物！",
+        "🎉 耶！越來越漂亮了！",
+        "💚 愛護地球，好棒！",
+        "⭐ 你種得好快！",
+        "🌸 花花世界真美麗～",
+        "😊 一起努力完成它！",
+        "🍃 植物們在謝謝你！",
+        "🎵 種種種～種下去～",
+        "💪 再努力一下下！",
+        "🏆 快要完成了！"
+    ];
+
+    let PLANTS = [];
+    let area = 0, totalPlants = 0, siteLocation = "", quantities = [], workers = [], workerCount = 0;
+    let gridColors = [], finishedCount = 0, canvas = null, ctx = null, cols = 0, rows = 0;
+    let workerTalks = [];
+    let selectedPlantId = null;
+    let cellSize = { w: 0, h: 0 };
+
+    function getRandomTalk() {
+        return FUN_TALKS[Math.floor(Math.random() * FUN_TALKS.length)];
+    }
+
+    function flyTalk(text, x, y) {
+        const div = document.createElement('div');
+        div.className = 'fly-talk';
+        div.textContent = '💬 ' + text;
+        div.style.left = (x - 50) + 'px';
+        div.style.top = (y - 30) + 'px';
+        document.body.appendChild(div);
+        setTimeout(() => div.remove(), 1000);
+    }
+
+    function refreshWorkerTalk(index) {
+        workerTalks[index] = getRandomTalk();
+        renderWorkers();
+    }
+
+    function loadData() {
+        area = parseInt(localStorage.getItem('greenwall_area')) || 10;
+        totalPlants = parseInt(localStorage.getItem('greenwall_total_plants')) || 400;
+        siteLocation = localStorage.getItem('greenwall_location') || 'outdoor';
+        quantities = JSON.parse(localStorage.getItem('greenwall_quantities') || '[0,0,0,0]');
+        workers = JSON.parse(localStorage.getItem('greenwall_workers') || '[]');
+        workerCount = workers.length;
+        
+        const storedPlants = localStorage.getItem('greenwall_plants_data');
+        if (storedPlants) {
+            const plantData = JSON.parse(storedPlants);
+            PLANTS = plantData.map((p, idx) => ({
+                id: idx,
+                name: p.name,
+                emoji: p.emoji || ["🌿","🌱","🍃","🌸"][idx],
+                quantity: p.quantity || quantities[idx]
+            }));
+        } else {
+            PLANTS = [
+                { id: 0, name: "綠葉鵝掌藤", emoji: "🌿", quantity: quantities[0] || 0 },
+                { id: 1, name: "蔓榕", emoji: "🌱", quantity: quantities[1] || 0 },
+                { id: 2, name: "腎蕨", emoji: "🍃", quantity: quantities[2] || 0 },
+                { id: 3, name: "粗勒草", emoji: "🌸", quantity: quantities[3] || 0 }
+            ];
+        }
+        
+        if (workerTalks.length !== workerCount) {
+            workerTalks = [];
+            for (let i = 0; i < workerCount; i++) workerTalks.push(getRandomTalk());
+        }
+        
+        document.getElementById('infoBar').innerHTML = `
+            <span>📐 ${area} 平方公尺</span>
+            <span>🌱 ${totalPlants} 株植物</span>
+            <span>📍 ${siteLocation === 'outdoor' ? '🌞 戶外陽光區' : '🏠 室內舒適區'}</span>
+            <span>👷 ${workerCount} 人團隊</span>
+        `;
+        renderPlantsSummary();
+        renderWorkers();
+    }
+
+    function renderPlantsSummary() {
+        const container = document.getElementById('plantList');
+        container.innerHTML = '';
+        for (let i = 0; i < PLANTS.length; i++) {
+            const p = PLANTS[i];
+            const qty = p.quantity;
+            if (qty === 0) continue;
+            const div = document.createElement('div');
+            div.className = `plant-item ${selectedPlantId === i ? 'selected' : ''}`;
+            div.innerHTML = `<span style="font-size:1.3rem;">${p.emoji}</span>
+                <span>${p.name}</span>
+                <span><strong>${qty}</strong>株</span>`;
+            div.addEventListener('click', (e) => {
+                e.stopPropagation();
+                selectedPlantId = i;
+                document.getElementById('selectedTool').innerHTML = `🎨 現在要種：${p.name} ${p.emoji}`;
+                renderPlantsSummary();
+                
+                const rect = div.getBoundingClientRect();
+                flyTalk(`✨ 選擇 ${p.name}！`, rect.left + rect.width/2, rect.top + rect.height/2);
+            });
+            container.appendChild(div);
+        }
+        
+        if (selectedPlantId === null && PLANTS.length > 0) {
+            selectedPlantId = 0;
+            document.getElementById('selectedTool').innerHTML = `🎨 現在要種：${PLANTS[0].name} ${PLANTS[0].emoji}`;
+        }
+    }
+
+    function renderWorkers() {
+        const container = document.getElementById('workerList');
+        if (workers.length === 0) {
+            container.innerHTML = '<div style="color:#c07a2a;">⚠️ 沒有隊友？回去第三步找夥伴吧～</div>';
+            return;
+        }
+        const imgNames = ['brom.png', 'fern.png', 'ficus.png', 'mons.png', 'sans.png', 'succ.png', 'till.png'];
+        container.innerHTML = workers.map((worker, idx) => {
+            const imgFile = imgNames[worker.id % imgNames.length];
+            return `
+                <div class="worker-card">
+                    <div class="worker-avatar"><img src="${imgFile}" onerror="this.style.display='none'; this.parentElement.innerHTML='${worker.emoji || "👤"}';"></div>
+                    <div>
+                        <div class="worker-name">${worker.name}</div>
+                        <div class="worker-talk" data-idx="${idx}">💬 ${workerTalks[idx]}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+        document.querySelectorAll('.worker-talk').forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const rect = el.getBoundingClientRect();
+                refreshWorkerTalk(parseInt(el.dataset.idx));
+                flyTalk(`🔄 換一句：${workerTalks[parseInt(el.dataset.idx)]}`, rect.left + rect.width/2, rect.top + rect.height/2);
+            });
+        });
+    }
+
+    function initGridColors() {
+        gridColors = new Array(totalPlants);
+        for (let i = 0; i < totalPlants; i++) {
+            gridColors[i] = null;
+        }
+        finishedCount = 0;
+    }
+
+    function getPlantColor(plantId) {
+        const colors = ["#ffaa44", "#88cc44", "#44aa88", "#ff88aa"];
+        return colors[plantId % colors.length];
+    }
+
+    function drawPixelWall() {
+        if (!canvas || !ctx) return;
+        const w = canvas.width, h = canvas.height;
+        cellSize.w = w / cols;
+        cellSize.h = h / rows;
+        
+        for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+                const idx = row * cols + col;
+                if (idx >= totalPlants) {
+                    ctx.fillStyle = "#ddd0b0";
+                    ctx.fillRect(col * cellSize.w, row * cellSize.h, cellSize.w, cellSize.h);
+                    continue;
+                }
+                
+                if (gridColors[idx]) {
+                    ctx.fillStyle = gridColors[idx];
+                } else {
+                    ctx.fillStyle = "#f0e8d0";
+                }
+                ctx.fillRect(col * cellSize.w, row * cellSize.h, cellSize.w, cellSize.h);
+                ctx.strokeStyle = "#ddd0b0";
+                ctx.strokeRect(col * cellSize.w, row * cellSize.h, cellSize.w, cellSize.h);
+            }
+        }
+    }
+
+    function updateProgressAndButton() {
+        const coloredCount = gridColors.filter(c => c !== null).length;
+        finishedCount = coloredCount;
+        const percent = Math.floor((finishedCount / totalPlants) * 100);
+        const fillDiv = document.getElementById('progressFill');
+        fillDiv.style.width = `${percent}%`;
+        fillDiv.innerHTML = `${percent}%`;
+        drawPixelWall();
+        document.getElementById('completeBtn').disabled = (finishedCount < totalPlants);
+    }
+
+    function handleCanvasClick(e) {
+        if (!canvas) return;
+        
+        let clientX, clientY;
+        if (e.touches) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+            e.preventDefault();
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+        
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        
+        let canvasX = (clientX - rect.left) * scaleX;
+        let canvasY = (clientY - rect.top) * scaleY;
+        
+        if (canvasX < 0) canvasX = 0;
+        if (canvasY < 0) canvasY = 0;
+        if (canvasX > canvas.width) canvasX = canvas.width;
+        if (canvasY > canvas.height) canvasY = canvas.height;
+        
+        const col = Math.floor(canvasX / cellSize.w);
+        const row = Math.floor(canvasY / cellSize.h);
+        
+        if (col < 0 || col >= cols) return;
+        if (row < 0 || row >= rows) return;
+        
+        const idx = row * cols + col;
+        
+        if (idx >= 0 && idx < totalPlants && selectedPlantId !== null) {
+            const selectedPlant = PLANTS[selectedPlantId];
+            const wasEmpty = !gridColors[idx];
+            gridColors[idx] = getPlantColor(selectedPlantId);
+            updateProgressAndButton();
+            
+            // 噴發可愛語錄
+            let talk = "";
+            if (workers.length > 0) {
+                const randomIdx = Math.floor(Math.random() * workers.length);
+                talk = workerTalks[randomIdx];
+                setTimeout(() => refreshWorkerTalk(randomIdx), 300);
+            } else {
+                talk = "🌱 種下去囉！";
+            }
+            
+            if (wasEmpty) {
+                flyTalk(`🎨 種下 ${selectedPlant.emoji} ${selectedPlant.name}！ ${talk}`, clientX, clientY);
+            } else {
+                flyTalk(`🔄 換成 ${selectedPlant.emoji} ${selectedPlant.name}！`, clientX, clientY);
+            }
+        }
+    }
+
+    function resetAll() {
+        if (confirm('清除所有植物，重新設計？')) {
+            initGridColors();
+            updateProgressAndButton();
+            const rect = document.getElementById('resetBtn').getBoundingClientRect();
+            flyTalk("🔄 全部清除，重新開始設計！", rect.left + rect.width/2, rect.top + rect.height/2);
+        }
+    }
+
+    function autoFill() {
+        if (confirm('魔法一鍵種滿！會依照你選的比例隨機種植～')) {
+            const colorPool = [];
+            for (let i = 0; i < PLANTS.length; i++) {
+                const qty = PLANTS[i].quantity;
+                const color = getPlantColor(i);
+                for (let j = 0; j < qty; j++) {
+                    colorPool.push(color);
+                }
+            }
+            for (let i = colorPool.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [colorPool[i], colorPool[j]] = [colorPool[j], colorPool[i]];
+            }
+            for (let i = 0; i < totalPlants && i < colorPool.length; i++) {
+                gridColors[i] = colorPool[i];
+            }
+            if (colorPool.length < totalPlants && PLANTS.length > 0) {
+                for (let i = colorPool.length; i < totalPlants; i++) {
+                    gridColors[i] = getPlantColor(0);
+                }
+            }
+            updateProgressAndButton();
+            
+            const rect = document.getElementById('autoFillBtn').getBoundingClientRect();
+            flyTalk("🎲 魔法完成！牆壁變得好漂亮～", rect.left + rect.width/2, rect.top + rect.height/2);
+        }
+    }
+
+    function completeAndNext() {
+        if (finishedCount < totalPlants) {
+            alert(`還剩 ${totalPlants - finishedCount} 格沒種！再努力一下下～`);
+            return;
+        }
+        localStorage.setItem('greenwall_construction_done', 'true');
+        localStorage.setItem('greenwall_grid_colors', JSON.stringify(gridColors));
+        
+        const rect = document.getElementById('completeBtn').getBoundingClientRect();
+        flyTalk("🏆 哇！你完成了！獲得綠手指獎章！前往頒獎典禮～", rect.left + rect.width/2, rect.top + rect.height/2);
+        
+        setTimeout(() => {
+            window.location.href = 'step5_carbon.html';
+        }, 800);
+    }
+
+    function initCanvas() {
+        canvas = document.getElementById('greenCanvas');
+        canvas.width = 600;
+        canvas.height = 400;
+        ctx = canvas.getContext('2d');
+        
+        cols = Math.ceil(Math.sqrt(totalPlants));
+        rows = Math.ceil(totalPlants / cols);
+        
+        // 限制最大格子數，避免太密集
+        if (cols > 30) { cols = 30; rows = Math.ceil(totalPlants / cols); }
+        if (rows > 30) { rows = 30; cols = Math.ceil(totalPlants / rows); }
+        
+        console.log(`點陣圖: ${totalPlants} 株 → ${cols} x ${rows}`);
+        
+        initGridColors();
+        updateProgressAndButton();
+        
+        canvas.removeEventListener('click', handleCanvasClick);
+        canvas.removeEventListener('touchstart', handleCanvasClick);
+        canvas.addEventListener('click', handleCanvasClick);
+        canvas.addEventListener('touchstart', handleCanvasClick);
+    }
+
+    function loadSavedProgress() {
+        const savedColors = localStorage.getItem('greenwall_grid_colors');
+        if (savedColors) {
+            try {
+                const parsed = JSON.parse(savedColors);
+                if (parsed && parsed.length === totalPlants) {
+                    gridColors = parsed;
+                    finishedCount = gridColors.filter(c => c !== null).length;
+                }
+            } catch(e) {}
+        }
+    }
+
+    loadData();
+    loadSavedProgress();
+    
+    if (workerCount === 0) {
+        alert('⚠️ 沒有施工夥伴！請返回第三步找隊友～');
+    }
+    
+    initCanvas();
+    
+    document.getElementById('resetBtn').onclick = resetAll;
+    document.getElementById('autoFillBtn').onclick = autoFill;
+    document.getElementById('completeBtn').onclick = completeAndNext;
+</script>
+</body>
+</html>
