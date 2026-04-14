@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🌱 第三步 · 找隊友一起施工</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Comic Neue', 'Noto Sans TC', sans-serif;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background: #6eb56e;
+            background-image: radial-gradient(circle at 10% 20%, rgba(255,255,200,0.2) 2%, transparent 2.5%);
+            background-size: 28px 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .card {
+            max-width: 1000px;
+            width: 100%;
+            background: #fffef7;
+            border-radius: 64px;
+            padding: 28px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+            border: 3px solid #ffdd99;
+        }
+        h1 {
+            color: #3a7a2a;
+            font-size: 1.6rem;
+            text-align: center;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .summary {
+            background: #e8f5e0;
+            border-radius: 40px;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            border: 2px dashed #aad48a;
+        }
+        .team-tip {
+            background: #fff0c0;
+            border-radius: 30px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            text-align: center;
+            color: #c07a2a;
+        }
+        .two-columns {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .team-area {
+            flex: 2;
+            background: #fff5e8;
+            border-radius: 40px;
+            padding: 20px;
+            border: 3px dashed #cce3b0;
+        }
+        .truck-area {
+            flex: 1;
+            background: #f0f5e8;
+            border-radius: 40px;
+            padding: 20px;
+            text-align: center;
+            border: 3px solid #aad48a;
+        }
+        .section-title {
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            gap: 12px;
+        }
+        .member-card {
+            background: white;
+            border-radius: 30px;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.08s linear;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            border: 2px solid #ddeec0;
+        }
+        .member-card:active {
+            transform: scale(0.94);
+            background: #e8f5e0;
+        }
+        .member-avatar {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 6px;
+            background: #ddeec0;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            overflow: hidden;
+        }
+        .member-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .member-name {
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        .add-icon {
+            font-size: 0.7rem;
+            color: #ffaa44;
+            margin-top: 4px;
+        }
+        .truck-icon {
+            font-size: 3rem;
+            margin: 10px 0;
+            transition: transform 0.1s ease;
+        }
+        .truck-icon.shake {
+            animation: truckShake 0.3s ease;
+        }
+        @keyframes truckShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            75% { transform: translateX(3px); }
+        }
+        .truck-team {
+            background: #ddeec0;
+            border-radius: 30px;
+            padding: 16px;
+            min-height: 180px;
+            margin: 16px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .truck-member {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 65px;
+            cursor: pointer;
+            transition: all 0.08s linear;
+        }
+        .truck-member:active {
+            transform: scale(0.94);
+        }
+        .truck-member .member-avatar {
+            width: 50px;
+            height: 50px;
+            font-size: 1.6rem;
+        }
+        .truck-member .member-name {
+            font-size: 0.65rem;
+        }
+        .remove-icon {
+            font-size: 0.6rem;
+            color: #ff8866;
+            margin-top: 3px;
+        }
+        .counter {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffaa44;
+        }
+        .warning-msg {
+            background: #fff0c0;
+            border-radius: 30px;
+            padding: 10px;
+            margin-top: 16px;
+            text-align: center;
+            font-size: 0.75rem;
+        }
+        .info-msg {
+            background: #d4edda;
+            border-radius: 30px;
+            padding: 12px;
+            margin-top: 16px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #2b6e2f;
+        }
+        button {
+            background: #ffaa44;
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 60px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 4px 0 #cc8833;
+            transition: 0.05s linear;
+        }
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #cc8833;
+        }
+        button:disabled {
+            opacity: 0.5;
+            transform: none;
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background: #8aaa6e;
+            box-shadow: 0 4px 0 #6a8a4e;
+            margin-top: 0;
+        }
+        .flex-btns {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #8aaa6e;
+            margin-top: 24px;
+        }
+        .fly-quote {
+            position: fixed;
+            background: #fff0c0;
+            color: #c07a2a;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            white-space: nowrap;
+            z-index: 1000;
+            pointer-events: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 1px solid #ffcc88;
+            animation: flyQuote 1s ease-out forwards;
+        }
+        @keyframes flyQuote {
+            0% { opacity: 1; transform: translate(0, 0) scale(1); }
+            30% { opacity: 1; transform: translate(15px, -35px) scale(1.08); }
+            100% { opacity: 0; transform: translate(40px, -90px) scale(0.7); }
+        }
+        @media (max-width: 700px) {
+            .card { padding: 18px; }
+            .members-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
+            .member-avatar { width: 50px; height: 50px; }
+            .truck-member { width: 55px; }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>
+        <span>👥</span>
+        第三步 · 找隊友一起施工
+        <span>🚛</span>
+    </h1>
+
+    <div class="summary" id="summaryArea">載入中...</div>
+
+    <div class="team-tip" id="teamTip">
+        🌟 點擊夥伴就會上車！人越多，施工越快喔～
+    </div>
+
+    <div class="two-columns">
+        <div class="team-area">
+            <div class="section-title">🌾 等待召集的夥伴（點擊加入）</div>
+            <div class="members-grid" id="membersGrid"></div>
+            <div class="warning-msg">💡 點擊夥伴 = 上車｜點擊車上的夥伴 = 下車</div>
+        </div>
+
+        <div class="truck-area">
+            <div class="section-title">🚛 施工小貨車</div>
+            <div class="truck-icon" id="truckIcon">🚛</div>
+            <div class="truck-team" id="truckTeam"></div>
+            <div>👷 施工人數：<span class="counter" id="workerCount">0</span> / 7</div>
+        </div>
+    </div>
+
+    <div id="infoMsg" class="info-msg" style="display:none;"></div>
+
+    <div class="flex-btns">
+        <button id="backBtn" class="btn-secondary">⬅ 返回選植物</button>
+        <button id="nextBtn" disabled>🎉 出發施工！</button>
+    </div>
+    <footer>🌱 人越多，種花速度越快！最少需要 2 個人才能開工喔～</footer>
+</div>
+
+<script>
+    // 可愛語錄庫（兒童版）
+    const FUN_QUOTES = [
+        "🎉 耶！一起來種植物吧！",
+        "💪 團隊合作最棒了！",
+        "🌱 我們是最強綠手指！",
+        "😊 一起努力，牆壁變漂亮！",
+        "⭐ 你點得好快！好厲害！",
+        "🌸 植物們會謝謝我們～",
+        "🎵 邊唱歌邊工作好開心",
+        "🍪 做完去吃點心！",
+        "💚 愛護地球，人人有責",
+        "🪴 每一株都是小生命"
+    ];
+
+    // 夥伴資料（7位）
+    const TEAM_MEMBERS = [
+        { id: 0, name: "阿蕨", emoji: "🌿", imgFile: "brom.png" },
+        { id: 1, name: "小積", emoji: "💧", imgFile: "fern.png" },
+        { id: 2, name: "琴哥", emoji: "🎸", imgFile: "ficus.png" },
+        { id: 3, name: "小龜", emoji: "🐢", imgFile: "mons.png" },
+        { id: 4, name: "虎妹", emoji: "🐯", imgFile: "sans.png" },
+        { id: 5, name: "肉肉", emoji: "🌵", imgFile: "succ.png" },
+        { id: 6, name: "空空", emoji: "🎈", imgFile: "till.png" }
+    ];
+
+    let area = 0;
+    let totalPlants = 0;
+    let siteLocation = "";
+    let quantities = [];
+    let selectedWorkers = [];
+
+    function getRandomQuote() {
+        return FUN_QUOTES[Math.floor(Math.random() * FUN_QUOTES.length)];
+    }
+
+    function flyQuote(text, x, y) {
+        const div = document.createElement('div');
+        div.className = 'fly-quote';
+        div.textContent = '💬 ' + text;
+        div.style.left = (x - 50) + 'px';
+        div.style.top = (y - 30) + 'px';
+        document.body.appendChild(div);
+        setTimeout(() => div.remove(), 1000);
+    }
+
+    function shakeTruck() {
+        const truck = document.getElementById('truckIcon');
+        truck.classList.add('shake');
+        setTimeout(() => truck.classList.remove('shake'), 300);
+    }
+
+    function loadPreviousData() {
+        area = parseInt(localStorage.getItem('greenwall_area')) || 10;
+        totalPlants = parseInt(localStorage.getItem('greenwall_total_plants')) || 400;
+        siteLocation = localStorage.getItem('greenwall_location') || 'outdoor';
+        
+        const storedQuantities = localStorage.getItem('greenwall_quantities');
+        if (storedQuantities) {
+            quantities = JSON.parse(storedQuantities);
+        } else {
+            quantities = [0, 0, 0, 0];
+        }
+        
+        document.getElementById('summaryArea').innerHTML = `
+            📐 ${area} 平方公尺 &nbsp;|&nbsp;
+            📍 ${siteLocation === 'outdoor' ? '🌞 戶外陽光區' : '🏠 室內舒適區'} &nbsp;|&nbsp;
+            🌱 總共 ${totalPlants} 株植物
+        `;
+    }
+
+    function renderAvatar(imgFile, emoji, size = "60px") {
+        const sizeNum = parseInt(size);
+        return `<img src="${imgFile}" 
+                     onerror="this.style.display='none'; this.parentElement.innerHTML='${emoji}';"
+                     style="width:${sizeNum}px; height:${sizeNum}px; object-fit:cover; border-radius:60px;">`;
+    }
+
+    function addWorker(worker, clickX, clickY) {
+        if (selectedWorkers.some(w => w.id === worker.id)) {
+            flyQuote(`⚠️ ${worker.name} 已經在車上囉！`, clickX, clickY);
+            return false;
+        }
+        if (selectedWorkers.length >= 7) {
+            flyQuote(`🚛 車車滿了！最多7人～`, clickX, clickY);
+            return false;
+        }
+        selectedWorkers.push(worker);
+        
+        const quote = getRandomQuote();
+        flyQuote(`✨ ${worker.name} 上車了！ ${quote}`, clickX, clickY);
+        shakeTruck();
+        return true;
+    }
+
+    function removeWorker(workerId, clickX, clickY) {
+        const removed = selectedWorkers.find(w => w.id === workerId);
+        if (removed) {
+            const quote = getRandomQuote();
+            flyQuote(`😢 ${removed.name} 下車了... ${quote}`, clickX, clickY);
+        }
+        selectedWorkers = selectedWorkers.filter(w => w.id !== workerId);
+        shakeTruck();
+    }
+
+    function updateInfoAndButton() {
+        const currentCount = selectedWorkers.length;
+        const infoDiv = document.getElementById('infoMsg');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        if (currentCount === 0) {
+            infoDiv.style.display = 'block';
+            infoDiv.innerHTML = '⚠️ 還沒有夥伴！點擊左邊的夥伴，讓他們上車吧～';
+            infoDiv.style.background = '#fff0c0';
+            infoDiv.style.color = '#c07a2a';
+            nextBtn.disabled = true;
+            return;
+        }
+        
+        if (currentCount === 1) {
+            infoDiv.style.display = 'block';
+            infoDiv.innerHTML = '👥 只有一個人好孤單～再找一個夥伴一起施工吧！兩人以上才安全喔！';
+            infoDiv.style.background = '#fff0c0';
+            infoDiv.style.color = '#c07a2a';
+            nextBtn.disabled = true;
+            return;
+        }
+        
+        // 2人以上就可以出發
+        infoDiv.style.display = 'block';
+        infoDiv.style.background = '#d4edda';
+        infoDiv.style.color = '#2b6e2f';
+        if (currentCount === 2) {
+            infoDiv.innerHTML = `✅ ${currentCount} 人！可以出發了！人越多種越快喔～`;
+        } else {
+            infoDiv.innerHTML = `🎉 ${currentCount} 人！好棒的團隊！出發施工吧！`;
+        }
+        nextBtn.disabled = false;
+    }
+
+    function renderMembers() {
+        const container = document.getElementById('membersGrid');
+        container.innerHTML = '';
+        
+        TEAM_MEMBERS.forEach(member => {
+            const isSelected = selectedWorkers.some(w => w.id === member.id);
+            if (isSelected) return;
+            
+            const card = document.createElement('div');
+            card.className = 'member-card';
+            
+            card.innerHTML = `
+                <div class="member-avatar" id="member_avatar_${member.id}"></div>
+                <div class="member-name">${member.name}</div>
+                <div class="add-icon">➕ 點擊上車</div>
+            `;
+            
+            const avatarDiv = card.querySelector(`#member_avatar_${member.id}`);
+            if (avatarDiv) {
+                avatarDiv.innerHTML = renderAvatar(member.imgFile, member.emoji, "60");
+            }
+            
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const rect = card.getBoundingClientRect();
+                const clickX = rect.left + rect.width / 2;
+                const clickY = rect.top + rect.height / 2;
+                
+                if (addWorker(member, clickX, clickY)) {
+                    saveAndRender();
+                }
+            });
+            
+            container.appendChild(card);
+        });
+    }
+
+    function renderTruck() {
+        const container = document.getElementById('truckTeam');
+        container.innerHTML = '';
+        
+        if (selectedWorkers.length === 0) {
+            container.innerHTML = '<div style="color:#8aaa6e; text-align:center; padding:20px;">🚛 點擊左邊夥伴讓他們上車～</div>';
+        } else {
+            selectedWorkers.forEach(worker => {
+                const div = document.createElement('div');
+                div.className = 'truck-member';
+                div.innerHTML = `
+                    <div class="member-avatar" id="truck_avatar_${worker.id}"></div>
+                    <div class="member-name">${worker.name}</div>
+                    <div class="remove-icon">✖ 點擊下車</div>
+                `;
+                container.appendChild(div);
+                
+                const avatarDiv = div.querySelector(`#truck_avatar_${worker.id}`);
+                if (avatarDiv) {
+                    avatarDiv.innerHTML = renderAvatar(worker.imgFile, worker.emoji, "50");
+                }
+                
+                div.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const rect = div.getBoundingClientRect();
+                    const clickX = rect.left + rect.width / 2;
+                    const clickY = rect.top + rect.height / 2;
+                    removeWorker(worker.id, clickX, clickY);
+                    saveAndRender();
+                });
+            });
+        }
+        
+        document.getElementById('workerCount').innerText = selectedWorkers.length;
+        updateInfoAndButton();
+    }
+
+    function saveAndRender() {
+        localStorage.setItem('greenwall_workers', JSON.stringify(selectedWorkers));
+        localStorage.setItem('greenwall_worker_count', selectedWorkers.length);
+        renderMembers();
+        renderTruck();
+    }
+
+    function loadSavedWorkers() {
+        const saved = localStorage.getItem('greenwall_workers');
+        if (saved) {
+            try {
+                selectedWorkers = JSON.parse(saved);
+                if (selectedWorkers.length > 7) selectedWorkers = selectedWorkers.slice(0, 7);
+            } catch(e) { selectedWorkers = []; }
+        }
+    }
+
+    function goBack() {
+        window.location.href = 'step2_plants.html';
+    }
+
+    function goToConstruction() {
+        const currentCount = selectedWorkers.length;
+        
+        if (currentCount === 0) {
+            alert('還沒有夥伴！快點選左邊的夥伴上車～');
+            return;
+        }
+        if (currentCount === 1) {
+            alert('一個人施工太危險了！再找一個夥伴一起吧！');
+            return;
+        }
+        
+        localStorage.setItem('greenwall_worker_count', selectedWorkers.length);
+        localStorage.setItem('greenwall_workers', JSON.stringify(selectedWorkers));
+        
+        window.location.href = 'step4_construction.html';
+    }
+
+    loadPreviousData();
+    loadSavedWorkers();
+    renderMembers();
+    renderTruck();
+    
+    document.getElementById('backBtn').onclick = goBack;
+    document.getElementById('nextBtn').onclick = goToConstruction;
+</script>
+</body>
+</html>
