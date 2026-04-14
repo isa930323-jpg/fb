@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 第五步 · 頒獎典禮</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Comic Neue', 'Noto Sans TC', sans-serif;
+        }
+        body {
+            background: #6eb56e;
+            background-image: radial-gradient(circle at 10% 20%, rgba(255,255,200,0.2) 2%, transparent 2.5%);
+            background-size: 28px 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .card {
+            max-width: 800px;
+            width: 100%;
+            background: #fffef7;
+            border-radius: 64px;
+            padding: 32px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+            border: 3px solid #ffdd99;
+            text-align: center;
+        }
+        h1 {
+            color: #3a7a2a;
+            font-size: 2rem;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .badge {
+            font-size: 5rem;
+            margin: 20px 0;
+            animation: bounce 0.6s ease;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        .stars {
+            font-size: 2rem;
+            letter-spacing: 8px;
+            color: #ffaa44;
+            margin: 10px 0;
+        }
+        .congrats {
+            background: #e8f5e0;
+            border-radius: 40px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px dashed #aad48a;
+        }
+        .congrats h2 {
+            color: #3a7a2a;
+            margin: 0 0 10px 0;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding: 8px 0;
+            border-bottom: 2px dotted #ddeec0;
+        }
+        .plant-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        .plant-tag {
+            background: white;
+            border-radius: 30px;
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            border: 2px solid #ddeec0;
+        }
+        .earth-points {
+            background: #fff0c0;
+            border-radius: 40px;
+            padding: 16px;
+            margin: 20px 0;
+        }
+        .earth-points .big-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffaa44;
+        }
+        .fact-box {
+            background: #e0f0e8;
+            border-radius: 32px;
+            padding: 16px;
+            margin: 20px 0;
+            font-size: 0.85rem;
+            color: #3a6a4a;
+        }
+        .flex-btns {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+        }
+        button {
+            background: #ffaa44;
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 60px;
+            cursor: pointer;
+            flex: 1;
+            box-shadow: 0 4px 0 #cc8833;
+            transition: 0.05s linear;
+        }
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #cc8833;
+        }
+        .btn-secondary {
+            background: #8aaa6e;
+            box-shadow: 0 4px 0 #6a8a4e;
+        }
+        .green-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 28px;
+            background: #88cc66;
+            color: white;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.1s;
+            box-shadow: 0 4px 0 #558844;
+        }
+        .green-link:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #558844;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #8aaa6e;
+            margin-top: 24px;
+        }
+        @media (max-width: 600px) {
+            .card { padding: 20px; }
+            h1 { font-size: 1.5rem; }
+            .badge { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>
+        <span>🏆</span>
+        頒獎典禮
+        <span>🎉</span>
+    </h1>
+
+    <div class="badge" id="badgeEmoji">🏅</div>
+    <div class="stars" id="starsRating">★★★★★</div>
+
+    <div class="congrats">
+        <h2 id="congratsTitle">🎊 恭喜完成植生牆！ 🎊</h2>
+        <p id="congratsMsg">你是超厲害的綠手指設計師！</p>
+    </div>
+
+    <div class="info-row">
+        <span>📍 地點</span>
+        <span id="locationDisplay">-</span>
+    </div>
+    <div class="info-row">
+        <span>📐 面積</span>
+        <span id="areaDisplay">-</span>
+    </div>
+    <div class="info-row">
+        <span>🌱 植物總數</span>
+        <span id="totalPlantsDisplay">-</span>
+    </div>
+    <div class="info-row">
+        <span>👷 施工團隊</span>
+        <span id="workerCountDisplay">-</span>
+    </div>
+
+    <div class="plant-list" id="plantList"></div>
+
+    <div class="earth-points">
+        🌍 <strong>地球愛心點數</strong> 🌍<br>
+        <span class="big-number" id="earthPoints">0</span> 分
+        <div id="pointsMessage" style="font-size:0.75rem; margin-top:5px;"></div>
+    </div>
+
+    <div class="fact-box">
+        💡 <strong>環保小知識</strong><br>
+        <span id="factText">一面植生牆就像一座小森林，可以幫地球降溫、吸收髒空氣，還能讓心情變好喔！</span>
+    </div>
+
+    <div class="flex-btns">
+        <button id="restartBtn" class="btn-secondary">🌱 再玩一次</button>
+        <button id="certificateBtn">📸 拍張獎狀</button>
+    </div>
+
+    <!-- 🌍 前往綠色宇宙的連結 🌟 -->
+    <a href="level1.html" class="green-link">
+        🌍 前往綠色宇宙 🌟
+    </a>
+
+    <footer>🌱 你為地球種下了一片綠色，謝謝你！</footer>
+</div>
+
+<script>
+    let area = 0, totalPlants = 0, siteLocation = "", quantities = [], workers = [], workerCount = 0;
+    let gridColors = [];
+
+    function loadData() {
+        area = parseInt(localStorage.getItem('greenwall_area')) || 10;
+        totalPlants = parseInt(localStorage.getItem('greenwall_total_plants')) || 400;
+        siteLocation = localStorage.getItem('greenwall_location') || 'outdoor';
+        workerCount = parseInt(localStorage.getItem('greenwall_worker_count')) || 0;
+        
+        const storedQuantities = localStorage.getItem('greenwall_quantities');
+        if (storedQuantities) {
+            quantities = JSON.parse(storedQuantities);
+        } else {
+            quantities = [0, 0, 0, 0];
+        }
+        
+        const storedWorkers = localStorage.getItem('greenwall_workers');
+        if (storedWorkers) {
+            workers = JSON.parse(storedWorkers);
+            workerCount = workers.length;
+        }
+        
+        const storedColors = localStorage.getItem('greenwall_grid_colors');
+        if (storedColors) {
+            try {
+                gridColors = JSON.parse(storedColors);
+            } catch(e) { gridColors = []; }
+        }
+    }
+
+    function getPlantName(index) {
+        const names = ["綠葉鵝掌藤", "蔓榕", "腎蕨", "粗勒草"];
+        return names[index] || "植物";
+    }
+
+    function getPlantEmoji(index) {
+        const emojis = ["🌿", "🌱", "🍃", "🌸"];
+        return emojis[index] || "🌱";
+    }
+
+    function calculateEarthPoints() {
+        let points = 60;
+        
+        const plantTypesUsed = quantities.filter(q => q > 0).length;
+        if (plantTypesUsed >= 4) points += 20;
+        else if (plantTypesUsed >= 3) points += 15;
+        else if (plantTypesUsed >= 2) points += 10;
+        
+        const coloredCount = gridColors ? gridColors.filter(c => c !== null).length : 0;
+        if (coloredCount >= totalPlants) points += 20;
+        else points += Math.floor((coloredCount / totalPlants) * 20);
+        
+        if (workerCount >= 5) points += 10;
+        else if (workerCount >= 3) points += 5;
+        
+        if (area >= 15) points += 10;
+        else if (area >= 10) points += 5;
+        
+        points = Math.min(100, points);
+        return points;
+    }
+
+    function getStars(points) {
+        if (points >= 90) return "★★★★★";
+        if (points >= 75) return "★★★★☆";
+        if (points >= 60) return "★★★☆☆";
+        if (points >= 40) return "★★☆☆☆";
+        return "★☆☆☆☆";
+    }
+
+    function getBadge(points) {
+        if (points >= 90) return "🏆 金牌綠手指 🏆";
+        if (points >= 75) return "🥈 銀牌綠手指 🥈";
+        if (points >= 60) return "🥉 銅牌綠手指 🥉";
+        return "🌱 小幼苗設計師 🌱";
+    }
+
+    function getBadgeEmoji(points) {
+        if (points >= 90) return "🏆";
+        if (points >= 75) return "🥈";
+        if (points >= 60) return "🥉";
+        return "🌱";
+    }
+
+    function getCongratsMsg(points) {
+        if (points >= 90) return "你真的是植物大師！牆壁超漂亮，地球謝謝你！💚";
+        if (points >= 75) return "好厲害！這面牆會讓很多人心情變好喔～😊";
+        if (points >= 60) return "很不錯喔！再多多練習，你會更厲害！💪";
+        return "第一次就成功，很棒！下次試試更多不同植物吧！🌱";
+    }
+
+    function getFactMessage() {
+        const facts = [
+            "🌍 一面 10 平方公尺的植生牆，一年可以吸收大約 30 公斤的二氧化碳！",
+            "💚 植物可以讓室內溫度下降 2-3 度，省電又環保！",
+            "🌸 植生牆還能吸收灰塵，讓空氣更乾淨喔！",
+            "🌿 有些植物晚上也會釋放氧氣，陪你睡個好覺～",
+            "🐝 戶外植生牆會吸引蝴蝶和蜜蜂，變成小小生態樂園！",
+            "🎨 看著綠色植物，心情會變好，壓力也會減少喔！"
+        ];
+        return facts[Math.floor(Math.random() * facts.length)];
+    }
+
+    function renderBasicInfo() {
+        document.getElementById('locationDisplay').innerHTML = siteLocation === 'outdoor' ? '🌞 戶外陽光區' : '🏠 室內舒適區';
+        document.getElementById('areaDisplay').innerHTML = `${area} 平方公尺`;
+        document.getElementById('totalPlantsDisplay').innerHTML = `${totalPlants} 株`;
+        document.getElementById('workerCountDisplay').innerHTML = `${workerCount} 人`;
+        
+        const plantContainer = document.getElementById('plantList');
+        plantContainer.innerHTML = '';
+        for (let i = 0; i < quantities.length; i++) {
+            if (quantities[i] > 0) {
+                const tag = document.createElement('span');
+                tag.className = 'plant-tag';
+                tag.innerHTML = `${getPlantEmoji(i)} ${getPlantName(i)} × ${quantities[i]} 株`;
+                plantContainer.appendChild(tag);
+            }
+        }
+    }
+
+    function renderAwards() {
+        const points = calculateEarthPoints();
+        const stars = getStars(points);
+        const badge = getBadge(points);
+        const badgeEmoji = getBadgeEmoji(points);
+        const congratsMsg = getCongratsMsg(points);
+        
+        document.getElementById('earthPoints').innerText = points;
+        document.getElementById('starsRating').innerHTML = stars;
+        document.getElementById('badgeEmoji').innerHTML = badgeEmoji;
+        document.getElementById('congratsTitle').innerHTML = badge;
+        document.getElementById('congratsMsg').innerHTML = congratsMsg;
+        
+        let pointsMsg = "";
+        if (points >= 90) pointsMsg = "🎉 太厲害了！你是環保小英雄！";
+        else if (points >= 75) pointsMsg = "👍 超棒的！繼續保持愛地球的心～";
+        else if (points >= 60) pointsMsg = "🌱 不錯喔！再加油會更厲害！";
+        else pointsMsg = "💪 第一次就成功，下次挑戰更多植物吧！";
+        document.getElementById('pointsMessage').innerHTML = pointsMsg;
+        
+        document.getElementById('factText').innerHTML = getFactMessage();
+    }
+
+    function restartGame() {
+        if (confirm('再玩一次？會清除所有進度喔～')) {
+            localStorage.clear();
+            window.location.href = 'step1_select.html';
+        }
+    }
+
+    function takeCertificate() {
+        const points = document.getElementById('earthPoints').innerText;
+        const stars = document.getElementById('starsRating').innerText;
+        const badge = document.getElementById('congratsTitle').innerText;
+        
+        const certificate = `
+🌱 綠手指獎狀 🌱
+========================
+🌟 ${badge}
+🌟 星星評級：${stars}
+🌟 地球愛心點數：${points} 分
+
+📐 面積：${area} 平方公尺
+📍 地點：${siteLocation === 'outdoor' ? '戶外' : '室內'}
+🌱 種了 ${totalPlants} 株植物
+👷 用了 ${workerCount} 位夥伴
+
+🎉 你完成了一面超棒的植生牆！
+========================
+感謝你為地球盡一份心力 💚
+        `;
+        alert('🎉 獎狀已經複製到剪貼簿！\n\n可以貼到筆記本留念喔～');
+        navigator.clipboard.writeText(certificate);
+    }
+
+    loadData();
+    renderBasicInfo();
+    renderAwards();
+    
+    document.getElementById('restartBtn').onclick = restartGame;
+    document.getElementById('certificateBtn').onclick = takeCertificate;
+</script>
+</body>
+</html>
