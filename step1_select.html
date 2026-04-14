@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌱 綠手指教室 · 植生牆小遊戲</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Comic Neue', 'Noto Sans TC', sans-serif;
+        }
+        body {
+            background: #6eb56e;
+            background-image: radial-gradient(circle at 10% 20%, rgba(255,255,200,0.2) 2%, transparent 2.5%);
+            background-size: 28px 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .card {
+            max-width: 650px;
+            width: 100%;
+            background: #fffef7;
+            border-radius: 64px;
+            padding: 32px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+            border: 3px solid #ffdd99;
+        }
+        h1 {
+            color: #3a7a2a;
+            font-size: 1.8rem;
+            text-align: center;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .form-group {
+            margin: 24px 0;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: #4a6a3a;
+        }
+        select, input {
+            width: 100%;
+            padding: 14px;
+            font-size: 1rem;
+            border-radius: 60px;
+            border: 2px solid #cce3b0;
+            background: white;
+            font-weight: bold;
+        }
+        .info-box {
+            background: #e8f5e0;
+            border-radius: 40px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #3a7a2a;
+            border: 2px dashed #aad48a;
+        }
+        .info-box span {
+            font-size: 1.8rem;
+            color: #2b6e2f;
+        }
+        .warning {
+            background: #fff0c0;
+            color: #c07a2a;
+            border-radius: 40px;
+            padding: 12px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .note {
+            font-size: 0.75rem;
+            color: #8aaa6e;
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 2px dotted #cce3b0;
+        }
+        button {
+            background: #ffaa44;
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 60px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 16px;
+            box-shadow: 0 5px 0 #cc8833;
+            transition: 0.05s linear;
+        }
+        button:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #cc8833;
+        }
+        button:disabled {
+            opacity: 0.5;
+            transform: none;
+            cursor: not-allowed;
+        }
+        .emoji-big {
+            font-size: 2rem;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>
+        <span class="emoji-big">🌱</span> 
+        綠手指教室 · 植生牆小遊戲
+        <span class="emoji-big">🎮</span>
+    </h1>
+    
+    <div class="form-group">
+        <label>📍 植生牆要蓋在哪裡？</label>
+        <select id="location">
+            <option value="outdoor">🌞 戶外陽光區</option>
+            <option value="indoor">🏠 室內舒適區</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>📐 牆面有多大？ <span id="areaValue">10</span> 平方公尺</label>
+        <input type="range" id="areaSlider" min="1" max="20" value="10" step="1">
+    </div>
+
+    <div class="info-box">
+        🌱 <span id="areaDisplay">10</span> 平方公尺 × 40 株 = <span id="totalPlants">400</span> 株小植物<br>
+        🎨 每一株都會變成牆上的一個彩色方塊！
+    </div>
+
+    <div class="warning" id="warningMsg" style="display:none;">
+        🚧 哇！植物太多了，點陣圖會爆炸～請選小一點的面積（最多20平方公尺）
+    </div>
+
+    <button id="nextBtn">🌿 下一步：選植物 ➡</button>
+
+    <div class="note">
+        💡 小知識：一面植生牆就像會呼吸的牆壁！<br>
+        植物們可以幫地球降溫、吸收二氧化碳，還會讓心情變好好～
+    </div>
+</div>
+
+<script>
+    const areaSlider = document.getElementById('areaSlider');
+    const areaValue = document.getElementById('areaValue');
+    const areaDisplay = document.getElementById('areaDisplay');
+    const totalPlantsSpan = document.getElementById('totalPlants');
+    const warningDiv = document.getElementById('warningMsg');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function updatePlants() {
+        const area = parseInt(areaSlider.value);
+        areaValue.innerText = area;
+        areaDisplay.innerText = area;
+        const total = area * 40;
+        totalPlantsSpan.innerText = total;
+
+        if (total > 800) {
+            warningDiv.style.display = 'block';
+            nextBtn.disabled = true;
+        } else {
+            warningDiv.style.display = 'none';
+            nextBtn.disabled = false;
+        }
+    }
+
+    areaSlider.addEventListener('input', updatePlants);
+    updatePlants();
+
+    nextBtn.addEventListener('click', () => {
+        const area = parseInt(areaSlider.value);
+        const location = document.getElementById('location').value;
+        const totalPlants = area * 40;
+
+        localStorage.setItem('greenwall_area', area);
+        localStorage.setItem('greenwall_location', location);
+        localStorage.setItem('greenwall_total_plants', totalPlants);
+
+        window.location.href = 'step2_plants.html';
+    });
+</script>
+</body>
+</html>
