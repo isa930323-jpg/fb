@@ -479,6 +479,83 @@
         flex-wrap: wrap;
       }
     }
+    /* 遊戲連結卡片區塊樣式 - 置中且美觀 */
+.game-links-section {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  max-width: 1280px;
+  margin: 2rem auto 0;
+  padding: 0 1.8rem 2rem;
+}
+
+.game-card-link {
+  background: rgba(255, 255, 248, 0.96);
+  border-radius: 1.6rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  padding: 1.2rem 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  border: 1px solid #E2E8D6;
+  flex: 1;
+  min-width: 240px;
+  max-width: 360px;
+}
+
+.game-card-link:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 28px rgba(61, 90, 56, 0.1);
+  border-color: #CBD8BB;
+}
+
+.game-icon {
+  font-size: 2.5rem;
+  opacity: 0.8;
+  transition: transform 0.2s;
+}
+
+.game-card-link:hover .game-icon {
+  transform: scale(1.02);
+}
+
+.game-text h4 {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--moss);
+  margin-bottom: 0.3rem;
+}
+
+.game-text p {
+  font-size: 0.8rem;
+  color: var(--stone);
+  line-height: 1.4;
+  margin: 0;
+}
+
+@media (max-width: 680px) {
+  .game-links-section {
+    padding: 0 1rem 1.5rem;
+    gap: 1rem;
+  }
+  .game-card-link {
+    padding: 1rem;
+    min-width: 200px;
+  }
+  .game-icon {
+    font-size: 2rem;
+  }
+  .game-text h4 {
+    font-size: 1rem;
+  }
+  .game-text p {
+    font-size: 0.7rem;
+  }
+}
   </style>
 </head>
 <body>
