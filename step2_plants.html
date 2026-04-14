@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌱 第二步 · 選植物夥伴</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Comic Neue', 'Noto Sans TC', sans-serif;
+        }
+        body {
+            background: #6eb56e;
+            background-image: radial-gradient(circle at 10% 20%, rgba(255,255,200,0.2) 2%, transparent 2.5%);
+            background-size: 28px 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .card {
+            max-width: 1100px;
+            width: 100%;
+            background: #fffef7;
+            border-radius: 64px;
+            padding: 28px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+            border: 3px solid #ffdd99;
+        }
+        h1 {
+            color: #3a7a2a;
+            font-size: 1.6rem;
+            text-align: center;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .summary {
+            background: #e8f5e0;
+            border-radius: 40px;
+            padding: 16px;
+            margin-bottom: 24px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1rem;
+            border: 2px dashed #aad48a;
+        }
+        .summary span {
+            font-size: 1.5rem;
+            color: #2b6e2f;
+        }
+        .plant-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .plant-card {
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 18px;
+            text-align: center;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+            border: 2px solid #ddeec0;
+            transition: all 0.2s;
+        }
+        .plant-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.12);
+        }
+        .plant-emoji {
+            font-size: 3rem;
+            margin: 8px 0;
+        }
+        .plant-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #3a7a2a;
+        }
+        .plant-trait {
+            font-size: 0.7rem;
+            background: #fff0c0;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 30px;
+            margin: 8px 0;
+        }
+        .care-list {
+            text-align: left;
+            background: #f9f9e8;
+            border-radius: 24px;
+            padding: 10px 14px;
+            margin: 12px 0;
+            font-size: 0.7rem;
+            color: #5a6a3a;
+        }
+        .care-list div {
+            margin: 5px 0;
+        }
+        .quantity-input {
+            margin: 12px 0;
+        }
+        .quantity-input input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            text-align: center;
+            border-radius: 40px;
+            border: 2px solid #cce3b0;
+            background: #fffef0;
+            font-weight: bold;
+        }
+        .percent-bar {
+            background: #e0e0d0;
+            border-radius: 20px;
+            height: 8px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .percent-fill {
+            background: #ffaa44;
+            height: 100%;
+            width: 0%;
+            transition: width 0.1s;
+        }
+        .percent-text {
+            font-size: 0.65rem;
+            color: #8a9a6a;
+            margin-top: 4px;
+        }
+        .warning {
+            background: #fff0c0;
+            border-radius: 40px;
+            padding: 12px;
+            margin: 16px 0;
+            text-align: center;
+            color: #c07a2a;
+        }
+        .flex-btns {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+        }
+        button {
+            background: #ffaa44;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 60px;
+            cursor: pointer;
+            flex: 1;
+            box-shadow: 0 4px 0 #cc8833;
+            transition: 0.05s linear;
+        }
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #cc8833;
+        }
+        button:disabled {
+            opacity: 0.5;
+            transform: none;
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background: #8aaa6e;
+            box-shadow: 0 4px 0 #6a8a4e;
+        }
+        .quick-btns {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            justify-content: flex-end;
+        }
+        .quick-btn {
+            background: #ddeec0;
+            color: #3a7a2a;
+            font-size: 0.8rem;
+            padding: 6px 16px;
+            margin: 0;
+            flex: none;
+            cursor: pointer;
+            border: none;
+            border-radius: 40px;
+            font-weight: bold;
+            box-shadow: none;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #8aaa6e;
+            margin-top: 20px;
+        }
+        @media (max-width: 750px) {
+            .plant-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>
+        <span>🌱</span> 
+        第二步 · 選植物夥伴
+        <span>🌸</span>
+    </h1>
+
+    <div id="mainContent"></div>
+</div>
+
+<script>
+    // 四種植物（兒童版）
+    const PLANTS = [
+        { 
+            id: 0, 
+            name: "綠葉鵝掌藤", 
+            emoji: "🌿",
+            trait: "💪 超級好養！新手也能成功",
+            care: [
+                "☀️ 喜歡陽光也耐陰，隨便放都可以",
+                "💧 土乾了再澆水，很乖",
+                "🏠 室內室外都OK"
+            ],
+            suitableEnv: "到處都可以！"
+        },
+        { 
+            id: 1, 
+            name: "蔓榕", 
+            emoji: "🌱",
+            trait: "💧 愛喝水，只喜歡戶外",
+            care: [
+                "☀️ 需要亮亮的光線",
+                "💧 不能缺水！要常常澆水",
+                "🏠 只適合戶外或陽台"
+            ],
+            suitableEnv: "戶外限定"
+        },
+        { 
+            id: 2, 
+            name: "腎蕨", 
+            emoji: "🍃",
+            trait: "⏳ 需要一點耐心，之後超強",
+            care: [
+                "☀️ 喜歡散射光，怕大太陽直射",
+                "💧 喜歡濕濕的，可以噴噴水",
+                "🏠 室內室外都可以，但要給它時間適應"
+            ],
+            suitableEnv: "到處都可以（要有耐心）"
+        },
+        { 
+            id: 3, 
+            name: "粗勒草", 
+            emoji: "🌸",
+            trait: "🏠 室內小公主，水不能太多",
+            care: [
+                "☀️ 很耐陰，燈光下也能活",
+                "💧 土乾再澆水，太多水會生病",
+                "🏠 只適合室內，外面太熱太冷都不行"
+            ],
+            suitableEnv: "室內限定"
+        }
+    ];
+
+    let totalPlants = 0;
+    let siteLocation = "";
+    let area = 0;
+    let quantities = [0, 0, 0, 0];
+
+    function loadFromStorage() {
+        totalPlants = parseInt(localStorage.getItem('greenwall_total_plants'));
+        siteLocation = localStorage.getItem('greenwall_location');
+        area = parseInt(localStorage.getItem('greenwall_area'));
+        
+        if (!totalPlants || !siteLocation || !area) {
+            return false;
+        }
+        return true;
+    }
+
+    function updateSummaryAndUI() {
+        const allocated = quantities.reduce((a, b) => a + b, 0);
+        const remaining = totalPlants - allocated;
+        
+        const summaryDiv = document.getElementById('summaryArea');
+        if (summaryDiv) {
+            summaryDiv.innerHTML = `
+                📐 ${area} 平方公尺 &nbsp;|&nbsp;
+                📍 ${siteLocation === 'outdoor' ? '🌞 戶外陽光區' : '🏠 室內舒適區'} &nbsp;|&nbsp;
+                🌱 總共需要 <span>${totalPlants}</span> 株植物<br>
+                ✅ 已經選了 ${allocated} 株 &nbsp;|&nbsp;
+                ⏳ 還剩 ${remaining} 株要選
+            `;
+        }
+        
+        for (let i = 0; i < PLANTS.length; i++) {
+            const percent = totalPlants > 0 ? (quantities[i] / totalPlants * 100) : 0;
+            const fillBar = document.getElementById(`percent_fill_${i}`);
+            const percentText = document.getElementById(`percent_text_${i}`);
+            if (fillBar) fillBar.style.width = `${percent}%`;
+            if (percentText) percentText.innerText = `${quantities[i]} 株 (${percent.toFixed(0)}%)`;
+        }
+        
+        const nextBtn = document.getElementById('nextBtn');
+        const warningDiv = document.getElementById('warningMsg');
+        if (allocated === totalPlants && totalPlants > 0) {
+            if (nextBtn) nextBtn.disabled = false;
+            if (warningDiv) warningDiv.style.display = 'none';
+        } else {
+            if (nextBtn) nextBtn.disabled = true;
+            if (warningDiv && totalPlants > 0) warningDiv.style.display = 'block';
+        }
+    }
+
+    function autoBalance() {
+        const avg = Math.floor(totalPlants / PLANTS.length);
+        let remainder = totalPlants;
+        for (let i = 0; i < PLANTS.length; i++) {
+            quantities[i] = avg;
+            remainder -= avg;
+        }
+        quantities[0] += remainder;
+        
+        for (let i = 0; i < PLANTS.length; i++) {
+            const input = document.getElementById(`qty_${i}`);
+            if (input) input.value = quantities[i];
+        }
+        updateSummaryAndUI();
+    }
+
+    function clearAll() {
+        for (let i = 0; i < PLANTS.length; i++) {
+            quantities[i] = 0;
+            const input = document.getElementById(`qty_${i}`);
+            if (input) input.value = 0;
+        }
+        updateSummaryAndUI();
+    }
+
+    function saveAndNext() {
+        const allocated = quantities.reduce((a, b) => a + b, 0);
+        if (allocated !== totalPlants) {
+            alert(`還剩 ${totalPlants - allocated} 株還沒選！要選完才能去下一關喔～`);
+            return;
+        }
+        
+        localStorage.setItem('greenwall_quantities', JSON.stringify(quantities));
+        localStorage.setItem('greenwall_plants_data', JSON.stringify(PLANTS.map((p, i) => ({
+            name: p.name,
+            emoji: p.emoji,
+            quantity: quantities[i]
+        }))));
+        
+        window.location.href = 'step3_team.html';
+    }
+
+    function goBack() {
+        window.location.href = 'step1_select.html';
+    }
+
+    function renderMainPage() {
+        const container = document.getElementById('mainContent');
+        
+        const avg = Math.floor(totalPlants / PLANTS.length);
+        let remainder = totalPlants;
+        for (let i = 0; i < PLANTS.length; i++) {
+            quantities[i] = avg;
+            remainder -= avg;
+        }
+        quantities[0] += remainder;
+        
+        let plantsHtml = '';
+        for (let i = 0; i < PLANTS.length; i++) {
+            const p = PLANTS[i];
+            const careHtml = p.care.map(c => `<div>${c}</div>`).join('');
+            plantsHtml += `
+                <div class="plant-card">
+                    <div class="plant-emoji">${p.emoji}</div>
+                    <div class="plant-name">${p.name}</div>
+                    <div class="plant-trait">${p.trait}</div>
+                    <div class="care-list">
+                        ${careHtml}
+                    </div>
+                    <div style="font-size:0.7rem; background:#eef0e0; border-radius:20px; padding:4px; margin:6px 0;">
+                        🏠 適合：${p.suitableEnv}
+                    </div>
+                    <div class="quantity-input">
+                        <input type="number" id="qty_${i}" value="${quantities[i]}" min="0" step="1" placeholder="幾株？">
+                    </div>
+                    <div class="percent-bar">
+                        <div class="percent-fill" id="percent_fill_${i}" style="width:${(quantities[i]/totalPlants*100)}%"></div>
+                    </div>
+                    <div class="percent-text" id="percent_text_${i}">${quantities[i]} 株</div>
+                </div>
+            `;
+        }
+        
+        container.innerHTML = `
+            <div class="summary" id="summaryArea">計算中...</div>
+            <div class="quick-btns">
+                <button class="quick-btn" id="balanceBtn">⚖️ 平均分配</button>
+                <button class="quick-btn" id="clearBtn">🗑️ 全部歸零</button>
+            </div>
+            <div class="plant-grid" id="plantGrid">
+                ${plantsHtml}
+            </div>
+            <div id="warningMsg" class="warning" style="display:none;">
+                🌟 還沒選完！把 ${totalPlants} 株植物分配好就可以去下一關囉～
+            </div>
+            <div class="flex-btns">
+                <button id="backBtn" class="btn-secondary">⬅ 返回</button>
+                <button id="nextBtn" disabled>🎮 下一步：找隊友 ➡</button>
+            </div>
+            <footer>💡 每種植物都有自己的個性！可以全部平均，也可以選你最喜歡的～</footer>
+        `;
+        
+        for (let i = 0; i < PLANTS.length; i++) {
+            const input = document.getElementById(`qty_${i}`);
+            if (input) {
+                input.addEventListener('input', () => {
+                    let val = parseInt(input.value);
+                    if (isNaN(val)) val = 0;
+                    quantities[i] = val;
+                    updateSummaryAndUI();
+                });
+            }
+        }
+        
+        document.getElementById('balanceBtn').onclick = autoBalance;
+        document.getElementById('clearBtn').onclick = clearAll;
+        document.getElementById('backBtn').onclick = goBack;
+        document.getElementById('nextBtn').onclick = saveAndNext;
+        
+        updateSummaryAndUI();
+    }
+
+    function renderErrorPage(message) {
+        const container = document.getElementById('mainContent');
+        container.innerHTML = `
+            <div class="summary" style="background:#ffe0b5;">
+                <p>⚠️ ${message}</p>
+                <button id="goToStep1Btn" style="margin-top:16px;">🏠 返回第一步</button>
+            </div>
+        `;
+        document.getElementById('goToStep1Btn')?.addEventListener('click', () => {
+            window.location.href = 'step1_select.html';
+        });
+    }
+
+    const hasData = loadFromStorage();
+    if (!hasData) {
+        renderErrorPage('找不到資料！請從第一步開始～');
+    } else {
+        renderMainPage();
+    }
+</script>
+</body>
+</html>
