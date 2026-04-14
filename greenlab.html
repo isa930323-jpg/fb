@@ -4,14 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>綠色實驗室｜植物科學與碳循環｜蕨積 FernBrom</title>
-  <meta name="description" content="從科學角度解析植物與碳循環，理解自然的運作機制。">
-  <link rel="canonical" href="https://www.fernbrom.com/greenlab.html">
+<meta name="description" content="從科學角度解析植物與碳循環，理解自然的運作機制。">
+
+<link rel="canonical" href="https://www.fernbrom.com/greenlab.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
-  <!-- Font Awesome 6 -->
+  <!-- Font Awesome 6 (free) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    /* ===== 重置與變數 ===== */
+    /* ===== 共用樣式 ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --ink: #1a1a14;
@@ -33,7 +35,7 @@
       flex-direction: column;
     }
 
-    /* ----- 導覽列 (固定結構，但內容將由 nav.html 動態載入) ----- */
+    /* ----- 導覽列 (完整保留) ----- */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -43,8 +45,10 @@
       border-bottom: 1px solid rgba(90,122,74,0.12);
     }
     nav.scrolled { box-shadow: 0 2px 24px rgba(61,90,56,0.10); }
+
     .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
-    .logo-mark { width: 38px; height: 38px; background: var(--fern); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem; }
+    .logo-mark { width: 38px; height: 38px; flex-shrink: 0; }
+    .logo-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
     .logo-text {
       font-family: 'Noto Serif TC', serif;
       font-weight: 900;
@@ -63,12 +67,17 @@
       color: var(--stone);
       margin-top: 2px;
     }
+
     .nav-links {
       display: flex;
       gap: 2rem;
       list-style: none;
       align-items: center;
       white-space: nowrap;
+    }
+    .nav-links li {
+      position: relative;
+      padding: 0 2px;
     }
     .nav-links a {
       font-family: 'Noto Sans TC', sans-serif;
@@ -77,19 +86,29 @@
       letter-spacing: 0.1em;
       color: var(--ink);
       text-decoration: none;
+      padding-bottom: 3px;
       opacity: 0.75;
       display: inline-block;
     }
-    .nav-links a:hover { opacity: 1; color: var(--fern); }
+    .nav-links a:hover {
+      opacity: 1;
+      color: var(--fern);
+    }
     .nav-contact {
       padding: 8px 20px !important;
       border: 1px solid var(--fern) !important;
       border-radius: 2px;
       color: var(--fern) !important;
+      opacity: 1 !important;
+      margin-left: 0.5rem;
     }
-    .nav-contact:hover { background: var(--fern); color: white !important; }
-    .has-dropdown { position: relative; }
-    .dropdown {
+    .nav-contact:hover {
+      background: var(--fern);
+      color: white !important;
+    }
+    .has-dropdown > a::after { display: none; }
+
+    .nav-links li .dropdown {
       display: none;
       position: absolute;
       top: calc(100% + 18px);
@@ -99,75 +118,136 @@
       backdrop-filter: blur(16px);
       border: 1px solid rgba(90,122,74,0.14);
       border-top: 2px solid var(--fern);
+      box-shadow: 0 12px 40px rgba(61,90,56,0.12);
       min-width: 148px;
       list-style: none;
       padding: 8px 0;
       z-index: 300;
     }
-    .has-dropdown:hover .dropdown { display: block; }
+    .nav-links li:hover .dropdown,
+    .nav-links li:focus-within .dropdown {
+      display: block;
+    }
+    .nav-links li .dropdown::before {
+      content: '';
+      position: absolute;
+      top: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 6px solid var(--fern);
+    }
     .dropdown li a {
       display: block;
       padding: 10px 20px;
       font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
       color: var(--ink);
+      opacity: 0.7;
+      white-space: nowrap;
       text-decoration: none;
     }
-    .dropdown li a:hover { color: var(--fern); background: rgba(90,122,74,0.04); }
+    .dropdown li a:hover {
+      opacity: 1;
+      color: var(--fern);
+      padding-left: 26px;
+      background: rgba(90,122,74,0.04);
+    }
+    .dropdown li + li { border-top: 1px solid rgba(90,122,74,0.08); }
+
     .hamburger {
       display: none;
       flex-direction: column;
+      justify-content: center;
       gap: 6px;
       width: 40px; height: 40px;
       cursor: pointer;
       background: none; border: none;
+      flex-shrink: 0;
     }
     .hamburger span {
       display: block;
       width: 24px; height: 1.5px;
       background: var(--moss);
-      transition: transform 0.2s;
+      transition: transform 0.2s ease;
     }
     .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
     .mobile-menu {
       position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
       background: #faf7f2;
-      padding: 0 6vw;
+      border-bottom: 1px solid rgba(90,122,74,0.15);
+      padding: 0 6vw 40px;
       z-index: 99;
+      overflow-y: auto;
       transform: translateX(100%);
       visibility: hidden;
       transition: transform 0.3s ease;
     }
     .mobile-menu.open { transform: translateX(0); visibility: visible; }
     .mobile-menu ul { list-style: none; }
-    .mobile-menu > ul > li > a {
-      display: block;
+    .mobile-menu > ul > li > a,
+    .mobile-parent {
+      display: flex; align-items: center; justify-content: space-between;
       padding: 16px 0;
+      font-family: 'Noto Serif TC', serif;
       font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
       color: var(--moss);
       text-decoration: none;
       border-bottom: 1px solid rgba(90,122,74,0.1);
+      cursor: pointer;
     }
+    .mobile-parent:hover, .mobile-menu > ul > li > a:hover { color: var(--fern); }
+    .mobile-caret { display: inline-block; transition: transform 0.2s; }
+    .mobile-caret.open { transform: rotate(180deg); }
+    .mobile-sub {
+      list-style: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .mobile-sub.open { max-height: 200px; }
+    .mobile-sub li a {
+      display: block;
+      padding: 11px 0 11px 16px;
+      font-size: 0.85rem;
+      color: var(--stone);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(90,122,74,0.06);
+      letter-spacing: 0.06em;
+    }
+    .mobile-sub li a:hover { color: var(--fern); }
+
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
     }
 
-    /* 主內容區塊 */
+    /* ----- 頁面內容區域 美化卡片 + 植物實驗室樣式 (完全相容既有風格) ----- */
     .content {
       flex: 1;
       padding-top: 92px;
       padding-bottom: 60px;
       background: var(--paper);
     }
+    
+    /* 實驗室專用容器 */
     .lab-container {
       max-width: 1280px;
       margin: 0 auto;
       padding: 0 1.8rem;
     }
+    
+    /* 卡片模組 (繼承原有但強化視覺) */
     .card {
       background: rgba(255, 255, 248, 0.96);
+      backdrop-filter: blur(0px);
       border-radius: 2rem;
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04);
       padding: 1.8rem 2rem;
@@ -191,6 +271,10 @@
       gap: 10px;
       font-family: 'Noto Serif TC', serif;
     }
+    .section-title i {
+      color: var(--sage);
+      font-size: 1.5rem;
+    }
     .formula-box {
       background: #EFF5E8;
       border-radius: 1.6rem;
@@ -199,6 +283,8 @@
       font-family: 'Cormorant Garamond', monospace;
       font-weight: 600;
       font-size: 1.15rem;
+      letter-spacing: 0.02em;
+      border: 1px solid #CBD8BB;
     }
     .grid-2col {
       display: grid;
@@ -210,6 +296,7 @@
       border-radius: 1.5rem;
       padding: 1.2rem;
       text-align: center;
+      font-weight: 500;
       border: 1px solid #C8DEB4;
     }
     table {
@@ -224,19 +311,25 @@
       border-bottom: 1px solid #E2EAD6;
       text-align: left;
     }
-    th { background: #F2F7EC; color: #2C5E2A; }
+    th {
+      font-weight: 700;
+      color: #2C5E2A;
+      background: #F2F7EC;
+    }
     .stats-card {
       background: #DDE9D2;
       border-radius: 1.5rem;
       padding: 1.2rem;
       text-align: center;
     }
-    /* 植栽工具 */
+    
+    /* 植栽工具區塊（完整互動） */
     .plant-tool {
       background: #FEF9E6;
       border-radius: 1.6rem;
       padding: 1.4rem;
       margin-top: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
     .plant-selector {
       display: flex;
@@ -263,6 +356,12 @@
       border: 1px solid #CECFBC;
       background: white;
       font-family: inherit;
+      transition: 0.2s;
+    }
+    select:focus, input:focus {
+      outline: none;
+      border-color: var(--fern);
+      box-shadow: 0 0 0 2px rgba(90,122,74,0.2);
     }
     button {
       background: #3d6b38;
@@ -277,13 +376,23 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      font-family: 'Noto Sans TC', sans-serif;
     }
-    button:hover { background: #2a5426; transform: scale(0.97); }
-    .clear-btn { background: #8B9A6E; }
+    button:hover {
+      background: #2a5426;
+      transform: scale(0.97);
+    }
+    .clear-btn {
+      background: #8B9A6E;
+    }
+    .clear-btn:hover {
+      background: #6F8252;
+    }
     .plant-list {
       max-height: 260px;
       overflow-y: auto;
       margin-top: 1.2rem;
+      border-radius: 1.2rem;
     }
     .plant-item {
       display: flex;
@@ -294,85 +403,33 @@
       margin-bottom: 0.6rem;
       border-radius: 2rem;
       border-left: 6px solid #8AAD72;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
     .delete-icon {
       color: #B1624B;
       cursor: pointer;
       background: none;
+      padding: 0 8px;
       font-size: 1.2rem;
+      transition: color 0.2s;
     }
-    hr { margin: 1rem 0; border-color: #E2DCC8; }
-
-    /* 辦公室日常區塊 */
-    .team-spirit {
-      max-width: 1280px;
-      margin: 1.5rem auto 2rem;
-      padding: 1.8rem 2rem;
-      background: linear-gradient(135deg, #F4F8EA 0%, #EFF5E4 100%);
-      border-radius: 2.5rem;
-      text-align: center;
-      box-shadow: 0 4px 14px rgba(61,90,56,0.08);
-      border: 1px solid rgba(90,122,74,0.2);
+    .delete-icon:hover {
+      color: #943E2C;
     }
-    .team-spirit-title {
-      font-family: 'Noto Serif TC', serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #3A5C32;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
+    hr {
+      margin: 1rem 0;
+      border-color: #E2DCC8;
     }
-    .team-spirit-desc {
-      font-size: 1rem;
-      line-height: 1.5;
-      color: #3E4D36;
-      background: rgba(255, 250, 235, 0.7);
-      padding: 1rem 1.5rem;
-      border-radius: 2rem;
-      max-width: 800px;
-      margin: 0 auto;
-      backdrop-filter: blur(2px);
+    
+    /* 響應微調 */
+    @media (max-width: 680px) {
+      .lab-container { padding: 0 1rem; }
+      .card { padding: 1.2rem; }
+      .section-title { font-size: 1.4rem; }
+      .plant-selector button { width: 100%; justify-content: center; margin-top: 0.5rem; }
     }
-    /* 遊戲連結卡片 */
-    .game-links-section {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin-top: 1.8rem;
-    }
-    .game-card-link {
-      background: rgba(255, 255, 248, 0.96);
-      border-radius: 1.6rem;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-      padding: 1rem 1.8rem;
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-      text-decoration: none;
-      transition: all 0.25s ease;
-      border: 1px solid #E2E8D6;
-      flex: 1;
-      min-width: 240px;
-      max-width: 360px;
-    }
-    .game-card-link:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 28px rgba(61, 90, 56, 0.1);
-    }
-    .game-icon { font-size: 2.5rem; opacity: 0.8; }
-    .game-text h4 {
-      font-family: 'Noto Serif TC', serif;
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: var(--moss);
-      margin-bottom: 0.3rem;
-    }
-    .game-text p { font-size: 0.8rem; color: var(--stone); }
+    
+    /* footer 原本保持不變，但確保間距 */
     footer {
       border-top: 1px solid rgba(90,122,74,0.15);
       padding: 40px 4vw;
@@ -381,8 +438,18 @@
       justify-content: space-between;
       background: var(--paper);
       margin-top: auto;
-      flex-wrap: wrap;
-      gap: 20px;
+    }
+    .footer-logo {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: var(--moss);
+      letter-spacing: 0.05em;
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--stone);
+      letter-spacing: 0.1em;
     }
     .footer-links {
       display: flex;
@@ -394,31 +461,41 @@
       color: var(--stone);
       text-decoration: none;
       letter-spacing: 0.08em;
+      opacity: 0.7;
+      transition: opacity 0.2s;
     }
-    .footer-links a:hover { color: var(--fern); }
-    .footer-copy { font-size: 0.75rem; color: var(--stone); }
-    @media (max-width: 680px) {
-      .lab-container, .team-spirit { padding: 1rem; }
-      .card { padding: 1.2rem; }
-      .section-title { font-size: 1.4rem; }
-      .team-spirit-title { font-size: 1.4rem; }
+    .footer-links a:hover {
+      opacity: 1;
+      color: var(--fern);
+    }
+    @media (max-width: 768px) {
+      footer {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+      .footer-links {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- 導覽列容器：nav.html 動態掛載 -->
-  <div id="nav-container"></div>
+  <div id="nav-placeholder"></div>
 
-  <main class="content">
-    <div style="text-align: center; padding: 20px 20px 0;">
-      <h1 style="font-family: 'Noto Serif TC', serif; color: var(--moss); font-size: 2rem;">🌿 綠色實驗室</h1>
-      <p style="color: var(--stone);">植物碳循環 · 科學實證 · 永續生活提案</p>
+ <main class="content">
+    <div style="text-align: center; padding: 40px; color: var(--stone);">
+      <h1 style="font-family: 'Noto Serif TC', serif; color: var(--moss);">綠色實驗室</h1>
+  
     </div>
     <div class="lab-container">
-      <!-- 核心科學 -->
+      <!-- 第一部分：核心科學 + 碳匯 -->
       <div class="card">
         <div class="section-title"><i class="fas fa-sun"></i> 核心科學原理 · 植物碳循環</div>
-        <div class="formula-box">6CO₂ + 6H₂O + 光能 → C₆H₁₂O₆ + 6O₂</div>
+        <div class="formula-box" style="font-size:1.1rem;">
+          6CO₂ + 6H₂O + 光能 → C₆H₁₂O₆ + 6O₂
+        </div>
         <div class="grid-2col" style="margin-top: 1.2rem;">
           <div>
             <p><strong>🌱 碳捕捉</strong> — 葉片氣孔主動吸收大氣二氧化碳</p>
@@ -427,28 +504,30 @@
           </div>
           <div class="carbon-badge">
             <i class="fas fa-chart-line"></i> 植物是最高效「負排放機器」<br>
-            <span style="font-size:0.8rem;">大型喬木年固碳10-25kg · 快生喬木可達20-40kg</span>
+            <span style="font-size:0.8rem;">大型喬木年固碳<a href="https://www.epa.gov/ghgemissions/greenhouse-gases-equivalencies-calculator-calculations-and-references" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">10-25kg</a> · 快生喬木可達<a href="https://www.fs.usda.gov/ccrc/climate-smart/urban-forests" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">20-40kg</a></span>
           </div>
         </div>
       </div>
+
       <!-- 碳匯三大類型 -->
       <div class="card">
         <div class="section-title"><i class="fas fa-database"></i> 什麼是「碳匯」？</div>
         <div class="grid-2col">
-          <div style="background:#E2F0DA; border-radius:1.2rem; padding:0.8rem;"><i class="fas fa-tree"></i> <strong>綠碳</strong> — 森林、草地、農田</div>
-          <div style="background:#C9E4F0; border-radius:1.2rem; padding:0.8rem;"><i class="fas fa-water"></i> <strong>藍碳</strong> — 紅樹林、海草床，固碳效率極高</div>
-          <div style="background:#EADBB0; border-radius:1.2rem; padding:0.8rem;"><i class="fas fa-mountain"></i> <strong>黃碳</strong> — 土壤與泥炭地，全球最大有機碳庫</div>
+          <div style="background:#E2F0DA; border-radius:1.2rem; padding:0.8rem;"><i class="fas fa-tree" style="color:#2A6B2F;"></i> <strong>綠碳</strong> — 森林、草地、農田，陸域儲碳系統</div>
+          <div style="background:#C9E4F0; border-radius:1.2rem; padding:0.8rem;"><i class="fas fa-water" style="color:#1F6392;"></i> <strong>藍碳</strong> — <a href="https://www.thebluecarboninitiative.org/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">紅樹林、海草床</a>，固碳效率高於森林</div>
+          <div style="background:#EADBB0; border-radius:1.2rem; padding:0.8rem;"><i class="fas fa-mountain" style="color:#B47C2E;"></i> <strong>黃碳</strong> — <a href="https://www.fao.org/soils-portal/soil-management/soil-carbon/en/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">土壤與泥炭地</a>，全球最大有機碳庫</div>
         </div>
       </div>
-      <!-- 固碳效益表 -->
+
+      <!-- 固碳效益表 + 提升社區潛力 -->
       <div class="card">
         <div class="section-title"><i class="fas fa-chart-simple"></i> 不同植物固碳效益參考</div>
-        <table>
+        <table class="data-table">
           <thead><tr><th>植物類型</th><th>年固碳量 (kg CO₂e)</th><th>特性</th></tr></thead>
           <tbody>
-            <tr><td>大型常綠喬木</td><td>10 - 25</td><td>儲碳量大，長期環境保護</td></tr>
-            <tr><td>快生喬木 (柳杉)</td><td>20 - 40</td><td>短期提升碳匯首選</td></tr>
-            <tr><td>居家小型盆栽</td><td>0.1 - 0.5</td><td>調節微氣候與心靈療癒</td></tr>
+            <tr><td>大型常綠喬木</td><td><a href="https://www.epa.gov/ghgemissions/greenhouse-gases-equivalencies-calculator-calculations-and-references" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">10 - 25</a></td><td>儲碳量大，長期環境保護</td></tr>
+            <tr><td>快生喬木 (柳杉)</td><td><a href="https://www.fs.usda.gov/ccrc/climate-smart/urban-forests" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">20 - 40</a></td><td>短期提升碳匯首選</td></tr>
+            <tr><td>居家小型盆栽</td><td><a href="https://pubmed.ncbi.nlm.nih.gov/24922135/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">0.1 - 0.5</a></td><td>調節微氣候與心靈療癒</td></tr>
           </tbody>
         </table>
         <div style="margin-top: 1.5rem; background:#F1F5EA; border-radius:1.2rem; padding:1rem;">
@@ -458,7 +537,8 @@
           ❸ 保護土壤有機質，防止碳流失
         </div>
       </div>
-      <!-- 淨零方程式 -->
+
+      <!-- 淨零方程式 + 永續設計區 -->
       <div class="card">
         <div class="section-title"><i class="fas fa-chalkboard-user"></i> 淨零方程式 & 永續空間設計</div>
         <div class="formula-box" style="background:#DBE9D1;">Net Zero = 排放量 - 移除量 = 0</div>
@@ -466,26 +546,31 @@
           <div>
             <h3><i class="fas fa-building"></i> 被動式設計 × 循環經濟</h3>
             <ul style="margin-left: 1.2rem; list-style: none;">
-              <li>☀️ 自然採光+對流：減空調能耗15-20%</li>
-              <li>🔄 循環材料：FSC木材、模組化設計</li>
-              <li>💧 雨水回收+省水標章：節水達45%</li>
-              <li>📊 IoT智慧監控+隔熱膜：阻擋90%紅外線</li>
+              <li>☀️ 自然採光+對流：減空調能耗<a href="https://www.energy.gov/energysaver/natural-ventilation" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">15-20%</a></li>
+              <li>🔄 循環材料：<a href="https://fsc.org/en" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">FSC木材</a>、模組化設計</li>
+              <li>💧 雨水回收+省水標章：節水達<a href="https://www.epa.gov/watersense" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">45%</a></li>
+              <li>📊 IoT智慧監控+隔熱膜：阻擋<a href="https://www.energy.gov/energysaver/window-types" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">90%紅外線</a></li>
             </ul>
           </div>
-          <div class="stats-card">
-            <i class="fas fa-chart-line"></i> 永續顯著效益<br>
-            <span style="font-weight:800;">-30%</span> 照明空調節能 &nbsp;|&nbsp; 
-            <span style="font-weight:800;">-45%</span> 用水節約<br>
-            <span style="font-weight:800;">+25%</span> 居住舒適滿意度
+          <div>
+            <div class="stats-card" style="background:#DDE9D2;">
+              <i class="fas fa-chart-line"></i> 永續顯著效益<br>
+              <span style="font-weight:800;">-30%</span> <a href="https://www.nrel.gov/docs/fy12osti/51636.pdf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">照明空調節能</a> &nbsp;|&nbsp; 
+              <span style="font-weight:800;">-45%</span> 用水節約<br>
+              <span style="font-weight:800;">+25%</span> <a href="https://www.hsph.harvard.edu/news/harvard-china-project/indoor-air-pollution/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">居住舒適滿意度</a><br>
+              <small style="font-size:0.7rem;">參考<a href="https://www.abri.gov.tw/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">EEWH</a>、<a href="https://www.usgbc.org/leed" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">LEED</a>、哈佛公衛研究</small>
+            </div>
           </div>
         </div>
         <p style="margin-top: 1rem; font-size:0.85rem; background:#F5F1E2; padding:0.7rem; border-radius:1rem;"><i class="fas fa-lightbulb"></i> 從最小單位開始：LED燈、一盆腎蕨、適時開窗，都是邁向淨零的關鍵一步。</p>
       </div>
 
-      <!-- 互動工具區：植栽碳管理 -->
+      <!-- 互動工具區：蕨積植栽碳管理系統 -->
       <div class="card" style="background: #FDFBEF;">
         <div class="section-title"><i class="fas fa-seedling"></i> 我的蕨積 · 植栽碳管理實驗</div>
-        <p style="margin-bottom: 1rem;"><i class="fas fa-calculator"></i> 每株植物年固碳克數(g CO₂e)估算。🚗 減少開車里程換算：170g CO₂/km (燃油小客車係數)</p>
+        <p style="margin-bottom: 1rem;"><i class="fas fa-calculator"></i> 減碳值基於室內植物（腎蕨、山蘇）光合效率估算，每株每年固碳克數(g CO₂e/yr)。<br>
+        🚗 減少開車里程換算：<strong><a href="https://www.epa.gov/ghgemissions/sources-greenhouse-gas-emissions" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">170g CO₂/km</a></strong> (燃油小客車係數)</p>
+        
         <div class="plant-tool">
           <div class="plant-selector">
             <div class="input-group">
@@ -500,9 +585,9 @@
             <div class="input-group">
               <label>📏 植株大小</label>
               <select id="plantSizeSelect">
-                <option value="small">小 (5-15cm) 係數0.8x</option>
-                <option value="medium" selected>中 (15-30cm) 標準</option>
-                <option value="large">大 (30cm+) 係數1.5x</option>
+                <option value="small">小 (5-15cm) 固碳係數0.8x</option>
+                <option value="medium" selected>中 (15-30cm) 標準基準</option>
+                <option value="large">大 (30cm+) 固碳係數1.5x</option>
               </select>
             </div>
             <div class="input-group">
@@ -514,43 +599,15 @@
           </div>
           <hr>
           <div style="display: flex; justify-content: space-between; flex-wrap:wrap; gap:8px; margin-bottom: 12px;">
-            <div><strong>📋 植栽清單</strong> <span id="plantCountBadge">0</span> 株</div>
-            <div><strong>🌿 年減碳總量</strong> <span id="totalCarbonSpan">0.00</span> 克 CO₂e</div>
+            <div><strong>📋 我的植栽清單</strong> <span id="plantCountBadge">0</span> 株</div>
+            <div><strong>🌿 總減碳估算 (每年)</strong> <span id="totalCarbonSpan">0.00</span> 克 CO₂e / 年</div>
             <div><strong>🚗 相當於減少開車里程</strong> <span id="mileageSpan">0.0</span> 公尺</div>
           </div>
-          <div id="plantListContainer" class="plant-list"></div>
-          <div style="font-size:0.7rem; margin-top:0.8rem; text-align:center;">* 減碳值為室內植物光合模擬估算，互動學習用途</div>
+          <div id="plantListContainer" class="plant-list">
+            <div style="text-align:center; color:#8E9A7C;">✨ 新增第一株植物，開始你的碳積分實驗 ✨</div>
+          </div>
+          <div style="font-size:0.7rem; margin-top:0.8rem; text-align:center;">* 減碳值參考室內植物平均光合作用與生物量估算，僅供互動學習</div>
         </div>
-      </div>
-    </div>
-
-    <!-- 蕨積辦公室日常區塊 (完整保留並美化) -->
-    <div class="team-spirit">
-      <div class="team-spirit-title">
-        <i class="fas fa-leaf"></i> 蕨積辦公室日常 🌱
-        <i class="fas fa-mug-hot"></i>
-      </div>
-      <div class="team-spirit-desc">
-        🌿 這些好朋友們平常就在蕨積辦公室一起上班、一起光合作用、一起推廣「植物減碳」的綠色生活理念。<br>
-        🐢 從洞洞西裝小龜到漂浮上班的空空，每個植物人都有獨一無二的綠色超能力，讓每一天充滿療癒與永續的靈感。
-      </div>
-      
-      <!-- 遊戲連結區塊 -->
-      <div class="game-links-section">
-        <a href="step1_select.html" class="game-card-link">
-          <div class="game-icon">🎮</div>
-          <div class="game-text">
-            <h4>植生牆遊戲</h4>
-            <p>從零打造一面會呼吸的牆・碳排與固碳體驗</p>
-          </div>
-        </a>
-        <a href="level1.html" class="game-card-link">
-          <div class="game-icon">🌍</div>
-          <div class="game-text">
-            <h4>蕨積綠色宇宙</h4>
-            <p>認識更多植物好朋友・永續生活靈感</p>
-          </div>
-        </a>
       </div>
     </div>
   </main>
@@ -566,139 +623,180 @@
   </footer>
 
   <script>
-    // 植栽碳管理系統
-    const plantDB = {
+    // ---------- 完整 JS 互動：植栽碳管理系統 ----------
+    const plantDatabase = {
       "腎蕨_強效": { name: "波士頓腎蕨", baseCarbon: 450 },
       "山蘇_中效": { name: "山蘇", baseCarbon: 280 },
       "虎尾蘭": { name: "虎尾蘭", baseCarbon: 200 },
       "琴葉榕": { name: "琴葉榕", baseCarbon: 380 }
     };
-    const sizeMult = { small: 0.8, medium: 1.0, large: 1.5 };
-    let myPlants = [];
-
-    function calcCarbon(typeKey, sizeKey) {
-      let base = plantDB[typeKey]?.baseCarbon || 300;
-      let mult = sizeMult[sizeKey] || 1;
+    const sizeMultiplier = { "small": 0.8, "medium": 1.0, "large": 1.5 };
+    
+    let myPlants = [];  // 物件 { id, typeKey, sizeKey, quantity, eachCarbon, name, sizeLabel }
+    
+    function calcSingleCarbon(typeKey, sizeKey) {
+      let base = plantDatabase[typeKey]?.baseCarbon || 300;
+      let mult = sizeMultiplier[sizeKey] || 1.0;
       return Math.round(base * mult);
     }
-
+    
     function updateUI() {
       const container = document.getElementById("plantListContainer");
       const totalSpan = document.getElementById("totalCarbonSpan");
       const mileageSpan = document.getElementById("mileageSpan");
       const badgeSpan = document.getElementById("plantCountBadge");
+      
       if (!myPlants.length) {
-        container.innerHTML = `<div style="text-align:center; color:#8E9A7C; padding:1rem;">🌱 還沒有植栽，快去新增吧！ 🌱</div>`;
+        container.innerHTML = `<div style="text-align:center; color:#8E9A7C;">🌱 還沒有植栽，快去新增吧！ 🌱</div>`;
         totalSpan.innerText = "0.00";
         mileageSpan.innerText = "0.0";
         badgeSpan.innerText = "0";
         return;
       }
-      let totalCO2 = 0, totalCount = 0;
-      myPlants.forEach(p => { totalCO2 += p.eachCarbon * p.quantity; totalCount += p.quantity; });
+      
+      let totalCO2 = 0;
+      let totalCount = 0;
+      myPlants.forEach(p => {
+        totalCO2 += p.eachCarbon * p.quantity;
+        totalCount += p.quantity;
+      });
+      
       let km = totalCO2 / 170;
-      let meters = (km * 1000).toFixed(0);
+      let meters = km * 1000;
+      let displayMeters = meters.toFixed(0);
+      if (totalCO2 === 0) displayMeters = "0.0";
+      
       totalSpan.innerText = totalCO2.toFixed(2);
-      mileageSpan.innerText = Number(meters).toLocaleString();
+      mileageSpan.innerText = Number(displayMeters).toLocaleString();
       badgeSpan.innerText = totalCount;
+      
       let html = "";
       myPlants.forEach((p, idx) => {
-        let subTotal = (p.eachCarbon * p.quantity).toFixed(1);
-        html += `<div class="plant-item">
-          <div><strong>🌿 ${p.name}</strong> ${p.sizeLabel} x ${p.quantity} 株<br><span style="font-size:0.7rem;">單株 ${p.eachCarbon} g CO₂e/年 | 小計 ${subTotal} g</span></div>
-          <div><i class="fas fa-trash-alt delete-icon" data-idx="${idx}"></i></div>
-        </div>`;
+        let plantTotalCarbon = (p.eachCarbon * p.quantity).toFixed(1);
+        html += `
+          <div class="plant-item">
+            <div><strong>🌿 ${p.name}</strong> ${p.sizeLabel} x ${p.quantity} 株<br><span style="font-size:0.7rem;">單株 ${p.eachCarbon} g CO₂e/年 | 小計 ${plantTotalCarbon} g</span></div>
+            <div><i class="fas fa-trash-alt delete-icon" data-idx="${idx}" style="cursor:pointer;"></i></div>
+          </div>
+        `;
       });
       container.innerHTML = html;
+      
       document.querySelectorAll('.delete-icon').forEach(el => {
         el.addEventListener('click', (e) => {
           const idx = parseInt(el.getAttribute('data-idx'));
-          if (!isNaN(idx)) { myPlants.splice(idx, 1); updateUI(); }
+          if (!isNaN(idx)) {
+            myPlants.splice(idx, 1);
+            updateUI();
+          }
         });
       });
     }
-
-    function addPlantHandler() {
+    
+    function addPlant() {
       const typeKey = document.getElementById("plantTypeSelect").value;
       const sizeKey = document.getElementById("plantSizeSelect").value;
       let qty = parseInt(document.getElementById("plantQty").value);
       if (isNaN(qty) || qty < 1) qty = 1;
-      const info = plantDB[typeKey];
-      if (!info) return;
-      const eachCarbon = calcCarbon(typeKey, sizeKey);
+      const plantInfo = plantDatabase[typeKey];
+      if (!plantInfo) return;
+      const eachCarbon = calcSingleCarbon(typeKey, sizeKey);
       let sizeLabel = sizeKey === "small" ? "小 (5-15cm)" : (sizeKey === "medium" ? "中 (15-30cm)" : "大 (30cm+)");
-      myPlants.push({ id: Date.now(), name: info.name, sizeLabel, quantity: qty, eachCarbon });
+      myPlants.push({
+        id: Date.now() + Math.random(),
+        typeKey, sizeKey, quantity: qty, eachCarbon,
+        name: plantInfo.name, sizeLabel
+      });
       updateUI();
     }
-
+    
     function clearAll() {
-      if (confirm("清空所有植栽收藏，重新開始碳積分？")) { myPlants = []; updateUI(); }
+      if (confirm("清空所有植栽收藏，重新開始碳積分？")) {
+        myPlants = [];
+        updateUI();
+      }
     }
-
-    function initDemo() {
-      myPlants = [
-        { id: 1, name: "波士頓腎蕨", sizeLabel: "中 (15-30cm)", quantity: 2, eachCarbon: calcCarbon("腎蕨_強效", "medium") },
-        { id: 2, name: "山蘇", sizeLabel: "大 (30cm+)", quantity: 1, eachCarbon: calcCarbon("山蘇_中效", "large") }
-      ];
+    
+    // 示範預設兩筆 (讓頁面活潑且符合綠生活意象)
+    function initDemoPlants() {
+      myPlants.push({
+        id: Date.now() + 101,
+        typeKey: "腎蕨_強效", sizeKey: "medium", quantity: 2,
+        eachCarbon: calcSingleCarbon("腎蕨_強效", "medium"),
+        name: "波士頓腎蕨", sizeLabel: "中 (15-30cm)"
+      });
+      myPlants.push({
+        id: Date.now() + 102,
+        typeKey: "山蘇_中效", sizeKey: "large", quantity: 1,
+        eachCarbon: calcSingleCarbon("山蘇_中效", "large"),
+        name: "山蘇", sizeLabel: "大 (30cm+)"
+      });
       updateUI();
     }
-
-    // 導覽列動態載入 (外部 nav.html) + 事件綁定
-    function loadNavAndInit() {
-      const navContainer = document.getElementById('nav-container');
-      if (!navContainer) return;
+    
+    // 綁定按鈕
+    document.addEventListener("DOMContentLoaded", function() {
+      const addBtn = document.getElementById("addPlantBtn");
+      const clearBtn = document.getElementById("clearAllBtn");
+      if (addBtn) addBtn.addEventListener("click", addPlant);
+      if (clearBtn) clearBtn.addEventListener("click", clearAll);
+      initDemoPlants();
+      
+      // 導覽列動態載入 (保留原有結構)
       fetch('nav.html')
-        .then(response => {
-          if (!response.ok) throw new Error('nav.html 不存在或無法載入');
-          return response.text();
-        })
-        .then(html => {
-          navContainer.innerHTML = html;
-          initNavBehavior();      // 初始化漢堡選單、滾動效果
+        .then(response => response.text())
+        .then(data => {
+          const navPlaceholder = document.getElementById('nav-placeholder');
+          if (navPlaceholder) navPlaceholder.innerHTML = data;
+          initNavBehavior();
         })
         .catch(err => {
-          console.warn('導覽列載入失敗，使用內建導覽替代：', err);
-          // 友善備用 nav 結構
-          navContainer.innerHTML = `
-            <nav id="mainNav">
-              <a href="index.html" class="logo"><div class="logo-mark">蕨</div><div class="logo-text">蕨積 FERNBROM<span>GREEN LIVING</span></div></a>
-              <ul class="nav-links"><li><a href="index.html">首頁</a></li><li class="has-dropdown"><a href="#">探索</a><ul class="dropdown"><li><a href="greenlab.html">綠色實驗室</a></li><li><a href="shop.html">植物選品</a></li><li><a href="fbnote.html">蕨望筆記</a></li></ul></li><li><a href="consult.html">綠色顧問</a></li><li><a href="about.html">關於蕨積</a></li><li><a href="contact.html" class="nav-contact">聯絡我們</a></li></ul>
-              <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
-              <div class="mobile-menu" id="mobileMenu"><ul><li><a href="index.html">首頁</a></li><li><a href="greenlab.html">綠色實驗室</a></li><li><a href="shop.html">植物選品</a></li><li><a href="consult.html">綠色顧問</a></li><li><a href="about.html">關於蕨積</a></li><li><a href="contact.html">聯絡我們</a></li></ul></div>
-            </nav>`;
-          initNavBehavior();
+          console.warn("導覽列載入失敗，但主體內容仍可正常使用", err);
+          initNavBehavior(); // 避免缺失事件
         });
-    }
-
+    });
+    
     function initNavBehavior() {
-      const hamburger = document.getElementById('hamburger');
-      const mobileMenu = document.getElementById('mobileMenu');
-      if (hamburger && mobileMenu) {
-        hamburger.addEventListener('click', () => {
-          hamburger.classList.toggle('open');
-          mobileMenu.classList.toggle('open');
+      const btn = document.getElementById('hamburger');
+      const menu = document.getElementById('mobileMenu');
+      if (btn && menu) {
+        btn.addEventListener('click', function() {
+          btn.classList.toggle('open');
+          menu.classList.toggle('open');
         });
-        mobileMenu.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', () => {
-            hamburger.classList.remove('open');
-            mobileMenu.classList.remove('open');
+        if (menu.querySelectorAll('.mobile-link')) {
+          menu.querySelectorAll('.mobile-link').forEach(a => {
+            a.addEventListener('click', () => {
+              btn.classList.remove('open');
+              menu.classList.remove('open');
+            });
+          });
+        }
+      }
+      if (menu) {
+        menu.querySelectorAll('.mobile-parent').forEach(parent => {
+          parent.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const sub = document.getElementById(targetId);
+            const caret = document.getElementById('caret-' + targetId?.replace('sub-', ''));
+            if (sub) {
+              const isOpen = sub.classList.contains('open');
+              menu.querySelectorAll('.mobile-sub').forEach(s => s.classList.remove('open'));
+              menu.querySelectorAll('.mobile-caret').forEach(c => c.classList.remove('open'));
+              if (!isOpen) {
+                sub.classList.add('open');
+                if (caret) caret.classList.add('open');
+              }
+            }
           });
         });
       }
-      window.addEventListener('scroll', () => {
-        const nav = document.getElementById('mainNav');
-        if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
+      window.addEventListener('scroll', function() {
+        const mainNav = document.getElementById('mainNav');
+        if (mainNav) mainNav.classList.toggle('scrolled', window.scrollY > 20);
       });
+      if (typeof lucide !== 'undefined') lucide.createIcons();
     }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      loadNavAndInit();
-      const addBtn = document.getElementById("addPlantBtn");
-      const clearBtn = document.getElementById("clearAllBtn");
-      if (addBtn) addBtn.addEventListener("click", addPlantHandler);
-      if (clearBtn) clearBtn.addEventListener("click", clearAll);
-      initDemo();
-    });
   </script>
 </body>
 </html>
