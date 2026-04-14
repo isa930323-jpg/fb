@@ -480,6 +480,120 @@
     }
     .esg-table th:last-child, .esg-table td:last-child { padding-right: 0; }
 
+    /* ========== 蕨積辦公室日常 - 置中樣式 ========== */
+    .team-spirit {
+      max-width: 1280px;
+      margin: 1rem auto 0;
+      padding: 0 1.8rem 2rem;
+      text-align: center;
+    }
+
+    .team-spirit-title {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #4a6b3c;
+      display: inline-block;
+      border-bottom: 2px solid var(--sage);
+      padding-bottom: 4px;
+      margin-bottom: 0.75rem;
+    }
+
+    .team-spirit-desc {
+      color: #5e5b52;
+      margin: 10px auto 0;
+      line-height: 1.7;
+      font-size: 0.92rem;
+      background: rgba(218, 232, 200, 0.3);
+      padding: 1rem 1.2rem;
+      border-radius: 1.2rem;
+      border-left: 4px solid var(--fern);
+      letter-spacing: 0.02em;
+      max-width: 800px;
+      display: inline-block;
+      text-align: left;
+    }
+
+    /* ========== 遊戲連結卡片區塊樣式 - 置中 ========== */
+    .game-links-section {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      max-width: 1280px;
+      margin: 2rem auto 0;
+      padding: 0;
+    }
+
+    .game-card-link {
+      background: rgba(255, 255, 248, 0.96);
+      border-radius: 1.6rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      padding: 1.2rem 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      border: 1px solid #E2E8D6;
+      flex: 1;
+      min-width: 240px;
+      max-width: 360px;
+    }
+
+    .game-card-link:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 28px rgba(61, 90, 56, 0.1);
+      border-color: #CBD8BB;
+    }
+
+    .game-icon {
+      font-size: 2.5rem;
+      opacity: 0.8;
+      transition: transform 0.2s;
+    }
+
+    .game-card-link:hover .game-icon {
+      transform: scale(1.02);
+    }
+
+    .game-text h4 {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--moss);
+      margin-bottom: 0.3rem;
+    }
+
+    .game-text p {
+      font-size: 0.8rem;
+      color: var(--stone);
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    @media (max-width: 680px) {
+      .game-links-section {
+        gap: 1rem;
+      }
+      .game-card-link {
+        padding: 1rem;
+        min-width: 200px;
+      }
+      .game-icon {
+        font-size: 2rem;
+      }
+      .game-text h4 {
+        font-size: 1rem;
+      }
+      .game-text p {
+        font-size: 0.7rem;
+      }
+      .team-spirit {
+        padding: 0 1rem 1.5rem;
+      }
+    }
+
     footer {
       border-top: 1px solid rgba(90,122,74,0.15);
       padding: 40px 4vw;
@@ -621,69 +735,66 @@
       </div>
     </div>
 
-   <!-- ✨ 新增：從綠牆到ESG報告 — 讓數據說話 ✨ -->
-<div class="service-card">
-  <div class="card-header">
-    <i data-lucide="file-text"></i>
-    <h2>從綠牆到ESG報告 — 讓數據說話</h2>
-  </div>
-  <p class="story-paragraph">
-    許多企業投入資源建置植生牆，卻不知道如何將這項綠色投資轉化為ESG報告書中的具體績效。<br>
-    蕨積協助您將植生牆的環境效益 <strong>數據化、可視化、報告化</strong>，讓綠牆不僅是美觀設計，更是企業永續承諾的有力證據。
-  </p>
-  
-  <!-- 三大痛點與解決方案 -->
-  <div class="esg-grid">
-    <div class="esg-card">
-      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-        <i data-lucide="alert-circle" style="color: #c27e55; width: 20px;"></i>
-        <strong style="color: var(--moss);">常見痛點</strong>
+    <!-- 從綠牆到ESG報告 — 讓數據說話 -->
+    <div class="service-card">
+      <div class="card-header">
+        <i data-lucide="file-text"></i>
+        <h2>從綠牆到ESG報告 — 讓數據說話</h2>
       </div>
-      <p style="font-size: 0.85rem; color: #5a6e60;">植生牆建置後，無法量化碳效益，難以寫入ESG報告。</p>
-    </div>
-    <div class="esg-card">
-      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-        <i data-lucide="check-circle" style="color: var(--fern); width: 20px;"></i>
-        <strong style="color: var(--moss);">蕨積解法</strong>
-      </div>
-      <p style="font-size: 0.85rem; color: #5a6e60;">導入<a href="https://ghgregistry.moenv.gov.tw/" target="_blank" rel="noopener noreferrer" style="color: var(--fern); text-decoration: none; border-bottom: 1px dotted var(--fern);">碳計算工具</a>，定期產出固碳數據與環境效益報表。</p>
-    </div>
-    <div class="esg-card">
-      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-        <i data-lucide="file-output" style="color: var(--fern); width: 20px;"></i>
-        <strong style="color: var(--moss);">報告應用</strong>
-      </div>
-      <p style="font-size: 0.85rem; color: #5a6e60;">直接對應<a href="https://www.globalreporting.org/how-to-use-the-gri-standards/gri-standards-english-language/" target="_blank" rel="noopener noreferrer" style="color: var(--fern); text-decoration: none; border-bottom: 1px dotted var(--fern);">GRI 305（排放）</a>、<a href="https://sasb.org/standards/materiality-finder/find/?industry%5B0%5D=IF-HP" target="_blank" rel="noopener noreferrer" style="color: var(--fern); text-decoration: none; border-bottom: 1px dotted var(--fern);">SASB</a>、<a href="https://www.fsb-tcfd.org/about/" target="_blank" rel="noopener noreferrer" style="color: var(--fern); text-decoration: none; border-bottom: 1px dotted var(--fern);">TCFD</a>等揭露框架。</p>
-    </div>
-  </div>
-
-  <!-- ESG應用場景表格 -->
-  <div class="esg-table-wrapper">
-    <h3 style="font-family: 'Noto Serif TC', serif; font-size: 1rem; color: var(--moss); margin-bottom: 12px;">📊 植生牆數據如何應用於ESG報告？</h3>
-    <table class="esg-table">
-      <thead>
-        <tr><th style="padding: 8px 8px 8px 0;">ESG面向</th><th>植生牆貢獻</th><th>報告指標示例</th></tr>
-      </thead>
-      <tbody>
-        <tr><td style="padding: 8px 8px 8px 0;"><strong>🌍 環境(E)</strong></td><td>直接碳移除、建築節能、都市降溫</td><td><a href="https://www.globalreporting.org/how-to-use-the-gri-standards/gri-standards-english-language/" target="_blank" rel="noopener noreferrer" style="color: var(--fern); text-decoration: none; border-bottom: 1px dotted var(--fern);">GRI 305-1, 305-5</a> / 碳排減量(kgCO₂e)</td></tr>
-        <tr><td style="padding: 8px 8px 8px 0;"><strong>👥 社會(S)</strong></td><td>員工心理健康、美學體驗、環境教育</td><td>員工滿意度 / 綠色空間使用率</td></tr>
-        <tr><td style="padding: 8px 8px 8px 0;"><strong>🏛️ 治理(G)</strong></td><td>氣候風險管理、綠色投資績效</td><td><a href="https://www.fsb-tcfd.org/about/" target="_blank" rel="noopener noreferrer" style="color: var(--fern); text-decoration: none; border-bottom: 1px dotted var(--fern);">TCFD氣候情境分析</a> / 綠色資本支出</td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-      <!-- 服務項目列表 -->
-      <ul class="tips-list">
-  <li><strong>📈 碳效益量化評估</strong> — 依據植物種類、面積、生長狀況，計算<a href="https://ghgregistry.moenv.gov.tw/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">年度固碳量與節能效益</a>。</li>
-  <li><strong>📋 ESG報告撰寫支援</strong> — 提供符合<a href="https://www.globalreporting.org/how-to-use-the-gri-standards/gri-standards-english-language/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">GRI</a>、<a href="https://sasb.org/standards/materiality-finder/find/?industry%5B0%5D=IF-HP" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">SASB</a>、<a href="https://www.fsb-tcfd.org/about/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">TCFD</a>框架的數據與論述。</li>
-  <li><strong>🔧 定期監測與優化</strong> — 每季產出環境效益報表，確保數據持續更新。</li>
-  <li><strong>🏆 永續認證輔導</strong> — 協助申請<a href="https://gb.tca.org.tw/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">綠建築標章</a>、<a href="https://www.carbonfootprint.tw/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">碳足跡認證</a>等。</li>
-</ul>
+      <p class="story-paragraph">
+        許多企業投入資源建置植生牆，卻不知道如何將這項綠色投資轉化為ESG報告書中的具體績效。<br>
+        蕨積協助您將植生牆的環境效益 <strong>數據化、可視化、報告化</strong>，讓綠牆不僅是美觀設計，更是企業永續承諾的有力證據。
+      </p>
       
-      <a href="consulting.html" class="card-link">了解更多顧問服務 →</a>
-      <a href="contact.html" class="card-link">預約免費諮詢 →</a>
+      <div class="esg-grid">
+        <div class="esg-card">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <i data-lucide="alert-circle" style="color: #c27e55; width: 20px;"></i>
+            <strong style="color: var(--moss);">常見痛點</strong>
+          </div>
+          <p style="font-size: 0.85rem; color: #5a6e60;">植生牆建置後，無法量化碳效益，難以寫入ESG報告。</p>
+        </div>
+        <div class="esg-card">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <i data-lucide="check-circle" style="color: var(--fern); width: 20px;"></i>
+            <strong style="color: var(--moss);">蕨積解法</strong>
+          </div>
+          <p style="font-size: 0.85rem; color: #5a6e60;">導入<a href="https://ghgregistry.moenv.gov.tw/" target="_blank" rel="noopener noreferrer" style="color: var(--fern); text-decoration: none; border-bottom: 1px dotted var(--fern);">碳計算工具</a>，定期產出固碳數據與環境效益報表。</p>
+        </div>
+        <div class="esg-card">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <i data-lucide="file-output" style="color: var(--fern); width: 20px;"></i>
+            <strong style="color: var(--moss);">報告應用</strong>
+          </div>
+          <p style="font-size: 0.85rem; color: #5a6e60;">直接對應<a href="https://www.globalreporting.org/how-to-use-the-gri-standards/gri-standards-english-language/" target="_blank" rel="noopener noreferrer" style="color: var(--fern); text-decoration: none; border-bottom: 1px dotted var(--fern);">GRI 305（排放）</a>、<a href="https://sasb.org/standards/materiality-finder/find/?industry%5B0%5D=IF-HP" target="_blank" rel="noopener noreferrer" style="color: var(--fern); text-decoration: none; border-bottom: 1px dotted var(--fern);">SASB</a>、<a href="https://www.fsb-tcfd.org/about/" target="_blank" rel="noopener noreferrer" style="color: var(--fern); text-decoration: none; border-bottom: 1px dotted var(--fern);">TCFD</a>等揭露框架。</p>
+        </div>
+      </div>
+
+      <div class="esg-table-wrapper">
+        <h3 style="font-family: 'Noto Serif TC', serif; font-size: 1rem; color: var(--moss); margin-bottom: 12px;">📊 植生牆數據如何應用於ESG報告？</h3>
+        <table class="esg-table">
+          <thead>
+            <tr><th style="padding: 8px 8px 8px 0;">ESG面向</th><th>植生牆貢獻</th><th>報告指標示例</th></tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding: 8px 8px 8px 0;"><strong>🌍 環境(E)</strong></td><td>直接碳移除、建築節能、都市降溫</td><td><a href="https://www.globalreporting.org/how-to-use-the-gri-standards/gri-standards-english-language/" target="_blank" rel="noopener noreferrer" style="color: var(--fern); text-decoration: none; border-bottom: 1px dotted var(--fern);">GRI 305-1, 305-5</a> / 碳排減量(kgCO₂e)</td></tr>
+            <tr><td style="padding: 8px 8px 8px 0;"><strong>👥 社會(S)</strong></td><td>員工心理健康、美學體驗、環境教育</td><td>員工滿意度 / 綠色空間使用率</td></tr>
+            <tr><td style="padding: 8px 8px 8px 0;"><strong>🏛️ 治理(G)</strong></td><td>氣候風險管理、綠色投資績效</td><td><a href="https://www.fsb-tcfd.org/about/" target="_blank" rel="noopener noreferrer" style="color: var(--fern); text-decoration: none; border-bottom: 1px dotted var(--fern);">TCFD氣候情境分析</a> / 綠色資本支出</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+
+    <!-- 服務項目列表 -->
+    <ul class="tips-list">
+      <li><strong>📈 碳效益量化評估</strong> — 依據植物種類、面積、生長狀況，計算<a href="https://ghgregistry.moenv.gov.tw/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">年度固碳量與節能效益</a>。</li>
+      <li><strong>📋 ESG報告撰寫支援</strong> — 提供符合<a href="https://www.globalreporting.org/how-to-use-the-gri-standards/gri-standards-english-language/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">GRI</a>、<a href="https://sasb.org/standards/materiality-finder/find/?industry%5B0%5D=IF-HP" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">SASB</a>、<a href="https://www.fsb-tcfd.org/about/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">TCFD</a>框架的數據與論述。</li>
+      <li><strong>🔧 定期監測與優化</strong> — 每季產出環境效益報表，確保數據持續更新。</li>
+      <li><strong>🏆 永續認證輔導</strong> — 協助申請<a href="https://gb.tca.org.tw/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">綠建築標章</a>、<a href="https://www.carbonfootprint.tw/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none; border-bottom: 1px dotted #999;">碳足跡認證</a>等。</li>
+    </ul>
+    
+    <a href="consulting.html" class="card-link">了解更多顧問服務 →</a>
+    <a href="contact.html" class="card-link">預約免費諮詢 →</a>
 
     <!-- 延伸連結與補充註腳 -->
     <div class="extend-links">
@@ -693,6 +804,33 @@
     <div class="footnote">
       「植物不是裝飾，而是系統的一部分。」—— 每一座綠牆，都是都市裡微型的碳循環引擎。
     </div>
+
+    <!-- ========== 🌱 蕨積辦公室日常（置中版本） ========== -->
+    <div class="team-spirit">
+      <div class="team-spirit-title">🌱 蕨積辦公室日常 🌱</div>
+      <div class="team-spirit-desc">
+        🌿 這些好朋友們平常就在蕨積辦公室一起上班、一起光合作用、一起推廣「植物減碳」的綠色生活理念。<br>
+        🐢 從洞洞西裝小龜到漂浮上班的空空，每個植物人都有獨一無二的綠色超能力，讓每一天充滿療癒與永續的靈感。
+      </div>
+      
+      <div class="game-links-section">
+        <a href="step1_select.html" class="game-card-link">
+          <div class="game-icon">🎮</div>
+          <div class="game-text">
+            <h4>植生牆遊戲</h4>
+            <p>從零打造一面會呼吸的牆・碳排與固碳體驗</p>
+          </div>
+        </a>
+        <a href="level1.html" class="game-card-link">
+          <div class="game-icon">🌍</div>
+          <div class="game-text">
+            <h4>蕨積綠色宇宙</h4>
+            <p>認識更多植物好朋友・永續生活靈感</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
   </main>
 
   <footer>
