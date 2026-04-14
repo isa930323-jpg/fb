@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>蕨積綠色宇宙 - 第一關：碳盤查分類</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background: linear-gradient(145deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+        }
+        /* 手機版允許滾動 */
+        @media (max-width: 768px) {
+            body {
+                overflow-y: auto;
+            }
+            .mobile-stack {
+                flex-direction: column !important;
+            }
+        }
+        .character-float {
+            animation: float 3.5s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+        .bubble-glow {
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.3) inset;
+        }
+        .progress-fill {
+            transition: width 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .card-hover:active {
+            transform: scale(0.97);
+        }
+        .shake-animation {
+            animation: shake 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+        .pulse-green {
+            animation: pulse-green 0.5s ease-out;
+        }
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); background-color: #dcfce7; }
+            70% { box-shadow: 0 0 0 12px rgba(34,197,94,0); background-color: #bbf7d0; }
+            100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); background-color: transparent; }
+        }
+        .knowledge-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .knowledge-scroll::-webkit-scrollbar-track {
+            background: #1e293b;
+            border-radius: 10px;
+        }
+        .knowledge-scroll::-webkit-scrollbar-thumb {
+            background: #4ade80;
+            border-radius: 10px;
+        }
+        .answer-btn {
+            transition: all 0.2s;
+        }
+        .answer-btn:active {
+            transform: scale(0.97);
+        }
+    </style>
+</head>
+<body>
+
+<div class="w-full min-h-screen flex flex-col md:flex-row mobile-stack">
+    
+    <!-- 左側：知識庫（電腦版顯示，手機版隱藏） -->
+    <div class="hidden md:block md:w-4/12 bg-emerald-900/85 backdrop-blur-sm border-r border-white/20 p-4 overflow-y-auto shadow-2xl" style="min-height: 100vh;">
+        <div class="sticky top-3">
+            <div class="flex items-center gap-2 mb-4 pb-2 border-b border-emerald-500/50">
+                <span class="text-2xl">📚</span>
+                <h3 class="font-black text-white text-base">碳盤查知識庫</h3>
+                <span class="text-[10px] bg-emerald-500/40 px-2 py-0.5 rounded-full text-emerald-100">先讀再玩</span>
+            </div>
+            
+            <div class="space-y-3 text-white/90 text-xs">
+                <div class="bg-emerald-800/40 rounded-lg p-2">
+                    <h4 class="font-bold text-emerald-300 text-sm">📊 什麼是碳盤查？</h4>
+                    <p class="text-gray-200 text-xs leading-relaxed mt-1">碳盤查是計算組織或產品「溫室氣體排放量」的過程，分為三個範疇：<span class="text-emerald-300 font-semibold">Scope 1（直接）、Scope 2（能源間接）、Scope 3（其他間接）</span>。</p>
+                </div>
+                <div class="bg-emerald-800/40 rounded-lg p-2">
+                    <h4 class="font-bold text-emerald-300 text-sm">🏭 Scope 1 直接排放</h4>
+                    <p class="text-gray-200 text-xs">公司「直接」控制的排放源：工廠鍋爐、公司車隊、製程排放。</p>
+                    <div class="mt-1 text-emerald-300 text-[10px]">✅ 範例：自有貨車、工廠煙囪</div>
+                </div>
+                <div class="bg-emerald-800/40 rounded-lg p-2">
+                    <h4 class="font-bold text-emerald-300 text-sm">⚡ Scope 2 能源間接</h4>
+                    <p class="text-gray-200 text-xs">外購電力、蒸氣、熱能產生的排放。</p>
+                    <div class="mt-1 text-emerald-300 text-[10px]">✅ 範例：辦公室用電、空調</div>
+                </div>
+                <div class="bg-emerald-800/40 rounded-lg p-2">
+                    <h4 class="font-bold text-emerald-300 text-sm">🌍 Scope 3 其他間接</h4>
+                    <p class="text-gray-200 text-xs">上下游供應鏈：員工通勤、商務旅行、產品運輸等。</p>
+                    <div class="mt-1 text-emerald-300 text-[10px]">✅ 範例：員工出差飛機、漢堡供應鏈</div>
+                </div>
+                <div class="bg-emerald-800/40 rounded-lg p-2">
+                    <h4 class="font-bold text-emerald-300 text-sm">🎯 本關挑戰</h4>
+                    <p class="text-gray-200 text-xs">將6個項目正確分類，<span class="text-yellow-200">每答對一題 +10分、+2kg 減碳量</span>！</p>
+                </div>
+                <div class="bg-emerald-800/40 rounded-lg p-2">
+                    <h4 class="font-bold text-emerald-300 text-sm">🧠 小測驗</h4>
+                    <p class="text-gray-200 text-xs">💭 哪一項屬於 Scope 1 直接排放？</p>
+                    <div class="mt-1 space-y-1 text-xs">
+                        <label class="flex items-center gap-2 cursor-pointer text-gray-200"><input type="radio" name="quiz" value="a"> A. 員工開車上班</label>
+                        <label class="flex items-center gap-2 cursor-pointer text-gray-200"><input type="radio" name="quiz" value="b"> B. 工廠煙囪排放</label>
+                        <label class="flex items-center gap-2 cursor-pointer text-gray-200"><input type="radio" name="quiz" value="c"> C. 購買的電力</label>
+                    </div>
+                    <p id="quizFeedback" class="text-xs mt-2 text-emerald-300"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 中間：阿蕨角色區 -->
+    <div class="w-full md:w-4/12 bg-gradient-to-br from-emerald-600 to-green-700 flex flex-col items-center justify-center p-5 shadow-2xl" style="min-height: 350px;">
+        <div class="character-float">
+            <div class="bg-white/20 backdrop-blur-sm rounded-full p-3 shadow-2xl">
+                <img src="fern.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1995/1995572.png';" class="w-28 h-28 md:w-36 md:h-36 object-contain drop-shadow-xl">
+            </div>
+        </div>
+        <div class="mt-4 w-full max-w-xs">
+            <div class="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-2xl border-l-[8px] border-emerald-700 bubble-glow">
+                <div class="flex items-start gap-2">
+                    <span class="text-2xl">🌱</span>
+                    <div class="flex-1">
+                        <h3 class="font-black text-gray-800">阿蕨 Fern · 碳智庫</h3>
+                        <p id="dialog" class="text-gray-700 font-medium mt-1 text-sm">問題不急，先釐清碳排脈絡。請幫我分類這些物件！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 右側：遊戲區 -->
+    <div class="w-full md:w-4/12 bg-white/40 backdrop-blur-sm flex flex-col items-center justify-center p-5" style="min-height: 400px;">
+        <div class="w-full max-w-md mx-auto">
+            <!-- 分數面板 -->
+            <div class="mb-4 bg-white/70 rounded-xl p-3 shadow-md">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-1">
+                        <span class="text-xl">🏆</span>
+                        <span class="font-black text-gray-700 text-sm">碳排積分</span>
+                    </div>
+                    <div class="bg-gray-800 text-white px-3 py-0.5 rounded-full font-black">
+                        <span id="scoreValue">0</span> / <span id="totalScore">60</span>
+                    </div>
+                </div>
+                <div class="flex justify-between text-xs text-gray-600 font-semibold mt-1">
+                    <span>📊 答對進度</span>
+                    <span id="progressFraction">第1 / 6題</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2 mt-1 overflow-hidden">
+                    <div id="progressBar" class="progress-fill bg-gradient-to-r from-emerald-500 to-green-600 h-2 rounded-full" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- 遊戲卡片 -->
+            <div class="bg-white rounded-2xl shadow-xl p-5 border border-emerald-100">
+                <div class="text-center">
+                    <div id="item-icon" class="text-8xl mb-3 drop-shadow-2xl">🏭</div>
+                    <div class="mb-4">
+                        <p id="item-description" class="text-gray-700 font-bold text-base bg-gray-50 inline-block px-4 py-1.5 rounded-full shadow-inner">工廠煙囪排放</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 gap-3">
+                        <button id="scope1Btn" class="answer-btn bg-gradient-to-br from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-black py-3 rounded-xl shadow-lg flex items-center justify-center gap-2">
+                            <span class="text-xl">🏭</span>
+                            <span>直接排放 (Scope 1)</span>
+                        </button>
+                        <button id="otherBtn" class="answer-btn bg-gradient-to-br from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white font-black py-3 rounded-xl shadow-lg flex items-center justify-center gap-2">
+                            <span class="text-xl">🌍</span>
+                            <span>間接排放 (Scope 2/3)</span>
+                        </button>
+                    </div>
+                    
+                    <div id="feedbackTip" class="mt-4 text-sm font-semibold text-gray-500 bg-gray-100 p-2 rounded-lg">
+                        💡 點擊分類，幫助阿蕨釐清碳排源頭
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function(){
+        // 題庫
+        const QUESTIONS = [
+            { icon: "🏭", description: "工廠煙囪燃燒煤炭排放黑煙", correct: "scope1", carbon: 2, success: "完全正確！工廠直接燃燒燃料屬於直接排放 (Scope 1) 👍", error: "不對喔～煙囪排放來自公司自有設施，屬於直接排放 (Scope 1)！" },
+            { icon: "💡", description: "辦公室照明與空調用電", correct: "other", carbon: 2, success: "答對了！外購電力屬於間接排放 (Scope 2) ⚡", error: "用電來自電力公司，歸類在間接排放 (Scope 2/3)！" },
+            { icon: "🍔", description: "生產牛肉漢堡 (農場飼養、加工運輸)", correct: "other", carbon: 2, success: "太棒了！漢堡的生命週期屬於間接排放 (Scope 3) 🍃", error: "牛隻甲烷、飼料種植、加工運送都是間接排放！" },
+            { icon: "🚛", description: "公司自有貨車運送產品 (燃油)", correct: "scope1", carbon: 2, success: "正確！自有貨車燃燒汽油屬於直接排放 (Scope 1) ✅", error: "公司自有車輛排放是直接排放喔！" },
+            { icon: "⚡", description: "向台電購買的電力", correct: "other", carbon: 2, success: "專業判斷！外購電力是典型的間接排放 (Scope 2) 🎯", error: "外購電力歸類為間接排放 (Scope 2/3)！" },
+            { icon: "✈️", description: "員工出差搭乘國際航班", correct: "other", carbon: 2, success: "完美！商務航空旅行屬於 Scope 3 🌏", error: "飛機排放非公司直接擁有，屬於間接排放 (Scope 3)！" }
+        ];
+        
+        const TOTAL = QUESTIONS.length;
+        let currentIdx = 0;
+        let score = 0;
+        let waiting = false;
+        let answered = false;
+        let completed = false;
+        
+        // DOM
+        const dialog = document.getElementById('dialog');
+        const iconEl = document.getElementById('item-icon');
+        const descEl = document.getElementById('item-description');
+        const scoreSpan = document.getElementById('scoreValue');
+        const progressSpan = document.getElementById('progressFraction');
+        const progressBar = document.getElementById('progressBar');
+        const feedback = document.getElementById('feedbackTip');
+        const scope1Btn = document.getElementById('scope1Btn');
+        const otherBtn = document.getElementById('otherBtn');
+        
+        document.getElementById('totalScore').innerText = TOTAL * 10;
+        
+        // 更新畫面
+        function updateDisplay() {
+            const q = QUESTIONS[currentIdx];
+            iconEl.innerText = q.icon;
+            descEl.innerText = q.description;
+            progressSpan.innerText = `第${currentIdx+1} / ${TOTAL}題`;
+            progressBar.style.width = `${(currentIdx / TOTAL) * 100}%`;
+            scoreSpan.innerText = score;
+        }
+        
+        // 儲存減碳量
+        function saveCarbon(kg) {
+            if (completed) return;
+            let total = localStorage.getItem('fern_total_carbon');
+            total = total ? parseFloat(total) : 0;
+            total += kg;
+            localStorage.setItem('fern_total_carbon', total);
+            localStorage.setItem('fern_level1_completed', 'true');
+            completed = true;
+            console.log(`✅ 儲存減碳 ${kg}kg，總計 ${total}kg`);
+        }
+        
+        // 正確處理
+        function onCorrect() {
+            if (waiting || answered) return;
+            const q = QUESTIONS[currentIdx];
+            
+            score += 10;
+            answered = true;
+            waiting = true;
+            
+            scoreSpan.innerText = score;
+            dialog.innerText = `✅ ${q.success} +10分！減碳 +${q.carbon}kg`;
+            feedback.innerHTML = `🎉 正確！ +${q.carbon}kg 碳權`;
+            feedback.className = "mt-4 text-sm font-semibold bg-green-100 text-green-800 p-2 rounded-lg";
+            
+            scope1Btn.disabled = true;
+            otherBtn.disabled = true;
+            
+            // 最後一題？
+            if (currentIdx + 1 === TOTAL) {
+                const totalCarbon = (score / 10) * 2;
+                saveCarbon(totalCarbon);
+                dialog.innerText = `🎉 太強了！全數正確！減碳 ${totalCarbon}kg！前往下一關！`;
+                feedback.innerHTML = `🏆 完美過關！獲得 ${score}/60 分，減碳 ${totalCarbon}kg！`;
+                setTimeout(() => { window.location.href = 'level2.html'; }, 1800);
+            } else {
+                setTimeout(() => {
+                    currentIdx++;
+                    answered = false;
+                    waiting = false;
+                    updateDisplay();
+                    scope1Btn.disabled = false;
+                    otherBtn.disabled = false;
+                    dialog.innerText = `🌿 下一題：「${QUESTIONS[currentIdx].description}」屬於哪種排放？`;
+                    feedback.innerHTML = `💡 思考排放源是否為公司自有/控制`;
+                    feedback.className = "mt-4 text-sm font-semibold text-gray-500 bg-gray-100 p-2 rounded-lg";
+                }, 1200);
+            }
+        }
+        
+        // 錯誤處理
+        function onIncorrect() {
+            if (waiting || answered) return;
+            const q = QUESTIONS[currentIdx];
+            dialog.innerText = `❌ ${q.error}`;
+            feedback.innerHTML = `⚠️ 答錯了！ ${q.error}`;
+            feedback.className = "mt-4 text-sm font-semibold bg-red-100 text-red-700 p-2 rounded-lg";
+            const card = document.querySelector('.bg-white.rounded-2xl');
+            if (card) {
+                card.classList.add('shake-animation');
+                setTimeout(() => card.classList.remove('shake-animation'), 300);
+            }
+        }
+        
+        // 按鈕事件
+        scope1Btn.onclick = () => {
+            if (waiting || answered) return;
+            if (QUESTIONS[currentIdx].correct === 'scope1') onCorrect();
+            else onIncorrect();
+        };
+        
+        otherBtn.onclick = () => {
+            if (waiting || answered) return;
+            if (QUESTIONS[currentIdx].correct === 'other') onCorrect();
+            else onIncorrect();
+        };
+        
+        // 測驗互動
+        const quizRadios = document.querySelectorAll('input[name="quiz"]');
+        const quizFeedback = document.getElementById('quizFeedback');
+        quizRadios.forEach(radio => {
+            radio.onchange = function() {
+                if (this.value === 'b') {
+                    quizFeedback.innerHTML = '✅ 正確！工廠煙囪是公司自有設施的直接排放。';
+                    quizFeedback.className = 'text-xs mt-2 text-emerald-400';
+                } else {
+                    quizFeedback.innerHTML = '❌ 再想想！Scope 1 是公司「直接」控制的排放源。';
+                    quizFeedback.className = 'text-xs mt-2 text-rose-400';
+                }
+            };
+        });
+        
+        // 重置功能（雙擊角色區7次）
+        let resetCount = 0;
+        let resetTimer = null;
+        const roleArea = document.querySelector('.bg-gradient-to-br.from-emerald-600');
+        roleArea.ondblclick = () => {
+            resetCount++;
+            if (resetTimer) clearTimeout(resetTimer);
+            resetTimer = setTimeout(() => { resetCount = 0; }, 1000);
+            if (resetCount >= 7) {
+                if (confirm('⚠️ 確定重置所有遊戲數據？')) {
+                    localStorage.removeItem('fern_total_carbon');
+                    localStorage.removeItem('fern_level1_completed');
+                    alert('✅ 數據已重置！');
+                    window.location.reload();
+                }
+                resetCount = 0;
+            }
+        };
+        
+        // 初始化
+        updateDisplay();
+        dialog.innerText = `🌱 歡迎！第一題：「${QUESTIONS[0].description}」是直接排放還是間接呢？`;
+        
+        // 圖片備援
+        const img = document.querySelector('img');
+        if (img) img.onerror = () => { img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle fill='%234ade80' cx='50' cy='50' r='45'/%3E%3Ctext x='50' y='70' font-size='48' text-anchor='middle' fill='white'%3E🌿%3C/text%3E%3C/svg%3E"; };
+    })();
+</script>
+</body>
+</html>
