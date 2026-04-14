@@ -466,13 +466,26 @@
       <div class="about-left">
         <h2 class="reveal reveal-delay-1" style="font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.8rem,4vw,3rem);color:var(--moss);letter-spacing:0.06em;margin-bottom:56px;">我們做什麼</h2>
         <div class="services-grid">
-          <div class="service-card"><h3>植生牆系統</h3><p>建築綠化與植生牆規劃，從植物選擇到系統設計，打造長期穩定的綠色空間。</p></div>
-          <div class="service-card"><h3>碳盤查顧問</h3><p>協助企業理解溫室氣體排放，建立碳盤查基礎與管理架構。</p></div>
-          <div class="service-card"><h3>植物選品</h3><p>蕨類與積水鳳梨的植物選品，為空間帶來安靜而長久的生命力。</p></div>
+          <!-- 以下三个服务卡片的已添加 #，包裹在 -->
+          <div class="service-card">
+            <h3><a href="greenwall.html" style="text-decoration: none; color: inherit; display: block;">植生牆系統</a></h3>
+            <p>建築綠化與植生牆規劃，從植物選擇到系統設計，打造長期穩定的綠色空間。</p>
+          </div>
+          <div class="service-card">
+            <h3><a href="consult.html" style="text-decoration: none; color: inherit; display: block;">碳盤查顧問</a></h3>
+            <p>協助企業理解溫室氣體排放，建立碳盤查基礎與管理架構。</p>
+          </div>
+          <div class="service-card">
+            <h3><a href="shop.html" style="text-decoration: none; color: inherit; display: block;">植物選品</a></h3>
+            <p>蕨類與積水鳳梨的植物選品，為空間帶來安靜而長久的生命力。</p>
+          </div>
         </div>
       </div>
       <div class="about-right">
-        <h2 class="reveal reveal-delay-1" style="font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.8rem,4vw,3rem);color:var(--moss);letter-spacing:0.06em;margin-bottom:56px;">蕨積</h2>
+        <!-- 右“蕨積”大已添加接，包裹在-->
+        <h2 class="reveal reveal-delay-1" style="font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.8rem,4vw,3rem);color:var(--moss);letter-spacing:0.06em;margin-bottom:56px;">
+          <a href="about.html" style="text-decoration: none; color: inherit; display: block;">蕨積</a>
+        </h2>
         <div class="about-text-cards">
           <div class="about-text-card reveal"><p>很多人的人生，其實是由別人成就的。<br>上台的機會，與下台的智慧，往往只是巧合。</p></div>
           <div class="about-text-card reveal reveal-delay-1"><p>在植物面前，<br>我們學到的不是控制，而是耐心與謙卑。</p></div>
@@ -536,21 +549,23 @@
           });
         }
         // 行動選單的展開折疊
-        menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
-          parent.addEventListener('click', function () {
-            var id = parent.getAttribute('data-target');
-            var sub = document.getElementById(id);
-            var caretId = 'caret-' + id.replace('sub-', '');
-            var caret = document.getElementById(caretId);
-            var opening = !sub.classList.contains('open');
-            menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
-            menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
-            if (opening) {
-              sub.classList.add('open');
-              if (caret) caret.classList.add('open');
-            }
+        if (menu) {
+          menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
+            parent.addEventListener('click', function () {
+              var id = parent.getAttribute('data-target');
+              var sub = document.getElementById(id);
+              var caretId = 'caret-' + id.replace('sub-', '');
+              var caret = document.getElementById(caretId);
+              var opening = !sub.classList.contains('open');
+              menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
+              menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
+              if (opening) {
+                sub.classList.add('open');
+                if (caret) caret.classList.add('open');
+              }
+            });
           });
-        });
+        }
         // 滾動效果
         window.addEventListener('scroll', function () {
           var nav = document.getElementById('mainNav');
