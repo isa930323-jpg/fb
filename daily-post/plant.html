@@ -261,30 +261,8 @@
     .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
     .page-header p { color: var(--stone); margin-top: 0.5rem; }
     
-    .categories {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        flex-wrap: wrap;
-        margin-bottom: 2rem;
-    }
-    .category-btn {
-        padding: 0.5rem 1.5rem;
-        border-radius: 30px;
-        border: none;
-        cursor: pointer;
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition: transform 0.2s;
-        background: #e8e0d8;
-        color: #4a5b4e;
-    }
-    .category-btn:hover { transform: translateY(-2px); }
-    .category-btn.active { background: #4a7c59; color: white; }
-    
     .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
     .main-col { flex: 3; min-width: 250px; }
-    .sidebar-col { flex: 1; min-width: 200px; background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); height: fit-content; }
     
     .latest-article {
         background: white;
@@ -331,11 +309,6 @@
                 <p>蕨積每日文章 - 植物分類精選</p>
             </div>
             
-            <div class="categories">
-                <button class="category-btn" data-category="all" onclick="location.href='index.html';">📋 全部</button>
-                <button class="category-btn active" data-category="植物">🌿 植物</button>
-            </div>
-            
             <div class="two-columns">
                 <div class="main-col">
                     
@@ -343,8 +316,8 @@
                         <div class="latest-category" style="background: #4a7c59;">📌 植物</div>
                         <h1 class="latest-title">《我的窗邊綠洲：當焦慮被葉片輕輕接住》</h1>
                         <div class="latest-date">📅 2026-04-15</div>
-                        <div class="latest-content">《我的窗邊綠洲：當焦慮被葉片輕輕接住》<br><br>2023年10月26日 星期四 天氣晴，心也漸漸晴<br><br>今天早上，我又在電腦前被工作壓得喘不過氣。焦慮像藤蔓一樣纏上來，心跳快得讓人發慌。我慣性地把視線轉向書桌右側——那盆養了三年的龜背竹。看著它新展開的那片葉子，葉脈在陽光下透著光，邊緣還帶著微微捲曲的稚嫩模樣，我竟然就那樣盯著看了五分鐘。然後我發現，呼吸不知不覺緩下來了，肩頸的僵硬也鬆了一些。<br><br>這不是偶然。我發現，每當心煩意亂時，我總會「逃」去我的窗邊小綠洲。那裏有十幾盆植物，從多肉到觀葉，它們不說話，卻總能讓我安靜。我開始好奇：為什麼僅僅是「看著」植物，就能有這種療癒的效果？<br><br>查了資料，也結合自己的體驗，我明白了這不僅是心理作用，更有科學與演化深植在我們基因裡的理由。<br><br>首先，是顏色的力量。植物的綠，是自然中最普遍的中性色。研究說，綠色光波在可見光譜中居中，對人眼的刺激最溫和，不需要眼部肌肉緊張調節就能聚焦，視覺疲勞自然降低。這片綠，像給大腦戴上了一副隱形的舒緩眼罩。<br><br>更深層的，是我們與生俱來的「親生命性」。演化心理學告訴我們，人類祖先在茂盛、多樣的植物環境中，意味著水源、食物和生存的機會。因此，繁茂的綠色景觀，會潛意識地觸發我們的安全感與安定感。我的焦慮，或許是現代社會的產物；但對綠意的平靜反應，卻是祖先留給我的古老遺產。<br><br>對我而言，照顧植物的過程本身就是一種正念練習。當我指尖觸摸土壤的濕度，專注地修剪一片枯葉，或觀察新芽萌發的微小變化時，我完全沉浸在當下。那些盤旋腦中的待辦事項、人際煩惱，都被暫時隔絕在外。這是一種不需要閉眼打坐的冥想。<br><br>而且，植物以一種安靜而堅定的方式，教會我「順應節奏」。它不會因為我週末加班就停止生長，也不會因為我焦慮就加速開花。它有自己的時序：該長葉時長葉，該休眠時休眠。看著它，我彷彿也被提醒：萬事萬物，包括自己的情緒，都有其自然的起伏與節奏，急不得。<br><br>我的窗邊綠洲，沒有昂貴的裝飾，卻是我最珍貴的心靈避風港。它不提供速效解方，卻用每一次呼吸（它的，和我的）、每一寸生長，溫柔地將我拉回此時此地。原來，療癒不一定需要複雜的儀式，有時候，只需要一片安靜的綠意，和一顆願意停下來感受的心。<br><br>🌿 蕨積 - 讓生活多一點綠</div>
-                        <a href="2026-04-15-《我的窗邊綠洲：當焦慮被葉片輕輕接住》.html" class="read-more">🔗 查看獨立頁面 →</a>
+                        <div class="latest-content">《我的窗邊綠洲：當焦慮被葉片輕輕接住》2023年10月26日 星期四 天氣晴，心也漸漸晴今天早上，我又在電腦前被工作壓得喘不過氣。焦慮像藤蔓一樣纏上來，心跳快得讓人發慌。我慣性地把視線轉向書桌右側——那盆養了三年的龜背竹。看著它新展開的那片葉子，葉脈在陽光下透著光，邊緣還帶著微微捲曲的稚嫩模樣，我竟然就那樣盯著看了五分鐘。然後我發現，呼吸不知不覺緩下來了，肩頸的僵硬也鬆了一些。這不是偶然。我發現，每當心煩意亂時，我總會「逃」去我的窗邊小綠洲。那裏有十幾盆植物，從多肉到觀葉，它們不說話，卻總能讓我安靜。我開始好奇：為什麼僅僅是「看著」植物，就能有這種療癒的效果？查了資料，也結合自己的體驗，我明白...</div>
+                        <a href="2026-04-15-《我的窗邊綠洲：當焦慮被葉片輕輕接住》.html" class="read-more">🔗 閱讀全文 →</a>
                     </div>
                     
                     <div class="section-title">📖 過往文章</div>
@@ -436,11 +409,6 @@
                             <div class="past-meta">📅 2026-03-26</div>
                         </li>
                     </ul>
-                </div>
-                
-                <div class="sidebar-col">
-                    <div class="section-title">📚 歷史歸檔</div>
-                    <p style="color: var(--stone); font-size: 0.85rem;">此分類共 17 篇文章</p>
                 </div>
             </div>
         </div>

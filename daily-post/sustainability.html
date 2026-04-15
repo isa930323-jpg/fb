@@ -261,30 +261,8 @@
     .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
     .page-header p { color: var(--stone); margin-top: 0.5rem; }
     
-    .categories {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        flex-wrap: wrap;
-        margin-bottom: 2rem;
-    }
-    .category-btn {
-        padding: 0.5rem 1.5rem;
-        border-radius: 30px;
-        border: none;
-        cursor: pointer;
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition: transform 0.2s;
-        background: #e8e0d8;
-        color: #4a5b4e;
-    }
-    .category-btn:hover { transform: translateY(-2px); }
-    .category-btn.active { background: #4a7c59; color: white; }
-    
     .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
     .main-col { flex: 3; min-width: 250px; }
-    .sidebar-col { flex: 1; min-width: 200px; background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); height: fit-content; }
     
     .latest-article {
         background: white;
@@ -331,11 +309,6 @@
                 <p>蕨積每日文章 - 永續分類精選</p>
             </div>
             
-            <div class="categories">
-                <button class="category-btn" data-category="all" onclick="location.href='index.html';">📋 全部</button>
-                <button class="category-btn active" data-category="永續">♻️ 永續</button>
-            </div>
-            
             <div class="two-columns">
                 <div class="main-col">
                     
@@ -343,8 +316,8 @@
                         <div class="latest-category" style="background: #2c7a4d;">📌 永續</div>
                         <h1 class="latest-title">今天只丟三樣垃圾：我的零浪費生活實驗</h1>
                         <div class="latest-date">📅 2026-04-15</div>
-                        <div class="latest-content">今天只丟三樣垃圾：我的零浪費生活實驗<br><br>上週，我盯著家中那袋幾乎每日一清、鼓脹的垃圾袋，突然感到一陣荒謬。我們一家三口，究竟是如何「生產」出這麼多立即要被送往掩埋場或焚化爐的「廢棄物」？於是，我給自己一個挑戰：「今天，我只允許自己丟掉三樣無法避免的垃圾。」<br><br>結果令人震驚。為了達成目標，我必須審視每一樣原本要丟進垃圾桶的東西：早餐的塑膠包裝、咖啡外帶杯、吸管、午餐的便當盒與橡皮筋、網購的填充氣泡紙……我發現，垃圾不是憑空出現的，它來自我們每一個未經思考的消費選擇。<br><br>零浪費生活，並非極端地不製造任何垃圾，而是透過「5R原則」的實踐，有意識地大幅減少廢棄物。這不是一場痛苦的修行，而是一趟重新認識生活需求的旅程。以下是任何人都可以從今天開始的入門清單：<br><br>第一步：拒絕（Refuse）—— 最強大的減廢工具<br>*   對不需要的說不： 拒絕免費的宣傳單、贈品、活動小禮物。它們通常很快變成垃圾。<br>*   改變消費語彙： 買手搖飲時說「我用自帶杯，不需要塑膠杯和提袋」；外帶時說「我用餐盒裝，免用一次性餐具」。<br><br>第二步：減少（Reduce）—— 簡化你的需求<br>*   盤點與計畫： 檢視家中物品，問自己「我真的需要嗎？」。購物前列清單，避免衝動消費。<br>*   選擇品質與耐用： 購買耐用、可維修的產品，取代廉價的拋棄式物品。<br><br>第三步：重複使用（Reuse）—— 給物品第二次生命<br>*   自備「神器」出門： 水壺、咖啡杯、餐盒、購物袋、手帕。這能消除大量一次性垃圾。<br>*   發揮創意： 玻璃罐成為儲物罐；舊衣服改作抹布；食物袋清洗後反覆使用。<br><br>第四步：回收（Recycle）—— 最後手段，非首選<br>*   正確回收是關鍵： 清洗乾淨、分類正確（依當地規定），確保資源真的能被再利用。<br>*   記住： 許多複合材質包裝（如紙鋁箔包）難以回收，優先選擇「拒絕」或「減少」。<br><br>第五步：分解（Rot）—— 讓有機物回歸大地<br>*   開始廚餘堆肥： 即使住公寓，也能利用陽台小堆肥箱或蚯蚓箱，將果皮菜葉轉化為黑金土。<br><br>從一個小習慣開始：<br>不必追求完美。本週，你可以先從「自備購物袋」或「拒絕一根吸管」開始。下週，嘗試「帶水壺出門」。當這些成為習慣，你會發現垃圾量自然下降，錢包變厚了（減少許多不必要的開銷），生活也變得更簡潔、更有意識。<br><br>我的「一日三垃圾」挑戰，最終以丟棄一張貼紙、一片無法清洗的油污紙、和一張用過的郵票作結。那天，我深刻體會到，永續不是遙遠的口號，它就發生在我們每一次選擇「要」或「不要」的瞬間。 垃圾減量，是一場送給地球也送給自己的溫柔革命。<br><br>🌿 蕨積 - 讓生活多一點綠</div>
-                        <a href="2026-04-15-今天只丟三樣垃圾：我的零浪費生活實驗.html" class="read-more">🔗 查看獨立頁面 →</a>
+                        <div class="latest-content">今天只丟三樣垃圾：我的零浪費生活實驗上週，我盯著家中那袋幾乎每日一清、鼓脹的垃圾袋，突然感到一陣荒謬。我們一家三口，究竟是如何「生產」出這麼多立即要被送往掩埋場或焚化爐的「廢棄物」？於是，我給自己一個挑戰：「今天，我只允許自己丟掉三樣無法避免的垃圾。」結果令人震驚。為了達成目標，我必須審視每一樣原本要丟進垃圾桶的東西：早餐的塑膠包裝、咖啡外帶杯、吸管、午餐的便當盒與橡皮筋、網購的填充氣泡紙……我發現，垃圾不是憑空出現的，它來自我們每一個未經思考的消費選擇。零浪費生活，並非極端地不製造任何垃圾，而是透過「5R原則」的實踐，有意識地大幅減少廢棄物。這不是一場痛苦的修行，而是一趟重新認識生活需求的旅...</div>
+                        <a href="2026-04-15-今天只丟三樣垃圾：我的零浪費生活實驗.html" class="read-more">🔗 閱讀全文 →</a>
                     </div>
                     
                     <div class="section-title">📖 過往文章</div>
@@ -406,11 +379,6 @@
                             <div class="past-meta">📅 2026-03-26</div>
                         </li>
                     </ul>
-                </div>
-                
-                <div class="sidebar-col">
-                    <div class="section-title">📚 歷史歸檔</div>
-                    <p style="color: var(--stone); font-size: 0.85rem;">此分類共 11 篇文章</p>
                 </div>
             </div>
         </div>
