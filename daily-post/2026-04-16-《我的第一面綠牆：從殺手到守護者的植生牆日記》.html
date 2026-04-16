@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>♻️ 永續文章 - 蕨積每日文章</title>
+    <title>《我的第一面綠牆：從殺手到守護者的植生牆日記》 - 蕨積每日文章</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -256,134 +256,75 @@
         flex-wrap: wrap;
       }
     }
-    .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .page-header { text-align: center; margin-bottom: 2rem; }
-    .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
-    .page-header p { color: var(--stone); margin-top: 0.5rem; }
-    
-    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
-    .main-col { flex: 3; min-width: 250px; }
-    
-    .latest-article {
-        background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    .article-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
-    .latest-category {
+    .article-category {
         display: inline-block;
+        background: #4a7c59;
         color: white;
         padding: 0.2rem 0.8rem;
         border-radius: 20px;
         font-size: 0.8rem;
         margin-bottom: 1rem;
     }
-    .latest-title { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.5rem; }
-    .latest-date { color: var(--stone); margin-bottom: 1.5rem; font-size: 0.9rem; }
-    .latest-content { line-height: 1.8; }
-    .read-more { display: inline-block; margin-top: 1rem; color: var(--fern); text-decoration: none; font-weight: 500; }
-    
-    .section-title { font-size: 1.2rem; color: var(--moss); border-bottom: 2px solid #e0d6cc; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-    .past-list { list-style: none; }
-    .past-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0e8e0; }
-    .past-link { font-size: 0.95rem; font-weight: 500; color: var(--fern); text-decoration: none; display: block; }
-    .past-link:hover { text-decoration: underline; }
-    .past-meta { font-size: 0.7rem; color: #aaa; margin-top: 0.25rem; }
-    .past-badge { display: inline-block; font-size: 0.65rem; padding: 0.1rem 0.5rem; border-radius: 12px; color: white; margin-right: 0.5rem; }
-    
+    .article-title {
+        font-size: 2rem;
+        color: var(--moss);
+        margin-bottom: 0.5rem;
+        font-family: 'Noto Serif TC', serif;
+    }
+    .article-date {
+        color: var(--stone);
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+    }
+    .article-content {
+        line-height: 1.8;
+        font-size: 1rem;
+    }
+    .article-footer {
+        text-align: center;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid #e0d6cc;
+        color: var(--stone);
+        font-size: 0.9rem;
+    }
+    .back-link {
+        display: inline-block;
+        margin-top: 1rem;
+        color: var(--fern);
+        text-decoration: none;
+    }
     @media (max-width: 768px) {
-        .two-columns { flex-direction: column; }
-        .latest-title { font-size: 1.4rem; }
-        .daily-container { padding: 0 1rem; }
+        .article-title { font-size: 1.5rem; }
+        .article-container { padding: 0 1rem; }
     }
     </style>
 </head>
 <body>
     <div id="nav-placeholder"></div>
-    
     <main class="content">
-        <div class="daily-container">
-            <div class="page-header">
-                <h1>♻️ 永續文章</h1>
-                <p>蕨積每日文章 - 永續分類精選</p>
-            </div>
-            
-            <div class="two-columns">
-                <div class="main-col">
-                    
-                    <div class="latest-article">
-                        <div class="latest-category" style="background: #2c7a4d;">📌 永續</div>
-                        <h1 class="latest-title">今天只丟三樣垃圾：我的零浪費生活實驗</h1>
-                        <div class="latest-date">📅 2026-04-15</div>
-                        <div class="latest-content">今天只丟三樣垃圾：我的零浪費生活實驗上週，我盯著家中那袋幾乎每日一清、鼓脹的垃圾袋，突然感到一陣荒謬。我們一家三口，究竟是如何「生產」出這麼多立即要被送往掩埋場或焚化爐的「廢棄物」？於是，我給自己一個挑戰：「今天，我只允許自己丟掉三樣無法避免的垃圾。」結果令人震驚。為了達成目標，我必須審視每一樣原本要丟進垃圾桶的東西：早餐的塑膠包裝、咖啡外帶杯、吸管、午餐的便當盒與橡皮筋、網購的填充氣泡紙……我發現，垃圾不是憑空出現的，它來自我們每一個未經思考的消費選擇。零浪費生活，並非極端地不製造任何垃圾，而是透過「5R原則」的實踐，有意識地大幅減少廢棄物。這不是一場痛苦的修行，而是一趟重新認識生活需求的旅...</div>
-                        <a href="2026-04-15-今天只丟三樣垃圾：我的零浪費生活實驗.html" class="read-more">🔗 閱讀全文 →</a>
-                    </div>
-                    
-                    <div class="section-title">📖 過往文章</div>
-                    <ul class="past-list">
-                        
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-04-15-今天只丟三樣垃圾：我的零浪費生活實驗.html">今天只丟三樣垃圾：我的零浪費生活實驗</a>
-                            <div class="past-meta">📅 2026-04-15</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-04-15-衣櫃裡的永續革命：當舊衣不再只是「丟掉」的選擇.html">衣櫃裡的永續革命：當舊衣不再只是「丟掉」的選擇</a>
-                            <div class="past-meta">📅 2026-04-15</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-04-12-你的購物車，正在改變地球的溫度：一份「少買精買」的永續消費指南.html">你的購物車，正在改變地球的溫度：一份「少買精買」的永續消費指南</a>
-                            <div class="past-meta">📅 2026-04-12</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-04-08-**不只打卡，更要「碳」息：給地球的輕旅行備忘錄**.html">**不只打卡，更要「碳」息：給地球的輕旅行備忘錄**</a>
-                            <div class="past-meta">📅 2026-04-08</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-04-04-垃圾減量實驗：一個月只丟一罐垃圾的生活挑戰.html">垃圾減量實驗：一個月只丟一罐垃圾的生活挑戰</a>
-                            <div class="past-meta">📅 2026-04-04</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-03-31-**衣櫃裡的永續革命：給舊衣服的五個新任務**.html">**衣櫃裡的永續革命：給舊衣服的五個新任務**</a>
-                            <div class="past-meta">📅 2026-03-31</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-03-31-**不只賺錢，更賺未來：五家把永續變核心競爭力的大企業**.html">不只賺錢，更賺未來：五家把永續變核心競爭力的大企業</a>
-                            <div class="past-meta">📅 2026-03-31</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-03-27-從日常小事開始，打造你的永續生活提案.html">從日常小事開始，打造你的永續生活提案</a>
-                            <div class="past-meta">📅 2026-03-27</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-03-27-**標題：從一杯咖啡開始的永續革命：你的日常選擇，如何改變世界？**.html">從一杯咖啡開始的永續革命：你的日常選擇，如何改變世界？</a>
-                            <div class="past-meta">📅 2026-03-27</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-03-26-**標題：從一杯咖啡開始的永續革命：你的日常選擇，如何改變世界？**.html">從一杯咖啡開始的永續革命：你的日常選擇，如何改變世界？</a>
-                            <div class="past-meta">📅 2026-03-26</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-03-26-從日常小事做起，打造你的永續生活圈.html">從日常小事做起，打造你的永續生活圈</a>
-                            <div class="past-meta">📅 2026-03-26</div>
-                        </li>
-                    </ul>
+        <div class="article-container">
+            <div class="article-category">📌 植物</div>
+            <h1 class="article-title">《我的第一面綠牆：從殺手到守護者的植生牆日記》</h1>
+            <div class="article-date">📅 2026年04月16日</div>
+            <div class="article-content">《我的第一面綠牆：從殺手到守護者的植生牆日記》<br><br>2023年9月12日 星期二 天氣晴<br><br>今天，我終於對客廳那面光禿禿的白牆「下手」了。<br><br>一切要從上個月說起。朋友阿凱傳了一張照片給我，是他家陽台新做的「植生牆」——一整面牆的翠綠，蕨類、常春藤、嫣紅蔓交錯，像一幅活的畫。我驚為天人，立刻衝去參觀。結果，在他家那面綠牆前，我指著一株葉子邊緣焦黃的植物，脫口而出：「這盆黃金葛是不是快死了？水不夠吧？」<br><br>阿凱沉默了三秒，緩緩說：「那是網紋草，而且它葉子焦黃是因為我昨天『太愛它』，噴水噴太多，中午太陽一曬，蒸散過度了。」我頓時滿臉通紅。<br><br>那一刻我意識到，我對植物的認知，還停留在「盆栽就是澆水曬太陽」的階段。而一面植生牆，是一個複雜的微型生態系。身為植物殺手（曾養死過仙人掌），我決定挑戰自己，記錄下從零開始認識植生牆的過程。<br><br>第一課：它不是「一堆盆栽掛牆上」。<br><br>我原本以為，植生牆就是把很多小盆子釘在牆上。大錯特錯！參觀了幾家專業廠商和園藝店後，我學到了關鍵字：「系統」。常見的有模組式（像積木一樣拼裝，每個格子有獨立介質）、氈布式（植物根系直接長在特製的毛氈層裡）、以及容器式（確實像一排排容器，但有共通的灌溉管路）。<br><br>對我這種新手，園藝老闆建議從「模組式」小系統入門。為什麼？因為它每個格子獨立，萬一某株植物出問題，可以單獨取出處理，不會「全軍覆沒」。這簡直是新手救星！<br><br>第二課：選植物，先認清「牆的脾氣」。<br><br>我想像中的植生牆，是百花齊放。但現實是，你得先當個「環境偵探」。我的目標牆面在客廳，屬於「室內明亮散射光」環境，沒有直射陽光。這意味著，我需要的是耐陰、對濕度適應力強的植物。<br><br>我拋開了開花植物的幻想，乖乖聽從建議，組了「新手安全牌」陣容：<br>*   骨架擔當： 波士頓腎蕨、鹿角蕨（板植）。它們線條優美，是綠牆的視覺主角。<br>*   填充擔當： 黃金葛、常春藤。生長快，能快速填滿空隙，讓牆面看起來茂密。<br>*   色彩點綴： 嫣紅蔓、白網紋草。它們帶有粉色或白色的葉脈，能打破一片綠的沉悶。<br>老闆特別叮囑：「記住它們的名字和習性！愛喝水的蕨類在上方（濕氣上升），稍耐旱的黃金葛在下方。別再搞混啦！」<br><br>第三課：灌溉，不是澆水，是「給水」。<br><br>這是最顛覆我觀念的一環。植生牆通常有隱藏的滴灌或滲灌系統，定時、定量地從頂部給水，讓水緩緩流經每一株植物。我的小系統附了一個簡易水箱和微型抽水馬達，設定每天啟動兩次，每次三分鐘。<br><br>「你要做的不是天天澆水，」老闆說，「而是每週檢查一次水箱有沒有水，每個月檢查一下出水孔有沒有堵塞。然後，相信系統。」這對習慣「動手」照顧植物的我來說，是種解放，也是學習「觀察」的開始——植物狀態好不好，比土壤乾不乾更重要。<br><br>現在，我的第一面實驗小綠牆（只有一米寬）已經上牆一週了。每天起床，我都會站在它面前五分鐘，不是澆水，只是看看。看蕨類的新芽是不是又捲開了一些，看網紋草的粉色是不是更明顯了。<br><br>我發現，認識植生牆，不是學習一種裝飾技術，而是學習用系統的、同理的視角去理解植物與環境的關係。我不再是一個隨心所欲的澆水者，而是一個環境的維護者、一個細心的觀察者。<br><br>這面牆教我的，遠比我想像的要多。它靜靜地在那裡生長，而我，終於從植物殺手，踏出了成為綠色守護者的第一步。<br><br>🌿 蕨積 - 讓生活多一點綠</div>
+          
+            <div class="footer">
+                <br>每日一篇，與你一起成長<br><br>
+                <div class="nav-links">
+                    <a href="index.html">← 返回所有文章</a> &nbsp;|&nbsp;
+                    <a href="plant.html">← 返回植物分類</a> &nbsp;|&nbsp;
+                    <a href="../shop.html">🌱 植物選品</a> &nbsp;|&nbsp;
+                    <a href="../consult.html">💚 綠色服務</a>
                 </div>
             </div>
         </div>
     </main>
-    
     <footer>
     <ul class="footer-links">
       <li><a href="/shop.html">植物選品</a></li>
@@ -393,9 +334,7 @@
     </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
-    
     <script>
-        
 document.addEventListener('DOMContentLoaded', function () {
   fetch('/nav.html')
     .then(response => response.text())
@@ -452,7 +391,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 });
-
-    </script>
+</script>
 </body>
 </html>
