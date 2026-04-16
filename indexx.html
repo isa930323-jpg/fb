@@ -450,7 +450,6 @@
 <body>
   <!-- 放置導覽列的佔位元素 -->
   <div id="nav-placeholder"></div>
-<div id="nav-placeholder"></div>
 
 <!-- 新增：最新文章區塊 -->
 <div id="latest-posts" style="max-width: 1200px; margin: 2rem auto; padding: 0 2rem;">
@@ -458,44 +457,7 @@
     <ul id="post-list" style="list-style: none; padding: 0;"></ul>
 </div>
 
-<main class="content">
-    <!-- 你原本的首頁內容 -->
-</main>
 
-<script>
-// 載入導覽列（原本就有）
-fetch('/nav.html')
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById('nav-placeholder').innerHTML = data;
-    // ... 你原本的 initNav 程式碼 ...
-  });
-
-// 載入最新文章（新增，不會衝突）
-fetch('/daily-post/')
-  .then(response => response.text())
-  .then(html => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const articles = doc.querySelectorAll('.past-item');
-    
-    let htmlContent = '<ul style="list-style: none; padding: 0;">';
-    for (let i = 0; i < Math.min(articles.length, 5); i++) {
-      const link = articles[i].querySelector('.past-link');
-      const date = articles[i].querySelector('.past-meta');
-      if (link) {
-        htmlContent += `
-          <li style="margin-bottom: 1rem; padding: 0.5rem 0; border-bottom: 1px solid #e0d6cc;">
-            <a href="/daily-post/${link.getAttribute('href')}" style="color: #4a7c59; text-decoration: none; font-weight: 500;">${link.textContent}</a>
-            <span style="color: #aaa; font-size: 0.8rem; margin-left: 1rem;">${date ? date.textContent : ''}</span>
-          </li>`;
-      }
-    }
-    htmlContent += '</ul>';
-    document.getElementById('post-list').innerHTML = htmlContent;
-  })
-  .catch(err => console.error('無法載入文章:', err));
-</script>
   <!-- 主要內容 (與原本相同，但移除原有的 nav 與 mobile-menu 結構) -->
   <section class="hero">
     <div class="hero-bg"></div>
@@ -505,6 +467,12 @@ fetch('/daily-post/')
     <p class="hero-tagline">綠色生活新起點</p>
     <a href="shop.html" class="hero-cta">立即購買</a>
   </section>
+<!-- 新增：最新文章區塊 -->
+<div id="latest-posts" style="max-width: 1200px; margin: 2rem auto; padding: 0 2rem;">
+    <h3 style="color: var(--moss);">🌿 最新每日文章</h3>
+    <ul id="post-list" style="list-style: none; padding: 0;"></ul>
+</div>
+
 
   <section id="about" style="padding:100px 4vw 80px;background:linear-gradient(to bottom,#f5f7f6,#e8ede9);">
     <div class="about-grid">
