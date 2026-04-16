@@ -810,9 +810,7 @@
     
     document.body.appendChild(btn);
     console.log('🤖 AI 智能服務(圖片版)已加入');
-  })();
-</script>
- // 載入最新文章（卡片樣式）
+  })(); // 載入最新文章（卡片樣式）
 fetch('/daily-post/')
   .then(response => response.text())
   .then(html => {
@@ -858,5 +856,8 @@ fetch('/daily-post/')
     if (typeof lucide !== 'undefined') lucide.createIcons();
   })
   .catch(err => console.error('無法載入文章:', err));
+  
+</script>
+
 </body>
 </html>
