@@ -725,8 +725,8 @@
     const btn = document.createElement('div');
     btn.id = 'floating-chat-btn';
     btn.innerHTML = `
-      <img src="/chat-icon.png" style="width: 24px; height: 24px; margin-right: 8px; vertical-align: middle;">
-      <span>AI 智能客服</span>
+    
+      <span>AI 智能服務</span>
     `;
     
     btn.style.cssText = `
@@ -766,7 +766,7 @@
       if (isLINE) {
         window.location.href = 'https://www.fernbrom.com/webchat.html';
       } else {
-        if (confirm('蕨積 AI 智能客服\n\n建議使用 LINE App 開啟\n\n確定要在瀏覽器中開啟嗎？')) {
+        if (confirm('蕨積 AI 智能服務\n\n建議使用 LINE App 開啟\n\n確定要在瀏覽器中開啟嗎？')) {
           window.open('https://www.fernbrom.com/webchat.html', '_blank');
         }
       }
@@ -785,7 +785,7 @@
     document.head.appendChild(style);
     
     document.body.appendChild(btn);
-    console.log('🤖 AI 智能客服按鈕(圖片版)已加入');
+    console.log('🤖 AI 智能服務按鈕(圖片版)已加入');
   })();
 </script>
 
