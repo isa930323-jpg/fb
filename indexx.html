@@ -507,30 +507,31 @@
         .latest-posts-grid { grid-template-columns: 1fr; gap: 16px; }
         .post-card { padding: 20px; }
     }
-    /* 強制顯示最新文章卡片文字 */
-.latest-posts-section .post-card,
-.latest-posts-section .post-card * {
-    color: var(--ink) !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
+      /* 強制顯示最新文章卡片文字 */
+    .latest-posts-section .post-card,
+    .latest-posts-section .post-card * {
+        color: var(--ink) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
 
-.latest-posts-section .post-title a {
-    color: var(--moss) !important;
-}
+    .latest-posts-section .post-title a {
+        color: var(--moss) !important;
+    }
 
-.latest-posts-section .post-category {
-    color: var(--fern) !important;
-}
+    .latest-posts-section .post-category {
+        color: var(--fern) !important;
+    }
 
-.latest-posts-section .post-date {
-    color: var(--stone) !important;
-}    /* 強制覆蓋卡片懸浮效果 - 降低飄移 */
-    .latest-posts-grid .post-card:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 12px rgba(0,0,0,0.06) !important;
-        border-color: rgba(90,122,74,0.2) !important;
-        transition: all 0.2s ease !important;
+    .latest-posts-section .post-date {
+        color: var(--stone) !important;
+    }
+
+    /* 終極強制 - 完全移除飄移 */
+    .post-card:hover {
+        transform: translateY(0) !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03) !important;
+        border-color: rgba(90,122,74,0.1) !important;
     }
     
   </style>
