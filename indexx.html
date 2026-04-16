@@ -529,7 +529,14 @@
 
 .latest-posts-section .post-date {
     color: var(--stone) !important;
-}
+}    /* 強制覆蓋卡片懸浮效果 - 降低飄移 */
+    .latest-posts-grid .post-card:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.06) !important;
+        border-color: rgba(90,122,74,0.2) !important;
+        transition: all 0.2s ease !important;
+    }
+    
   </style>
 </head>
 <body>
