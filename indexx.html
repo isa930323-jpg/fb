@@ -749,5 +749,77 @@
         });
     })();
   </script>
+    <!-- 浮<!-- 浮動客服按鈕 (圖片版) -->
+<script>
+  (function() {
+    if (document.getElementById('floating-chat-btn')) return;
+    
+    const btn = document.createElement('div');
+    btn.id = 'floating-chat-btn';
+    btn.innerHTML = `
+    
+      <span>AI 智能服務</span>
+    `;
+    
+    btn.style.cssText = `
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #3d5a38, #5a7a4a);
+      color: white;
+      font-size: 16px;
+      font-weight: 500;
+      font-family: 'Noto Sans TC', sans-serif;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      z-index: 9999;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    `;
+    
+    btn.onmouseenter = () => {
+      btn.style.transform = 'scale(1.08)';
+      btn.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+      btn.style.background = 'linear-gradient(135deg, #4a6a3a, #6a8a5a)';
+    };
+    btn.onmouseleave = () => {
+      btn.style.transform = 'scale(1)';
+      btn.style.boxShadow = '0 4px 15px rgba(0,0,0,0.25)';
+      btn.style.background = 'linear-gradient(135deg, #3d5a38, #5a7a4a)';
+    };
+    
+    btn.onclick = () => {
+      const isLINE = /LINE/.test(navigator.userAgent);
+      if (isLINE) {
+        window.location.href = 'https://www.fernbrom.com/webchat.html';
+      } else {
+        if (confirm('蕨積 AI 智能服務\n\n建議使用 LINE App 開啟\n\n確定要在瀏覽器中開啟嗎？')) {
+          window.open('https://www.fernbrom.com/webchat.html', '_blank');
+        }
+      }
+    };
+    
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes gentleBounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+      }
+      #floating-chat-btn {
+        animation: gentleBounce 1.5s ease infinite;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    document.body.appendChild(btn);
+    console.log('🤖 AI 智能服務按鈕(圖片版)已加入');
+  })();
+</script>
+
 </body>
 </html>
