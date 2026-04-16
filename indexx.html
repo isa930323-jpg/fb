@@ -666,198 +666,122 @@
     <ul class="footer-links"><li><a href="shop.html">植物選品</a></li><li><a href="consult.html">綠色服務</a></li><li><a href="fbnote.html">蕨望筆記</a></li><li><a href="about.html">關於蕨積</a></li></ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // 載入共用導覽列
-      fetch('nav.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('nav-placeholder').innerHTML = data;
-          // 在導覽列插入後，重新綁定事件與初始化
-          initNav();
-        })
-        .catch(err => {
-          console.warn('無法載入導覽列，使用預設內嵌導覽（僅供開發）');
-          // 可選的 fallback：若無法載入則顯示簡單導覽（此處省略）
-        });
-
-      function initNav() {
-        // hamburger 事件
-        var btn = document.getElementById('hamburger');
-        var menu = document.getElementById('mobileMenu');
-        if (btn && menu) {
-          btn.addEventListener('click', function () {
-            btn.classList.toggle('open');
-            menu.classList.toggle('open');
-          });
-          menu.querySelectorAll('.mobile-link').forEach(function (a) {
-            a.addEventListener('click', function () {
-              btn.classList.remove('open');
-              menu.classList.remove('open');
-              document.getElementById('mainNav').style.opacity = 1;
-            });
-          });
-        }
-        // 行動選單的展開折疊
-        if (menu) {
-          menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
-            parent.addEventListener('click', function () {
-              var id = parent.getAttribute('data-target');
-              var sub = document.getElementById(id);
-              var caretId = 'caret-' + id.replace('sub-', '');
-              var caret = document.getElementById(caretId);
-              var opening = !sub.classList.contains('open');
-              menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
-              menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
-              if (opening) {
-                sub.classList.add('open');
-                if (caret) caret.classList.add('open');
-              }
-            });
-          });
-        }
-        // 滾動效果
-        window.addEventListener('scroll', function () {
-          var nav = document.getElementById('mainNav');
-          if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
-        });
-        // 因為導覽列剛插入，需要重新觀察 reveal (但 reveal 為頁面主要內容，不受影響)
-        // 重新綁定 lucide 圖示
-        if (typeof lucide !== 'undefined') lucide.createIcons();
-      }
-
-      // 頁面原本的 reveal 觀察者
-      var reveals = document.querySelectorAll('.reveal');
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-        });
-      }, { threshold: 0.15 });
-      reveals.forEach(function (el) { observer.observe(el); });
-
-      // 如果 lucide 已經存在，先執行一次（但導覽列加載後會再執行一次）
-      if (typeof lucide !== 'undefined') lucide.createIcons();
-    });
-  </script>
-
-<!-- 浮動客服按鈕 (圖片版) -->
 <script>
-  (function() {
-    if (document.getElementById('floating-chat-btn')) return;
-    
-    const btn = document.createElement('div');
-    btn.id = 'floating-chat-btn';
-    btn.innerHTML = `
-    
-      <span>AI 智能服務</span>
-    `;
-    
-    btn.style.cssText = `
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      padding: 10px 20px;
-      background: linear-gradient(135deg, #3d5a38, #5a7a4a);
-      color: white;
-      font-size: 16px;
-      font-weight: 500;
-      font-family: 'Noto Sans TC', sans-serif;
-      border: none;
-      border-radius: 40px;
-      cursor: pointer;
-      z-index: 9999;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    `;
-    
-    btn.onmouseenter = () => {
-      btn.style.transform = 'scale(1.08)';
-      btn.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
-      btn.style.background = 'linear-gradient(135deg, #4a6a3a, #6a8a5a)';
-    };
-    btn.onmouseleave = () => {
-      btn.style.transform = 'scale(1)';
-      btn.style.boxShadow = '0 4px 15px rgba(0,0,0,0.25)';
-      btn.style.background = 'linear-gradient(135deg, #3d5a38, #5a7a4a)';
-    };
-    
-    btn.onclick = () => {
-      const isLINE = /LINE/.test(navigator.userAgent);
-      if (isLINE) {
-        window.location.href = 'https://www.fernbrom.com/webchat.html';
-      } else {
-        if (confirm('蕨積 AI 智能服務\n\n建議使用 LINE App 開啟\n\n確定要在瀏覽器中開啟嗎？')) {
-          window.open('https://www.fernbrom.com/webchat.html', '_blank');
+document.addEventListener('DOMContentLoaded', function () {
+  // 載入共用導覽列
+  fetch('nav.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('nav-placeholder').innerHTML = data;
+      initNav();
+    })
+    .catch(err => {
+      console.warn('無法載入導覽列，使用預設內嵌導覽');
+    });
+
+  function initNav() {
+    var btn = document.getElementById('hamburger');
+    var menu = document.getElementById('mobileMenu');
+    if (btn && menu) {
+      btn.addEventListener('click', function () {
+        btn.classList.toggle('open');
+        menu.classList.toggle('open');
+      });
+      menu.querySelectorAll('.mobile-link').forEach(function (a) {
+        a.addEventListener('click', function () {
+          btn.classList.remove('open');
+          menu.classList.remove('open');
+        });
+      });
+    }
+    if (menu) {
+      menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
+        parent.addEventListener('click', function () {
+          var id = parent.getAttribute('data-target');
+          var sub = document.getElementById(id);
+          var caretId = 'caret-' + id.replace('sub-', '');
+          var caret = document.getElementById(caretId);
+          var opening = !sub.classList.contains('open');
+          menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
+          menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
+          if (opening) {
+            sub.classList.add('open');
+            if (caret) caret.classList.add('open');
+          }
+        });
+      });
+    }
+    window.addEventListener('scroll', function () {
+      var nav = document.getElementById('mainNav');
+      if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+
+  // 頁面原本的 reveal 觀察者
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(function (el) { observer.observe(el); });
+
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+});
+
+// 載入最新文章（卡片樣式）- 獨立執行，不影響其他功能
+(function() {
+  fetch('/daily-post/')
+    .then(function(response) { return response.text(); })
+    .then(function(html) {
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(html, 'text/html');
+      var articles = doc.querySelectorAll('.past-item');
+      var htmlContent = '';
+      var catMap = {
+        '植物': '🌿 植物',
+        '永續': '♻️ 永續',
+        '碳盤查': '📊 碳盤查',
+        '生活': '🏡 生活'
+      };
+      for (var i = 0; i < Math.min(articles.length, 6); i++) {
+        var item = articles[i];
+        var link = item.querySelector('.past-link');
+        var date = item.querySelector('.past-meta');
+        var categoryBadge = item.querySelector('.past-badge');
+        var category = '生活';
+        var categoryText = '🏡 生活';
+        if (categoryBadge) {
+          category = categoryBadge.textContent.trim();
+          categoryText = catMap[category] || category;
+        }
+        var dateText = '';
+        if (date) {
+          dateText = date.textContent.replace('📅', '').trim();
+        }
+        var href = link ? link.getAttribute('href') : '';
+        var title = link ? link.textContent : '';
+        if (href && title) {
+          htmlContent += '<div class="post-card reveal">' +
+            '<div class="post-category">' + categoryText + '</div>' +
+            '<h3 class="post-title"><a href="/daily-post/' + href + '">' + title + '</a></h3>' +
+            '<div class="post-date">📅 ' + dateText + '</div>' +
+            '</div>';
         }
       }
-    };
-    
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes gentleBounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-5px); }
+      var postList = document.getElementById('post-list');
+      if (postList) {
+        postList.innerHTML = htmlContent;
       }
-      #floating-chat-btn {
-        animation: gentleBounce 1.5s ease infinite;
-      }
-    `;
-    document.head.appendChild(style);
-    
-    document.body.appendChild(btn);
-    console.log('🤖 AI 智能服務(圖片版)已加入');
-  })(); // 載入最新文章（卡片樣式）
-fetch('/daily-post/')
-  .then(response => response.text())
-  .then(html => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const articles = doc.querySelectorAll('.past-item');
-    
-    let htmlContent = '';
-    for (let i = 0; i < Math.min(articles.length, 6); i++) {
-      const item = articles[i];
-      const link = item.querySelector('.past-link');
-      const date = item.querySelector('.past-meta');
-      const categoryBadge = item.querySelector('.past-badge');
-      
-      let category = '生活';
-      let categoryText = '🏡 生活';
-      if (categoryBadge) {
-        category = categoryBadge.textContent.trim();
-        const catMap = {
-          '植物': '🌿 植物',
-          '永續': '♻️ 永續',
-          '碳盤查': '📊 碳盤查',
-          '生活': '🏡 生活'
-        };
-        categoryText = catMap[category] || category;
-      }
-      
-      const dateText = date ? date.textContent.replace('📅', '').trim() : '';
-      const href = link ? link.getAttribute('href') : '';
-      const title = link ? link.textContent : '';
-      
-      if (href && title) {
-        htmlContent += `
-          <div class="post-card reveal reveal-delay-${i % 3}">
-            <div class="post-category">${categoryText}</div>
-            <h3 class="post-title"><a href="/daily-post/${href}">${title}</a></h3>
-            <div class="post-date"><i data-lucide="calendar"></i> ${dateText}</div>
-          </div>
-        `;
-      }
-    }
-    document.getElementById('post-list').innerHTML = htmlContent;
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-  })
-  .catch(err => console.error('無法載入文章:', err));
-  
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    })
+    .catch(function(err) {
+      console.error('無法載入文章:', err);
+    });
+})();
 </script>
+ 
 
 </body>
 </html>
