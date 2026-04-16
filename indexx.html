@@ -393,8 +393,16 @@
       .footer-links { justify-content: center; flex-wrap: wrap; }
     }
 
-    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.8s ease, transform 0.8s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
+    /* ===== 修正 reveal 動畫，避免與 hover 衝突 ===== */
+    .reveal {
+        opacity: 0;
+        transform: translateY(20px); /* 減少視覺跳動 */
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+        opacity: 1;
+        transform: translateY(0) !important; /* 強制歸零 */
+    }
     .reveal-delay-1 { transition-delay: 0.15s; }
     .reveal-delay-2 { transition-delay: 0.3s; }
     .reveal-delay-3 { transition-delay: 0.45s; }
@@ -457,7 +465,12 @@
         border: 1px solid rgba(90,122,74,0.1);
         box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
-    
+    /* 卡片 hover 效果（輕微、乾淨） */
+    .post-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        border-color: var(--sage);
+    }
     .post-category {
         display: inline-block;
         font-size: 0.7rem;
@@ -506,34 +519,8 @@
         .latest-posts-section { padding: 60px 4vw; }
         .latest-posts-grid { grid-template-columns: 1fr; gap: 16px; }
         .post-card { padding: 20px; }
+        .post-card:hover { transform: translateY(-2px); } /* 手機版飄移更小 */
     }
-      /* 強制顯示最新文章卡片文字 */
-    .latest-posts-section .post-card,
-    .latest-posts-section .post-card * {
-        color: var(--ink) !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-
-    .latest-posts-section .post-title a {
-        color: var(--moss) !important;
-    }
-
-    .latest-posts-section .post-category {
-        color: var(--fern) !important;
-    }
-
-    .latest-posts-section .post-date {
-        color: var(--stone) !important;
-    }
-
-    /* 終極強制 - 完全移除飄移 */
-    .post-card:hover {
-        transform: translateY(0) !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.03) !important;
-        border-color: rgba(90,122,74,0.1) !important;
-    }
-    
   </style>
 </head>
 <body>
@@ -671,155 +658,164 @@
         if (typeof lucide !== 'undefined') lucide.createIcons();
       }
 
-      var reveals = document.querySelectorAll('.reveal');
+      // 全域觀察者
       var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
-          if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
         });
       }, { threshold: 0.15 });
-      reveals.forEach(function (el) { observer.observe(el); });
+
+      // 觀察初始的 .reveal 元素
+      var initialReveals = document.querySelectorAll('.reveal');
+      initialReveals.forEach(function (el) { observer.observe(el); });
 
       if (typeof lucide !== 'undefined') lucide.createIcons();
-    });
 
-    // 載入最新文章（卡片樣式）
+      // 載入最新文章（卡片樣式）
+      (function() {
+        fetch('/daily-post/')
+          .then(function(response) { return response.text(); })
+          .then(function(html) {
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(html, 'text/html');
+            var articles = doc.querySelectorAll('.past-item');
+            var htmlContent = '';
+            var catMap = {
+              '植物': '🌿 植物',
+              '永續': '♻️ 永續',
+              '碳盤查': '📊 碳盤查',
+              '生活': '🏡 生活'
+            };
+            for (var i = 0; i < Math.min(articles.length, 4); i++) {
+              var item = articles[i];
+              var linkEl = item.querySelector('.past-link');
+              var dateEl = item.querySelector('.past-meta');
+              var categoryBadge = item.querySelector('.past-badge');
+              
+              var category = '生活';
+              var categoryText = '🏡 生活';
+              if (categoryBadge) {
+                category = categoryBadge.textContent.trim();
+                categoryText = catMap[category] || category;
+              }
+              
+              var dateText = '';
+              if (dateEl) {
+                dateText = dateEl.textContent.replace('📅', '').trim();
+              }
+              
+              var href = '';
+              var title = '';
+              if (linkEl) {
+                href = linkEl.getAttribute('href');
+                title = linkEl.textContent;
+              }
+              
+              if (href && title) {
+                htmlContent += '<div class="post-card reveal">' +
+                  '<div class="post-category">' + categoryText + '</div>' +
+                  '<h3 class="post-title"><a href="/daily-post/' + href + '">' + title + '</a></h3>' +
+                  '<div class="post-date">📅 ' + dateText + '</div>' +
+                  '</div>';
+              }
+            }
+            var postList = document.getElementById('post-list');
+            if (postList) {
+              if (htmlContent === '') {
+                postList.innerHTML = '<div style="text-align:center; grid-column:1/-1; color:var(--stone);">📭 暫無文章</div>';
+              } else {
+                postList.innerHTML = htmlContent;
+              }
+            }
+            // 重要：重新觀察新產生的卡片
+            var newReveals = document.querySelectorAll('.latest-posts-section .reveal');
+            newReveals.forEach(function(el) {
+              if (el && !el.classList.contains('visible')) {
+                observer.observe(el);
+              }
+            });
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+          })
+          .catch(function(err) {
+            console.error('無法載入文章:', err);
+            var postList = document.getElementById('post-list');
+            if (postList) {
+              postList.innerHTML = '<div style="text-align:center; grid-column:1/-1; color:var(--stone);">⚠️ 無法載入文章，請稍後再試</div>';
+            }
+          });
+      })();
+    });
+  </script>
+  
+  <!-- 浮動客服按鈕 -->
+  <script>
     (function() {
-      fetch('/daily-post/')
-        .then(function(response) { return response.text(); })
-        .then(function(html) {
-          var parser = new DOMParser();
-          var doc = parser.parseFromString(html, 'text/html');
-          var articles = doc.querySelectorAll('.past-item');
-          var htmlContent = '';
-          var catMap = {
-            '植物': '🌿 植物',
-            '永續': '♻️ 永續',
-            '碳盤查': '📊 碳盤查',
-            '生活': '🏡 生活'
-          };
-          for (var i = 0; i < Math.min(articles.length, 4); i++) {
-            var item = articles[i];
-            var linkEl = item.querySelector('.past-link');
-            var dateEl = item.querySelector('.past-meta');
-            var categoryBadge = item.querySelector('.past-badge');
-            
-            var category = '生活';
-            var categoryText = '🏡 生活';
-            if (categoryBadge) {
-              category = categoryBadge.textContent.trim();
-              categoryText = catMap[category] || category;
-            }
-            
-            var dateText = '';
-            if (dateEl) {
-              dateText = dateEl.textContent.replace('📅', '').trim();
-            }
-            
-            var href = '';
-            var title = '';
-            if (linkEl) {
-              href = linkEl.getAttribute('href');
-              title = linkEl.textContent;
-            }
-            
-            if (href && title) {
-              htmlContent += '<div class="post-card reveal">' +
-                '<div class="post-category">' + categoryText + '</div>' +
-                '<h3 class="post-title"><a href="/daily-post/' + href + '">' + title + '</a></h3>' +
-                '<div class="post-date">📅 ' + dateText + '</div>' +
-                '</div>';
-            }
+      if (document.getElementById('floating-chat-btn')) return;
+      
+      const btn = document.createElement('div');
+      btn.id = 'floating-chat-btn';
+      btn.innerHTML = `<span>AI 智能服務</span>`;
+      
+      btn.style.cssText = `
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        padding: 10px 20px;
+        background: linear-gradient(135deg, #3d5a38, #5a7a4a);
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        font-family: 'Noto Sans TC', sans-serif;
+        border: none;
+        border-radius: 40px;
+        cursor: pointer;
+        z-index: 9999;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      `;
+      
+      btn.onmouseenter = () => {
+        btn.style.transform = 'scale(1.08)';
+        btn.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+        btn.style.background = 'linear-gradient(135deg, #4a6a3a, #6a8a5a)';
+      };
+      btn.onmouseleave = () => {
+        btn.style.transform = 'scale(1)';
+        btn.style.boxShadow = '0 4px 15px rgba(0,0,0,0.25)';
+        btn.style.background = 'linear-gradient(135deg, #3d5a38, #5a7a4a)';
+      };
+      
+      btn.onclick = () => {
+        const isLINE = /LINE/.test(navigator.userAgent);
+        if (isLINE) {
+          window.location.href = 'https://www.fernbrom.com/webchat.html';
+        } else {
+          if (confirm('蕨積 AI 智能服務\n\n建議使用 LINE App 開啟\n\n確定要在瀏覽器中開啟嗎？')) {
+            window.open('https://www.fernbrom.com/webchat.html', '_blank');
           }
-          var postList = document.getElementById('post-list');
-          if (postList) {
-            if (htmlContent === '') {
-              postList.innerHTML = '<div style="text-align:center; grid-column:1/-1; color:var(--stone);">📭 暫無文章</div>';
-            } else {
-              postList.innerHTML = htmlContent;
-            }
-          }
-          if (typeof lucide !== 'undefined') lucide.createIcons();
-        })
-        .catch(function(err) {
-          console.error('無法載入文章:', err);
-          var postList = document.getElementById('post-list');
-          if (postList) {
-            postList.innerHTML = '<div style="text-align:center; grid-column:1/-1; color:var(--stone);">⚠️ 無法載入文章，請稍後再試</div>';
-          }
-        });
+        }
+      };
+      
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes gentleBounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-5px); }
+        }
+        #floating-chat-btn {
+          animation: gentleBounce 1.5s ease infinite;
+        }
+      `;
+      document.head.appendChild(style);
+      
+      document.body.appendChild(btn);
     })();
   </script>
-    <!-- 浮<!-- 浮動客服按鈕 (圖片版) -->
-<script>
-  (function() {
-    if (document.getElementById('floating-chat-btn')) return;
-    
-    const btn = document.createElement('div');
-    btn.id = 'floating-chat-btn';
-    btn.innerHTML = `
-    
-      <span>AI 智能服務</span>
-    `;
-    
-    btn.style.cssText = `
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      padding: 10px 20px;
-      background: linear-gradient(135deg, #3d5a38, #5a7a4a);
-      color: white;
-      font-size: 16px;
-      font-weight: 500;
-      font-family: 'Noto Sans TC', sans-serif;
-      border: none;
-      border-radius: 40px;
-      cursor: pointer;
-      z-index: 9999;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    `;
-    
-    btn.onmouseenter = () => {
-      btn.style.transform = 'scale(1.08)';
-      btn.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
-      btn.style.background = 'linear-gradient(135deg, #4a6a3a, #6a8a5a)';
-    };
-    btn.onmouseleave = () => {
-      btn.style.transform = 'scale(1)';
-      btn.style.boxShadow = '0 4px 15px rgba(0,0,0,0.25)';
-      btn.style.background = 'linear-gradient(135deg, #3d5a38, #5a7a4a)';
-    };
-    
-    btn.onclick = () => {
-      const isLINE = /LINE/.test(navigator.userAgent);
-      if (isLINE) {
-        window.location.href = 'https://www.fernbrom.com/webchat.html';
-      } else {
-        if (confirm('蕨積 AI 智能服務\n\n建議使用 LINE App 開啟\n\n確定要在瀏覽器中開啟嗎？')) {
-          window.open('https://www.fernbrom.com/webchat.html', '_blank');
-        }
-      }
-    };
-    
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes gentleBounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-5px); }
-      }
-      #floating-chat-btn {
-        animation: gentleBounce 1.5s ease infinite;
-      }
-    `;
-    document.head.appendChild(style);
-    
-    document.body.appendChild(btn);
-    console.log('🤖 AI 智能服務按鈕(圖片版)已加入');
-  })();
-</script>
-
 </body>
 </html>
