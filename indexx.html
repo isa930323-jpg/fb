@@ -445,6 +445,143 @@
     .reveal-delay-1 { transition-delay: 0.15s; }
     .reveal-delay-2 { transition-delay: 0.3s; }
     .reveal-delay-3 { transition-delay: 0.45s; }
+        /* ===== 最新文章區塊樣式 ===== */
+    .latest-posts-section {
+        background: linear-gradient(135deg, #f5f0e8 0%, #e8ede9 100%);
+        padding: 80px 4vw;
+        margin: 0;
+    }
+    .latest-posts-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .latest-posts-header {
+        text-align: center;
+        margin-bottom: 56px;
+    }
+    .latest-posts-label {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 0.85rem;
+        letter-spacing: 0.3em;
+        color: var(--stone);
+        display: inline-block;
+        margin-bottom: 16px;
+        position: relative;
+    }
+    .latest-posts-label::before,
+    .latest-posts-label::after {
+        content: '';
+        display: inline-block;
+        width: 40px;
+        height: 1px;
+        background: var(--sage);
+        vertical-align: middle;
+        margin: 0 12px;
+    }
+    .latest-posts-title {
+        font-family: 'Noto Serif TC', serif;
+        font-weight: 600;
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+        color: var(--moss);
+        letter-spacing: 0.08em;
+        margin-bottom: 16px;
+    }
+    .latest-posts-divider {
+        width: 60px;
+        height: 2px;
+        background: var(--sage);
+        margin: 0 auto;
+    }
+    .latest-posts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 24px;
+        margin-bottom: 48px;
+    }
+    .post-card {
+        background: var(--paper);
+        border-radius: 16px;
+        padding: 24px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(90,122,74,0.1);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .post-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+        border-color: rgba(90,122,74,0.2);
+    }
+    .post-category {
+        display: inline-block;
+        font-size: 0.7rem;
+        font-weight: 500;
+        color: var(--fern);
+        background: rgba(90,122,74,0.1);
+        padding: 0.2rem 0.8rem;
+        border-radius: 20px;
+        margin-bottom: 12px;
+        letter-spacing: 0.05em;
+    }
+    .post-title {
+        font-family: 'Noto Serif TC', serif;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--moss);
+        margin-bottom: 12px;
+        line-height: 1.5;
+    }
+    .post-title a {
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.2s;
+    }
+    .post-title a:hover {
+        color: var(--fern);
+    }
+    .post-date {
+        font-size: 0.75rem;
+        color: var(--stone);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .post-date i {
+        width: 14px;
+        height: 14px;
+    }
+    .latest-posts-footer {
+        text-align: center;
+    }
+    .latest-posts-link {
+        display: inline-block;
+        font-family: 'Noto Serif TC', serif;
+        font-weight: 500;
+        font-size: 0.85rem;
+        letter-spacing: 0.2em;
+        color: var(--fern);
+        text-decoration: none;
+        padding: 12px 32px;
+        border: 1px solid var(--fern);
+        border-radius: 40px;
+        transition: all 0.3s ease;
+    }
+    .latest-posts-link:hover {
+        background: var(--fern);
+        color: white;
+    }
+    @media (max-width: 768px) {
+        .latest-posts-section {
+            padding: 60px 4vw;
+        }
+        .latest-posts-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        .post-card {
+            padding: 20px;
+        }
+    }
   </style>
 </head>
 <body>
@@ -459,10 +596,19 @@
     <p class="hero-tagline">綠色生活新起點</p>
     <a href="shop.html" class="hero-cta">立即購買</a>
   </section>
-<!-- 新增：最新文章區塊 -->
-<div id="latest-posts" style="max-width: 1200px; margin: 2rem auto; padding: 0 2rem;">
-    <h3 style="color: var(--moss);">🌿 最新每日文章</h3>
-    <ul id="post-list" style="list-style: none; padding: 0;"></ul>
+<!-- 新增：最新文章區塊（融入網站風格） -->
+<div class="latest-posts-section reveal">
+    <div class="latest-posts-container">
+        <div class="latest-posts-header">
+            <span class="latest-posts-label">每日專欄</span>
+            <h2 class="latest-posts-title">🌿 最新文章</h2>
+            <div class="latest-posts-divider"></div>
+        </div>
+        <div id="post-list" class="latest-posts-grid"></div>
+        <div class="latest-posts-footer">
+            <a href="/daily-post/" class="latest-posts-link">查看所有文章 →</a>
+        </div>
+    </div>
 </div>
 
 
@@ -666,7 +812,7 @@
     console.log('🤖 AI 智能服務(圖片版)已加入');
   })();
 </script>
-  <script>
+ // 載入最新文章（卡片樣式）
 fetch('/daily-post/')
   .then(response => response.text())
   .then(html => {
@@ -674,18 +820,43 @@ fetch('/daily-post/')
     const doc = parser.parseFromString(html, 'text/html');
     const articles = doc.querySelectorAll('.past-item');
     
-    let htmlContent = '<ul>';
-    for (let i = 0; i < Math.min(articles.length, 5); i++) {
-      const link = articles[i].querySelector('.past-link');
-      const date = articles[i].querySelector('.past-meta');
-      if (link) {
-        htmlContent += `<li><a href="/daily-post/${link.getAttribute('href')}">${link.textContent}</a> ${date ? date.textContent : ''}</li>`;
+    let htmlContent = '';
+    for (let i = 0; i < Math.min(articles.length, 6); i++) {
+      const item = articles[i];
+      const link = item.querySelector('.past-link');
+      const date = item.querySelector('.past-meta');
+      const categoryBadge = item.querySelector('.past-badge');
+      
+      let category = '生活';
+      let categoryText = '🏡 生活';
+      if (categoryBadge) {
+        category = categoryBadge.textContent.trim();
+        const catMap = {
+          '植物': '🌿 植物',
+          '永續': '♻️ 永續',
+          '碳盤查': '📊 碳盤查',
+          '生活': '🏡 生活'
+        };
+        categoryText = catMap[category] || category;
+      }
+      
+      const dateText = date ? date.textContent.replace('📅', '').trim() : '';
+      const href = link ? link.getAttribute('href') : '';
+      const title = link ? link.textContent : '';
+      
+      if (href && title) {
+        htmlContent += `
+          <div class="post-card reveal reveal-delay-${i % 3}">
+            <div class="post-category">${categoryText}</div>
+            <h3 class="post-title"><a href="/daily-post/${href}">${title}</a></h3>
+            <div class="post-date"><i data-lucide="calendar"></i> ${dateText}</div>
+          </div>
+        `;
       }
     }
-    htmlContent += '</ul>';
     document.getElementById('post-list').innerHTML = htmlContent;
+    if (typeof lucide !== 'undefined') lucide.createIcons();
   })
   .catch(err => console.error('無法載入文章:', err));
-</script>
 </body>
 </html>
