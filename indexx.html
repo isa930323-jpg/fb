@@ -9,18 +9,16 @@
   <link rel="canonical" href="https://www.fernbrom.com/">
   <link rel="icon" href="/favicon.ico">
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<link rel="mainfest" href="/site.webmanifest"/>
-  <!-- OG -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="mainfest" href="/site.webmanifest"/>
   <meta property="og:title" content="蕨積 FernBrom｜植物 × 碳 × 工程">
   <meta property="og:description" content="從植物到碳管理，打造真正可持續的綠色空間">
   <meta property="og:url" content="https://www.fernbrom.com/">
   <meta property="og:image" content="https://www.fernbrom.com/og-image.jpg">
   <meta property="og:type" content="website">
-   <meta property="og:locale" content="zh_TW">
-  <!-- Twitter -->
+  <meta property="og:locale" content="zh_TW">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="蕨積 FernBrom｜植物 × 碳 × 工程">
   <meta name="twitter:description" content="從植物到碳管理，打造真正可持續的綠色空間">
@@ -48,7 +46,6 @@
       overflow-x: hidden;
     }
 
-    /* ----- 導覽列 (與原本完全相同) ----- */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -88,10 +85,7 @@
       align-items: center;
       white-space: nowrap;
     }
-    .nav-links li {
-      position: relative;
-      padding: 0 2px;
-    }
+    .nav-links li { position: relative; padding: 0 2px; }
     .nav-links a {
       font-family: 'Noto Sans TC', sans-serif;
       font-size: 0.82rem;
@@ -103,10 +97,7 @@
       opacity: 0.75;
       display: inline-block;
     }
-    .nav-links a:hover {
-      opacity: 1;
-      color: var(--fern);
-    }
+    .nav-links a:hover { opacity: 1; color: var(--fern); }
     .nav-contact {
       padding: 8px 20px !important;
       border: 1px solid var(--fern) !important;
@@ -115,10 +106,7 @@
       opacity: 1 !important;
       margin-left: 0.5rem;
     }
-    .nav-contact:hover {
-      background: var(--fern);
-      color: white !important;
-    }
+    .nav-contact:hover { background: var(--fern); color: white !important; }
     .has-dropdown > a::after { display: none; }
 
     .nav-links li .dropdown {
@@ -138,9 +126,7 @@
       z-index: 300;
     }
     .nav-links li:hover .dropdown,
-    .nav-links li:focus-within .dropdown {
-      display: block;
-    }
+    .nav-links li:focus-within .dropdown { display: block; }
     .nav-links li .dropdown::before {
       content: '';
       position: absolute;
@@ -242,7 +228,6 @@
       .hamburger { display: flex; }
     }
 
-    /* ----- Hero 區域 (其餘樣式保持原樣) ----- */
     .hero {
       min-height: 100vh; position: relative; display: flex;
       flex-direction: column; align-items: center; justify-content: center;
@@ -301,7 +286,6 @@
     .hero-cta:hover::before { transform: translateX(0); }
     .hero-cta:hover { color: white; }
 
-    /* ----- 關於與服務區塊 ----- */
     .about-grid {
       max-width: 1200px; margin: 0 auto; display: grid;
       grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
@@ -309,40 +293,23 @@
     @media (max-width:900px){
       .about-grid { grid-template-columns: 1fr; gap:60px; }
     }
-    .services-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
+    .services-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
     .service-card {
       padding: 24px 20px;
       background: var(--cream);
       border: 1px solid rgba(90,122,74,0.12);
       transition: all .3s ease;
     }
-    .service-card:hover {
-      transform: translateY(-4px);
-      background: var(--mist);
-    }
+    .service-card:hover { transform: translateY(-4px); background: var(--mist); }
     .service-card h3 {
       font-family: 'Noto Serif TC', serif;
       font-size: 1.2rem;
       color: var(--moss);
       margin-bottom: 8px;
     }
-    .service-card p {
-      font-size: 1.15rem;
-      line-height: 1.6;
-      color: var(--stone);
-    }
-    .about-right h2 {
-      margin-bottom: 40px;
-    }
-    .about-text-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+    .service-card p { font-size: 1.15rem; line-height: 1.6; color: var(--stone); }
+    .about-right h2 { margin-bottom: 40px; }
+    .about-text-cards { display: flex; flex-direction: column; gap: 20px; }
     .about-text-card {
       padding: 24px 20px;
       background: var(--cream);
@@ -352,10 +319,7 @@
       line-height: 1.6;
       color: var(--stone);
     }
-    .about-text-card:hover {
-      transform: translateY(-4px);
-      background: var(--mist);
-    }
+    .about-text-card:hover { transform: translateY(-4px); background: var(--mist); }
 
     #contact {
       background-color: var(--moss); color: var(--paper);
@@ -390,9 +354,7 @@
       display: flex; align-items: center; justify-content: center;
       transition: all 0.3s ease; text-decoration: none; color: var(--sage);
     }
-    .contact-circle:hover {
-      background-color: var(--fern); transform: translateY(-4px); color: white;
-    }
+    .contact-circle:hover { background-color: var(--fern); transform: translateY(-4px); color: white; }
     .contact-circle i { width: 48px; height: 48px; stroke: currentColor; stroke-width: 1.5; }
     @media (max-width: 600px) {
       .contact-circle-grid { gap: 12px; }
@@ -420,16 +382,7 @@
       padding: 40px 4vw; display: flex; align-items: center;
       justify-content: space-between; background: var(--paper);
     }
-    .footer-logo {
-      font-family: 'Noto Serif TC', serif; font-weight: 900;
-      font-size: 1.1rem; color: var(--moss); letter-spacing: 0.05em;
-    }
-    .footer-copy {
-      font-size: 0.75rem; color: var(--stone); letter-spacing: 0.1em;
-    }
-    .footer-links {
-      display: flex; gap: 24px; list-style: none;
-    }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
     .footer-links a {
       font-size: 0.75rem; color: var(--stone); text-decoration: none;
       letter-spacing: 0.08em; opacity: 0.7; transition: opacity 0.2s;
@@ -445,8 +398,8 @@
     .reveal-delay-1 { transition-delay: 0.15s; }
     .reveal-delay-2 { transition-delay: 0.3s; }
     .reveal-delay-3 { transition-delay: 0.45s; }
-        /* ===== 最新文章區塊樣式 ===== */
-        /* ===== 最新文章區塊樣式 ===== */
+
+    /* ===== 最新文章區塊樣式 ===== */
     .latest-posts-section {
         background: var(--paper);
         padding: 80px 4vw;
@@ -454,14 +407,8 @@
         border-top: 1px solid rgba(90,122,74,0.08);
         border-bottom: 1px solid rgba(90,122,74,0.08);
     }
-    .latest-posts-container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    .latest-posts-header {
-        text-align: center;
-        margin-bottom: 56px;
-    }
+    .latest-posts-container { max-width: 1200px; margin: 0 auto; }
+    .latest-posts-header { text-align: center; margin-bottom: 56px; }
     .latest-posts-label {
         font-family: 'Cormorant Garamond', serif;
         font-style: italic;
@@ -534,14 +481,8 @@
         margin-bottom: 12px;
         line-height: 1.5;
     }
-    .post-title a {
-        text-decoration: none;
-        color: inherit;
-        transition: color 0.2s;
-    }
-    .post-title a:hover {
-        color: var(--fern);
-    }
+    .post-title a { text-decoration: none; color: inherit; transition: color 0.2s; }
+    .post-title a:hover { color: var(--fern); }
     .post-date {
         font-size: 0.75rem;
         color: var(--stone);
@@ -549,9 +490,7 @@
         align-items: center;
         gap: 6px;
     }
-    .latest-posts-footer {
-        text-align: center;
-    }
+    .latest-posts-footer { text-align: center; }
     .latest-posts-link {
         display: inline-block;
         font-family: 'Noto Serif TC', serif;
@@ -566,28 +505,17 @@
         transition: all 0.3s ease;
         background: transparent;
     }
-    .latest-posts-link:hover {
-        background: var(--fern);
-        color: white;
-    }
+    .latest-posts-link:hover { background: var(--fern); color: white; }
     @media (max-width: 768px) {
-        .latest-posts-section {
-            padding: 60px 4vw;
-        }
-        .latest-posts-grid {
-            grid-template-columns: 1fr;
-            gap: 16px;
-        }
-        .post-card {
-            padding: 20px;
-        }
+        .latest-posts-section { padding: 60px 4vw; }
+        .latest-posts-grid { grid-template-columns: 1fr; gap: 16px; }
+        .post-card { padding: 20px; }
     }
-    </style>
+  </style>
 </head>
 <body>
-  <!-- 放置導覽列的佔位元素 -->
   <div id="nav-placeholder"></div>
-  <!-- 主要內容 (與原本相同，但移除原有的 nav 與 mobile-menu 結構) -->
+  
   <section class="hero">
     <div class="hero-bg"></div>
     <h1 class="hero-title">蕨積</h1>
@@ -596,28 +524,30 @@
     <p class="hero-tagline">綠色生活新起點</p>
     <a href="shop.html" class="hero-cta">立即購買</a>
   </section>
-<!-- 新增：最新文章區塊（融入網站風格） -->
-<div class="latest-posts-section reveal">
-    <div class="latest-posts-container">
-        <div class="latest-posts-header">
-            <span class="latest-posts-label">每日專欄</span>
-            <h2 class="latest-posts-title">🌿 最新文章</h2>
-            <div class="latest-posts-divider"></div>
-        </div>
-        <div id="post-list" class="latest-posts-grid"></div>
-        <div class="latest-posts-footer">
-            <a href="/daily-post/" class="latest-posts-link">查看所有文章 →</a>
-        </div>
-    </div>
-</div>
 
+  <!-- 最新文章區塊 -->
+  <div class="latest-posts-section reveal">
+    <div class="latest-posts-container">
+      <div class="latest-posts-header">
+        <span class="latest-posts-label">每日專欄</span>
+        <h2 class="latest-posts-title">🌿 最新文章</h2>
+        <div class="latest-posts-divider"></div>
+      </div>
+      <div id="post-list" class="latest-posts-grid">
+        <!-- 這裡會由 JavaScript 動態載入文章卡片 -->
+        <div style="text-align:center; grid-column:1/-1; color:var(--stone);">載入文章中...</div>
+      </div>
+      <div class="latest-posts-footer">
+        <a href="/daily-post/" class="latest-posts-link">查看所有文章 →</a>
+      </div>
+    </div>
+  </div>
 
   <section id="about" style="padding:100px 4vw 80px;background:linear-gradient(to bottom,#f5f7f6,#e8ede9);">
     <div class="about-grid">
       <div class="about-left">
         <h2 class="reveal reveal-delay-1" style="font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.8rem,4vw,3rem);color:var(--moss);letter-spacing:0.06em;margin-bottom:56px;">我們做什麼</h2>
         <div class="services-grid">
-          <!-- 以下三个服务卡片的已添加 #，包裹在 -->
           <div class="service-card">
             <h3><a href="greenwall.html" style="text-decoration: none; color: inherit; display: block;">植生牆系統</a></h3>
             <p>建築綠化與植生牆規劃，從植物選擇到系統設計，打造長期穩定的綠色空間。</p>
@@ -633,7 +563,6 @@
         </div>
       </div>
       <div class="about-right">
-        <!-- 右“蕨積”大已添加接，包裹在-->
         <h2 class="reveal reveal-delay-1" style="font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.8rem,4vw,3rem);color:var(--moss);letter-spacing:0.06em;margin-bottom:56px;">
           <a href="about.html" style="text-decoration: none; color: inherit; display: block;">蕨積</a>
         </h2>
@@ -648,147 +577,154 @@
 
   <section id="contact">
     <div class="contact-container reveal">
-    
       <h2 class="contact-heading">開啟一場綠色對話</h2>
       <p class="contact-sub">點擊圖示直接與我們聯繫</p>
-     <div class="contact-circle-grid">
-  <a href="#" class="contact-circle" aria-label="Email"><i data-lucide="mail"></i></a>
-  <a href="https://www.facebook.com/lovefernabe" target="_blank" rel="noopener noreferrer" class="contact-circle" aria-label="Facebook"><i data-lucide="facebook"></i></a>
-  <a href="https://www.instagram.com/fernbrom" target="_blank" rel="noopener noreferrer" class="contact-circle" aria-label="Instagram"><i data-lucide="instagram"></i></a>
-  <a href="webchat.html"  rel="noopener noreferrer" class="contact-circle" aria-label="LINE"><i data-lucide="message-circle"></i></a>
-</div>
-      
+      <div class="contact-circle-grid">
+        <a href="#" class="contact-circle" aria-label="Email"><i data-lucide="mail"></i></a>
+        <a href="https://www.facebook.com/lovefernabe" target="_blank" rel="noopener noreferrer" class="contact-circle" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+        <a href="https://www.instagram.com/fernbrom" target="_blank" rel="noopener noreferrer" class="contact-circle" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+        <a href="webchat.html" rel="noopener noreferrer" class="contact-circle" aria-label="LINE"><i data-lucide="message-circle"></i></a>
+      </div>
       <div class="contact-cta-wrapper"><a href="contact.html" class="contact-cta"><span>立即免費服務</span></a></div>
     </div>
   </section>
 
   <footer>
-    <ul class="footer-links"><li><a href="shop.html">植物選品</a></li><li><a href="consult.html">綠色服務</a></li><li><a href="fbnote.html">蕨望筆記</a></li><li><a href="about.html">關於蕨積</a></li></ul>
+    <ul class="footer-links">
+      <li><a href="shop.html">植物選品</a></li>
+      <li><a href="consult.html">綠色服務</a></li>
+      <li><a href="fbnote.html">蕨望筆記</a></li>
+      <li><a href="about.html">關於蕨積</a></li>
+    </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
- <script>
-document.addEventListener('DOMContentLoaded', function () {
-  // 載入共用導覽列
-  fetch('nav.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('nav-placeholder').innerHTML = data;
-      initNav();
-    })
-    .catch(err => {
-      console.warn('無法載入導覽列，使用預設內嵌導覽');
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      fetch('nav.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('nav-placeholder').innerHTML = data;
+          initNav();
+        })
+        .catch(err => console.warn('無法載入導覽列:', err));
+
+      function initNav() {
+        var btn = document.getElementById('hamburger');
+        var menu = document.getElementById('mobileMenu');
+        if (btn && menu) {
+          btn.addEventListener('click', function () {
+            btn.classList.toggle('open');
+            menu.classList.toggle('open');
+          });
+          menu.querySelectorAll('.mobile-link').forEach(function (a) {
+            a.addEventListener('click', function () {
+              btn.classList.remove('open');
+              menu.classList.remove('open');
+            });
+          });
+        }
+        if (menu) {
+          menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
+            parent.addEventListener('click', function () {
+              var id = parent.getAttribute('data-target');
+              var sub = document.getElementById(id);
+              var caretId = 'caret-' + id.replace('sub-', '');
+              var caret = document.getElementById(caretId);
+              var opening = !sub.classList.contains('open');
+              menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
+              menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
+              if (opening) {
+                sub.classList.add('open');
+                if (caret) caret.classList.add('open');
+              }
+            });
+          });
+        }
+        window.addEventListener('scroll', function () {
+          var nav = document.getElementById('mainNav');
+          if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
+        });
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      }
+
+      var reveals = document.querySelectorAll('.reveal');
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      reveals.forEach(function (el) { observer.observe(el); });
+
+      if (typeof lucide !== 'undefined') lucide.createIcons();
     });
 
-  function initNav() {
-    var btn = document.getElementById('hamburger');
-    var menu = document.getElementById('mobileMenu');
-    if (btn && menu) {
-      btn.addEventListener('click', function () {
-        btn.classList.toggle('open');
-        menu.classList.toggle('open');
-      });
-      menu.querySelectorAll('.mobile-link').forEach(function (a) {
-        a.addEventListener('click', function () {
-          btn.classList.remove('open');
-          menu.classList.remove('open');
-        });
-      });
-    }
-    if (menu) {
-      menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
-        parent.addEventListener('click', function () {
-          var id = parent.getAttribute('data-target');
-          var sub = document.getElementById(id);
-          var caretId = 'caret-' + id.replace('sub-', '');
-          var caret = document.getElementById(caretId);
-          var opening = !sub.classList.contains('open');
-          menu.querySelectorAll('.mobile-sub').forEach(function (s) { s.classList.remove('open'); });
-          menu.querySelectorAll('.mobile-caret').forEach(function (c) { c.classList.remove('open'); });
-          if (opening) {
-            sub.classList.add('open');
-            if (caret) caret.classList.add('open');
+    // 載入最新文章（卡片樣式）
+    (function() {
+      fetch('/daily-post/')
+        .then(function(response) { return response.text(); })
+        .then(function(html) {
+          var parser = new DOMParser();
+          var doc = parser.parseFromString(html, 'text/html');
+          var articles = doc.querySelectorAll('.past-item');
+          var htmlContent = '';
+          var catMap = {
+            '植物': '🌿 植物',
+            '永續': '♻️ 永續',
+            '碳盤查': '📊 碳盤查',
+            '生活': '🏡 生活'
+          };
+          for (var i = 0; i < Math.min(articles.length, 6); i++) {
+            var item = articles[i];
+            var linkEl = item.querySelector('.past-link');
+            var dateEl = item.querySelector('.past-meta');
+            var categoryBadge = item.querySelector('.past-badge');
+            
+            var category = '生活';
+            var categoryText = '🏡 生活';
+            if (categoryBadge) {
+              category = categoryBadge.textContent.trim();
+              categoryText = catMap[category] || category;
+            }
+            
+            var dateText = '';
+            if (dateEl) {
+              dateText = dateEl.textContent.replace('📅', '').trim();
+            }
+            
+            var href = '';
+            var title = '';
+            if (linkEl) {
+              href = linkEl.getAttribute('href');
+              title = linkEl.textContent;
+            }
+            
+            if (href && title) {
+              htmlContent += '<div class="post-card reveal">' +
+                '<div class="post-category">' + categoryText + '</div>' +
+                '<h3 class="post-title"><a href="/daily-post/' + href + '">' + title + '</a></h3>' +
+                '<div class="post-date">📅 ' + dateText + '</div>' +
+                '</div>';
+            }
+          }
+          var postList = document.getElementById('post-list');
+          if (postList) {
+            if (htmlContent === '') {
+              postList.innerHTML = '<div style="text-align:center; grid-column:1/-1; color:var(--stone);">📭 暫無文章</div>';
+            } else {
+              postList.innerHTML = htmlContent;
+            }
+          }
+          if (typeof lucide !== 'undefined') lucide.createIcons();
+        })
+        .catch(function(err) {
+          console.error('無法載入文章:', err);
+          var postList = document.getElementById('post-list');
+          if (postList) {
+            postList.innerHTML = '<div style="text-align:center; grid-column:1/-1; color:var(--stone);">⚠️ 無法載入文章，請稍後再試</div>';
           }
         });
-      });
-    }
-    window.addEventListener('scroll', function () {
-      var nav = document.getElementById('mainNav');
-      if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
-    });
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-  }
-
-  // 頁面原本的 reveal 觀察者
-  var reveals = document.querySelectorAll('.reveal');
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-    });
-  }, { threshold: 0.15 });
-  reveals.forEach(function (el) { observer.observe(el); });
-
-  if (typeof lucide !== 'undefined') lucide.createIcons();
-});
-
-// 載入最新文章（卡片樣式）
-(function() {
-  fetch('/daily-post/')
-    .then(function(response) { return response.text(); })
-    .then(function(html) {
-      var parser = new DOMParser();
-      var doc = parser.parseFromString(html, 'text/html');
-      var articles = doc.querySelectorAll('.past-item');
-      var htmlContent = '';
-      var catMap = {
-        '植物': '🌿 植物',
-        '永續': '♻️ 永續',
-        '碳盤查': '📊 碳盤查',
-        '生活': '🏡 生活'
-      };
-      for (var i = 0; i < Math.min(articles.length, 6); i++) {
-        var item = articles[i];
-        var linkEl = item.querySelector('.past-link');
-        var dateEl = item.querySelector('.past-meta');
-        var categoryBadge = item.querySelector('.past-badge');
-        
-        var category = '生活';
-        var categoryText = '🏡 生活';
-        if (categoryBadge) {
-          category = categoryBadge.textContent.trim();
-          categoryText = catMap[category] || category;
-        }
-        
-        var dateText = '';
-        if (dateEl) {
-          dateText = dateEl.textContent.replace('📅', '').trim();
-        }
-        
-        var href = '';
-        var title = '';
-        if (linkEl) {
-          href = linkEl.getAttribute('href');
-          title = linkEl.textContent;
-        }
-        
-        if (href && title) {
-          htmlContent += '<div class="post-card reveal">' +
-            '<div class="post-category">' + categoryText + '</div>' +
-            '<h3 class="post-title"><a href="/daily-post/' + href + '">' + title + '</a></h3>' +
-            '<div class="post-date">📅 ' + dateText + '</div>' +
-            '</div>';
-        }
-      }
-      var postList = document.getElementById('post-list');
-      if (postList) {
-        postList.innerHTML = htmlContent;
-      }
-      if (typeof lucide !== 'undefined') lucide.createIcons();
-    })
-    .catch(function(err) {
-      console.error('無法載入文章:', err);
-    });
-})();
-</script>
-
+    })();
+  </script>
 </body>
 </html>
