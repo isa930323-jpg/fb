@@ -336,6 +336,66 @@
       margin-bottom: 24px;
       font-weight: 550;
     }
+    
+    /* ===== 新增：照片樣式（不影響原有樣式） ===== */
+    .post-image {
+      margin: 20px 0 24px;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--cream);
+      transition: all 0.2s ease;
+      border: 1px solid rgba(90,122,74,0.1);
+    }
+    .post-image img {
+      width: 100%;
+      max-height: 500px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .post-image:hover img {
+      transform: scale(1.02);
+    }
+    
+    /* ===== 新增：圖片預覽 Modal（不影響原有樣式） ===== */
+    .image-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 1000;
+      cursor: pointer;
+      justify-content: center;
+      align-items: center;
+    }
+    .image-modal.active {
+      display: flex;
+    }
+    .image-modal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    .image-modal-close {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      color: white;
+      font-size: 48px;
+      font-weight: 300;
+      cursor: pointer;
+      font-family: monospace;
+      transition: opacity 0.2s;
+    }
+    .image-modal-close:hover {
+      opacity: 0.7;
+    }
+    
     /* 內容中 #標籤 樣式優化 */
     .post-content span[style*="color: var(--fern);"] {
       background: rgba(138,171,122,0.08);
@@ -431,6 +491,9 @@
         font-size: 0.95rem;
         line-height: 1.7;
       }
+      .post-image img {
+        max-height: 300px;
+      }
     }
 
     /* ----- 頁面內容區域 ----- */
@@ -496,10 +559,10 @@
   <!-- 導覽列佔位 -->
   <div id="nav-placeholder"></div>
 
-  <!-- 主要內容區域 — 調整了區塊結構與視覺流暢度 -->
+  <!-- 主要內容區域 -->
   <main class="content">
     <div class="blog-container">
-      <!-- 標題與簡介區塊 (原本的標題與內文整合得更優雅) -->
+      <!-- 標題與簡介區塊 -->
       <div class="blog-header">
         <h1>生活隨筆</h1>
         <div class="intro">
@@ -525,6 +588,12 @@
     </div>
   </main>
 
+  <!-- ===== 新增：圖片預覽 Modal ===== -->
+  <div id="imageModal" class="image-modal" onclick="closeImageModal()">
+    <span class="image-modal-close">&times;</span>
+    <img id="modalImage" src="" alt="預覽圖片">
+  </div>
+
   <!-- Footer 結構完整保留 -->
   <footer>
     <ul class="footer-links">
@@ -537,7 +606,7 @@
   </footer>
 
   <script>
-    // ===== 生活隨筆核心功能 (完全保留邏輯，僅微幅增加顯示細膩度) =====
+    // ===== 生活隨筆核心功能（新增照片顯示）=====
     
     function getUrlParam(name) {
       const urlParams = new URLSearchParams(window.location.search);
@@ -563,7 +632,7 @@
       }
     }
     
-    // 格式化內容 #標籤 高亮（增加背景柔和感）
+    // 格式化內容 #標籤 高亮
     function formatContentWithTags(text) {
       return text.replace(/(#[#\u4e00-\u9fa5a-zA-Z0-9]+)/g, '<span style="color: var(--fern); font-weight: 500; background: rgba(138,171,122,0.1); padding: 0 2px; border-radius: 10px;">$1</span>');
     }
@@ -576,6 +645,19 @@
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
+    }
+    
+    // ===== 新增：圖片預覽功能 =====
+    function showImageModal(imageUrl) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImg.src = imageUrl;
+    }
+    
+    function closeImageModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
     }
     
     // 載入文章 (API 路徑與原有完全一致)
@@ -607,13 +689,16 @@
           return;
         }
         
-        // 渲染文章 — 提升視覺結構
+        // 渲染文章 — 新增照片顯示
         container.innerHTML = messages.map(post => {
           const displayName = post.displayName || '蕨友';
           const time = new Date(post.timestamp);
           const dateStr = `${time.getFullYear()}.${String(time.getMonth()+1).padStart(2,'0')}.${String(time.getDate()).padStart(2,'0')}`;
           // 處理內容中的換行與標籤樣式
-          const formattedText = formatContentWithTags(escapeHtml(post.text));
+          const formattedText = formatContentWithTags(escapeHtml(post.text || ''));
+          
+          // ===== 新增：檢查是否有照片 =====
+          const hasImage = post.imageUrl && post.imageUrl.trim() !== '';
           
           return `
             <article class="post-card">
@@ -622,6 +707,11 @@
                 <span class="post-date">${dateStr}</span>
               </div>
               <div class="post-content">${formattedText.replace(/\n/g, '<br>')}</div>
+              ${hasImage ? `
+                <div class="post-image" onclick="showImageModal('${post.imageUrl}')">
+                  <img src="${post.imageUrl}" alt="隨筆照片" loading="lazy">
+                </div>
+              ` : ''}
               ${post.tags && post.tags.length > 0 ? `
                 <div class="post-tags">
                   ${post.tags.map(tag => `<a href="note.html?tag=${encodeURIComponent(tag)}" class="post-tag">${escapeHtml(tag)}</a>`).join('')}
@@ -700,6 +790,13 @@
       
       setActiveTag();
       loadMessages();
+      
+      // ===== 新增：ESC 鍵關閉圖片預覽 =====
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeImageModal();
+        }
+      });
     });
   </script>
 </body>
