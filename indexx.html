@@ -666,7 +666,7 @@
     <ul class="footer-links"><li><a href="shop.html">植物選品</a></li><li><a href="consult.html">綠色服務</a></li><li><a href="fbnote.html">蕨望筆記</a></li><li><a href="about.html">關於蕨積</a></li></ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
-<script>
+ <script>
 document.addEventListener('DOMContentLoaded', function () {
   // 載入共用導覽列
   fetch('nav.html')
@@ -730,7 +730,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (typeof lucide !== 'undefined') lucide.createIcons();
 });
 
-// 載入最新文章（卡片樣式）- 獨立執行，不影響其他功能
+// 載入最新文章（卡片樣式）
 (function() {
   fetch('/daily-post/')
     .then(function(response) { return response.text(); })
@@ -747,21 +747,29 @@ document.addEventListener('DOMContentLoaded', function () {
       };
       for (var i = 0; i < Math.min(articles.length, 6); i++) {
         var item = articles[i];
-        var link = item.querySelector('.past-link');
-        var date = item.querySelector('.past-meta');
+        var linkEl = item.querySelector('.past-link');
+        var dateEl = item.querySelector('.past-meta');
         var categoryBadge = item.querySelector('.past-badge');
+        
         var category = '生活';
         var categoryText = '🏡 生活';
         if (categoryBadge) {
           category = categoryBadge.textContent.trim();
           categoryText = catMap[category] || category;
         }
+        
         var dateText = '';
-        if (date) {
-          dateText = date.textContent.replace('📅', '').trim();
+        if (dateEl) {
+          dateText = dateEl.textContent.replace('📅', '').trim();
         }
-        var href = link ? link.getAttribute('href') : '';
-        var title = link ? link.textContent : '';
+        
+        var href = '';
+        var title = '';
+        if (linkEl) {
+          href = linkEl.getAttribute('href');
+          title = linkEl.textContent;
+        }
+        
         if (href && title) {
           htmlContent += '<div class="post-card reveal">' +
             '<div class="post-category">' + categoryText + '</div>' +
@@ -781,7 +789,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 })();
 </script>
- 
 
 </body>
 </html>
