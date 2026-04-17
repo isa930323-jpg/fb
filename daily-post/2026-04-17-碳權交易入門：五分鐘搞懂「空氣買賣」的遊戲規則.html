@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📊 碳盤查文章 - 蕨積每日文章</title>
+    <title>碳權交易入門：五分鐘搞懂「空氣買賣」的遊戲規則 - 蕨積每日文章</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -256,134 +256,75 @@
         flex-wrap: wrap;
       }
     }
-    .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .page-header { text-align: center; margin-bottom: 2rem; }
-    .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
-    .page-header p { color: var(--stone); margin-top: 0.5rem; }
-    
-    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
-    .main-col { flex: 3; min-width: 250px; }
-    
-    .latest-article {
-        background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    .article-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
-    .latest-category {
+    .article-category {
         display: inline-block;
+        background: #1e6f5c;
         color: white;
         padding: 0.2rem 0.8rem;
         border-radius: 20px;
         font-size: 0.8rem;
         margin-bottom: 1rem;
     }
-    .latest-title { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.5rem; }
-    .latest-date { color: var(--stone); margin-bottom: 1.5rem; font-size: 0.9rem; }
-    .latest-content { line-height: 1.8; }
-    .read-more { display: inline-block; margin-top: 1rem; color: var(--fern); text-decoration: none; font-weight: 500; }
-    
-    .section-title { font-size: 1.2rem; color: var(--moss); border-bottom: 2px solid #e0d6cc; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-    .past-list { list-style: none; }
-    .past-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0e8e0; }
-    .past-link { font-size: 0.95rem; font-weight: 500; color: var(--fern); text-decoration: none; display: block; }
-    .past-link:hover { text-decoration: underline; }
-    .past-meta { font-size: 0.7rem; color: #aaa; margin-top: 0.25rem; }
-    .past-badge { display: inline-block; font-size: 0.65rem; padding: 0.1rem 0.5rem; border-radius: 12px; color: white; margin-right: 0.5rem; }
-    
+    .article-title {
+        font-size: 2rem;
+        color: var(--moss);
+        margin-bottom: 0.5rem;
+        font-family: 'Noto Serif TC', serif;
+    }
+    .article-date {
+        color: var(--stone);
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+    }
+    .article-content {
+        line-height: 1.8;
+        font-size: 1rem;
+    }
+    .article-footer {
+        text-align: center;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid #e0d6cc;
+        color: var(--stone);
+        font-size: 0.9rem;
+    }
+    .back-link {
+        display: inline-block;
+        margin-top: 1rem;
+        color: var(--fern);
+        text-decoration: none;
+    }
     @media (max-width: 768px) {
-        .two-columns { flex-direction: column; }
-        .latest-title { font-size: 1.4rem; }
-        .daily-container { padding: 0 1rem; }
+        .article-title { font-size: 1.5rem; }
+        .article-container { padding: 0 1rem; }
     }
     </style>
 </head>
 <body>
     <div id="nav-placeholder"></div>
-    
     <main class="content">
-        <div class="daily-container">
-            <div class="page-header">
-                <h1>📊 碳盤查文章</h1>
-                <p>蕨積每日文章 - 碳盤查分類精選</p>
-            </div>
-            
-            <div class="two-columns">
-                <div class="main-col">
-                    
-                    <div class="latest-article">
-                        <div class="latest-category" style="background: #1e6f5c;">📌 碳盤查</div>
-                        <h1 class="latest-title">買賣「空氣」也能賺錢？揭開碳權交易的神秘面紗</h1>
-                        <div class="latest-date">📅 2026-04-17</div>
-                        <div class="latest-content">買賣「空氣」也能賺錢？揭開碳權交易的神秘面紗故事引入：阿明是間中小企業的老闆，最近參加了一場產業論壇，聽到同行熱烈討論「買碳權」。他滿頭問號：「碳權是什麼？難道連『空氣』都能買賣？這跟我的公司有什麼關係？」回家後，他上網搜尋，卻被一堆專有名詞淹沒：「總量管制」、「抵換專案」、「自願性市場」…… 越看越糊塗。如果你也跟阿明一樣好奇，別擔心，讓我們用幾個簡單的問答，一起搞懂這個正在改變世界經濟規則的「碳市場」。---Q1：碳權到底是什麼？為什麼可以「交易」？你可以把碳權想像成一種「排放二氧化碳的許可證」。為了對抗氣候變遷，許多國家或地區政府會為轄區內的企業（特別是排碳大戶，如發電、鋼鐵、水泥業）設...</div>
-                        <a href="2026-04-17-買賣「空氣」也能賺錢？揭開碳權交易的神秘面紗.html" class="read-more">🔗 閱讀全文 →</a>
-                    </div>
-                    
-                    <div class="section-title">📖 過往文章</div>
-                    <ul class="past-list">
-                        
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-17-買賣「空氣」也能賺錢？揭開碳權交易的神秘面紗.html">買賣「空氣」也能賺錢？揭開碳權交易的神秘面紗</a>
-                            <div class="past-meta">📅 2026-04-17</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-17-碳權交易入門：五分鐘搞懂「空氣買賣」的遊戲規則.html">碳權交易入門：五分鐘搞懂「空氣買賣」的遊戲規則</a>
-                            <div class="past-meta">📅 2026-04-17</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-15-電費單上的「碳足跡」：原來省電不只省錢，還救了北極熊？.html">電費單上的「碳足跡」：原來省電不只省錢，還救了北極熊？</a>
-                            <div class="past-meta">📅 2026-04-15</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-13-「碳帳本」革命：從一杯咖啡到國家戰略，揭開淨零排放的數據之戰.html">「碳帳本」革命：從一杯咖啡到國家戰略，揭開淨零排放的數據之戰</a>
-                            <div class="past-meta">📅 2026-04-13</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-09-碳中和，不只是「歸零」的數學遊戲：五個關鍵清單帶你破解迷思.html">碳中和，不只是「歸零」的數學遊戲：五個關鍵清單帶你破解迷思</a>
-                            <div class="past-meta">📅 2026-04-09</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-05-當「減碳模範生」遇上「碳排大戶」：一場改變世界的市場交易.html">當「減碳模範生」遇上「碳排大戶」：一場改變世界的市場交易</a>
-                            <div class="past-meta">📅 2026-04-05</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-01-碳權交易：企業的「排放額度」買賣指南.html">碳權交易：企業的「排放額度」買賣指南</a>
-                            <div class="past-meta">📅 2026-04-01</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-03-28-**碳關稅浪潮來襲：台灣產業的綠色生存戰**.html">碳關稅浪潮來襲：台灣產業的綠色生存戰</a>
-                            <div class="past-meta">📅 2026-03-28</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-03-28-誰在買賣空氣？一個咖啡館老闆的碳權奇遇.html">誰在買賣空氣？一個咖啡館老闆的碳權奇遇</a>
-                            <div class="past-meta">📅 2026-03-28</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-03-27-從「碳盤查」開始，解鎖企業與個人的綠色未來.html">從「碳盤查」開始，解鎖企業與個人的綠色未來</a>
-                            <div class="past-meta">📅 2026-03-27</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-03-27-**標題：從「碳盤查」開始，你的減碳第一步：企業與個人必懂的氣候行動指南**.html">從「碳盤查」開始，你的減碳第一步：企業與個人必懂的氣候行動指南</a>
-                            <div class="past-meta">📅 2026-03-27</div>
-                        </li>
-                    </ul>
+        <div class="article-container">
+            <div class="article-category">📌 碳盤查</div>
+            <h1 class="article-title">碳權交易入門：五分鐘搞懂「空氣買賣」的遊戲規則</h1>
+            <div class="article-date">📅 2026年04月17日</div>
+            <div class="article-content">碳權交易入門：五分鐘搞懂「空氣買賣」的遊戲規則<br><br>想像一下，排放二氧化碳的權利，可以像股票一樣在市場上買賣。這就是「碳權交易」的核心概念。它是一個為了減緩氣候變遷而設計的經濟工具，用市場機制來引導全球減碳。以下用條列方式，帶你快速掌握基礎知識。<br><br>---<br><br>1. 什麼是碳權？<br>*   定義：碳權是一種「排放許可證」，代表排放 1 公噸二氧化碳當量 的權利。<br>*   核心精神：將碳排放總量設定上限，並讓這個「排放額度」具有交易價值，創造企業減碳的經濟誘因。<br>*   兩種主要類型：<br>    *   強制性碳權：由政府或國際體系（如歐盟碳排放交易體系 EU ETS）配發或拍賣，受管制企業必須遵守。<br>    *   自願性碳權：由企業或個人自願購買，用以抵銷自身無法消除的碳排放，通常來自再生能源、造林等減碳專案。<br><br>2. 碳權交易市場如何運作？<br>市場運作邏輯就像一個「總量管制與交易」的遊戲：<br>*   步驟一：設定總量<br>    管理者（如政府）為特定產業或區域設定一段時間內的碳排放總上限。<br>*   步驟二：分配額度<br>    將排放額度（碳權）免費配發或拍賣給受管制的企業。<br>*   步驟三：自由交易<br>    *   減碳成本高的企業：如果減排困難、成本昂貴，可以選擇到市場上「購買」額外的碳權，以符合法規要求。<br>    *   減碳成本低的企業：如果透過技術升級、能源轉型，實際排放量低於手中持有的額度，就可以將多餘的碳權「出售」賺取利潤。<br>*   步驟四：年度清算<br>    每年結束時，企業必須繳交與其實際排放量等量的碳權進行註銷。若不足，則面臨巨額罰款。<br><br>3. 為什麼要有碳交易？三大關鍵好處<br>*   用最低成本達成減碳目標：讓市場自動尋找成本最低的減排路徑，整體社會減碳效率最高。<br>*   驅動綠色創新：碳權成為有價資產，直接激勵企業投資低碳技術與再生能源，因為省下的碳權就是收入。<br>*   為碳排放定價：將「污染環境」的外部成本，內部化為企業的財務成本，符合「污染者付費」原則。<br><br>4. 自願性碳市場：企業與個人都能參與<br>這是你我較可能接觸到的領域：<br>*   企業用途：用於實現「碳中和」承諾。例如，航空公司無法完全消除航班排放，便可投資國際認證的造林專案所產生的碳權來抵銷。<br>*   個人用途：計算個人碳足跡（如飛行里程）後，可自願購買碳權來抵銷，對地球盡一份心力。<br>*   重要原則：高品質的碳權需具備 「外加性」（沒有碳權收益，該減碳專案就不會發生）、「永久性」 及 「避免重複計算」。<br><br>5. 常見迷思與挑戰<br>*   迷思：買碳權等於買到「污染權」？<br>    正確觀念：交易系統的前提是「總量持續下降」。購買碳權是為當下的必要排放付出成本，並將資金引導至減碳領域，同時激勵買方未來自身必須減量。<br>*   主要挑戰：<br>    *   碳定價過低：若價格太低，將無法產生足夠減碳誘因。<br>    *   碳洩漏：產業可能移往管制寬鬆的地區，導致全球碳排放未減少。<br>    *   專案品質爭議：自願性市場的碳權專案，其真實減碳效益需嚴格驗證。<br><br>---<br><br>理解碳權交易，就是理解當代經濟體系如何試圖為「潔淨空氣」標上價格，並運用市場這隻「看不見的手」，引導資金與技術流向最需要的地方。這套機制並非完美解方，但已是目前國際上推動大規模減碳的重要引擎之一。<br><br>下次聽到某公司購買碳權達成碳中和時，你就能明白，這不只是公關宣傳，背後連動的是一套複雜而有趣的全球環境經濟學。<br><br>🌿 蕨積 - 讓生活多一點綠</div>
+          
+            <div class="footer">
+                <br>每日一篇，與你一起成長<br><br>
+                <div class="nav-links">
+                    <a href="index.html">← 返回每日文章</a> &nbsp;|&nbsp;
+                    <a href="carbon.html">← 返回碳盤查文章分類</a> &nbsp;|&nbsp;
+                    <a href="../shop.html">🌱 植物選品</a> &nbsp;|&nbsp;
+                    <a href="../consult.html">💚 綠色服務</a>
                 </div>
             </div>
         </div>
     </main>
-    
     <footer>
     <ul class="footer-links">
       <li><a href="/shop.html">植物選品</a></li>
@@ -393,9 +334,7 @@
     </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
-    
     <script>
-        
 document.addEventListener('DOMContentLoaded', function () {
   fetch('/nav.html')
     .then(response => response.text())
@@ -452,7 +391,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 });
-
-    </script>
+</script>
 </body>
 </html>
