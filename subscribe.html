@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>訂閱 / 取消訂閱｜蕨積每日摘要</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --moss: #3d5a38;
+            --fern: #5a7a4a;
+            --stone: #9a9080;
+            --paper: #faf7f2;
+        }
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--paper);
+            color: #2c3e2f;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+        }
+        h1 {
+            font-family: 'Noto Serif TC', serif;
+            color: var(--moss);
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+        .subtitle {
+            color: var(--stone);
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+        .tab-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e0dbd0;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            color: var(--stone);
+            transition: all 0.2s;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .tab-btn.active {
+            color: var(--fern);
+            border-bottom: 2px solid var(--fern);
+            font-weight: 500;
+        }
+        .tab-pane {
+            display: none;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--moss);
+        }
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e0dbd0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Noto Sans TC', sans-serif;
+            background: white;
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--fern);
+        }
+        button {
+            background: var(--fern);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: var(--moss);
+        }
+        .message {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+        .message.success {
+            display: block;
+            background: #d4e4c8;
+            color: #2c5e2e;
+        }
+        .message.error {
+            display: block;
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--stone);
+            font-size: 0.75rem;
+            border-top: 1px solid #e0dbd0;
+        }
+        .footer a {
+            color: var(--fern);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌿 蕨積</h1>
+        <div class="subtitle">每日文章摘要訂閱服務</div>
+        
+        <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="subscribe">📧 訂閱</button>
+            <button class="tab-btn" data-tab="unsubscribe">🔕 取消訂閱</button>
+        </div>
+        
+        <!-- 訂閱表單 -->
+        <div id="subscribe-pane" class="tab-pane active">
+            <form id="subscribeForm">
+                <div class="form-group">
+                    <label>姓名 *</label>
+                    <input type="text" id="sub-name" required placeholder="請輸入您的姓名">
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="sub-email" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>偏好類別（選填）</label>
+                    <select id="sub-preference">
+                        <option value="all">全部</option>
+                        <option value="plant">植物</option>
+                        <option value="sustainability">永續</option>
+                        <option value="carbon">碳盤查</option>
+                        <option value="life">生活</option>
+                    </select>
+                </div>
+                <button type="submit">訂閱</button>
+            </form>
+        </div>
+        
+        <!-- 取消訂閱表單 -->
+        <div id="unsubscribe-pane" class="tab-pane">
+            <form id="unsubscribeForm">
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="unsub-email" required placeholder="your@email.com">
+                </div>
+                <button type="submit">取消訂閱</button>
+            </form>
+        </div>
+        
+        <div id="message" class="message"></div>
+    </div>
+    
+    <div class="footer">
+        <p>每天一篇，與你一起成長 🌿</p>
+        <p><a href="/">返回首頁</a></p>
+    </div>
+
+    <script>
+        // Tab 切換
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const panes = {
+            subscribe: document.getElementById('subscribe-pane'),
+            unsubscribe: document.getElementById('unsubscribe-pane')
+        };
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.getAttribute('data-tab');
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                Object.values(panes).forEach(pane => pane.classList.remove('active'));
+                panes[tab].classList.add('active');
+                document.getElementById('message').style.display = 'none';
+            });
+        });
+        
+        // Google Apps Script 網址（請替換成你的）
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/你的部署ID/exec';
+        
+        // 訂閱
+        document.getElementById('subscribeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('sub-name').value;
+            const email = document.getElementById('sub-email').value;
+            const preference = document.getElementById('sub-preference').value;
+            const messageDiv = document.getElementById('message');
+            
+            try {
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'subscribe',
+                        name: name,
+                        email: email,
+                        preference: preference
+                    })
+                });
+                
+                messageDiv.className = 'message success';
+                messageDiv.style.display = 'block';
+                messageDiv.innerHTML = '✅ 訂閱成功！每天將為您送上精彩摘要。<br>已發送驗證信，請確認。';
+                document.getElementById('subscribeForm').reset();
+            } catch (error) {
+                messageDiv.className = 'message error';
+                messageDiv.style.display = 'block';
+                messageDiv.innerHTML = '❌ 訂閱失敗，請稍後再試。';
+            }
+        });
+        
+        // 取消訂閱
+        document.getElementById('unsubscribeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('unsub-email').value;
+            const messageDiv = document.getElementById('message');
+            
+            try {
+                const response = await fetch(`${APPS_SCRIPT_URL}?action=unsubscribe&email=${encodeURIComponent(email)}`);
+                const text = await response.text();
+                
+                messageDiv.className = 'message success';
+                messageDiv.style.display = 'block';
+                messageDiv.innerHTML = text.includes('成功') ? '✅ 已取消訂閱，您將不再收到摘要信件。' : '❌ ' + text;
+                document.getElementById('unsubscribeForm').reset();
+            } catch (error) {
+                messageDiv.className = 'message error';
+                messageDiv.style.display = 'block';
+                messageDiv.innerHTML = '❌ 操作失敗，請稍後再試。';
+            }
+        });
+    </script>
+</body>
+</html>
