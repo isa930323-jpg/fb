@@ -258,7 +258,15 @@
                 messageDiv.style.display = 'block';
                 messageDiv.innerHTML = '❌ 操作失敗，請稍後再試。';
             }
-        });
+        });if (data.success) {
+  // 成功
+} else {
+  if (data.error === "此 Email 已訂閱過") {
+    messageDiv.innerHTML = '⚠️ 此 Email 已訂閱過，無需重複訂閱。';
+  } else {
+    messageDiv.innerHTML = '❌ 訂閱失敗，請稍後再試。';
+  }
+}
     </script>
 </body>
 </html>
