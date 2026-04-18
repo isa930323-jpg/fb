@@ -207,8 +207,7 @@
         // Google Apps Script 網址（請替換成你的）
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwrgBWtZzMTyG2J1Gjt_kvme1XRjQRRpkPJr4e7W9Y2XHeTjO9tc1DpZrVhvFLA7bPEvA/exec';
         
-       
-      // 訂閱（改用 GET 避免 CORS）
+     // 訂閱（不讀取回應，避免 CORS 錯誤）
 document.getElementById('subscribeForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = document.getElementById('sub-name').value;
@@ -216,29 +215,39 @@ document.getElementById('subscribeForm').addEventListener('submit', async (e) =>
     const preference = document.getElementById('sub-preference').value;
     const messageDiv = document.getElementById('message');
     
+    // 顯示「送出中」提示
+    messageDiv.className = 'message success';
+    messageDiv.style.display = 'block';
+    messageDiv.innerHTML = '📡 送出中，請稍候...';
+    
     try {
-        const url = `${APPS_SCRIPT_URL}?action=subscribe&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&preference=${encodeURIComponent(preference)}`;
-        const response = await fetch(url);
-        const text = await response.text();
+        const response = await fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',  // 關鍵：不等待回應，避免 CORS
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action: 'subscribe',
+                name: name,
+                email: email,
+                preference: preference
+            })
+        });
         
-        if (text.includes("成功") || text.includes("重新訂閱成功")) {
-            messageDiv.className = 'message success';
-            messageDiv.style.display = 'block';
-            messageDiv.innerHTML = text === "重新訂閱成功" ? '✅ 重新訂閱成功！' : '✅ 訂閱成功！每天將為您送上精彩摘要。';
-            document.getElementById('subscribeForm').reset();
-        } else {
-            messageDiv.className = 'message error';
-            messageDiv.style.display = 'block';
-            if (text.includes("已訂閱過")) {
-                messageDiv.innerHTML = '⚠️ 此 Email 已訂閱過，無需重複訂閱。';
-            } else {
-                messageDiv.innerHTML = '❌ 訂閱失敗：' + text;
-            }
-        }
+        // 因為 mode: 'no-cors'，無法讀取回應，直接假設成功
+        messageDiv.className = 'message success';
+        messageDiv.style.display = 'block';
+        messageDiv.innerHTML = '✅ 訂閱申請已送出！<br>若 Email 未重複，將會收到摘要信件。';
+        document.getElementById('subscribeForm').reset();
+        
+        // 5 秒後自動清除訊息
+        setTimeout(() => {
+            messageDiv.style.display = 'none';
+        }, 5000);
+        
     } catch (error) {
         messageDiv.className = 'message error';
         messageDiv.style.display = 'block';
-        messageDiv.innerHTML = '❌ 訂閱失敗，請稍後再試。';
+        messageDiv.innerHTML = '❌ 送出失敗，請稍後再試。';
     }
 });
         
