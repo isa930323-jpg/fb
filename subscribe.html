@@ -208,7 +208,7 @@
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwrgBWtZzMTyG2J1Gjt_kvme1XRjQRRpkPJr4e7W9Y2XHeTjO9tc1DpZrVhvFLA7bPEvA/exec';
         
        
-       // 訂閱
+      // 訂閱（改用 GET 避免 CORS）
 document.getElementById('subscribeForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = document.getElementById('sub-name').value;
@@ -217,31 +217,22 @@ document.getElementById('subscribeForm').addEventListener('submit', async (e) =>
     const messageDiv = document.getElementById('message');
     
     try {
-        const response = await fetch(APPS_SCRIPT_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                action: 'subscribe',
-                name: name,
-                email: email,
-                preference: preference
-            })
-        });
+        const url = `${APPS_SCRIPT_URL}?action=subscribe&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&preference=${encodeURIComponent(preference)}`;
+        const response = await fetch(url);
+        const text = await response.text();
         
-        const data = await response.json();
-        
-        if (data.success) {
+        if (text.includes("成功") || text.includes("重新訂閱成功")) {
             messageDiv.className = 'message success';
             messageDiv.style.display = 'block';
-            messageDiv.innerHTML = '✅ 訂閱成功！每天將為您送上精彩摘要。';
+            messageDiv.innerHTML = text === "重新訂閱成功" ? '✅ 重新訂閱成功！' : '✅ 訂閱成功！每天將為您送上精彩摘要。';
             document.getElementById('subscribeForm').reset();
         } else {
             messageDiv.className = 'message error';
             messageDiv.style.display = 'block';
-            if (data.error === "此 Email 已訂閱過") {
+            if (text.includes("已訂閱過")) {
                 messageDiv.innerHTML = '⚠️ 此 Email 已訂閱過，無需重複訂閱。';
             } else {
-                messageDiv.innerHTML = '❌ 訂閱失敗：' + data.error;
+                messageDiv.innerHTML = '❌ 訂閱失敗：' + text;
             }
         }
     } catch (error) {
