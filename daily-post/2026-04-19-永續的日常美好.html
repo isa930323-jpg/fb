@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📊 碳盤查文章 - 蕨積每日文章</title>
+    <meta name="description" content="探索永續的世界，發現生活中的美好。">
+    <meta name="article-summary" content="探索永續的世界，發現生活中的美好。">
+    <meta name="article-keypoints" content='["觀點一", "觀點二", "觀點三"]'>
+    <title>永續的日常美好 - 蕨積每日文章</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -256,134 +259,61 @@
         flex-wrap: wrap;
       }
     }
-    .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .page-header { text-align: center; margin-bottom: 2rem; }
-    .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
-    .page-header p { color: var(--stone); margin-top: 0.5rem; }
-    
-    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
-    .main-col { flex: 3; min-width: 250px; }
-    
-    .latest-article {
-        background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    .article-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
-    .latest-category {
+    .article-category {
         display: inline-block;
+        background: #2c7a4d;
         color: white;
         padding: 0.2rem 0.8rem;
         border-radius: 20px;
         font-size: 0.8rem;
         margin-bottom: 1rem;
     }
-    .latest-title { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.5rem; }
-    .latest-date { color: var(--stone); margin-bottom: 1.5rem; font-size: 0.9rem; }
-    .latest-content { line-height: 1.8; }
-    .read-more { display: inline-block; margin-top: 1rem; color: var(--fern); text-decoration: none; font-weight: 500; }
-    
-    .section-title { font-size: 1.2rem; color: var(--moss); border-bottom: 2px solid #e0d6cc; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-    .past-list { list-style: none; }
-    .past-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0e8e0; }
-    .past-link { font-size: 0.95rem; font-weight: 500; color: var(--fern); text-decoration: none; display: block; }
-    .past-link:hover { text-decoration: underline; }
-    .past-meta { font-size: 0.7rem; color: #aaa; margin-top: 0.25rem; }
-    .past-badge { display: inline-block; font-size: 0.65rem; padding: 0.1rem 0.5rem; border-radius: 12px; color: white; margin-right: 0.5rem; }
-    
+    .article-title {
+        font-size: 2rem;
+        color: var(--moss);
+        margin-bottom: 0.5rem;
+        font-family: 'Noto Serif TC', serif;
+    }
+    .article-date {
+        color: var(--stone);
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+    }
+    .article-content {
+        line-height: 1.8;
+        font-size: 1rem;
+    }
     @media (max-width: 768px) {
-        .two-columns { flex-direction: column; }
-        .latest-title { font-size: 1.4rem; }
-        .daily-container { padding: 0 1rem; }
+        .article-title { font-size: 1.5rem; }
+        .article-container { padding: 0 1rem; }
     }
     </style>
 </head>
 <body>
     <div id="nav-placeholder"></div>
-    
     <main class="content">
-        <div class="daily-container">
-            <div class="page-header">
-                <h1>📊 碳盤查文章</h1>
-                <p>蕨積每日文章 - 碳盤查分類精選</p>
-            </div>
+        <div class="article-container">
+            <div class="article-category">📌 永續</div>
+            <h1 class="article-title">永續的日常美好</h1>
+            <div class="article-date">📅 2026年04月19日</div>
+            <div class="article-content"><h2>關於永續</h2><p>今天讓我們一起探索永續的美好。在這個快速變化的時代，永續為我們帶來平靜與啟發。</p><h2>為什麼要關注永續</h2><p>因為它與我們的日常生活息息相關，值得我們深入了解。</p><p>結語：讓我們一起持續學習與成長！</p></div>
             
-            <div class="two-columns">
-                <div class="main-col">
-                    
-                    <div class="latest-article">
-                        <div class="latest-category" style="background: #1e6f5c;">📌 碳盤查</div>
-                        <h1 class="latest-title">買賣「空氣」也能賺錢？揭開碳權交易的神秘面紗</h1>
-                        <div class="latest-date">📅 2026-04-17</div>
-                        <div class="latest-content">買賣「空氣」也能賺錢？揭開碳權交易的神秘面紗故事引入：阿明是間中小企業的老闆，最近參加了一場產業論壇，聽到同行熱烈討論「買碳權」。他滿頭問號：「碳權是什麼？難道連『空氣』都能買賣？這跟我的公司有什麼關係？」回家後，他上網搜尋，卻被一堆專有名詞淹沒：「總量管制」、「抵換專案」、「自願性市場」…… 越看越糊塗。如果你也跟阿明一樣好奇，別擔心，讓我們用幾個簡單的問答，一起搞懂這個正在改變世界經濟規則的「碳市場」。---Q1：碳權到底是什麼？為什麼可以「交易」？你可以把碳權想像成一種「排放二氧化碳的許可證」。為了對抗氣候變遷，許多國家或地區政府會為轄區內的企業（特別是排碳大戶，如發電、鋼鐵、水泥業）設...</div>
-                        <a href="2026-04-17-買賣「空氣」也能賺錢？揭開碳權交易的神秘面紗.html" class="read-more">🔗 閱讀全文 →</a>
-                    </div>
-                    
-                    <div class="section-title">📖 過往文章</div>
-                    <ul class="past-list">
-                        
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-17-買賣「空氣」也能賺錢？揭開碳權交易的神秘面紗.html">買賣「空氣」也能賺錢？揭開碳權交易的神秘面紗</a>
-                            <div class="past-meta">📅 2026-04-17</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-17-碳權交易入門：五分鐘搞懂「空氣買賣」的遊戲規則.html">碳權交易入門：五分鐘搞懂「空氣買賣」的遊戲規則</a>
-                            <div class="past-meta">📅 2026-04-17</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-15-電費單上的「碳足跡」：原來省電不只省錢，還救了北極熊？.html">電費單上的「碳足跡」：原來省電不只省錢，還救了北極熊？</a>
-                            <div class="past-meta">📅 2026-04-15</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-13-「碳帳本」革命：從一杯咖啡到國家戰略，揭開淨零排放的數據之戰.html">「碳帳本」革命：從一杯咖啡到國家戰略，揭開淨零排放的數據之戰</a>
-                            <div class="past-meta">📅 2026-04-13</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-09-碳中和，不只是「歸零」的數學遊戲：五個關鍵清單帶你破解迷思.html">碳中和，不只是「歸零」的數學遊戲：五個關鍵清單帶你破解迷思</a>
-                            <div class="past-meta">📅 2026-04-09</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-05-當「減碳模範生」遇上「碳排大戶」：一場改變世界的市場交易.html">當「減碳模範生」遇上「碳排大戶」：一場改變世界的市場交易</a>
-                            <div class="past-meta">📅 2026-04-05</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-01-碳權交易：企業的「排放額度」買賣指南.html">碳權交易：企業的「排放額度」買賣指南</a>
-                            <div class="past-meta">📅 2026-04-01</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-03-28-**碳關稅浪潮來襲：台灣產業的綠色生存戰**.html">碳關稅浪潮來襲：台灣產業的綠色生存戰</a>
-                            <div class="past-meta">📅 2026-03-28</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-03-28-誰在買賣空氣？一個咖啡館老闆的碳權奇遇.html">誰在買賣空氣？一個咖啡館老闆的碳權奇遇</a>
-                            <div class="past-meta">📅 2026-03-28</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-03-27-從「碳盤查」開始，解鎖企業與個人的綠色未來.html">從「碳盤查」開始，解鎖企業與個人的綠色未來</a>
-                            <div class="past-meta">📅 2026-03-27</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-03-27-**標題：從「碳盤查」開始，你的減碳第一步：企業與個人必懂的氣候行動指南**.html">從「碳盤查」開始，你的減碳第一步：企業與個人必懂的氣候行動指南</a>
-                            <div class="past-meta">📅 2026-03-27</div>
-                        </li>
-                    </ul>
+            <div class="footer">
+                <br>每日一篇，與你一起成長<br><br>
+                <div class="nav-links">
+                    <a href="index.html">← 返回所有文章</a> &nbsp;|&nbsp;
+                    <a href="sustainability.html">← 返回永續分類</a> &nbsp;|&nbsp;
+                    <a href="../shop.html">🌱 植物選品</a> &nbsp;|&nbsp;
+                    <a href="../consult.html">💚 綠色顧問</a>
                 </div>
             </div>
         </div>
     </main>
-    
     <footer>
     <ul class="footer-links">
       <li><a href="/shop.html">植物選品</a></li>
@@ -393,9 +323,7 @@
     </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
-    
     <script>
-        
 document.addEventListener('DOMContentLoaded', function () {
   fetch('/nav.html')
     .then(response => response.text())
@@ -452,7 +380,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 });
-
-    </script>
+</script>
 </body>
 </html>
