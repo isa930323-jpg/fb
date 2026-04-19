@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>♻️ 永續文章 - 蕨積每日文章</title>
+    <title>《我的植生牆實驗日記：從漏水噩夢到垂直綠洲的結構三部曲》 - 蕨積每日文章</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -256,144 +256,75 @@
         flex-wrap: wrap;
       }
     }
-    .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .page-header { text-align: center; margin-bottom: 2rem; }
-    .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
-    .page-header p { color: var(--stone); margin-top: 0.5rem; }
-    
-    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
-    .main-col { flex: 3; min-width: 250px; }
-    
-    .latest-article {
-        background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    .article-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
-    .latest-category {
+    .article-category {
         display: inline-block;
+        background: #4a7c59;
         color: white;
         padding: 0.2rem 0.8rem;
         border-radius: 20px;
         font-size: 0.8rem;
         margin-bottom: 1rem;
     }
-    .latest-title { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.5rem; }
-    .latest-date { color: var(--stone); margin-bottom: 1.5rem; font-size: 0.9rem; }
-    .latest-content { line-height: 1.8; }
-    .read-more { display: inline-block; margin-top: 1rem; color: var(--fern); text-decoration: none; font-weight: 500; }
-    
-    .section-title { font-size: 1.2rem; color: var(--moss); border-bottom: 2px solid #e0d6cc; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-    .past-list { list-style: none; }
-    .past-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0e8e0; }
-    .past-link { font-size: 0.95rem; font-weight: 500; color: var(--fern); text-decoration: none; display: block; }
-    .past-link:hover { text-decoration: underline; }
-    .past-meta { font-size: 0.7rem; color: #aaa; margin-top: 0.25rem; }
-    .past-badge { display: inline-block; font-size: 0.65rem; padding: 0.1rem 0.5rem; border-radius: 12px; color: white; margin-right: 0.5rem; }
-    
+    .article-title {
+        font-size: 2rem;
+        color: var(--moss);
+        margin-bottom: 0.5rem;
+        font-family: 'Noto Serif TC', serif;
+    }
+    .article-date {
+        color: var(--stone);
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+    }
+    .article-content {
+        line-height: 1.8;
+        font-size: 1rem;
+    }
+    .article-footer {
+        text-align: center;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid #e0d6cc;
+        color: var(--stone);
+        font-size: 0.9rem;
+    }
+    .back-link {
+        display: inline-block;
+        margin-top: 1rem;
+        color: var(--fern);
+        text-decoration: none;
+    }
     @media (max-width: 768px) {
-        .two-columns { flex-direction: column; }
-        .latest-title { font-size: 1.4rem; }
-        .daily-container { padding: 0 1rem; }
+        .article-title { font-size: 1.5rem; }
+        .article-container { padding: 0 1rem; }
     }
     </style>
 </head>
 <body>
     <div id="nav-placeholder"></div>
-    
     <main class="content">
-        <div class="daily-container">
-            <div class="page-header">
-                <h1>♻️ 永續文章</h1>
-                <p>蕨積每日文章 - 永續分類精選</p>
-            </div>
-            
-            <div class="two-columns">
-                <div class="main-col">
-                    
-                    <div class="latest-article">
-                        <div class="latest-category" style="background: #2c7a4d;">📌 永續</div>
-                        <h1 class="latest-title">永續的日常美好</h1>
-                        <div class="latest-date">📅 2026-04-19</div>
-                        <div class="latest-content">關於永續今天讓我們一起探索永續的美好。在這個快速變化的時代，永續為我們帶來平靜與啟發。為什麼要關注永續因為它與我們的日常生活息息相關，值得我們深入了解。結語：讓我們一起持續學習與成長！</div>
-                        <a href="2026-04-19-永續的日常美好.html" class="read-more">🔗 閱讀全文 →</a>
-                    </div>
-                    
-                    <div class="section-title">📖 過往文章</div>
-                    <ul class="past-list">
-                        
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-04-19-永續的日常美好.html">永續的日常美好</a>
-                            <div class="past-meta">📅 2026-04-19</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-04-16-別讓地球「碳」氣三個關鍵數據帶你實踐低碳生活.html">別讓地球「碳」氣！三個關鍵數據帶你實踐低碳生活</a>
-                            <div class="past-meta">📅 2026-04-16</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-04-15-今天只丟三樣垃圾：我的零浪費生活實驗.html">今天只丟三樣垃圾：我的零浪費生活實驗</a>
-                            <div class="past-meta">📅 2026-04-15</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-04-15-衣櫃裡的永續革命：當舊衣不再只是「丟掉」的選擇.html">衣櫃裡的永續革命：當舊衣不再只是「丟掉」的選擇</a>
-                            <div class="past-meta">📅 2026-04-15</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-04-12-你的購物車，正在改變地球的溫度：一份「少買精買」的永續消費指南.html">你的購物車，正在改變地球的溫度：一份「少買精買」的永續消費指南</a>
-                            <div class="past-meta">📅 2026-04-12</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-04-08-**不只打卡，更要「碳」息：給地球的輕旅行備忘錄**.html">**不只打卡，更要「碳」息：給地球的輕旅行備忘錄**</a>
-                            <div class="past-meta">📅 2026-04-08</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-04-04-垃圾減量實驗：一個月只丟一罐垃圾的生活挑戰.html">垃圾減量實驗：一個月只丟一罐垃圾的生活挑戰</a>
-                            <div class="past-meta">📅 2026-04-04</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-03-31-**衣櫃裡的永續革命：給舊衣服的五個新任務**.html">**衣櫃裡的永續革命：給舊衣服的五個新任務**</a>
-                            <div class="past-meta">📅 2026-03-31</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-03-31-**不只賺錢，更賺未來：五家把永續變核心競爭力的大企業**.html">不只賺錢，更賺未來：五家把永續變核心競爭力的大企業</a>
-                            <div class="past-meta">📅 2026-03-31</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-03-27-從日常小事開始，打造你的永續生活提案.html">從日常小事開始，打造你的永續生活提案</a>
-                            <div class="past-meta">📅 2026-03-27</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-03-27-**標題：從一杯咖啡開始的永續革命：你的日常選擇，如何改變世界？**.html">從一杯咖啡開始的永續革命：你的日常選擇，如何改變世界？</a>
-                            <div class="past-meta">📅 2026-03-27</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-03-26-**標題：從一杯咖啡開始的永續革命：你的日常選擇，如何改變世界？**.html">從一杯咖啡開始的永續革命：你的日常選擇，如何改變世界？</a>
-                            <div class="past-meta">📅 2026-03-26</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-03-26-從日常小事做起，打造你的永續生活圈.html">從日常小事做起，打造你的永續生活圈</a>
-                            <div class="past-meta">📅 2026-03-26</div>
-                        </li>
-                    </ul>
+        <div class="article-container">
+            <div class="article-category">📌 植物</div>
+            <h1 class="article-title">《我的植生牆實驗日記：從漏水噩夢到垂直綠洲的結構三部曲》</h1>
+            <div class="article-date">📅 2026年04月19日</div>
+            <div class="article-content">《我的植生牆實驗日記：從漏水噩夢到垂直綠洲的結構三部曲》<br><br>2023年10月15日 星期日 晴<br><br>終於下定決心在公寓陽台打造一面植生牆了！不是買現成模組，而是想從結構開始自己規劃。作為一個植物愛好者，我深知「美觀」是最後一步，「基礎」才是成敗關鍵。今天開始記錄這個從零到有的過程，重點全在那些看不見卻至關重要的細節上。<br><br>---<br><br>第一部：骨架的選擇——它必須比你想的更強壯<br><br>首先遇到的問題就是：牆面基礎結構。我的陽台牆是常見的磁磚面，不能隨便打釘。研究後，我規劃了幾個要點：<br><br>*   獨立框架 vs. 直接附著：我選擇了「獨立式金屬框架」。好處是：<br>    *   完全不傷害原有牆面。<br>    *   在框架與牆壁之間創造了一個關鍵的「空氣層」，這對後續的防水、散熱和檢修至關重要。<br>    *   承重更均勻，能負載濕潤後沉重的介質和植物。<br>*   材質是靈魂：一定要用「防鏽材質」！我選了熱浸鍍鋅角鋼。陽台風吹日曬雨淋，普通鐵材一年後就可能鏽蝕，導致整個結構危險。這筆錢絕對不能省。<br>*   預留管線空間：在規劃框架時，就要想好自動澆灌的水管、電線（如果未來想加裝植物燈）的走線路徑，預留孔洞或綁縛點。<br><br>第二部：防水的迷思——水不會往下流，而是無孔不入<br><br>防水層是確保室內牆壁不發霉、不滲水的生命線。我的慘痛教訓來自一個小實驗：我以為在框架上鋪一層防水布就夠了，結果：<br><br>*   「兜住」比「擋住」更重要：防水層（我後來改用高密度PVC防水膜）不是平鋪在框架上就好。它的角色更像一個「兜水的碗」。我必須確保：<br>    *   防水膜完整無接縫，或接縫處確實專業焊接/黏合。<br>    *   膜要向上延伸，並在頂端邊緣做出一個「翻邊」，像水槽的邊緣一樣，防止水從上方邊緣反向滲入牆壁。<br>    *   所有螺絲穿孔處，都必須用專用的防水墊片和密封膠處理，一個小洞就是一條隱形水路。<br>*   測試是唯一真理：在安裝任何植物或介質前，我花了整整一個下午做「靜水測試」。用緩慢水流持續淋在防水膜上，觀察背面和牆角數小時。果然發現了兩個微小滲漏點，立即修補。這個步驟救了我未來客廳的牆面！<br><br>第三部：排水的藝術——讓多餘的水有尊嚴地離開<br><br>排水和防水是一體兩面。水排得越快、越順，防水層的壓力就越小，植物根系也不易泡爛。<br><br>*   坡度是關鍵：我的框架在安裝時，就預設了肉眼難以察覺的「微小坡度」（大約每公尺1-2%的傾斜）。讓多餘的水能自然流向預設的排水點，而不是積在底部。<br>*   排水層與導水路：在防水膜之上，我先鋪了一層「排水板」（一種凹凸設計的塑膠板）。這能創造一個空氣流通、讓水快速流走的通道。排水板的凹槽方向，要對準我的排水孔。<br>*   明確的排水路徑：底部設置集水槽，並連接導水管，將收集的水引導至陽台地排。絕對不能讓水無組織地四處滴淌。我甚至考慮未來在集水槽加裝一個小幫浦，實現循環澆灌。<br><br>---<br><br>今天先記錄到這裡。骨架立起來了，防水和排水也通過了初步測試。摸著堅固的框架和乾爽的牆面，雖然還沒有一片綠葉，但心裡卻無比踏實。原來，創造一片生機盎然的垂直森林，第一步竟是如此理性與工程思維。這大概就是與自然共處的智慧吧：先尊重物理，才能擁抱生命。<br><br>期待下一階段——介質與灌溉系統的挑戰！<br><br>🌿 蕨積 - 讓生活多一點綠</div>
+          
+            <div class="footer">
+                <br>每日一篇，與你一起成長<br><br>
+                <div class="nav-links">
+                    <a href="index.html">← 返回每日文章</a> &nbsp;|&nbsp;
+                    <a href="plant.html">← 返回植物文章分類</a> &nbsp;|&nbsp;
+                    <a href="../shop.html">🌱 植物選品</a> &nbsp;|&nbsp;
+                    <a href="../consult.html">💚 綠色服務</a>
                 </div>
             </div>
         </div>
     </main>
-    
     <footer>
     <ul class="footer-links">
       <li><a href="/shop.html">植物選品</a></li>
@@ -403,9 +334,7 @@
     </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
-    
     <script>
-        
 document.addEventListener('DOMContentLoaded', function () {
   fetch('/nav.html')
     .then(response => response.text())
@@ -462,7 +391,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 });
-
-    </script>
+</script>
 </body>
 </html>
