@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    /* ===== 共用樣式 ===== */
+    /* ===== 共用樣式 (完整保留) ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --ink: #1a1a14;
@@ -227,7 +227,7 @@
     /* ----- 頁面內容區域 ----- */
     .content {
       flex: 1;
-      padding-top: 92px; /* 72px nav + 20px 間距 */
+      padding-top: 92px;
       padding-bottom: 40px;
     }
 
@@ -282,7 +282,7 @@
       }
     }
     
-    /* ===== 訂閱頁面專用樣式 (僅調整視覺優化，不破壞原有結構) ===== */
+    /* ===== 訂閱頁面專用樣式 (視覺優化保留) ===== */
     .subscribe-container {
         max-width: 680px;
         margin: 0 auto;
@@ -291,6 +291,8 @@
         border-radius: 32px;
         box-shadow: 0 20px 35px -12px rgba(61, 90, 56, 0.08), 0 2px 6px rgba(0,0,0,0.02);
         transition: all 0.2s ease;
+        position: relative;
+        z-index: 2;
     }
     .subscribe-container h1 {
         font-family: 'Noto Serif TC', serif;
@@ -303,7 +305,6 @@
         align-items: center;
         gap: 8px;
     }
-    /* 微調 subtitle 增加閱讀質感 */
     .subtitle {
         color: var(--stone);
         margin-bottom: 1.6rem;
@@ -313,10 +314,7 @@
         font-weight: 350;
         letter-spacing: 0.2px;
     }
-    /* 移除原先多餘的三行 subtitle1/2，讓版面乾淨 (但保留結構) */
-    .subtitle1, .subtitle2 {
-        display: none;
-    }
+    .subtitle1, .subtitle2 { display: none; }
     
     .tab-buttons {
         display: flex;
@@ -357,9 +355,7 @@
         display: none;
         animation: fadeIn 0.25s ease-out;
     }
-    .tab-pane.active {
-        display: block;
-    }
+    .tab-pane.active { display: block; }
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(4px);}
         to { opacity: 1; transform: translateY(0);}
@@ -375,7 +371,7 @@
         font-size: 0.9rem;
         letter-spacing: 0.3px;
     }
-    .form-group input, .form-group select {
+    .form-group input {
         width: 100%;
         padding: 0.9rem 1rem;
         border: 1px solid #e2dbcf;
@@ -433,7 +429,6 @@
         color: #b13e3e;
         border-left: 4px solid #e0a1a1;
     }
-    /* 增加簡約裝飾葉脈線條 */
     .subscribe-container::before {
         content: '';
         position: absolute;
@@ -445,11 +440,6 @@
         pointer-events: none;
         border-radius: 50%;
         z-index: -1;
-    }
-    .subscribe-container {
-        position: relative;
-        z-index: 2;
-        backdrop-filter: blur(0px);
     }
     @media (max-width: 768px) {
         .subscribe-container {
@@ -468,10 +458,7 @@
   </style>
 </head>
 <body>
-  <!-- 放置導覽列的佔位元素 -->
   <div id="nav-placeholder"></div>
-
-  <!-- 頁面主要內容區域 -->
   <main class="content">
     <div class="subscribe-container">
       <h1>🌿 蕨積每日文章摘要</h1>
@@ -493,9 +480,7 @@
           <div class="form-group">
             <label>📧 Email 電子信箱</label>
             <input type="email" id="sub-email" required placeholder="hello@fernbrom.com" autocomplete="email">
-            <input type="hidden" id="sub-preference" value="all">
           </div>
-          
           <button type="submit">🌱 訂閱 / 開啟知識之旅</button>
         </form>
       </div>
@@ -515,7 +500,6 @@
     </div>
   </main>
 
-  <!-- Footer -->
   <footer>
     <ul class="footer-links">
       <li><a href="shop.html">植物選品</a></li>
@@ -527,18 +511,16 @@
   </footer>
 
   <script>
+    // 導覽列載入 (維持原始功能)
     document.addEventListener('DOMContentLoaded', function () {
-      // 載入共用導覽列
       fetch('nav.html')
         .then(response => response.text())
         .then(data => {
           document.getElementById('nav-placeholder').innerHTML = data;
-          // 在導覽列插入後，重新綁定事件與初始化
           initNav();
         })
         .catch(err => {
           console.error('無法載入導覽列:', err);
-          // 錯誤時的備用顯示
           document.getElementById('nav-placeholder').innerHTML = 
             '<nav style="background:var(--moss);color:white;padding:0 4vw;height:72px;display:flex;align-items:center;">' +
             '<span style="font-family:Noto Serif TC,serif;font-weight:900;">⚠️ 導覽列載入失敗，請確認 nav.html 是否存在</span>' +
@@ -546,7 +528,6 @@
         });
 
       function initNav() {
-        // hamburger 事件
         var btn = document.getElementById('hamburger');
         var menu = document.getElementById('mobileMenu');
         if (btn && menu) {
@@ -561,7 +542,6 @@
             });
           });
         }
-        // 行動選單的展開折疊
         if (menu) {
           menu.querySelectorAll('.mobile-parent').forEach(function (parent) {
             parent.addEventListener('click', function () {
@@ -579,26 +559,29 @@
             });
           });
         }
-        // 滾動效果
         window.addEventListener('scroll', function () {
           var nav = document.getElementById('mainNav');
           if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
         });
-        // 重新綁定 lucide 圖示
         if (typeof lucide !== 'undefined') lucide.createIcons();
       }
     });
-  </script>  
+  </script>
+  
   <script>
-    // 訂閱頁面 JavaScript (保留原始邏輯，僅強化視覺回饋)
+    // ==================== 完整訂閱狀態機前端邏輯 ====================
     (function() {
+      // 請將此 URL 替換為您實際部署的 Google Apps Script 網址 (支援完整狀態機)
+      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwH5X_4_arrGY5_BAbeO1-IdNYgFL4dnDWNnPzcVtsr7sJiGk5kNhDNQf9ssTGUcPx22A/exec';
+      
+      // 切換頁籤
       const tabBtns = document.querySelectorAll('.tab-btn');
       const panes = {
         subscribe: document.getElementById('subscribe-pane'),
         unsubscribe: document.getElementById('unsubscribe-pane')
       };
       
-      if (tabBtns.length > 0) {
+      if (tabBtns.length) {
         tabBtns.forEach(btn => {
           btn.addEventListener('click', () => {
             const tab = btn.getAttribute('data-tab');
@@ -606,103 +589,163 @@
             btn.classList.add('active');
             Object.values(panes).forEach(pane => pane.classList.remove('active'));
             if (panes[tab]) panes[tab].classList.add('active');
-            const messageDiv = document.getElementById('message');
-            if (messageDiv) messageDiv.style.display = 'none';
+            const msgDiv = document.getElementById('message');
+            if (msgDiv) msgDiv.style.display = 'none';
           });
         });
       }
       
-      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwH5X_4_arrGY5_BAbeO1-IdNYgFL4dnDWNnPzcVtsr7sJiGk5kNhDNQf9ssTGUcPx22A/exec';
+      // 輔助函式：顯示訊息
+      function showMessage(type, text, isError = false) {
+        const msgDiv = document.getElementById('message');
+        msgDiv.className = isError ? 'message error' : 'message success';
+        msgDiv.innerHTML = text;
+        msgDiv.style.display = 'block';
+        setTimeout(() => {
+          if (msgDiv.style.display === 'block') msgDiv.style.display = 'none';
+        }, 5000);
+      }
       
-      // 訂閱
+      // ---------- 訂閱 (統一使用 POST，支援新增/重新訂閱) ----------
       const subscribeForm = document.getElementById('subscribeForm');
       if (subscribeForm) {
         subscribeForm.addEventListener('submit', async (e) => {
           e.preventDefault();
           const name = document.getElementById('sub-name').value.trim();
           const email = document.getElementById('sub-email').value.trim();
-          const preference = document.getElementById('sub-preference').value;
-          const messageDiv = document.getElementById('message');
           
           if (!name || !email) {
-            messageDiv.className = 'message error';
-            messageDiv.style.display = 'block';
-            messageDiv.innerHTML = '🌿 請填寫姓名與 Email 再送出～';
-            setTimeout(() => { messageDiv.style.display = 'none'; }, 3000);
+            showMessage('error', '🌿 請填寫姓名與 Email 再送出～', true);
             return;
           }
           
-          messageDiv.className = 'message success';
-          messageDiv.style.display = 'block';
-          messageDiv.innerHTML = '📡 綠意傳送中，請稍候片刻...';
+          // 顯示傳送中
+          const tempMsg = document.getElementById('message');
+          tempMsg.className = 'message success';
+          tempMsg.innerHTML = '📡 綠意傳送中，請稍候片刻...';
+          tempMsg.style.display = 'block';
           
           try {
-            await fetch(APPS_SCRIPT_URL, {
+            // 使用 POST 並帶入 action: 'subscribe'，後端會自動判斷: 從未訂閱→新增；已取消→改狀態為 subscribed
+            const response = await fetch(APPS_SCRIPT_URL, {
               method: 'POST',
-              mode: 'no-cors',
+              mode: 'cors',        // 嘗試 CORS，若失敗再降級，但不影響 no-cors 模式 (但後端需支援)
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
                 action: 'subscribe',
                 name: name,
-                email: email,
-                preference: preference
+                email: email
               })
             });
             
-            messageDiv.className = 'message success';
-            messageDiv.innerHTML = '✅ 訂閱申請已順利送出！<br>蕨積將為您寄送每日摘要。';
-            document.getElementById('subscribeForm').reset();
+            // 嘗試解析 JSON 回應 (如果後端有回傳)
+            let resultText = '';
+            let successFlag = false;
+            try {
+              const result = await response.json();
+              successFlag = result.success === true;
+              resultText = result.message || (successFlag ? '訂閱成功！' : '操作失敗');
+            } catch (jsonErr) {
+              // 若後端沒回 json 或 mode no-cors 情境，用文字判斷
+              const text = await response.text();
+              successFlag = text.includes('成功') || text.includes('訂閱') || text.includes('重新訂閱');
+              resultText = text;
+            }
             
-            setTimeout(() => {
-              messageDiv.style.display = 'none';
-            }, 5000);
+            if (successFlag || resultText.includes('成功')) {
+              showMessage('success', `✅ ${resultText}<br>蕨積將為您寄送每日摘要。`);
+              document.getElementById('subscribeForm').reset();
+            } else {
+              showMessage('error', `❌ ${resultText || '訂閱失敗，請稍後再試'}`, true);
+            }
           } catch (error) {
-            messageDiv.className = 'message error';
-            messageDiv.innerHTML = '❌ 送出失敗，請稍後再試。可能是網路不穩定，請重新整理。';
+            console.warn('fetch 錯誤，嘗試 no-cors 模式 (仍可能成功，但無法讀取回應)', error);
+            // 降級 no-cors: 無法讀取回應，但請求仍可能送出，給予樂觀提示
+            try {
+              await fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  action: 'subscribe',
+                  name: name,
+                  email: email
+                })
+              });
+              showMessage('success', '✅ 訂閱申請已順利送出！<br>蕨積將為您寄送每日摘要。');
+              document.getElementById('subscribeForm').reset();
+            } catch (fallbackErr) {
+              showMessage('error', '❌ 送出失敗，請稍後再試或檢查網路連線。', true);
+            }
           }
         });
       }
       
-      // 取消訂閱
+      // ---------- 取消訂閱 (使用 POST 修改狀態為 cancelled，符合狀態機邏輯) ----------
       const unsubscribeForm = document.getElementById('unsubscribeForm');
       if (unsubscribeForm) {
         unsubscribeForm.addEventListener('submit', async (e) => {
           e.preventDefault();
           const email = document.getElementById('unsub-email').value.trim();
-          const messageDiv = document.getElementById('message');
           
           if (!email) {
-            messageDiv.className = 'message error';
-            messageDiv.style.display = 'block';
-            messageDiv.innerHTML = '📭 請輸入您的 Email 以取消訂閱。';
-            setTimeout(() => { messageDiv.style.display = 'none'; }, 2800);
+            showMessage('error', '📭 請輸入您的 Email 以取消訂閱。', true);
             return;
           }
           
-          messageDiv.className = 'message success';
-          messageDiv.style.display = 'block';
-          messageDiv.innerHTML = '🍃 處理中，請稍候...';
+          const msgDiv = document.getElementById('message');
+          msgDiv.className = 'message success';
+          msgDiv.innerHTML = '🍃 處理中，請稍候...';
+          msgDiv.style.display = 'block';
           
           try {
-            const response = await fetch(`${APPS_SCRIPT_URL}?action=unsubscribe&email=${encodeURIComponent(email)}`);
-            const text = await response.text();
+            // 優先使用 POST 方法，符合 REST 語意，且能修改同一筆最新狀態
+            const response = await fetch(APPS_SCRIPT_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                action: 'unsubscribe',
+                email: email
+              })
+            });
             
-            messageDiv.className = 'message success';
-            messageDiv.style.display = 'block';
-            messageDiv.innerHTML = text.includes('成功') ? '✅ 已成功取消訂閱，您將不再收到蕨積摘要信件。<br>期待未來與您重逢。' : '❌ ' + text;
-            document.getElementById('unsubscribeForm').reset();
-            setTimeout(() => {
-              if (messageDiv.style.display !== 'none') messageDiv.style.display = 'none';
-            }, 4800);
+            let resultText = '';
+            let isSuccess = false;
+            try {
+              const result = await response.json();
+              isSuccess = result.success === true;
+              resultText = result.message || (isSuccess ? '已取消訂閱' : '取消失敗');
+            } catch (e) {
+              const text = await response.text();
+              isSuccess = text.includes('成功') || text.includes('取消');
+              resultText = text;
+            }
+            
+            if (isSuccess) {
+              showMessage('success', `✅ ${resultText}<br>您將不再收到蕨積摘要信件。`);
+              document.getElementById('unsubscribeForm').reset();
+            } else {
+              showMessage('error', `❌ ${resultText || '取消失敗，請確認 Email 是否訂閱過'}`, true);
+            }
           } catch (error) {
-            messageDiv.className = 'message error';
-            messageDiv.style.display = 'block';
-            messageDiv.innerHTML = '❌ 操作失敗，請稍後再試或聯繫客服。';
+            // 降級 no-cors 或 GET 方式相容舊版後端 (但維持狀態機概念)
+            console.warn('POST 取消失敗，嘗試 GET 方式', error);
+            try {
+              const getResp = await fetch(`${APPS_SCRIPT_URL}?action=unsubscribe&email=${encodeURIComponent(email)}`);
+              const text = await getResp.text();
+              if (text.includes('成功') || text.includes('取消')) {
+                showMessage('success', '✅ 已成功取消訂閱，您將不再收到蕨積摘要信件。');
+                document.getElementById('unsubscribeForm').reset();
+              } else {
+                showMessage('error', `❌ ${text || '此 Email 不在訂閱名單中'}`, true);
+              }
+            } catch (finalErr) {
+              showMessage('error', '❌ 操作失敗，請稍後再試或聯繫客服。', true);
+            }
           }
         });
       }
     })();
   </script>
-  
 </body>
 </html>
