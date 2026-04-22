@@ -567,12 +567,13 @@
       }
     });
   </script>
-  <script>
-// ==================== 使用 no-cors + URL 參數，完全避免 CORS 問題 ====================
+<script>
+// ==================== 訂閱/取消訂閱系統（穩定版）====================
 (function() {
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4dGY919ttFbJzqjFMz3_fhurBzjOIN2ZDTAA5qPvdZy4x8DvayCChQI86ZZ9veQTs6Q/exec';
+  // 請替換成你目前能用的 Apps Script 網址
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/你的網址/exec';
   
-  // 切換頁籤邏輯（保持不變）
+  // 切換頁籤邏輯
   const tabBtns = document.querySelectorAll('.tab-btn');
   const panes = {
     subscribe: document.getElementById('subscribe-pane'),
@@ -603,28 +604,18 @@
     }, 5000);
   }
   
-  // 通用請求函數（使用 no-cors + URL 參數）
-  async function callAPI(action, params) {
-    // 將參數轉為 URL 編碼字串
-    const urlParams = new URLSearchParams({
-      action: action,
-      ...params
-    });
+  // 送出請求函數
+  async function sendRequest(action, params) {
+    const url = new URL(APPS_SCRIPT_URL);
+    url.searchParams.append('action', action);
+    for (let key in params) {
+      url.searchParams.append(key, params[key]);
+    }
     
-    // 使用 no-cors 模式傳送
-    await fetch(`${APPS_SCRIPT_URL}?${urlParams.toString()}`, {
+    await fetch(url.toString(), {
       method: 'POST',
-      mode: 'no-cors',
-      cache: 'no-cache',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: ''  // 空 body，所有資料都在 URL 上
+      mode: 'no-cors'
     });
-    
-    // no-cors 模式下無法讀取回應，所以我們假設成功
-    // 但可以透過日誌或二次確認來驗證
-    return { success: true, message: '請求已送出' };
   }
   
   // 訂閱
@@ -643,8 +634,8 @@
       showMessage('📡 綠意傳送中，請稍候片刻...');
       
       try {
-        await callAPI('subscribe', { name, email });
-        showMessage(`✅ 訂閱申請已送出！<br>蕨積將為您寄送每日摘要。`);
+        await sendRequest('subscribe', { name: name, email: email });
+        showMessage('✅ 訂閱成功！<br>蕨積將為您寄送每日摘要。');
         document.getElementById('subscribeForm').reset();
       } catch (error) {
         console.error('訂閱請求失敗:', error);
@@ -668,8 +659,8 @@
       showMessage('🍃 處理中，請稍候...');
       
       try {
-        await callAPI('unsubscribe', { email });
-        showMessage(`✅ 取消訂閱請求已送出！<br>您將不再收到蕨積摘要信件。`);
+        await sendRequest('unsubscribe', { email: email });
+        showMessage('✅ 已成功取消訂閱！<br>您將不再收到蕨積摘要信件。');
         document.getElementById('unsubscribeForm').reset();
       } catch (error) {
         console.error('取消訂閱請求失敗:', error);
@@ -679,6 +670,8 @@
   }
 })();
 </script>
+  
+
   
 </body>
 </html>
