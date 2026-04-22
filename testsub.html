@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>測試訂閱系統</title>
+</head>
+<body>
+  <h2>📬 訂閱測試</h2>
+  <form id="subForm">
+    <input type="text" id="subName" placeholder="姓名" required>
+    <input type="email" id="subEmail" placeholder="Email" required>
+    <button type="submit">訂閱</button>
+  </form>
+  
+  <h2>🍂 取消訂閱測試</h2>
+  <form id="unsubForm">
+    <input type="email" id="unsubEmail" placeholder="Email" required>
+    <button type="submit">取消訂閱</button>
+  </form>
+  
+  <div id="msg"></div>
+  
+  <script>
+    // 替換成你的 Apps Script 網址
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4dGY919ttFbJzqjFMz3_fhurBzjOIN2ZDTAA5qPvdZy4x8DvayCChQI86ZZ9veQTs6Q/exec';
+    
+    function showMsg(text, isError) {
+      const div = document.getElementById('msg');
+      div.innerHTML = text;
+      div.style.color = isError ? 'red' : 'green';
+      setTimeout(() => div.innerHTML = '', 3000);
+    }
+    
+    // 訂閱
+    document.getElementById('subForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('subName').value;
+      const email = document.getElementById('subEmail').value;
+      
+      showMsg('處理中...', false);
+      
+      try {
+        const res = await fetch(`${SCRIPT_URL}?action=subscribe&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`, {
+          method: 'POST',
+          mode: 'no-cors'
+        });
+        showMsg('✅ 訂閱請求已送出（請查看試算表確認）', false);
+        e.target.reset();
+      } catch(err) {
+        showMsg('❌ 錯誤：' + err.message, true);
+      }
+    };
+    
+    // 取消訂閱
+    document.getElementById('unsubForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('unsubEmail').value;
+      
+      showMsg('處理中...', false);
+      
+      try {
+        const res = await fetch(`${SCRIPT_URL}?action=unsubscribe&email=${encodeURIComponent(email)}`, {
+          method: 'POST',
+          mode: 'no-cors'
+        });
+        showMsg('✅ 取消訂閱請求已送出（請查看試算表確認）', false);
+        e.target.reset();
+      } catch(err) {
+        showMsg('❌ 錯誤：' + err.message, true);
+      }
+    };
+  </script>
+</body>
+</html>
