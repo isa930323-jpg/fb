@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>蕨積 — 植物相簿（直接讀取 Cloudinary）</title>
+  <title>蕨積 — 植物相簿</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -21,13 +21,6 @@
       text-align: center;
       color: #9a9080;
       margin-bottom: 20px;
-      letter-spacing: 2px;
-    }
-    .refresh-info {
-      text-align: center;
-      font-size: 0.75rem;
-      color: #5a7a4a;
-      margin-bottom: 30px;
     }
     .photo-grid {
       display: grid;
@@ -62,9 +55,9 @@
       text-align: center;
       background: white;
       border-top: 1px solid #eee;
-      white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .lightbox {
       display: none;
@@ -95,23 +88,6 @@
       background: none;
       border: none;
     }
-    .loading {
-      text-align: center;
-      padding: 60px;
-      grid-column: 1/-1;
-    }
-    .loading-spinner {
-      width: 48px;
-      height: 48px;
-      border: 3px solid #d4e4c8;
-      border-top-color: #5a7a4a;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 20px;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
     .pagination {
       display: flex;
       justify-content: center;
@@ -137,12 +113,23 @@
       border-radius: 40px;
       color: #5a7a4a;
     }
-    .count-badge {
-      background: #5a7a4a20;
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
+    .loading, .error, .empty {
+      text-align: center;
+      padding: 60px;
+      grid-column: 1/-1;
+      color: #9a9080;
+    }
+    .loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid #d4e4c8;
+      border-top-color: #5a7a4a;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
     @media (max-width: 768px) {
       .photo-grid { grid-template-columns: 1fr; gap: 16px; }
@@ -157,17 +144,22 @@
       color: #9a9080;
       font-size: 0.75rem;
     }
+    .count-badge {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 0.85rem;
+      color: #5a7a4a;
+    }
   </style>
 </head>
 <body>
   <h1>🌿 蕨積 · 屋頂植物相簿</h1>
   <p class="sub">積水鳳梨 · 蕨類 · 蘭花</p>
-  <p class="refresh-info">📸 照片直接從您的 Cloudinary 讀取 · 新上傳會自動出現</p>
   
   <div class="photo-grid" id="photoGrid">
     <div class="loading">
       <div class="loading-spinner"></div>
-      <div>正在從 Cloudinary 載入您的植物照片...</div>
+      <div>正在載入植物照片...</div>
     </div>
   </div>
   
@@ -179,159 +171,152 @@
 
   <div id="lightbox" class="lightbox" onclick="closeLightbox()">
     <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-    <img id="lightboxImg" src="" alt="" onclick="event.stopPropagation()">
+    <img id="lightboxImg" src="" alt="">
   </div>
 
   <footer>
-    © 2026 蕨積 FernBrom · 即時同步 Cloudinary 照片庫
+    © 2026 蕨積 FernBrom · 照片即時從 Cloudinary 同步
   </footer>
 
   <script>
-    // Cloudinary 設定
-    const CLOUD_NAME = 'ddqdtwbc4';
-    let allPhotos = [];
+    // ✅ 使用您新的 Render API 網址
+    const API_BASE = 'https://fbphoto-0ezb.onrender.com/';
+    let allImages = [];
     let currentPage = 1;
-    const PHOTOS_PER_PAGE = 8;
+    const IMAGES_PER_PAGE = 8;
     let totalPages = 1;
 
-    // 直接從 Cloudinary API 讀取所有照片（不需要後端伺服器）
-    async function fetchFromCloudinary() {
-      let allResources = [];
-      let nextCursor = null;
-      let hasMore = true;
-      
-      console.log('開始從 Cloudinary 讀取照片...');
-      
-      while (hasMore) {
-        let url = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/resources/image?max_results=100`;
-        if (nextCursor) url += `&next_cursor=${nextCursor}`;
+    async function fetchAllImages() {
+      try {
+        console.log('正在從 API 載入照片...');
+        const response = await fetch(`${API_BASE}/api/images`);
         
-        try {
-          const response = await fetch(url);
-          const data = await response.json();
-          
-          if (data.error) {
-            console.error('Cloudinary API 錯誤:', data.error);
-            return [];
-          }
-          
-          if (data.resources && data.resources.length > 0) {
-            allResources.push(...data.resources);
-            nextCursor = data.next_cursor;
-            hasMore = !!nextCursor;
-            console.log(`已讀取 ${allResources.length} 張照片...`);
-          } else {
-            hasMore = false;
-          }
-        } catch (error) {
-          console.error('讀取失敗:', error);
+        if (!response.ok) {
+          throw new Error(`API 回應錯誤: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('API 回應:', data);
+        
+        if (data.success && data.images) {
+          console.log(`✅ 成功載入 ${data.images.length} 張照片`);
+          return data.images;
+        } else {
+          console.error('API 回傳格式錯誤:', data);
           return [];
         }
+      } catch (error) {
+        console.error('載入照片失敗:', error);
+        return [];
       }
-      
-      console.log(`✅ 總共從 Cloudinary 讀取到 ${allResources.length} 張照片`);
-      return allResources;
     }
 
-    async function loadPhotos() {
+    function formatDate(dateString) {
+      if (!dateString) return '近期上架';
+      try {
+        const date = new Date(dateString);
+        return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+      } catch(e) {
+        return dateString;
+      }
+    }
+
+    function renderCurrentPage() {
       const grid = document.getElementById('photoGrid');
       
-      // 顯示載入中
-      grid.innerHTML = `
-        <div class="loading">
-          <div class="loading-spinner"></div>
-          <div>🌱 正在從 Cloudinary 讀取您的 ${'照片'}...</div>
-        </div>
-      `;
-      
-      const resources = await fetchFromCloudinary();
-      
-      if (resources.length === 0) {
-        grid.innerHTML = `
-          <div class="loading">
-            <p>📭 沒有讀取到照片</p>
-            <p style="font-size:0.8rem; margin-top:10px;">請確認 Cloudinary 帳號內有照片</p>
-          </div>
-        `;
+      if (!allImages.length) {
+        grid.innerHTML = `<div class="empty">📭 暫無照片，請稍後再試</div>`;
         return;
       }
       
-      // 轉換成前端需要的格式
-      allPhotos = resources.map(r => ({
-        url: r.secure_url,
-        time: r.created_at,
-        name: r.public_id.split('/').pop()
-      }));
+      const startIndex = (currentPage - 1) * IMAGES_PER_PAGE;
+      const endIndex = Math.min(startIndex + IMAGES_PER_PAGE, allImages.length);
+      const currentImages = allImages.slice(startIndex, endIndex);
       
-      // 更新頁數
-      totalPages = Math.ceil(allPhotos.length / PHOTOS_PER_PAGE);
-      currentPage = 1;
-      
-      // 顯示第一頁
-      displayPhotos();
-      
-      // 顯示分頁控制
-      document.getElementById('pagination').style.display = 'flex';
-    }
-    
-    function displayPhotos() {
-      const grid = document.getElementById('photoGrid');
-      const start = (currentPage - 1) * PHOTOS_PER_PAGE;
-      const end = Math.min(start + PHOTOS_PER_PAGE, allPhotos.length);
-      const pagePhotos = allPhotos.slice(start, end);
-      
-      grid.innerHTML = pagePhotos.map((photo, idx) => `
+      grid.innerHTML = currentImages.map((photo, idx) => `
         <div class="photo-card" onclick="openLightbox('${photo.url}')">
           <img src="${photo.url}" alt="植物照片" loading="lazy" onerror="this.src='https://placehold.co/400x533/e8e0d4/5a7a4a?text=載入失敗'">
-          <div class="photo-info" title="${photo.name}">🌿 ${photo.name.substring(0, 30)}${photo.name.length > 30 ? '...' : ''}</div>
+          <div class="photo-info">🌿 ${formatDate(photo.time)}</div>
         </div>
       `).join('');
       
-      // 更新分頁資訊
-      document.getElementById('pageInfo').innerText = `第 ${currentPage} / ${totalPages} 頁 (共 ${allPhotos.length} 張)`;
-      document.getElementById('prevBtn').disabled = currentPage === 1;
-      document.getElementById('nextBtn').disabled = currentPage === totalPages;
-      
-      // 滾回頂部
+      updatePagination();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    
-    function prevPage() {
+
+    function updatePagination() {
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const pageInfo = document.getElementById('pageInfo');
+      const paginationDiv = document.getElementById('pagination');
+      
+      totalPages = Math.ceil(allImages.length / IMAGES_PER_PAGE);
+      
+      if (allImages.length > IMAGES_PER_PAGE) {
+        paginationDiv.style.display = 'flex';
+      }
+      
+      if (prevBtn) prevBtn.disabled = currentPage === 1;
+      if (nextBtn) nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+      
+      if (pageInfo) {
+        if (totalPages === 0) pageInfo.textContent = '第 0 / 0 頁';
+        else pageInfo.textContent = `第 ${currentPage} / ${totalPages} 頁 (共 ${allImages.length} 張)`;
+      }
+    }
+
+    window.prevPage = function() {
       if (currentPage > 1) {
         currentPage--;
-        displayPhotos();
+        renderCurrentPage();
       }
-    }
-    
-    function nextPage() {
+    };
+
+    window.nextPage = function() {
       if (currentPage < totalPages) {
         currentPage++;
-        displayPhotos();
+        renderCurrentPage();
       }
-    }
-    
-    function openLightbox(url) {
-      const lb = document.getElementById('lightbox');
-      const img = document.getElementById('lightboxImg');
-      img.src = url;
-      lb.classList.add('active');
-    }
-    
-    function closeLightbox() {
+    };
+
+    window.openLightbox = function(url) {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImage = document.getElementById('lightboxImg');
+      lightboxImage.src = url;
+      lightbox.classList.add('active');
+    };
+
+    window.closeLightbox = function() {
       document.getElementById('lightbox').classList.remove('active');
+    };
+
+    async function init() {
+      const grid = document.getElementById('photoGrid');
+      grid.innerHTML = `<div class="loading"><div class="loading-spinner"></div><div>🌱 正在從 Cloudinary 讀取照片...</div></div>`;
+      
+      allImages = await fetchAllImages();
+      
+      if (allImages.length === 0) {
+        grid.innerHTML = `<div class="empty">📭 沒有讀取到照片，請確認 Cloudinary 有照片且 API 設定正確</div>`;
+        return;
+      }
+      
+      currentPage = 1;
+      renderCurrentPage();
     }
+
+    // 綁定分頁按鈕
+    document.getElementById('prevBtn').onclick = () => window.prevPage();
+    document.getElementById('nextBtn').onclick = () => window.nextPage();
     
-    // 綁定事件
-    document.getElementById('prevBtn').onclick = prevPage;
-    document.getElementById('nextBtn').onclick = nextPage;
+    // 鍵盤控制
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowLeft') prevPage();
-      if (e.key === 'ArrowRight') nextPage();
+      if (e.key === 'ArrowLeft') window.prevPage();
+      if (e.key === 'ArrowRight') window.nextPage();
     });
-    
-    // 啟動
-    loadPhotos();
+
+    init();
   </script>
 </body>
 </html>
