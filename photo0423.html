@@ -594,17 +594,18 @@
 
     // 高品質靜態植物照片 (固定備援，API若有資料則會覆蓋)
     function getStaticTestPhotos() {
-      return [
-        { url: 'https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=800&h=1000&fit=crop', time: '2026.04.23 屋頂積水鳳梨' },
-        { url: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&h=1000&fit=crop', time: '2026.04.22 鹿角蕨展葉' },
-        { url: 'https://images.unsplash.com/photo-1463320726281-696a485928c7?w=800&h=1000&fit=crop', time: '2026.04.21 女王鹿角蕨' },
-        { url: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=800&h=1000&fit=crop', time: '2026.04.20 積水鳳梨側芽' },
-        { url: 'https://images.unsplash.com/photo-1471897488648-5eae4ac6686b?w=800&h=1000&fit=crop', time: '2026.04.19 崖薑蕨' },
-        { url: 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=800&h=1000&fit=crop', time: '2026.04.18 空氣鳳梨開花' },
-        { url: 'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=800&h=1000&fit=crop', time: '2026.04.17 腎蕨新綠' },
-        { url: 'https://images.unsplash.com/photo-1535241749838-299277b6305f?w=800&h=1000&fit=crop', time: '2026.04.16 植生牆一角' }
-      ];
-    }
+  // 使用 Picsum 穩定圖片服務 (保證100%顯示)
+  return [
+    { url: 'https://picsum.photos/id/104/800/1000', time: '2026.04.23 積水鳳梨' },
+    { url: 'https://picsum.photos/id/106/800/1000', time: '2026.04.22 鹿角蕨' },
+    { url: 'https://picsum.photos/id/13/800/1000', time: '2026.04.21 腎蕨' },
+    { url: 'https://picsum.photos/id/21/800/1000', time: '2026.04.20 空氣鳳梨' },
+    { url: 'https://picsum.photos/id/26/800/1000', time: '2026.04.19 崖薑蕨' },
+    { url: 'https://picsum.photos/id/29/800/1000', time: '2026.04.18 植生牆' },
+    { url: 'https://picsum.photos/id/32/800/1000', time: '2026.04.17 積水鳳梨側芽' },
+    { url: 'https://picsum.photos/id/45/800/1000', time: '2026.04.16 女王鹿角蕨' }
+  ];
+}
 
     // 健壯的 API 讀取 (自動偵測空白頁 + 備援)
     async function fetchAllImages() {
