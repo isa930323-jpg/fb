@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    /* ===== 共用樣式 ===== */
+    /* ===== 共用樣式 (完整保留) ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --ink: #1a1a14;
@@ -31,7 +31,7 @@
       flex-direction: column;
     }
 
-    /* ----- 導覽列 (完整保留) ----- */
+    /* ----- 導覽列 ----- */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -71,10 +71,7 @@
       align-items: center;
       white-space: nowrap;
     }
-    .nav-links li {
-      position: relative;
-      padding: 0 2px;
-    }
+    .nav-links li { position: relative; padding: 0 2px; }
     .nav-links a {
       font-family: 'Noto Sans TC', sans-serif;
       font-size: 0.82rem;
@@ -86,10 +83,7 @@
       opacity: 0.75;
       display: inline-block;
     }
-    .nav-links a:hover {
-      opacity: 1;
-      color: var(--fern);
-    }
+    .nav-links a:hover { opacity: 1; color: var(--fern); }
     .nav-contact {
       padding: 8px 20px !important;
       border: 1px solid var(--fern) !important;
@@ -98,10 +92,7 @@
       opacity: 1 !important;
       margin-left: 0.5rem;
     }
-    .nav-contact:hover {
-      background: var(--fern);
-      color: white !important;
-    }
+    .nav-contact:hover { background: var(--fern); color: white !important; }
     .has-dropdown > a::after { display: none; }
 
     .nav-links li .dropdown {
@@ -121,9 +112,7 @@
       z-index: 300;
     }
     .nav-links li:hover .dropdown,
-    .nav-links li:focus-within .dropdown {
-      display: block;
-    }
+    .nav-links li:focus-within .dropdown { display: block; }
     .nav-links li .dropdown::before {
       content: '';
       position: absolute;
@@ -232,14 +221,13 @@
       padding-bottom: 40px;
     }
 
-    /* ===== 相簿樣式 ===== */
+    /* ===== 相簿樣式 (保留原有設計) ===== */
     .photo-album-wrapper {
       max-width: 1400px;
       margin: 0 auto;
       padding: 0 24px;
     }
 
-    /* 相簿標題區 */
     .album-header {
       text-align: center;
       margin-bottom: 48px;
@@ -262,7 +250,6 @@
       letter-spacing: 0.05em;
     }
 
-    /* 照片網格 - 電腦版 4x2，手機版 1 張 */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -270,7 +257,6 @@
       margin-bottom: 48px;
     }
     
-    /* 照片卡片 */
     .photo-card {
       background: white;
       border-radius: 12px;
@@ -295,11 +281,8 @@
       display: block;
     }
     
-    .photo-card:hover img {
-      transform: scale(1.05);
-    }
+    .photo-card:hover img { transform: scale(1.05); }
     
-    /* 照片資訊浮層 */
     .photo-overlay {
       position: absolute;
       bottom: 0;
@@ -311,9 +294,7 @@
       transition: opacity 0.3s ease;
     }
     
-    .photo-card:hover .photo-overlay {
-      opacity: 1;
-    }
+    .photo-card:hover .photo-overlay { opacity: 1; }
     
     .photo-date {
       color: white;
@@ -323,7 +304,6 @@
       gap: 4px;
     }
     
-    /* 分頁控制區 */
     .pagination {
       display: flex;
       justify-content: center;
@@ -366,7 +346,6 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     
-    /* 載入狀態 */
     .loading-state {
       text-align: center;
       padding: 60px 20px;
@@ -386,21 +365,12 @@
       to { transform: rotate(360deg); }
     }
     
-    /* 錯誤狀態 */
-    .error-state {
+    .error-state, .empty-state {
       text-align: center;
       padding: 60px 20px;
       color: var(--stone);
     }
     
-    /* 空狀態 */
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--stone);
-    }
-    
-    /* 燈箱效果 */
     .lightbox {
       display: none;
       position: fixed;
@@ -415,9 +385,7 @@
       cursor: pointer;
     }
     
-    .lightbox.active {
-      display: flex;
-    }
+    .lightbox.active { display: flex; }
     
     .lightbox-content {
       max-width: 90%;
@@ -455,49 +423,20 @@
       font-size: 0.85rem;
     }
     
-    /* 響應式設計 */
     @media (max-width: 1024px) {
-      .photo-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-      }
+      .photo-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
     }
     
     @media (max-width: 768px) {
-      .photo-album-wrapper {
-        padding: 0 16px;
-      }
-      
-      .album-header h1 {
-        font-size: 1.8rem;
-      }
-      
-      .photo-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-      
-      .photo-card {
-        aspect-ratio: 3 / 4;
-      }
-      
-      .pagination {
-        gap: 12px;
-      }
-      
-      .page-btn {
-        padding: 8px 16px;
-        min-width: 70px;
-        font-size: 0.9rem;
-      }
-      
-      .page-info {
-        font-size: 0.85rem;
-        padding: 6px 12px;
-      }
+      .photo-album-wrapper { padding: 0 16px; }
+      .album-header h1 { font-size: 1.8rem; }
+      .photo-grid { grid-template-columns: 1fr; gap: 20px; }
+      .photo-card { aspect-ratio: 3 / 4; }
+      .pagination { gap: 12px; }
+      .page-btn { padding: 8px 16px; min-width: 70px; font-size: 0.9rem; }
+      .page-info { font-size: 0.85rem; padding: 6px 12px; }
     }
     
-    /* 植物分類連結區塊 — 置中、無底線 */
     .plant-categories {
       text-align: center;
       padding: 20px 0 40px;
@@ -528,7 +467,6 @@
       opacity: 0.6;
     }
 
-    /* ===== 全新團隊圖片區塊：無框、懸浮文字、連結 ===== */
     .team-section {
       text-align: center;
       margin: 20px 0 30px;
@@ -538,7 +476,7 @@
       display: inline-block;
       position: relative;
       text-decoration: none;
-      line-height: 0; /* 消除圖片下方空隙 */
+      line-height: 0;
       border: none;
       outline: none;
       background: transparent;
@@ -551,14 +489,12 @@
       border: none;
       box-shadow: none;
       transition: transform 0.25s ease, opacity 0.25s ease;
-      border-radius: 0; /* 完全無框無圓角 */
+      border-radius: 0;
     }
-    /* hover 時輕輕浮起 + 微光澤，但不加框線 */
     .team-link:hover .team-img {
       transform: scale(1.02);
       opacity: 0.92;
     }
-    /* 懸浮文字提示 — 優雅滑入效果 */
     .team-hover-text {
       position: absolute;
       bottom: -28px;
@@ -584,7 +520,6 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
-    /* 手機版稍微調整間距避免遮擋 */
     @media (max-width: 640px) {
       .team-hover-text {
         font-size: 0.7rem;
@@ -592,12 +527,9 @@
         bottom: -24px;
         padding: 4px 12px;
       }
-      .team-section {
-        margin: 20px 0 30px;
-      }
+      .team-section { margin: 20px 0 30px; }
     }
     
-    /* ----- Footer (完整保留) ----- */
     footer {
       border-top: 1px solid rgba(90,122,74,0.15);
       padding: 40px 4vw;
@@ -635,10 +567,7 @@
         gap: 20px;
         text-align: center;
       }
-      .footer-links {
-        justify-content: center;
-        flex-wrap: wrap;
-      }
+      .footer-links { justify-content: center; flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -662,7 +591,7 @@
         <button id="nextBtn" class="page-btn">下一頁 ▶</button>
       </div>
       
-      <!-- 植物分類三連結 (蕨類選品 · 積水鳳梨選品 · 其他植物選品) -->
+      <!-- 植物分類三連結 -->
       <div class="plant-categories">
         <div class="category-links">
           <a href="fern.html" class="category-link">蕨類選品</a>
@@ -673,15 +602,13 @@
         </div>
       </div>
       
-      <!-- ========= 新區塊：團隊圖片 teamsss.png，無框，滑鼠滑過出現文字，連結到 team.html ========= -->
+      <!-- 團隊區塊 -->
       <div class="team-section">
         <a href="team.html" class="team-link">
-          <!-- 請確保 images/teamsss.png 路徑正確，若圖片位於根目錄則使用 ./teamsss.png -->
           <img src="teamsss.png" alt="阿蕨與小積的好朋友們" class="team-img" onerror="this.src='https://placehold.co/800x300/e8e0d4/5a7a4a?text=teamsss.png+未找到'; this.onerror=null;">
           <span class="team-hover-text">🌿 阿蕨與小積的好朋友們 🌱</span>
         </a>
       </div>
-      <!-- ========= 團隊區塊結束 ========= -->
       
     </div>
   </main>
@@ -706,85 +633,91 @@
   </footer>
 
   <script>
-    // API 基礎網址
-    const API_BASE = 'https://linephotobot.onrender.com';
+    // ============================================================
+    // ✅ 更新為新的 API 網址 (直接串接 Cloudinary 所有照片)
+    // ============================================================
+    const API_BASE = 'https://fbphoto-0ezb.onrender.com';
     let allImages = [];      // 所有照片
-    let currentPage = 1;     // 當前頁碼
-    const IMAGES_PER_PAGE = 8; // 每頁顯示 8 張照片 (4x2)
-    let totalPages = 1;       // 總頁數
+    let currentPage = 1;
+    const IMAGES_PER_PAGE = 8;
+    let totalPages = 1;
     
-    // 從 API 獲取所有照片
+    // 從新的 API 獲取所有照片 (無需分頁游標，API 會一口氣回傳全部175+張)
     async function fetchAllImages() {
       try {
-        const allImagesData = [];
-        let cursor = null;
-        let hasMorePages = true;
-        let pageNum = 1;
+        console.log('📡 正在從新的 API 載入照片:', `${API_BASE}/api/images`);
+        const response = await fetch(`${API_BASE}/api/images`);
         
-        while (hasMorePages) {
-          let url = `${API_BASE}/api/images`;
-          if (cursor) url += `?cursor=${cursor}`;
-          
-          console.log(`正在載入第 ${pageNum} 頁照片...`);
-          const response = await fetch(url);
-          if (!response.ok) throw new Error('獲取照片失敗');
-          
-          const data = await response.json();
-          allImagesData.push(...data.images);
-          
-          cursor = data.nextCursor;
-          hasMorePages = !!cursor;
-          pageNum++;
-          
-          if (pageNum > 50) break;
+        if (!response.ok) {
+          throw new Error(`API 回應錯誤: ${response.status}`);
         }
         
-        console.log(`總共載入 ${allImagesData.length} 張照片`);
-        return allImagesData;
+        const data = await response.json();
+        console.log('✅ API 回覆狀態:', data.success, '｜ 照片數量:', data.count);
+        
+        // 新 API 的格式: { success: true, count: N, images: [...] }
+        if (data.success && Array.isArray(data.images)) {
+          console.log(`🎉 成功載入 ${data.images.length} 張照片 (來自 Cloudinary 即時同步)`);
+          return data.images;
+        } else {
+          console.warn('⚠️ API 回傳格式不符預期:', data);
+          return [];
+        }
       } catch (error) {
-        console.error('載入照片失敗:', error);
-        throw error;
+        console.error('❌ 載入照片失敗:', error);
+        return [];
       }
     }
     
-    // 格式化日期
+    // 格式化日期 (相容各種時間欄位)
     function formatDate(dateString) {
-      if (!dateString) return '';
-      const date = new Date(dateString);
-      return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+      if (!dateString) return '近期上架';
+      try {
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) return String(dateString).substring(0, 10);
+        return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+      } catch(e) {
+        return dateString;
+      }
     }
     
-    // 渲染當前頁面的照片
+    // 渲染當前頁面 (保留原有樣式)
     function renderCurrentPage() {
       const grid = document.getElementById('photoGrid');
       if (!grid) return;
       
-      const startIndex = (currentPage - 1) * IMAGES_PER_PAGE;
-      const endIndex = Math.min(startIndex + IMAGES_PER_PAGE, allImages.length);
-      const currentImages = allImages.slice(startIndex, endIndex);
-      
-      if (currentImages.length === 0) {
+      if (!allImages.length) {
         grid.innerHTML = `
           <div class="empty-state" style="grid-column: 1/-1;">
             <i>📭</i>
-            <p>暫無照片</p>
+            <p>暫無照片，請確認 Cloudinary 中有照片且 API 正常運作</p>
           </div>
         `;
         return;
       }
       
-      grid.innerHTML = currentImages.map(photo => `
-        <div class="photo-card" onclick="openLightbox('${photo.url}', '${formatDate(photo.time)}')">
-          <img src="${photo.url}" alt="屋頂植物" loading="lazy">
-          <div class="photo-overlay">
-            <div class="photo-date">
-              <i data-lucide="calendar" style="width: 12px; height: 12px;"></i>
-              ${formatDate(photo.time)}
+      const startIndex = (currentPage - 1) * IMAGES_PER_PAGE;
+      const endIndex = Math.min(startIndex + IMAGES_PER_PAGE, allImages.length);
+      const currentImages = allImages.slice(startIndex, endIndex);
+      
+      grid.innerHTML = currentImages.map(photo => {
+        // 新 API 的 url 欄位即為可直接顯示的 Cloudinary 連結
+        const imageUrl = photo.url || photo.secure_url || '';
+        const dateStr = photo.time || photo.created_at || '';
+        return `
+          <div class="photo-card" onclick="openLightbox('${imageUrl}', '${formatDate(dateStr)}')">
+            <img src="${imageUrl}" alt="屋頂植物" loading="lazy" onerror="this.src='https://placehold.co/600x800/e8e0d4/5a7a4a?text=蕨積+影像'">
+            <div class="photo-overlay">
+              <div class="photo-date">
+                <i data-lucide="calendar" style="width: 12px; height: 12px;"></i>
+                ${formatDate(dateStr)}
+              </div>
             </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
       
+      // 重新初始化 lucide 圖示 (如果有)
       if (typeof lucide !== 'undefined') {
         lucide.createIcons();
       }
@@ -805,7 +738,7 @@
       
       if (pageInfo) {
         if (totalPages === 0) pageInfo.textContent = '第 0 / 0 頁';
-        else pageInfo.textContent = `第 ${currentPage} / ${totalPages} 頁`;
+        else pageInfo.textContent = `第 ${currentPage} / ${totalPages} 頁 (共 ${allImages.length} 張)`;
       }
     }
     
@@ -827,16 +760,19 @@
       const lightbox = document.getElementById('lightbox');
       const lightboxImage = document.getElementById('lightboxImage');
       const lightboxInfo = document.getElementById('lightboxInfo');
-      lightboxImage.src = url;
-      lightboxInfo.textContent = date;
-      lightbox.classList.add('active');
+      if (lightboxImage && lightboxInfo) {
+        lightboxImage.src = url;
+        lightboxInfo.textContent = date;
+        lightbox.classList.add('active');
+      }
     };
     
     window.closeLightbox = function() {
       const lightbox = document.getElementById('lightbox');
-      lightbox.classList.remove('active');
+      if (lightbox) lightbox.classList.remove('active');
     };
     
+    // 初始化頁面：載入所有照片並顯示
     async function initPage() {
       const grid = document.getElementById('photoGrid');
       const pagination = document.querySelector('.pagination');
@@ -844,7 +780,7 @@
       grid.innerHTML = `
         <div class="loading-state" style="grid-column: 1/-1;">
           <div class="loading-spinner"></div>
-          <div class="loading-text">正在載入照片...</div>
+          <div class="loading-text">🌱 正在從 Cloudinary 即時讀取照片 (全新 API)...</div>
         </div>
       `;
       if (pagination) pagination.style.display = 'none';
@@ -852,11 +788,12 @@
       try {
         allImages = await fetchAllImages();
         
-        if (allImages.length === 0) {
+        if (!allImages.length) {
           grid.innerHTML = `
             <div class="empty-state" style="grid-column: 1/-1;">
               <i>📭</i>
-              <p>目前沒有照片，請稍後再試</p>
+              <p>目前沒有讀取到照片，請確認 Cloudinary 內有照片 (現有 ${allImages.length} 張)</p>
+              <p style="font-size:0.8rem; margin-top:12px;">新 API 位址: ${API_BASE}/api/images</p>
             </div>
           `;
           if (pagination) pagination.style.display = 'none';
@@ -880,7 +817,7 @@
       }
     }
     
-    // 鍵盤事件支援（左右鍵切換頁面，ESC關燈箱）
+    // 鍵盤事件支援 (左右切換頁面 / ESC 關閉燈箱)
     document.addEventListener('keydown', function(e) {
       const lightbox = document.getElementById('lightbox');
       if (lightbox && lightbox.classList.contains('active')) {
@@ -894,7 +831,7 @@
       }
     });
     
-    // 導覽列初始化
+    // 導覽列初始化 (與原本完全一致)
     function initNav() {
       var btn = document.getElementById('hamburger');
       var menu = document.getElementById('mobileMenu');
@@ -929,6 +866,7 @@
     }
     
     document.addEventListener('DOMContentLoaded', function () {
+      // 載入導覽列 (nav.html)
       fetch('nav.html')
         .then(response => response.text())
         .then(data => {
@@ -943,9 +881,10 @@
             '</nav>';
         });
       
+      // 啟動相簿 (使用全新 API)
       initPage();
       
-      // 確保分頁按鈕綁定全域函數 (因為html onclick 引用)
+      // 確保分頁按鈕綁定全域函數
       const prev = document.getElementById('prevBtn');
       const next = document.getElementById('nextBtn');
       if (prev) prev.onclick = () => window.prevPage();
