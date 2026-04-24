@@ -256,32 +256,14 @@
         flex-wrap: wrap;
       }
     }
-    .daily-container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
+    .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
     .page-header { text-align: center; margin-bottom: 2rem; }
     .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
     .page-header p { color: var(--stone); margin-top: 0.5rem; }
     
-    .categories {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        flex-wrap: wrap;
-        margin-bottom: 2rem;
-    }
-    .category-btn {
-        padding: 0.5rem 1.5rem;
-        border-radius: 30px;
-        border: none;
-        cursor: pointer;
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition: transform 0.2s;
-        background: #e8e0d8;
-        color: #4a5b4e;
-        text-decoration: none;
-        display: inline-block;
-    }
-    .category-btn:hover { transform: translateY(-2px); background: #4a7c59; color: white; }
+    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .main-col { flex: 3; min-width: 250px; }
+    .sidebar-col { flex: 1; min-width: 220px; }
     
     .latest-article {
         background: white;
@@ -290,9 +272,43 @@
         margin-bottom: 2rem;
         box-shadow: 0 2px 12px rgba(0,0,0,0.08);
     }
+    .latest-category {
+        display: inline-block;
+        background: #2c7a4d;
+        color: white;
+        padding: 0.2rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+    }
     .latest-title { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.5rem; }
-    .latest-date { color: var(--stone); margin-bottom: 1rem; font-size: 0.9rem; }
-    .read-more { display: inline-block; margin-top: 1rem; color: var(--fern); text-decoration: none; font-weight: 500; }
+    .latest-date { color: var(--stone); margin-bottom: 1.5rem; font-size: 0.9rem; }
+    .latest-content {
+        line-height: 1.8;
+        font-size: 1rem;
+        color: #333;
+    }
+    .latest-content h2 {
+        font-size: 1.4rem;
+        margin: 1.2rem 0 0.8rem 0;
+        color: var(--moss);
+        border-left: 4px solid #2c7a4d;
+        padding-left: 1rem;
+    }
+    .latest-content h3 {
+        font-size: 1.2rem;
+        margin: 1rem 0 0.5rem 0;
+        color: var(--fern);
+    }
+    .latest-content p {
+        margin-bottom: 0.8rem;
+    }
+    .latest-content ul, .latest-content ol {
+        margin: 0.8rem 0 0.8rem 1.5rem;
+    }
+    .latest-content li {
+        margin-bottom: 0.3rem;
+    }
     
     .section-title { font-size: 1.2rem; color: var(--moss); border-bottom: 2px solid #e0d6cc; padding-bottom: 0.5rem; margin-bottom: 1rem; }
     .past-list { list-style: none; }
@@ -301,9 +317,43 @@
     .past-link:hover { text-decoration: underline; }
     .past-meta { font-size: 0.75rem; color: #aaa; margin-top: 0.25rem; }
     
+    .sidebar-card {
+        background: white;
+        border-radius: 16px;
+        padding: 1.2rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .sidebar-card h3 {
+        font-size: 1rem;
+        color: var(--moss);
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #e0d6cc;
+    }
+    .sidebar-links {
+        list-style: none;
+    }
+    .sidebar-links li {
+        margin-bottom: 0.5rem;
+    }
+    .sidebar-links a {
+        color: var(--stone);
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: color 0.2s;
+    }
+    .sidebar-links a:hover {
+        color: var(--fern);
+        text-decoration: underline;
+    }
+    
     @media (max-width: 768px) {
+        .two-columns { flex-direction: column; }
         .latest-title { font-size: 1.4rem; }
         .daily-container { padding: 0 1rem; }
+        .latest-article { padding: 1rem; }
+        .latest-content h2 { font-size: 1.2rem; }
     }
     </style>
 </head>
@@ -317,22 +367,22 @@
                 <p>植物・永續・碳盤查・生活 — 每天一篇，與你一起成長</p>
             </div>
             
-            <div class="categories">
-                <a href="plant.html" class="category-btn">🌿 植物</a>
-                <a href="sustainability.html" class="category-btn">♻️ 永續</a>
-                <a href="carbon.html" class="category-btn">📊 碳盤查</a>
-                <a href="life.html" class="category-btn">🏡 生活</a>
-            </div>
+            <div class="two-columns">
+                <div class="main-col">
+                    <div class="latest-article">
+                        <div class="latest-category">📌 永續</div>
+                        <h1 class="latest-title">舊衣新生：快時尚vs循環經濟</h1>
+                        <div class="latest-date">📅 2026-04-24</div>
+                        <div class="latest-content">
+                            
+                <h2>快時尚 vs 二手衣：誰更永續？</h2><p>快時尚品牌每季推出上千款新衣，價格低廉但品質堪憂，消費者平均只穿7次就丟棄。反觀二手衣市場，一件衣服經由轉售、改造或租借，使用次數可提升至15次以上，延長壽命2.2倍。從碳足跡來看，二手衣的碳排放僅為新衣的18%，省下82%的溫室氣體，同時減少70%的水資源消耗。</p><h2>線性經濟 vs 循環經濟</h2><p>線性經濟是「買-穿-丟」的單向流程，每年全球有9200萬噸紡織廢棄物進入掩埋場。循環經濟則透過回收、翻新、轉售，讓布料纖維持續流動。例如，一件牛仔褲可被重新設計成背包，或分解為纖維再製成新衣。後者不僅減少垃圾，還創造更多就業機會，形成正向循環。</p><h2>你的選擇：消費 vs 投資</h2><p>快時尚鼓勵衝動消費，一件T恤可能只穿一季；二手衣則需要更多心思挑選，但每件都是獨一無二的「投資」。研究顯示，經常購買二手衣的人，衣櫃裡的衣服平均被穿著次數高出40%，且更懂得珍惜與修補。下次購物前，不妨先逛逛二手店或交換市集，給衣物第二個機會。</p><p>🌿 蕨積 - 讓生活多一點綠</p>
             
-            <div class="latest-article">
-                <h1 class="latest-title">大公司如何永續？</h1>
-                <div class="latest-date">📅 2026-04-24 · 永續</div>
-                <a href="2026-04-24-大公司如何永續？.html" class="read-more">🔗 閱讀全文 →</a>
-            </div>
-            
-            <div class="section-title">📖 近期文章</div>
-            <ul class="past-list">
-                
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">📖 近期文章</div>
+                    <ul class="past-list">
+                        
                         <li class="past-item">
                             <a class="past-link" href="2026-04-23-夜間綠牆燈光魔法.html">夜間綠牆燈光魔法</a>
                             <div class="past-meta">📅 2026-04-23 · 植物</div>
@@ -453,7 +503,29 @@
                             <a class="past-link" href="2026-04-10-當手機成為延伸器官：我的七日「數位輕斷食」實驗.html">當手機成為延伸器官：我的七日「數位輕斷食」實驗</a>
                             <div class="past-meta">📅 2026-04-10 · 生活</div>
                         </li>
-            </ul>
+                    </ul>
+                </div>
+                
+                
+                    <div class="sidebar-col">
+                        <div class="sidebar-card">
+                            <h3>🌿 分類瀏覽</h3>
+                            <ul class="sidebar-links">
+                                <li><a href="plant.html">🌱 植物文章</a></li>
+                                <li><a href="sustainability.html">♻️ 永續文章</a></li>
+                                <li><a href="carbon.html">📊 碳盤查文章</a></li>
+                                <li><a href="life.html">🏡 生活文章</a></li>
+                            </ul>
+                        </div>
+                        <div class="sidebar-card">
+                            <h3>📅 最新文章</h3>
+                            <ul class="sidebar-links">
+                                <li><a href="2026-04-24-舊衣新生-快時尚vs循環經濟.html">舊衣新生：快時尚vs循環經濟</a></li>
+                    <li><a href="2026-04-23-夜間綠牆燈光魔法.html">夜間綠牆燈光魔法</a></li><li><a href="2026-04-22-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a></li><li><a href="2026-04-21-中小企業碳管理入門：從哪裡開始.html">中小企業碳管理入門：從哪裡開始</a></li><li><a href="2026-04-21-微小習慣，巨大幸福.html">微小習慣，巨大幸福</a></li><li><a href="2026-04-20-減塑新生活：塑膠袋之外的選擇.html">減塑新生活：塑膠袋之外的選擇</a></li>
+                            </ul>
+                        </div>
+                    </div>
+            </div>
         </div>
     </main>
     
