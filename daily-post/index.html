@@ -333,7 +333,27 @@
     }
     .sidebar-links {
         list-style: none;
+    }    .count-badge {
+        float: right;
+        background: #e8e0d8;
+        padding: 0.1rem 0.5rem;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        color: #5a7a4a;
     }
+    .sidebar-stats {
+        list-style: none;
+    }
+    .sidebar-stats li {
+        margin-bottom: 0.6rem;
+        font-size: 0.85rem;
+        color: var(--stone);
+    }
+    .sidebar-stats strong {
+        color: var(--moss);
+        font-weight: 600;
+    }
+    
     .sidebar-links li {
         margin-bottom: 0.5rem;
     }
@@ -371,11 +391,11 @@
                 <div class="main-col">
                     <div class="latest-article">
                         <div class="latest-category">📌 永續</div>
-                        <h1 class="latest-title">舊衣新生：快時尚vs循環經濟</h1>
+                        <h1 class="latest-title">太陽能vs風力：家用綠色能源PK</h1>
                         <div class="latest-date">📅 2026-04-24</div>
                         <div class="latest-content">
                             
-                <h2>快時尚 vs 二手衣：誰更永續？</h2><p>快時尚品牌每季推出上千款新衣，價格低廉但品質堪憂，消費者平均只穿7次就丟棄。反觀二手衣市場，一件衣服經由轉售、改造或租借，使用次數可提升至15次以上，延長壽命2.2倍。從碳足跡來看，二手衣的碳排放僅為新衣的18%，省下82%的溫室氣體，同時減少70%的水資源消耗。</p><h2>線性經濟 vs 循環經濟</h2><p>線性經濟是「買-穿-丟」的單向流程，每年全球有9200萬噸紡織廢棄物進入掩埋場。循環經濟則透過回收、翻新、轉售，讓布料纖維持續流動。例如，一件牛仔褲可被重新設計成背包，或分解為纖維再製成新衣。後者不僅減少垃圾，還創造更多就業機會，形成正向循環。</p><h2>你的選擇：消費 vs 投資</h2><p>快時尚鼓勵衝動消費，一件T恤可能只穿一季；二手衣則需要更多心思挑選，但每件都是獨一無二的「投資」。研究顯示，經常購買二手衣的人，衣櫃裡的衣服平均被穿著次數高出40%，且更懂得珍惜與修補。下次購物前，不妨先逛逛二手店或交換市集，給衣物第二個機會。</p><p>🌿 蕨積 - 讓生活多一點綠</p>
+                <h2>太陽能 vs 風力：家用綠色能源怎麼選？</h2><p>想在家使用綠色能源，最常見的選擇就是太陽能和風力。這兩種技術各有特色，適合不同的居住環境和用電需求。以下從幾個關鍵面向比較，幫你找到最適合的方案。</p><h2>1. 發電原理與穩定性</h2><p><strong>太陽能</strong>：透過太陽能板將陽光轉換為電能。白天發電，夜晚和陰天效率大降。優點是預測性高，可依日照時數規劃。</p><p><strong>風力</strong>：利用風力發電機轉動葉片發電。只要有風就能發電，日夜皆可，但風速不穩定，發電量波動大。</p><h2>2. 安裝條件與空間需求</h2><p><strong>太陽能</strong>：需要屋頂或空地朝南（北半球），面積約5-10坪可裝1kW。適合透天厝或公寓頂樓。</p><p><strong>風力</strong>：需要空曠、風速穩定的地點，至少離地10公尺，且周圍無遮蔽。離市區較遠的郊區或農舍較適合。</p><h2>3. 成本與維護</h2><p><strong>太陽能</strong>：初期安裝成本較高（每kW約5-8萬元），但壽命長達20-30年，維護簡單（定期清潔面板）。</p><p><strong>風力</strong>：小型風機約3-6萬元/kW，但葉片和軸承需定期檢查，受風沙磨損較快，壽命約15-20年。</p><h2>4. 儲能與併網</h2><p>兩者都需要搭配電池儲存多餘電力，或將電賣回電網。太陽能發電時間與用電高峰（白天）較匹配；風力發電時間不固定，需較大容量電池。</p><h2>結論：哪個適合你？</h2><p>如果你住在市區、有屋頂，太陽能是穩定首選；若在郊區、風大且空地多，風力可補足夜間用電。也可以兩者混合使用，達到24小時綠電供應。</p><p>🌿 蕨積 - 讓生活多一點綠</p>
             
                         </div>
                     </div>
@@ -511,17 +531,19 @@
                         <div class="sidebar-card">
                             <h3>🌿 分類瀏覽</h3>
                             <ul class="sidebar-links">
-                                <li><a href="plant.html">🌱 植物文章</a></li>
-                                <li><a href="sustainability.html">♻️ 永續文章</a></li>
-                                <li><a href="carbon.html">📊 碳盤查文章</a></li>
-                                <li><a href="life.html">🏡 生活文章</a></li>
+                                <li><a href="plant.html">🌱 植物文章 <span class="count-badge">25</span></a></li>
+                                <li><a href="sustainability.html">♻️ 永續文章 <span class="count-badge">14</span></a></li>
+                                <li><a href="carbon.html">📊 碳盤查文章 <span class="count-badge">12</span></a></li>
+                                <li><a href="life.html">🏡 生活文章 <span class="count-badge">19</span></a></li>
                             </ul>
                         </div>
                         <div class="sidebar-card">
-                            <h3>📅 最新文章</h3>
-                            <ul class="sidebar-links">
-                                <li><a href="2026-04-24-舊衣新生-快時尚vs循環經濟.html">舊衣新生：快時尚vs循環經濟</a></li>
-                    <li><a href="2026-04-23-夜間綠牆燈光魔法.html">夜間綠牆燈光魔法</a></li><li><a href="2026-04-22-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a></li><li><a href="2026-04-21-中小企業碳管理入門：從哪裡開始.html">中小企業碳管理入門：從哪裡開始</a></li><li><a href="2026-04-21-微小習慣，巨大幸福.html">微小習慣，巨大幸福</a></li><li><a href="2026-04-20-減塑新生活：塑膠袋之外的選擇.html">減塑新生活：塑膠袋之外的選擇</a></li>
+                            <h3>📊 本站統計</h3>
+                            <ul class="sidebar-stats">
+                                <li>📄 總文章數：<strong>70</strong> 篇</li>
+                                <li>📝 累積字數：約 <strong>45,500</strong> 字</li>
+                                <li>📅 更新頻率：每日一篇</li>
+                                <li>🌱 主題分類：4 大類</li>
                             </ul>
                         </div>
                     </div>
