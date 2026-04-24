@@ -256,7 +256,7 @@
         flex-wrap: wrap;
       }
     }
-    .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .daily-container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
     .page-header { text-align: center; margin-bottom: 2rem; }
     .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
     .page-header p { color: var(--stone); margin-top: 0.5rem; }
@@ -278,13 +278,10 @@
         transition: transform 0.2s;
         background: #e8e0d8;
         color: #4a5b4e;
+        text-decoration: none;
+        display: inline-block;
     }
-    .category-btn:hover { transform: translateY(-2px); }
-    .category-btn.active { background: #4a7c59; color: white; }
-    
-    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
-    .main-col { flex: 3; min-width: 250px; }
-    .sidebar-col { flex: 1; min-width: 200px; background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); height: fit-content; }
+    .category-btn:hover { transform: translateY(-2px); background: #4a7c59; color: white; }
     
     .latest-article {
         background: white;
@@ -293,36 +290,18 @@
         margin-bottom: 2rem;
         box-shadow: 0 2px 12px rgba(0,0,0,0.08);
     }
-    .latest-category {
-        display: inline-block;
-        background: #4a7c59;
-        color: white;
-        padding: 0.2rem 0.8rem;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        margin-bottom: 1rem;
-    }
     .latest-title { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.5rem; }
-    .latest-date { color: var(--stone); margin-bottom: 1.5rem; font-size: 0.9rem; }
-    .latest-content { line-height: 1.8; }
+    .latest-date { color: var(--stone); margin-bottom: 1rem; font-size: 0.9rem; }
     .read-more { display: inline-block; margin-top: 1rem; color: var(--fern); text-decoration: none; font-weight: 500; }
     
     .section-title { font-size: 1.2rem; color: var(--moss); border-bottom: 2px solid #e0d6cc; padding-bottom: 0.5rem; margin-bottom: 1rem; }
     .past-list { list-style: none; }
     .past-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0e8e0; }
-    .past-link { font-size: 0.95rem; font-weight: 500; color: var(--fern); text-decoration: none; display: block; }
+    .past-link { font-size: 1rem; font-weight: 500; color: var(--fern); text-decoration: none; display: block; }
     .past-link:hover { text-decoration: underline; }
-    .past-meta { font-size: 0.7rem; color: #aaa; margin-top: 0.25rem; }
-    .past-badge { display: inline-block; font-size: 0.65rem; padding: 0.1rem 0.5rem; border-radius: 12px; color: white; margin-right: 0.5rem; }
-    .archive-month { margin-bottom: 1rem; }
-    .archive-month-title { font-weight: 600; color: var(--moss); margin-bottom: 0.5rem; }
-    .archive-list { list-style: none; padding-left: 0.5rem; }
-    .archive-list li { margin-bottom: 0.3rem; }
-    .archive-list a { color: var(--stone); text-decoration: none; font-size: 0.85rem; }
-    .archive-list a:hover { color: var(--fern); text-decoration: underline; }
+    .past-meta { font-size: 0.75rem; color: #aaa; margin-top: 0.25rem; }
     
     @media (max-width: 768px) {
-        .two-columns { flex-direction: column; }
         .latest-title { font-size: 1.4rem; }
         .daily-container { padding: 0 1rem; }
     }
@@ -339,193 +318,142 @@
             </div>
             
             <div class="categories">
-                <a href="plant.html" class="category-btn" style="text-decoration: none;">🌿 植物</a>
-                <a href="sustainability.html" class="category-btn" style="text-decoration: none;">♻️ 永續</a>
-                <a href="carbon.html" class="category-btn" style="text-decoration: none;">📊 碳盤查</a>
-                <a href="life.html" class="category-btn" style="text-decoration: none;">🏡 生活</a>
+                <a href="plant.html" class="category-btn">🌿 植物</a>
+                <a href="sustainability.html" class="category-btn">♻️ 永續</a>
+                <a href="carbon.html" class="category-btn">📊 碳盤查</a>
+                <a href="life.html" class="category-btn">🏡 生活</a>
             </div>
             
-            <div class="two-columns">
-                <div class="main-col">
-                    <div class="latest-article">
-                        <div class="latest-category">📌 植物</div>
-                        <h1 class="latest-title">夜間綠牆燈光魔法</h1>
-                        <div class="latest-date">📅 2026-04-23</div>
-                        <div class="latest-content"><h2>故事引入：小美的夜間綠牆困擾</h2><p>小美是個熱愛植物的上班族，她在客廳打造了一面植生牆，白天陽光灑落，綠意盎然，讓她心曠神怡。但一到晚上，牆面就變得陰暗，植物彷彿消失了，只剩下黑壓壓一片。她試著開一般吸頂燈，卻讓葉片看起來灰濛濛的，完全沒有美感。直到她參加了一場植物燈光工作坊，才發現：原來植生牆的夜間美學，關鍵在於「燈光設計」！</p><h2>燈光設計原則：色溫與植物搭配</h2><p>燈光不是越亮越好，而是要看「色溫」。色溫以K（克爾文）為單位，數值越低光越黃，越高光越藍。對植物來說，3000K左右的暖白光最適合，能讓綠葉看起來鮮嫩飽滿；而5000K以上的冷白光會讓植物顯得太過蒼白，失去生機。另外，燈具的演色性（CRI）也很重要，建議選擇CRI大於80的燈具，這樣植物顏色才會真實呈現。</p><h2>照明技巧：避免傷害植物</h2><p>很多人擔心晚上開燈會干擾植物作息，其實只要掌握兩個原則就沒問題。第一，使用「可調光」燈具，將亮度調至50%以下，模擬月光效果；第二，設定定時器，讓燈光在晚上10點前關閉，給植物足夠的黑暗時間進行呼吸作用。另外，燈具要距離植物至少30公分，避免熱能灼傷葉片。LED燈是最佳選擇，因為它發熱量低，且省電。</p><h2>案例分享：居家與商業空間應用</h2><p>小美改造後，在植生牆上方安裝了一排暖白LED軌道燈，並加裝調光器。現在晚上回家，她會將燈光調暗，坐在沙發上欣賞綠牆，葉片在暖光下閃爍著柔和的光澤，彷彿置身森林。她的朋友開咖啡廳，也學她設計了一面植生牆，並在下方打上間接照明，讓牆面看起來像是浮在空中，吸引許多客人拍照打卡。商業空間的燈光可以更活潑，例如用彩色LED燈強調特定植物，但記得色調要與植物協調，否則會顯得突兀。</p><p>🌿 蕨積 - 讓生活多一點綠</p></div>
-                        <a href="2026-04-23-夜間綠牆燈光魔法.html" class="read-more">🔗 查看獨立頁面 →</a>
-                    </div>
-                    
-                    <div class="section-title">📖 過往文章</div>
-                    <ul class="past-list" id="pastList">
-                        
-                        <li class="past-item" data-category="生活">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-22-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
-                            <div class="past-meta">📅 2026-04-22</div>
-                        </li>
-                        <li class="past-item" data-category="生活">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-21-微小習慣，巨大幸福.html">微小習慣，巨大幸福</a>
-                            <div class="past-meta">📅 2026-04-21</div>
-                        </li>
-                        <li class="past-item" data-category="碳盤查">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-21-中小企業碳管理入門：從哪裡開始.html">中小企業碳管理入門：從哪裡開始</a>
-                            <div class="past-meta">📅 2026-04-21</div>
-                        </li>
-                        <li class="past-item" data-category="永續">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-04-20-減塑新生活：塑膠袋之外的選擇.html">減塑新生活：塑膠袋之外的選擇</a>
-                            <div class="past-meta">📅 2026-04-20</div>
-                        </li>
-                        <li class="past-item" data-category="植物">
-                            <span class="past-badge" style="background: #4a7c59;">植物</span>
-                            <a class="past-link" href="2026-04-19-《我的植生牆實驗日記：從漏水噩夢到垂直綠洲的結構三部曲》.html">《我的植生牆實驗日記：從漏水噩夢到垂直綠洲的結構三部曲》</a>
-                            <div class="past-meta">📅 2026-04-19</div>
-                        </li>
-                        <li class="past-item" data-category="生活">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-19-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
-                            <div class="past-meta">📅 2026-04-19</div>
-                        </li>
-                        <li class="past-item" data-category="植物">
-                            <span class="past-badge" style="background: #4a7c59;">植物</span>
-                            <a class="past-link" href="2026-04-19-辦公室植生牆：工作效率的綠色魔法.html">辦公室植生牆：工作效率的綠色魔法</a>
-                            <div class="past-meta">📅 2026-04-19</div>
-                        </li>
-                        <li class="past-item" data-category="植物">
-                            <span class="past-badge" style="background: #4a7c59;">植物</span>
-                            <a class="past-link" href="2026-04-19-垂直花園的隱形骨架：打造一面會呼吸的植生牆.html">垂直花園的隱形骨架：打造一面會呼吸的植生牆</a>
-                            <div class="past-meta">📅 2026-04-19</div>
-                        </li>
-                        <li class="past-item" data-category="植物">
-                            <span class="past-badge" style="background: #4a7c59;">植物</span>
-                            <a class="past-link" href="2026-04-19-植生牆入門指南：打造你的第一面垂直花園.html">植生牆入門指南：打造你的第一面垂直花園</a>
-                            <div class="past-meta">📅 2026-04-19</div>
-                        </li>
-                        <li class="past-item" data-category="生活">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-18-《從囤積到自由：一個衣櫃教我的斷捨離哲學》.html">《從囤積到自由：一個衣櫃教我的斷捨離哲學》</a>
-                            <div class="past-meta">📅 2026-04-18</div>
-                        </li>
-                        <li class="past-item" data-category="碳盤查">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-17-碳權交易入門：五分鐘搞懂「空氣買賣」的遊戲規則.html">碳權交易入門：五分鐘搞懂「空氣買賣」的遊戲規則</a>
-                            <div class="past-meta">📅 2026-04-17</div>
-                        </li>
-                        <li class="past-item" data-category="植物">
-                            <span class="past-badge" style="background: #4a7c59;">植物</span>
-                            <a class="past-link" href="2026-04-17-垂直綠洲的基石：解析植生牆「乾」與「濕」的關鍵對決.html">垂直綠洲的基石：解析植生牆「乾」與「濕」的關鍵對決</a>
-                            <div class="past-meta">📅 2026-04-17</div>
-                        </li>
-                        <li class="past-item" data-category="碳盤查">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-17-買賣「空氣」也能賺錢？揭開碳權交易的神秘面紗.html">買賣「空氣」也能賺錢？揭開碳權交易的神秘面紗</a>
-                            <div class="past-meta">📅 2026-04-17</div>
-                        </li>
-                        <li class="past-item" data-category="植物">
-                            <span class="past-badge" style="background: #4a7c59;">植物</span>
-                            <a class="past-link" href="2026-04-16-《我的第一面綠牆：從殺手到守護者的植生牆日記》.html">《我的第一面綠牆：從殺手到守護者的植生牆日記》</a>
-                            <div class="past-meta">📅 2026-04-16</div>
-                        </li>
-                        <li class="past-item" data-category="永續">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-04-16-別讓地球「碳」氣三個關鍵數據帶你實踐低碳生活.html">別讓地球「碳」氣！三個關鍵數據帶你實踐低碳生活</a>
-                            <div class="past-meta">📅 2026-04-16</div>
-                        </li>
-                        <li class="past-item" data-category="植物">
-                            <span class="past-badge" style="background: #4a7c59;">植物</span>
-                            <a class="past-link" href="2026-04-15-《晝伏夜出也美麗：植生牆的燈光魔法，是點綴還是必需？》.html">《晝伏夜出也美麗：植生牆的燈光魔法，是點綴還是必需？》</a>
-                            <div class="past-meta">📅 2026-04-15</div>
-                        </li>
-                        <li class="past-item" data-category="生活">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-15-五分鐘啟動正念模式：給忙碌現代人的當下練習清單.html">五分鐘啟動正念模式：給忙碌現代人的當下練習清單</a>
-                            <div class="past-meta">📅 2026-04-15</div>
-                        </li>
-                        <li class="past-item" data-category="永續">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-04-15-今天只丟三樣垃圾：我的零浪費生活實驗.html">今天只丟三樣垃圾：我的零浪費生活實驗</a>
-                            <div class="past-meta">📅 2026-04-15</div>
-                        </li>
-                        <li class="past-item" data-category="碳盤查">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-15-電費單上的「碳足跡」：原來省電不只省錢，還救了北極熊？.html">電費單上的「碳足跡」：原來省電不只省錢，還救了北極熊？</a>
-                            <div class="past-meta">📅 2026-04-15</div>
-                        </li>
-                        <li class="past-item" data-category="植物">
-                            <span class="past-badge" style="background: #4a7c59;">植物</span>
-                            <a class="past-link" href="2026-04-15-《垂直花園的雙面刃：結構與防水的生存對決》.html">《垂直花園的雙面刃：結構與防水的生存對決》</a>
-                            <div class="past-meta">📅 2026-04-15</div>
-                        </li>
-                        <li class="past-item" data-category="植物">
-                            <span class="past-badge" style="background: #4a7c59;">植物</span>
-                            <a class="past-link" href="2026-04-15-《我的窗邊綠洲：當焦慮被葉片輕輕接住》.html">《我的窗邊綠洲：當焦慮被葉片輕輕接住》</a>
-                            <div class="past-meta">📅 2026-04-15</div>
-                        </li>
-                        <li class="past-item" data-category="永續">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-04-15-衣櫃裡的永續革命：當舊衣不再只是「丟掉」的選擇.html">衣櫃裡的永續革命：當舊衣不再只是「丟掉」的選擇</a>
-                            <div class="past-meta">📅 2026-04-15</div>
-                        </li>
-                        <li class="past-item" data-category="生活">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-14-當大腦的「快轉鍵」卡住了：我們為何需要刻意練習「慢下來」？.html">當大腦的「快轉鍵」卡住了：我們為何需要刻意練習「慢下來」？</a>
-                            <div class="past-meta">📅 2026-04-14</div>
-                        </li>
-                        <li class="past-item" data-category="碳盤查">
-                            <span class="past-badge" style="background: #1e6f5c;">碳盤查</span>
-                            <a class="past-link" href="2026-04-13-「碳帳本」革命：從一杯咖啡到國家戰略，揭開淨零排放的數據之戰.html">「碳帳本」革命：從一杯咖啡到國家戰略，揭開淨零排放的數據之戰</a>
-                            <div class="past-meta">📅 2026-04-13</div>
-                        </li>
-                        <li class="past-item" data-category="永續">
-                            <span class="past-badge" style="background: #2c7a4d;">永續</span>
-                            <a class="past-link" href="2026-04-12-你的購物車，正在改變地球的溫度：一份「少買精買」的永續消費指南.html">你的購物車，正在改變地球的溫度：一份「少買精買」的永續消費指南</a>
-                            <div class="past-meta">📅 2026-04-12</div>
-                        </li>
-                        <li class="past-item" data-category="植物">
-                            <span class="past-badge" style="background: #4a7c59;">植物</span>
-                            <a class="past-link" href="2026-04-11-《植生牆養護不求人三大關鍵問答，讓你家的綠牆永遠生機勃勃》.html">《植生牆養護不求人！三大關鍵問答，讓你家的綠牆永遠生機勃勃》</a>
-                            <div class="past-meta">📅 2026-04-11</div>
-                        </li>
-                        <li class="past-item" data-category="植物">
-                            <span class="past-badge" style="background: #4a7c59;">植物</span>
-                            <a class="past-link" href="2026-04-10-植生牆大PK：自己動手-vs.-懶人套組，哪種才是你的垂直花園真命天子？.html">植生牆大PK：自己動手 vs. 懶人套組，哪種才是你的垂直花園真命天子？</a>
-                            <div class="past-meta">📅 2026-04-10</div>
-                        </li>
-                        <li class="past-item" data-category="生活">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-10-**囤積與留白：一場關於空間與心靈的對角線戰爭**.html">**囤積與留白：一場關於空間與心靈的對角線戰爭**</a>
-                            <div class="past-meta">📅 2026-04-10</div>
-                        </li>
-                        <li class="past-item" data-category="植物">
-                            <span class="past-badge" style="background: #4a7c59;">植物</span>
-                            <a class="past-link" href="2026-04-10-《牆上的四季流轉：打造全年無休的植生牆景觀指南》.html">《牆上的四季流轉：打造全年無休的植生牆景觀指南》</a>
-                            <div class="past-meta">📅 2026-04-10</div>
-                        </li>
-                        <li class="past-item" data-category="生活">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-10-減法生活學：5個讓日子變輕盈的簡單練習.html">減法生活學：5個讓日子變輕盈的簡單練習</a>
-                            <div class="past-meta">📅 2026-04-10</div>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="sidebar-col">
-                    <div class="section-title">📚 歷史歸檔</div>
-                    
-                    <div class="archive-month">
-                        <div class="archive-month-title">2026年4月</div>
-                        <ul class="archive-list"><li><a href="2026-04-22-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a></li><li><a href="2026-04-21-微小習慣，巨大幸福.html">微小習慣，巨大幸福</a></li><li><a href="2026-04-21-中小企業碳管理入門：從哪裡開始.html">中小企業碳管理入門：從哪裡開始</a></li><li><a href="2026-04-20-減塑新生活：塑膠袋之外的選擇.html">減塑新生活：塑膠袋之外的選擇</a></li><li><a href="2026-04-19-《我的植生牆實驗日記：從漏水噩夢到垂直綠洲的結構三部曲》.html">《我的植生牆實驗日記：從漏水噩夢到垂直綠洲的結構三...</a></li><li><a href="2026-04-19-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a></li><li><a href="2026-04-19-辦公室植生牆：工作效率的綠色魔法.html">辦公室植生牆：工作效率的綠色魔法</a></li><li><a href="2026-04-19-垂直花園的隱形骨架：打造一面會呼吸的植生牆.html">垂直花園的隱形骨架：打造一面會呼吸的植生牆</a></li><li><a href="#" style="color:#aaa;">... 共43篇</a></li>
-                        </ul>
-                    </div>
-                    <div class="archive-month">
-                        <div class="archive-month-title">2026年3月</div>
-                        <ul class="archive-list"><li><a href="2026-03-31-**不只賺錢，更賺未來：五家把永續變核心競爭力的大企業**.html">不只賺錢，更賺未來：五家把永續變核心競爭力的大企業</a></li><li><a href="2026-03-31-當生活給你檸檬，別急著做檸檬汁：先學會欣賞檸檬的形狀.html">當生活給你檸檬，別急著做檸檬汁：先學會欣賞檸檬的形...</a></li><li><a href="2026-03-31-**衣櫃裡的永續革命：給舊衣服的五個新任務**.html">**衣櫃裡的永續革命：給舊衣服的五個新任務**</a></li><li><a href="2026-03-30-**標題：你的沉默綠肺隊友：NASA研究揭露，室內植物如何成為空氣淨化高手**.html">你的沉默綠肺隊友：NASA研究揭露，室內植物如何成...</a></li><li><a href="2026-03-29-**《雜物堆裡的人生課：我的斷捨離覺醒記》**.html">《雜物堆裡的人生課：我的斷捨離覺醒記》</a></li><li><a href="2026-03-28-招財樹真的能招財嗎？科學家與風水師的跨時空對話.html">招財樹真的能招財嗎？科學家與風水師的跨時空對話</a></li><li><a href="2026-03-28-不只是財富的象徵：觀葉植物如何成為現代生活的「綠金」資產.html">不只是財富的象徵：觀葉植物如何成為現代生活的「綠金...</a></li><li><a href="2026-03-28-誰在買賣空氣？一個咖啡館老闆的碳權奇遇.html">誰在買賣空氣？一個咖啡館老闆的碳權奇遇</a></li><li><a href="#" style="color:#aaa;">... 共25篇</a></li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="latest-article">
+                <h1 class="latest-title">大公司如何永續？</h1>
+                <div class="latest-date">📅 2026-04-24 · 永續</div>
+                <a href="2026-04-24-大公司如何永續？.html" class="read-more">🔗 閱讀全文 →</a>
             </div>
+            
+            <div class="section-title">📖 近期文章</div>
+            <ul class="past-list">
+                
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-23-夜間綠牆燈光魔法.html">夜間綠牆燈光魔法</a>
+                            <div class="past-meta">📅 2026-04-23 · 植物</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-22-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
+                            <div class="past-meta">📅 2026-04-22 · 生活</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-21-中小企業碳管理入門：從哪裡開始.html">中小企業碳管理入門：從哪裡開始</a>
+                            <div class="past-meta">📅 2026-04-21 · 碳盤查</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-21-微小習慣，巨大幸福.html">微小習慣，巨大幸福</a>
+                            <div class="past-meta">📅 2026-04-21 · 生活</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-20-減塑新生活：塑膠袋之外的選擇.html">減塑新生活：塑膠袋之外的選擇</a>
+                            <div class="past-meta">📅 2026-04-20 · 永續</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-19-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
+                            <div class="past-meta">📅 2026-04-19 · 生活</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-19-植生牆入門指南：打造你的第一面垂直花園.html">植生牆入門指南：打造你的第一面垂直花園</a>
+                            <div class="past-meta">📅 2026-04-19 · 植物</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-19-辦公室植生牆：工作效率的綠色魔法.html">辦公室植生牆：工作效率的綠色魔法</a>
+                            <div class="past-meta">📅 2026-04-19 · 植物</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-19-垂直花園的隱形骨架：打造一面會呼吸的植生牆.html">垂直花園的隱形骨架：打造一面會呼吸的植生牆</a>
+                            <div class="past-meta">📅 2026-04-19 · 植物</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-19-《我的植生牆實驗日記：從漏水噩夢到垂直綠洲的結構三部曲》.html">《我的植生牆實驗日記：從漏水噩夢到垂直綠洲的結構三部曲》</a>
+                            <div class="past-meta">📅 2026-04-19 · 植物</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-18-《從囤積到自由：一個衣櫃教我的斷捨離哲學》.html">《從囤積到自由：一個衣櫃教我的斷捨離哲學》</a>
+                            <div class="past-meta">📅 2026-04-18 · 生活</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-17-買賣「空氣」也能賺錢？揭開碳權交易的神秘面紗.html">買賣「空氣」也能賺錢？揭開碳權交易的神秘面紗</a>
+                            <div class="past-meta">📅 2026-04-17 · 碳盤查</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-17-垂直綠洲的基石：解析植生牆「乾」與「濕」的關鍵對決.html">垂直綠洲的基石：解析植生牆「乾」與「濕」的關鍵對決</a>
+                            <div class="past-meta">📅 2026-04-17 · 植物</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-17-碳權交易入門：五分鐘搞懂「空氣買賣」的遊戲規則.html">碳權交易入門：五分鐘搞懂「空氣買賣」的遊戲規則</a>
+                            <div class="past-meta">📅 2026-04-17 · 碳盤查</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-16-別讓地球「碳」氣三個關鍵數據帶你實踐低碳生活.html">別讓地球「碳」氣！三個關鍵數據帶你實踐低碳生活</a>
+                            <div class="past-meta">📅 2026-04-16 · 永續</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-16-《我的第一面綠牆：從殺手到守護者的植生牆日記》.html">《我的第一面綠牆：從殺手到守護者的植生牆日記》</a>
+                            <div class="past-meta">📅 2026-04-16 · 植物</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-15-五分鐘啟動正念模式：給忙碌現代人的當下練習清單.html">五分鐘啟動正念模式：給忙碌現代人的當下練習清單</a>
+                            <div class="past-meta">📅 2026-04-15 · 生活</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-15-今天只丟三樣垃圾：我的零浪費生活實驗.html">今天只丟三樣垃圾：我的零浪費生活實驗</a>
+                            <div class="past-meta">📅 2026-04-15 · 永續</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-15-《我的窗邊綠洲：當焦慮被葉片輕輕接住》.html">《我的窗邊綠洲：當焦慮被葉片輕輕接住》</a>
+                            <div class="past-meta">📅 2026-04-15 · 植物</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-15-衣櫃裡的永續革命：當舊衣不再只是「丟掉」的選擇.html">衣櫃裡的永續革命：當舊衣不再只是「丟掉」的選擇</a>
+                            <div class="past-meta">📅 2026-04-15 · 永續</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-15-電費單上的「碳足跡」：原來省電不只省錢，還救了北極熊？.html">電費單上的「碳足跡」：原來省電不只省錢，還救了北極熊？</a>
+                            <div class="past-meta">📅 2026-04-15 · 碳盤查</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-15-《垂直花園的雙面刃：結構與防水的生存對決》.html">《垂直花園的雙面刃：結構與防水的生存對決》</a>
+                            <div class="past-meta">📅 2026-04-15 · 植物</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-15-《晝伏夜出也美麗：植生牆的燈光魔法，是點綴還是必需？》.html">《晝伏夜出也美麗：植生牆的燈光魔法，是點綴還是必需？》</a>
+                            <div class="past-meta">📅 2026-04-15 · 植物</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-14-當大腦的「快轉鍵」卡住了：我們為何需要刻意練習「慢下來」？.html">當大腦的「快轉鍵」卡住了：我們為何需要刻意練習「慢下來」？</a>
+                            <div class="past-meta">📅 2026-04-14 · 生活</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-13-「碳帳本」革命：從一杯咖啡到國家戰略，揭開淨零排放的數據之戰.html">「碳帳本」革命：從一杯咖啡到國家戰略，揭開淨零排放的數據之戰</a>
+                            <div class="past-meta">📅 2026-04-13 · 碳盤查</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-12-你的購物車，正在改變地球的溫度：一份「少買精買」的永續消費指南.html">你的購物車，正在改變地球的溫度：一份「少買精買」的永續消費指南</a>
+                            <div class="past-meta">📅 2026-04-12 · 永續</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-11-《植生牆養護不求人三大關鍵問答，讓你家的綠牆永遠生機勃勃》.html">《植生牆養護不求人！三大關鍵問答，讓你家的綠牆永遠生機勃勃》</a>
+                            <div class="past-meta">📅 2026-04-11 · 植物</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-10-極簡主義-vs.-消費主義：科學數據告訴你，為何「擁有更少」反而更快樂？.html">極簡主義 vs. 消費主義：科學數據告訴你，為何「擁有更少」反而更快樂？</a>
+                            <div class="past-meta">📅 2026-04-10 · 生活</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-10-植生牆大PK：自己動手-vs.-懶人套組，哪種才是你的垂直花園真命天子？.html">植生牆大PK：自己動手 vs. 懶人套組，哪種才是你的垂直花園真命天子？</a>
+                            <div class="past-meta">📅 2026-04-10 · 植物</div>
+                        </li>
+                        <li class="past-item">
+                            <a class="past-link" href="2026-04-10-當手機成為延伸器官：我的七日「數位輕斷食」實驗.html">當手機成為延伸器官：我的七日「數位輕斷食」實驗</a>
+                            <div class="past-meta">📅 2026-04-10 · 生活</div>
+                        </li>
+            </ul>
         </div>
     </main>
     

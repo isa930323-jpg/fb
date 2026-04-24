@@ -256,46 +256,140 @@
         flex-wrap: wrap;
       }
     }
-    .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .page-header { text-align: center; margin-bottom: 2rem; }
-    .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
-    .page-header p { color: var(--stone); margin-top: 0.5rem; }
-    
-    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
-    .main-col { flex: 3; min-width: 250px; }
-    
-    .latest-article {
-        background: white;
-        border-radius: 16px;
-        padding: 2rem;
+    .category-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+    .category-header {
+        text-align: center;
         margin-bottom: 2rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
     }
-    .latest-category {
-        display: inline-block;
-        color: white;
-        padding: 0.2rem 0.8rem;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        margin-bottom: 1rem;
+    .category-header h1 {
+        color: var(--moss);
+        font-size: 2rem;
+        font-family: 'Noto Serif TC', serif;
     }
-    .latest-title { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.5rem; }
-    .latest-date { color: var(--stone); margin-bottom: 1.5rem; font-size: 0.9rem; }
-    .latest-content { line-height: 1.8; }
-    .read-more { display: inline-block; margin-top: 1rem; color: var(--fern); text-decoration: none; font-weight: 500; }
+    .category-header p {
+        color: var(--stone);
+        margin-top: 0.5rem;
+    }
     
-    .section-title { font-size: 1.2rem; color: var(--moss); border-bottom: 2px solid #e0d6cc; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-    .past-list { list-style: none; }
-    .past-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0e8e0; }
-    .past-link { font-size: 0.95rem; font-weight: 500; color: var(--fern); text-decoration: none; display: block; }
-    .past-link:hover { text-decoration: underline; }
-    .past-meta { font-size: 0.7rem; color: #aaa; margin-top: 0.25rem; }
-    .past-badge { display: inline-block; font-size: 0.65rem; padding: 0.1rem 0.5rem; border-radius: 12px; color: white; margin-right: 0.5rem; }
+    .search-box {
+        margin-bottom: 2rem;
+    }
+    .search-input {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
+        border: 1px solid #e0d6cc;
+        border-radius: 40px;
+        background: white;
+        font-family: 'Noto Sans TC', sans-serif;
+        transition: all 0.2s;
+    }
+    .search-input:focus {
+        outline: none;
+        border-color: var(--fern);
+        box-shadow: 0 0 0 3px rgba(90,122,74,0.1);
+    }
+    
+    .other-categories {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid #f0e8e0;
+    }
+    .category-badge {
+        display: inline-block;
+        padding: 0.4rem 1.2rem;
+        background: #e8e0d8;
+        color: #4a5b4e;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+    .category-badge:hover {
+        background: var(--fern);
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    .section-title {
+        font-size: 1.2rem;
+        color: var(--moss);
+        border-bottom: 2px solid #e0d6cc;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+    .result-count {
+        font-size: 0.8rem;
+        color: var(--stone);
+        font-weight: normal;
+    }
+    .article-list {
+        list-style: none;
+    }
+    .article-list-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem 0;
+        border-bottom: 1px solid #f0e8e0;
+        transition: background 0.2s;
+    }
+    .article-list-item:hover {
+        background: #faf7f2;
+        padding-left: 0.5rem;
+    }
+    .article-title-link {
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--fern);
+        text-decoration: none;
+        flex: 1;
+    }
+    .article-title-link:hover {
+        text-decoration: underline;
+    }
+    .article-date {
+        font-size: 0.75rem;
+        color: #aaa;
+        font-family: monospace;
+        margin-left: 1rem;
+        white-space: nowrap;
+    }
+    .empty-message {
+        text-align: center;
+        color: var(--stone);
+        padding: 2rem;
+    }
+    .no-results {
+        text-align: center;
+        color: var(--stone);
+        padding: 2rem;
+        font-style: italic;
+    }
     
     @media (max-width: 768px) {
-        .two-columns { flex-direction: column; }
-        .latest-title { font-size: 1.4rem; }
-        .daily-container { padding: 0 1rem; }
+        .category-container { padding: 0 1rem; }
+        .article-list-item {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.3rem;
+        }
+        .article-date {
+            margin-left: 0;
+            font-size: 0.7rem;
+        }
     }
     </style>
 </head>
@@ -303,124 +397,104 @@
     <div id="nav-placeholder"></div>
     
     <main class="content">
-        <div class="daily-container">
-            <div class="page-header">
+        <div class="category-container">
+            <div class="category-header">
                 <h1>🏡 生活文章</h1>
                 <p>蕨積每日文章 - 生活分類精選</p>
             </div>
             
-            <div class="two-columns">
-                <div class="main-col">
-                    
-                    <div class="latest-article">
-                        <div class="latest-category" style="background: #b88b4a;">📌 生活</div>
-                        <h1 class="latest-title">簡單生活哲學：少即是多的幸福</h1>
-                        <div class="latest-date">📅 2026-04-22</div>
-                        <div class="latest-content">簡單生活哲學：少即是多的幸福你是否曾覺得生活被物品、行程和各種期待塞滿，卻依然感到空虛？今天，讓我們一起探討「簡單生活哲學」，看看如何透過「少」來獲得「多」的幸福。什麼是「簡單生活哲學」？簡單生活哲學並非指過著貧困或刻苦的日子，而是一種主動選擇的生活方式。它強調透過減少不必要的物質擁有、簡化日常行程、以及釐清內心真正重視的價值，將時間、精力和資源集中在能帶來真正滿足感的事物上。這是一種「減法」的智慧，透過去除多餘，讓本質更加清晰。為什麼「少」能帶來「多」的幸福？這背後的原理其實與我們的認知和心理狀態密切相關。首先，過多的選擇會導致「決策疲勞」，消耗我們寶貴的心智能量。當衣櫃裡有五十件衣服時，每...</div>
-                        <a href="2026-04-22-簡單生活哲學：少即是多的幸福.html" class="read-more">🔗 閱讀全文 →</a>
-                    </div>
-                    
-                    <div class="section-title">📖 過往文章</div>
-                    <ul class="past-list">
-                        
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-22-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
-                            <div class="past-meta">📅 2026-04-22</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-21-微小習慣，巨大幸福.html">微小習慣，巨大幸福</a>
-                            <div class="past-meta">📅 2026-04-21</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-19-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
-                            <div class="past-meta">📅 2026-04-19</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-18-《從囤積到自由：一個衣櫃教我的斷捨離哲學》.html">《從囤積到自由：一個衣櫃教我的斷捨離哲學》</a>
-                            <div class="past-meta">📅 2026-04-18</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-15-五分鐘啟動正念模式：給忙碌現代人的當下練習清單.html">五分鐘啟動正念模式：給忙碌現代人的當下練習清單</a>
-                            <div class="past-meta">📅 2026-04-15</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-14-當大腦的「快轉鍵」卡住了：我們為何需要刻意練習「慢下來」？.html">當大腦的「快轉鍵」卡住了：我們為何需要刻意練習「慢下來」？</a>
-                            <div class="past-meta">📅 2026-04-14</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-10-**囤積與留白：一場關於空間與心靈的對角線戰爭**.html">**囤積與留白：一場關於空間與心靈的對角線戰爭**</a>
-                            <div class="past-meta">📅 2026-04-10</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-10-減法生活學：5個讓日子變輕盈的簡單練習.html">減法生活學：5個讓日子變輕盈的簡單練習</a>
-                            <div class="past-meta">📅 2026-04-10</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-10-標題：別再追求「大幸福」了科學說：每天-5-分鐘的小儀式，才是快樂的關鍵.html">別再追求「大幸福」了！科學說：每天 5 分鐘的小儀式，才是快樂的關鍵</a>
-                            <div class="past-meta">📅 2026-04-10</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-10-極簡主義-vs.-消費主義：科學數據告訴你，為何「擁有更少」反而更快樂？.html">極簡主義 vs. 消費主義：科學數據告訴你，為何「擁有更少」反而更快樂？</a>
-                            <div class="past-meta">📅 2026-04-10</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-10-5個微小卻強大的日常儀式：科學證實能重塑大腦的幸福習慣.html">5個微小卻強大的日常儀式：科學證實能重塑大腦的幸福習慣</a>
-                            <div class="past-meta">📅 2026-04-10</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-10-當手機成為延伸器官：我的七日「數位輕斷食」實驗.html">當手機成為延伸器官：我的七日「數位輕斷食」實驗</a>
-                            <div class="past-meta">📅 2026-04-10</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-06-**標題：幸福不是大目標，而是微小習慣的總和：三個你明天就能開始的「儀式感練習」**.html">幸福不是大目標，而是微小習慣的總和：三個你明天就能開始的「儀式感練習」</a>
-                            <div class="past-meta">📅 2026-04-06</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-04-02-**標題：幸福不是終點，而是日常軌跡：三個科學認證的微小儀式，如何改寫你的大腦劇本？**.html">幸福不是終點，而是日常軌跡：三個科學認證的微小儀式，如何改寫你的大腦劇本？</a>
-                            <div class="past-meta">📅 2026-04-02</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-03-31-當生活給你檸檬，別急著做檸檬汁：先學會欣賞檸檬的形狀.html">當生活給你檸檬，別急著做檸檬汁：先學會欣賞檸檬的形狀</a>
-                            <div class="past-meta">📅 2026-03-31</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-03-29-**《雜物堆裡的人生課：我的斷捨離覺醒記》**.html">《雜物堆裡的人生課：我的斷捨離覺醒記》</a>
-                            <div class="past-meta">📅 2026-03-29</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-03-27-在快時代裡，練習「慢」：找回質感生活的呼吸節奏.html">在快時代裡，練習「慢」：找回質感生活的呼吸節奏</a>
-                            <div class="past-meta">📅 2026-03-27</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-03-27-在斷捨離的空白裡，找到最豐盛的自己.html">在斷捨離的空白裡，找到最豐盛的自己</a>
-                            <div class="past-meta">📅 2026-03-27</div>
-                        </li>
-                        <li class="past-item">
-                            <span class="past-badge" style="background: #b88b4a;">生活</span>
-                            <a class="past-link" href="2026-03-26-在快時代裡，練習「慢」：找回質感生活的儀式感.html">在快時代裡，練習「慢」：找回質感生活的儀式感</a>
-                            <div class="past-meta">📅 2026-03-26</div>
-                        </li>
-                    </ul>
-                </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" class="search-input" placeholder="🔍 搜尋標題或分類... (即時篩選)" autocomplete="off">
             </div>
+            
+            <div class="other-categories">
+                <a href="plant.html" class="category-badge">🌿 植物</a><a href="sustainability.html" class="category-badge">♻️ 永續</a><a href="carbon.html" class="category-badge">📊 碳盤查</a>
+            </div>
+            
+            <div class="section-title">
+                <span>📖 文章列表</span>
+                <span class="result-count" id="resultCount">共 19 篇</span>
+            </div>
+            
+            <ul class="article-list" id="articleList">
+                
+                        <li class="article-list-item" data-title="簡單生活哲學：少即是多的幸福" data-category="生活">
+                            <a href="2026-04-22-簡單生活哲學：少即是多的幸福.html" class="article-title-link">簡單生活哲學：少即是多的幸福</a>
+                            <span class="article-date">2026-04-22</span>
+                        </li>
+                        <li class="article-list-item" data-title="微小習慣，巨大幸福" data-category="生活">
+                            <a href="2026-04-21-微小習慣，巨大幸福.html" class="article-title-link">微小習慣，巨大幸福</a>
+                            <span class="article-date">2026-04-21</span>
+                        </li>
+                        <li class="article-list-item" data-title="簡單生活哲學：少即是多的幸福" data-category="生活">
+                            <a href="2026-04-19-簡單生活哲學：少即是多的幸福.html" class="article-title-link">簡單生活哲學：少即是多的幸福</a>
+                            <span class="article-date">2026-04-19</span>
+                        </li>
+                        <li class="article-list-item" data-title="《從囤積到自由：一個衣櫃教我的斷捨離哲學》" data-category="生活">
+                            <a href="2026-04-18-《從囤積到自由：一個衣櫃教我的斷捨離哲學》.html" class="article-title-link">《從囤積到自由：一個衣櫃教我的斷捨離哲學》</a>
+                            <span class="article-date">2026-04-18</span>
+                        </li>
+                        <li class="article-list-item" data-title="五分鐘啟動正念模式：給忙碌現代人的當下練習清單" data-category="生活">
+                            <a href="2026-04-15-五分鐘啟動正念模式：給忙碌現代人的當下練習清單.html" class="article-title-link">五分鐘啟動正念模式：給忙碌現代人的當下練習清單</a>
+                            <span class="article-date">2026-04-15</span>
+                        </li>
+                        <li class="article-list-item" data-title="當大腦的「快轉鍵」卡住了：我們為何需要刻意練習「慢下來」？" data-category="生活">
+                            <a href="2026-04-14-當大腦的「快轉鍵」卡住了：我們為何需要刻意練習「慢下來」？.html" class="article-title-link">當大腦的「快轉鍵」卡住了：我們為何需要刻意練習「慢下來」？</a>
+                            <span class="article-date">2026-04-14</span>
+                        </li>
+                        <li class="article-list-item" data-title="極簡主義 vs. 消費主義：科學數據告訴你，為何「擁有更少」反而更快樂？" data-category="生活">
+                            <a href="2026-04-10-極簡主義-vs.-消費主義：科學數據告訴你，為何「擁有更少」反而更快樂？.html" class="article-title-link">極簡主義 vs. 消費主義：科學數據告訴你，為何「擁有更少」反而更快樂？</a>
+                            <span class="article-date">2026-04-10</span>
+                        </li>
+                        <li class="article-list-item" data-title="當手機成為延伸器官：我的七日「數位輕斷食」實驗" data-category="生活">
+                            <a href="2026-04-10-當手機成為延伸器官：我的七日「數位輕斷食」實驗.html" class="article-title-link">當手機成為延伸器官：我的七日「數位輕斷食」實驗</a>
+                            <span class="article-date">2026-04-10</span>
+                        </li>
+                        <li class="article-list-item" data-title="減法生活學：5個讓日子變輕盈的簡單練習" data-category="生活">
+                            <a href="2026-04-10-減法生活學：5個讓日子變輕盈的簡單練習.html" class="article-title-link">減法生活學：5個讓日子變輕盈的簡單練習</a>
+                            <span class="article-date">2026-04-10</span>
+                        </li>
+                        <li class="article-list-item" data-title="5個微小卻強大的日常儀式：科學證實能重塑大腦的幸福習慣" data-category="生活">
+                            <a href="2026-04-10-5個微小卻強大的日常儀式：科學證實能重塑大腦的幸福習慣.html" class="article-title-link">5個微小卻強大的日常儀式：科學證實能重塑大腦的幸福習慣</a>
+                            <span class="article-date">2026-04-10</span>
+                        </li>
+                        <li class="article-list-item" data-title="別再追求「大幸福」了！科學說：每天 5 分鐘的小儀式，才是快樂的關鍵" data-category="生活">
+                            <a href="2026-04-10-標題：別再追求「大幸福」了科學說：每天-5-分鐘的小儀式，才是快樂的關鍵.html" class="article-title-link">別再追求「大幸福」了！科學說：每天 5 分鐘的小儀式，才是快樂的關鍵</a>
+                            <span class="article-date">2026-04-10</span>
+                        </li>
+                        <li class="article-list-item" data-title="**囤積與留白：一場關於空間與心靈的對角線戰爭**" data-category="生活">
+                            <a href="2026-04-10-**囤積與留白：一場關於空間與心靈的對角線戰爭**.html" class="article-title-link">**囤積與留白：一場關於空間與心靈的對角線戰爭**</a>
+                            <span class="article-date">2026-04-10</span>
+                        </li>
+                        <li class="article-list-item" data-title="幸福不是大目標，而是微小習慣的總和：三個你明天就能開始的「儀式感練習」" data-category="生活">
+                            <a href="2026-04-06-**標題：幸福不是大目標，而是微小習慣的總和：三個你明天就能開始的「儀式感練習」**.html" class="article-title-link">幸福不是大目標，而是微小習慣的總和：三個你明天就能開始的「儀式感練習」</a>
+                            <span class="article-date">2026-04-06</span>
+                        </li>
+                        <li class="article-list-item" data-title="幸福不是終點，而是日常軌跡：三個科學認證的微小儀式，如何改寫你的大腦劇本？" data-category="生活">
+                            <a href="2026-04-02-**標題：幸福不是終點，而是日常軌跡：三個科學認證的微小儀式，如何改寫你的大腦劇本？**.html" class="article-title-link">幸福不是終點，而是日常軌跡：三個科學認證的微小儀式，如何改寫你的大腦劇本？</a>
+                            <span class="article-date">2026-04-02</span>
+                        </li>
+                        <li class="article-list-item" data-title="當生活給你檸檬，別急著做檸檬汁：先學會欣賞檸檬的形狀" data-category="生活">
+                            <a href="2026-03-31-當生活給你檸檬，別急著做檸檬汁：先學會欣賞檸檬的形狀.html" class="article-title-link">當生活給你檸檬，別急著做檸檬汁：先學會欣賞檸檬的形狀</a>
+                            <span class="article-date">2026-03-31</span>
+                        </li>
+                        <li class="article-list-item" data-title="《雜物堆裡的人生課：我的斷捨離覺醒記》" data-category="生活">
+                            <a href="2026-03-29-**《雜物堆裡的人生課：我的斷捨離覺醒記》**.html" class="article-title-link">《雜物堆裡的人生課：我的斷捨離覺醒記》</a>
+                            <span class="article-date">2026-03-29</span>
+                        </li>
+                        <li class="article-list-item" data-title="在快時代裡，練習「慢」：找回質感生活的呼吸節奏" data-category="生活">
+                            <a href="2026-03-27-在快時代裡，練習「慢」：找回質感生活的呼吸節奏.html" class="article-title-link">在快時代裡，練習「慢」：找回質感生活的呼吸節奏</a>
+                            <span class="article-date">2026-03-27</span>
+                        </li>
+                        <li class="article-list-item" data-title="在斷捨離的空白裡，找到最豐盛的自己" data-category="生活">
+                            <a href="2026-03-27-在斷捨離的空白裡，找到最豐盛的自己.html" class="article-title-link">在斷捨離的空白裡，找到最豐盛的自己</a>
+                            <span class="article-date">2026-03-27</span>
+                        </li>
+                        <li class="article-list-item" data-title="在快時代裡，練習「慢」：找回質感生活的儀式感" data-category="生活">
+                            <a href="2026-03-26-在快時代裡，練習「慢」：找回質感生活的儀式感.html" class="article-title-link">在快時代裡，練習「慢」：找回質感生活的儀式感</a>
+                            <span class="article-date">2026-03-26</span>
+                        </li>
+            </ul>
         </div>
     </main>
     
@@ -493,6 +567,47 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
+        
+        const searchInput = document.getElementById('searchInput');
+        const articleList = document.getElementById('articleList');
+        const resultCount = document.getElementById('resultCount');
+        
+        const allArticles = [{"title": "大公司如何永續？", "category": "永續", "date": "2026-04-24", "filename": "2026-04-24-大公司如何永續？.html"}, {"title": "夜間綠牆燈光魔法", "category": "植物", "date": "2026-04-23", "filename": "2026-04-23-夜間綠牆燈光魔法.html"}, {"title": "簡單生活哲學：少即是多的幸福", "category": "生活", "date": "2026-04-22", "filename": "2026-04-22-簡單生活哲學：少即是多的幸福.html"}, {"title": "中小企業碳管理入門：從哪裡開始", "category": "碳盤查", "date": "2026-04-21", "filename": "2026-04-21-中小企業碳管理入門：從哪裡開始.html"}, {"title": "微小習慣，巨大幸福", "category": "生活", "date": "2026-04-21", "filename": "2026-04-21-微小習慣，巨大幸福.html"}, {"title": "減塑新生活：塑膠袋之外的選擇", "category": "永續", "date": "2026-04-20", "filename": "2026-04-20-減塑新生活：塑膠袋之外的選擇.html"}, {"title": "簡單生活哲學：少即是多的幸福", "category": "生活", "date": "2026-04-19", "filename": "2026-04-19-簡單生活哲學：少即是多的幸福.html"}, {"title": "植生牆入門指南：打造你的第一面垂直花園", "category": "植物", "date": "2026-04-19", "filename": "2026-04-19-植生牆入門指南：打造你的第一面垂直花園.html"}, {"title": "辦公室植生牆：工作效率的綠色魔法", "category": "植物", "date": "2026-04-19", "filename": "2026-04-19-辦公室植生牆：工作效率的綠色魔法.html"}, {"title": "垂直花園的隱形骨架：打造一面會呼吸的植生牆", "category": "植物", "date": "2026-04-19", "filename": "2026-04-19-垂直花園的隱形骨架：打造一面會呼吸的植生牆.html"}, {"title": "《我的植生牆實驗日記：從漏水噩夢到垂直綠洲的結構三部曲》", "category": "植物", "date": "2026-04-19", "filename": "2026-04-19-《我的植生牆實驗日記：從漏水噩夢到垂直綠洲的結構三部曲》.html"}, {"title": "《從囤積到自由：一個衣櫃教我的斷捨離哲學》", "category": "生活", "date": "2026-04-18", "filename": "2026-04-18-《從囤積到自由：一個衣櫃教我的斷捨離哲學》.html"}, {"title": "買賣「空氣」也能賺錢？揭開碳權交易的神秘面紗", "category": "碳盤查", "date": "2026-04-17", "filename": "2026-04-17-買賣「空氣」也能賺錢？揭開碳權交易的神秘面紗.html"}, {"title": "垂直綠洲的基石：解析植生牆「乾」與「濕」的關鍵對決", "category": "植物", "date": "2026-04-17", "filename": "2026-04-17-垂直綠洲的基石：解析植生牆「乾」與「濕」的關鍵對決.html"}, {"title": "碳權交易入門：五分鐘搞懂「空氣買賣」的遊戲規則", "category": "碳盤查", "date": "2026-04-17", "filename": "2026-04-17-碳權交易入門：五分鐘搞懂「空氣買賣」的遊戲規則.html"}, {"title": "別讓地球「碳」氣！三個關鍵數據帶你實踐低碳生活", "category": "永續", "date": "2026-04-16", "filename": "2026-04-16-別讓地球「碳」氣三個關鍵數據帶你實踐低碳生活.html"}, {"title": "《我的第一面綠牆：從殺手到守護者的植生牆日記》", "category": "植物", "date": "2026-04-16", "filename": "2026-04-16-《我的第一面綠牆：從殺手到守護者的植生牆日記》.html"}, {"title": "五分鐘啟動正念模式：給忙碌現代人的當下練習清單", "category": "生活", "date": "2026-04-15", "filename": "2026-04-15-五分鐘啟動正念模式：給忙碌現代人的當下練習清單.html"}, {"title": "今天只丟三樣垃圾：我的零浪費生活實驗", "category": "永續", "date": "2026-04-15", "filename": "2026-04-15-今天只丟三樣垃圾：我的零浪費生活實驗.html"}, {"title": "《我的窗邊綠洲：當焦慮被葉片輕輕接住》", "category": "植物", "date": "2026-04-15", "filename": "2026-04-15-《我的窗邊綠洲：當焦慮被葉片輕輕接住》.html"}, {"title": "衣櫃裡的永續革命：當舊衣不再只是「丟掉」的選擇", "category": "永續", "date": "2026-04-15", "filename": "2026-04-15-衣櫃裡的永續革命：當舊衣不再只是「丟掉」的選擇.html"}, {"title": "電費單上的「碳足跡」：原來省電不只省錢，還救了北極熊？", "category": "碳盤查", "date": "2026-04-15", "filename": "2026-04-15-電費單上的「碳足跡」：原來省電不只省錢，還救了北極熊？.html"}, {"title": "《垂直花園的雙面刃：結構與防水的生存對決》", "category": "植物", "date": "2026-04-15", "filename": "2026-04-15-《垂直花園的雙面刃：結構與防水的生存對決》.html"}, {"title": "《晝伏夜出也美麗：植生牆的燈光魔法，是點綴還是必需？》", "category": "植物", "date": "2026-04-15", "filename": "2026-04-15-《晝伏夜出也美麗：植生牆的燈光魔法，是點綴還是必需？》.html"}, {"title": "當大腦的「快轉鍵」卡住了：我們為何需要刻意練習「慢下來」？", "category": "生活", "date": "2026-04-14", "filename": "2026-04-14-當大腦的「快轉鍵」卡住了：我們為何需要刻意練習「慢下來」？.html"}, {"title": "「碳帳本」革命：從一杯咖啡到國家戰略，揭開淨零排放的數據之戰", "category": "碳盤查", "date": "2026-04-13", "filename": "2026-04-13-「碳帳本」革命：從一杯咖啡到國家戰略，揭開淨零排放的數據之戰.html"}, {"title": "你的購物車，正在改變地球的溫度：一份「少買精買」的永續消費指南", "category": "永續", "date": "2026-04-12", "filename": "2026-04-12-你的購物車，正在改變地球的溫度：一份「少買精買」的永續消費指南.html"}, {"title": "《植生牆養護不求人！三大關鍵問答，讓你家的綠牆永遠生機勃勃》", "category": "植物", "date": "2026-04-11", "filename": "2026-04-11-《植生牆養護不求人三大關鍵問答，讓你家的綠牆永遠生機勃勃》.html"}, {"title": "極簡主義 vs. 消費主義：科學數據告訴你，為何「擁有更少」反而更快樂？", "category": "生活", "date": "2026-04-10", "filename": "2026-04-10-極簡主義-vs.-消費主義：科學數據告訴你，為何「擁有更少」反而更快樂？.html"}, {"title": "植生牆大PK：自己動手 vs. 懶人套組，哪種才是你的垂直花園真命天子？", "category": "植物", "date": "2026-04-10", "filename": "2026-04-10-植生牆大PK：自己動手-vs.-懶人套組，哪種才是你的垂直花園真命天子？.html"}, {"title": "當手機成為延伸器官：我的七日「數位輕斷食」實驗", "category": "生活", "date": "2026-04-10", "filename": "2026-04-10-當手機成為延伸器官：我的七日「數位輕斷食」實驗.html"}, {"title": "減法生活學：5個讓日子變輕盈的簡單練習", "category": "生活", "date": "2026-04-10", "filename": "2026-04-10-減法生活學：5個讓日子變輕盈的簡單練習.html"}, {"title": "5個微小卻強大的日常儀式：科學證實能重塑大腦的幸福習慣", "category": "生活", "date": "2026-04-10", "filename": "2026-04-10-5個微小卻強大的日常儀式：科學證實能重塑大腦的幸福習慣.html"}, {"title": "《牆上的四季流轉：打造全年無休的植生牆景觀指南》", "category": "植物", "date": "2026-04-10", "filename": "2026-04-10-《牆上的四季流轉：打造全年無休的植生牆景觀指南》.html"}, {"title": "別再追求「大幸福」了！科學說：每天 5 分鐘的小儀式，才是快樂的關鍵", "category": "生活", "date": "2026-04-10", "filename": "2026-04-10-標題：別再追求「大幸福」了科學說：每天-5-分鐘的小儀式，才是快樂的關鍵.html"}, {"title": "**囤積與留白：一場關於空間與心靈的對角線戰爭**", "category": "生活", "date": "2026-04-10", "filename": "2026-04-10-**囤積與留白：一場關於空間與心靈的對角線戰爭**.html"}, {"title": "碳中和，不只是「歸零」的數學遊戲：五個關鍵清單帶你破解迷思", "category": "碳盤查", "date": "2026-04-09", "filename": "2026-04-09-碳中和，不只是「歸零」的數學遊戲：五個關鍵清單帶你破解迷思.html"}, {"title": "**不只打卡，更要「碳」息：給地球的輕旅行備忘錄**", "category": "永續", "date": "2026-04-08", "filename": "2026-04-08-**不只打卡，更要「碳」息：給地球的輕旅行備忘錄**.html"}, {"title": "**綠意招財還是科學淨化？拆解植物風水的雙重視角**", "category": "植物", "date": "2026-04-07", "filename": "2026-04-07-**綠意招財還是科學淨化？拆解植物風水的雙重視角**.html"}, {"title": "幸福不是大目標，而是微小習慣的總和：三個你明天就能開始的「儀式感練習」", "category": "生活", "date": "2026-04-06", "filename": "2026-04-06-**標題：幸福不是大目標，而是微小習慣的總和：三個你明天就能開始的「儀式感練習」**.html"}, {"title": "當「減碳模範生」遇上「碳排大戶」：一場改變世界的市場交易", "category": "碳盤查", "date": "2026-04-05", "filename": "2026-04-05-當「減碳模範生」遇上「碳排大戶」：一場改變世界的市場交易.html"}, {"title": "垃圾減量實驗：一個月只丟一罐垃圾的生活挑戰", "category": "永續", "date": "2026-04-04", "filename": "2026-04-04-垃圾減量實驗：一個月只丟一罐垃圾的生活挑戰.html"}, {"title": "綠意招財，風水生輝：一盆植物的能量改造記", "category": "植物", "date": "2026-04-03", "filename": "2026-04-03-**綠意招財，風水生輝：一盆植物的能量改造記**.html"}, {"title": "幸福不是終點，而是日常軌跡：三個科學認證的微小儀式，如何改寫你的大腦劇本？", "category": "生活", "date": "2026-04-02", "filename": "2026-04-02-**標題：幸福不是終點，而是日常軌跡：三個科學認證的微小儀式，如何改寫你的大腦劇本？**.html"}, {"title": "碳權交易：企業的「排放額度」買賣指南", "category": "碳盤查", "date": "2026-04-01", "filename": "2026-04-01-碳權交易：企業的「排放額度」買賣指南.html"}, {"title": "**衣櫃裡的永續革命：給舊衣服的五個新任務**", "category": "永續", "date": "2026-03-31", "filename": "2026-03-31-**衣櫃裡的永續革命：給舊衣服的五個新任務**.html"}, {"title": "不只賺錢，更賺未來：五家把永續變核心競爭力的大企業", "category": "永續", "date": "2026-03-31", "filename": "2026-03-31-**不只賺錢，更賺未來：五家把永續變核心競爭力的大企業**.html"}, {"title": "當生活給你檸檬，別急著做檸檬汁：先學會欣賞檸檬的形狀", "category": "生活", "date": "2026-03-31", "filename": "2026-03-31-當生活給你檸檬，別急著做檸檬汁：先學會欣賞檸檬的形狀.html"}, {"title": "你的沉默綠肺隊友：NASA研究揭露，室內植物如何成為空氣淨化高手", "category": "植物", "date": "2026-03-30", "filename": "2026-03-30-**標題：你的沉默綠肺隊友：NASA研究揭露，室內植物如何成為空氣淨化高手**.html"}, {"title": "《雜物堆裡的人生課：我的斷捨離覺醒記》", "category": "生活", "date": "2026-03-29", "filename": "2026-03-29-**《雜物堆裡的人生課：我的斷捨離覺醒記》**.html"}, {"title": "碳關稅浪潮來襲：台灣產業的綠色生存戰", "category": "碳盤查", "date": "2026-03-28", "filename": "2026-03-28-**碳關稅浪潮來襲：台灣產業的綠色生存戰**.html"}, {"title": "不只是財富的象徵：觀葉植物如何成為現代生活的「綠金」資產", "category": "植物", "date": "2026-03-28", "filename": "2026-03-28-不只是財富的象徵：觀葉植物如何成為現代生活的「綠金」資產.html"}, {"title": "誰在買賣空氣？一個咖啡館老闆的碳權奇遇", "category": "碳盤查", "date": "2026-03-28", "filename": "2026-03-28-誰在買賣空氣？一個咖啡館老闆的碳權奇遇.html"}, {"title": "招財樹真的能招財嗎？科學家與風水師的跨時空對話", "category": "植物", "date": "2026-03-28", "filename": "2026-03-28-招財樹真的能招財嗎？科學家與風水師的跨時空對話.html"}, {"title": "從「碳盤查」開始，解鎖企業與個人的綠色未來", "category": "碳盤查", "date": "2026-03-27", "filename": "2026-03-27-從「碳盤查」開始，解鎖企業與個人的綠色未來.html"}, {"title": "從日常小事開始，打造你的永續生活提案", "category": "永續", "date": "2026-03-27", "filename": "2026-03-27-從日常小事開始，打造你的永續生活提案.html"}, {"title": "從「碳盤查」開始，你的減碳第一步：企業與個人必懂的氣候行動指南", "category": "碳盤查", "date": "2026-03-27", "filename": "2026-03-27-**標題：從「碳盤查」開始，你的減碳第一步：企業與個人必懂的氣候行動指南**.html"}, {"title": "在快時代裡，練習「慢」：找回質感生活的呼吸節奏", "category": "生活", "date": "2026-03-27", "filename": "2026-03-27-在快時代裡，練習「慢」：找回質感生活的呼吸節奏.html"}, {"title": "在斷捨離的空白裡，找到最豐盛的自己", "category": "生活", "date": "2026-03-27", "filename": "2026-03-27-在斷捨離的空白裡，找到最豐盛的自己.html"}, {"title": "從一杯咖啡開始的永續革命：你的日常選擇，如何改變世界？", "category": "永續", "date": "2026-03-27", "filename": "2026-03-27-**標題：從一杯咖啡開始的永續革命：你的日常選擇，如何改變世界？**.html"}, {"title": "不只是裝飾！你的室內植物，其實是位沉默的「全能生活教練」", "category": "植物", "date": "2026-03-26", "filename": "2026-03-26-**標題：不只是裝飾你的室內植物，其實是位沉默的「全能生活教練」**.html"}, {"title": "在快時代裡，練習「慢」：找回質感生活的儀式感", "category": "生活", "date": "2026-03-26", "filename": "2026-03-26-在快時代裡，練習「慢」：找回質感生活的儀式感.html"}, {"title": "從一杯咖啡開始的永續革命：你的日常選擇，如何改變世界？", "category": "永續", "date": "2026-03-26", "filename": "2026-03-26-**標題：從一杯咖啡開始的永續革命：你的日常選擇，如何改變世界？**.html"}, {"title": "綠色療癒力：一盆植物如何改變你的身心靈？", "category": "植物", "date": "2026-03-26", "filename": "2026-03-26-綠色療癒力：一盆植物如何改變你的身心靈？.html"}, {"title": "植物界的沉默魔術師：你不知道的生存智慧", "category": "植物", "date": "2026-03-26", "filename": "2026-03-26-植物界的沉默魔術師：你不知道的生存智慧.html"}, {"title": "不只是裝飾！你家裡的綠色室友，正默默為你施展「植物療癒力」", "category": "植物", "date": "2026-03-26", "filename": "2026-03-26-**標題：不只是裝飾你家裡的綠色室友，正默默為你施展「植物療癒力」**.html"}, {"title": "綠色療癒師：植物如何悄悄改善你的身心靈健康？", "category": "植物", "date": "2026-03-26", "filename": "2026-03-26-綠色療癒師：植物如何悄悄改善你的身心靈健康？.html"}, {"title": "不只會呼吸，還會開會！植物界的「社交達人」與療癒魔法", "category": "植物", "date": "2026-03-26", "filename": "2026-03-26-**標題：不只會呼吸，還會開會植物界的「社交達人」與療癒魔法**.html"}, {"title": "從日常小事做起，打造你的永續生活圈", "category": "永續", "date": "2026-03-26", "filename": "2026-03-26-從日常小事做起，打造你的永續生活圈.html"}, {"title": "植物界的沉默魔術師：它們如何悄悄改變你的生活？", "category": "植物", "date": "2026-03-26", "filename": "2026-03-26-植物界的沉默魔術師：它們如何悄悄改變你的生活？.html"}];
+        const currentCategory = '生活';
+        
+        function renderFilteredArticles(keyword) {
+            let filtered = allArticles.filter(article => article.category === currentCategory);
+            
+            if (keyword.trim() !== '') {
+                const lowerKeyword = keyword.toLowerCase();
+                filtered = allArticles.filter(article => 
+                    article.title.toLowerCase().includes(lowerKeyword) || 
+                    article.category.toLowerCase().includes(lowerKeyword)
+                );
+            }
+            
+            resultCount.textContent = `共 ${filtered.length} 篇`;
+            
+            if (filtered.length === 0) {
+                articleList.innerHTML = '<li class="no-results">🔍 沒有找到相關文章，試試其他關鍵字～</li>';
+                return;
+            }
+            
+            let html = '';
+            filtered.forEach(article => {
+                html += `
+                    <li class="article-list-item">
+                        <a href="${article.filename}" class="article-title-link">${article.title}</a>
+                        <span class="article-date">${article.date}</span>
+                    </li>
+                `;
+            });
+            articleList.innerHTML = html;
+        }
+        
+        searchInput.addEventListener('input', (e) => {
+            renderFilteredArticles(e.target.value);
+        });
     </script>
 </body>
 </html>
