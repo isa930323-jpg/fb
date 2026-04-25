@@ -2,8 +2,14 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>蕨積每日文章 - 植物・永續・碳盤查・生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="從TCA會員專訪看企業碳盤查關鍵步驟">
+    <meta name="article-summary" content="從TCA會員專訪看企業碳盤查關鍵步驟">
+    <meta name="article-keypoints" content='["台灣衛理(必維集團)提供碳盤查專業服務", "碳盤查是企業淨零轉型的第一步", "盤查範圍與數據品質是關鍵挑戰"]'>
+    <meta name="article-category" content="碳盤查">
+    <meta name="article-date" content="2026-04-25">
+    <meta name="author" content="蕨積 FernBrom">
+    <title>碳盤查實戰：從案例學起 - 蕨積每日文章</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -256,23 +262,12 @@
         flex-wrap: wrap;
       }
     }
-    .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .page-header { text-align: center; margin-bottom: 2rem; }
-    .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
-    .page-header p { color: var(--stone); margin-top: 0.5rem; }
-    
-    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
-    .main-col { flex: 3; min-width: 250px; }
-    .sidebar-col { flex: 1; min-width: 220px; }
-    
-    .latest-article {
-        background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    .article-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
-    .latest-category {
+    .article-category {
         display: inline-block;
         background: #1e6f5c;
         color: white;
@@ -281,196 +276,106 @@
         font-size: 0.8rem;
         margin-bottom: 1rem;
     }
-    .latest-title { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.5rem; }
-    .latest-date { color: var(--stone); margin-bottom: 1.5rem; font-size: 0.9rem; }
-    .latest-content {
-        line-height: 1.8;
-        font-size: 1rem;
-        color: #333;
-    }
-    .latest-content h2 {
-        font-size: 1.4rem;
-        margin: 1.2rem 0 0.8rem 0;
+    .article-title {
+        font-size: 2rem;
         color: var(--moss);
+        margin-bottom: 0.5rem;
+        font-family: 'Noto Serif TC', serif;
+        line-height: 1.3;
+    }
+    .article-date {
+        color: var(--stone);
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #e0d6cc;
+        padding-bottom: 1rem;
+    }
+    .article-content {
+        line-height: 1.8;
+        font-size: 1.05rem;
+    }
+    .article-content h2 {
+        font-size: 1.5rem;
+        margin: 1.5rem 0 0.8rem 0;
+        color: var(--moss);
+        font-family: 'Noto Serif TC', serif;
+        font-weight: 600;
         border-left: 4px solid #1e6f5c;
         padding-left: 1rem;
     }
-    .latest-content h3 {
+    .article-content h3 {
         font-size: 1.2rem;
-        margin: 1rem 0 0.5rem 0;
+        margin: 1.2rem 0 0.6rem 0;
         color: var(--fern);
     }
-    .latest-content p {
-        margin-bottom: 0.8rem;
+    .article-content p {
+        margin-bottom: 1rem;
     }
-    .latest-content ul, .latest-content ol {
-        margin: 0.8rem 0 0.8rem 1.5rem;
+    .article-content ul, .article-content ol {
+        margin: 1rem 0 1rem 2rem;
     }
-    .latest-content li {
+    .article-content li {
         margin-bottom: 0.3rem;
     }
-    
-    .section-title { font-size: 1.2rem; color: var(--moss); border-bottom: 2px solid #e0d6cc; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-    .past-list { list-style: none; }
-    .past-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0e8e0; }
-    .past-link { font-size: 1rem; font-weight: 500; color: var(--fern); text-decoration: none; display: block; }
-    .past-link:hover { text-decoration: underline; }
-    .past-meta { font-size: 0.75rem; color: #aaa; margin-top: 0.25rem; }
-    
-    .sidebar-card {
-        background: white;
-        border-radius: 16px;
-        padding: 1.2rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    .sidebar-card h3 {
-        font-size: 1rem;
-        color: var(--moss);
-        margin-bottom: 0.8rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid #e0d6cc;
-    }
-    .sidebar-links {
-        list-style: none;
-    }    .count-badge {
-        float: right;
-        background: #e8e0d8;
-        padding: 0.1rem 0.5rem;
-        border-radius: 20px;
-        font-size: 0.7rem;
-        color: #5a7a4a;
-    }
-    .sidebar-stats {
-        list-style: none;
-    }
-    .sidebar-stats li {
-        margin-bottom: 0.6rem;
-        font-size: 0.85rem;
-        color: var(--stone);
-    }
-    .sidebar-stats strong {
+    .article-content strong {
         color: var(--moss);
         font-weight: 600;
     }
-    
-    .sidebar-links li {
-        margin-bottom: 0.5rem;
+    .article-footer {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e0d6cc;
+        text-align: center;
     }
-    .sidebar-links a {
-        color: var(--stone);
-        text-decoration: none;
-        font-size: 0.85rem;
-        transition: color 0.2s;
+    .back-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin: 1rem 0;
     }
-    .sidebar-links a:hover {
+    .back-links a {
         color: var(--fern);
+        text-decoration: none;
+        font-size: 0.9rem;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        transition: background 0.2s;
+    }
+    .back-links a:hover {
+        background: #e8e0d8;
         text-decoration: underline;
     }
-    
     @media (max-width: 768px) {
-        .two-columns { flex-direction: column; }
-        .latest-title { font-size: 1.4rem; }
-        .daily-container { padding: 0 1rem; }
-        .latest-article { padding: 1rem; }
-        .latest-content h2 { font-size: 1.2rem; }
+        .article-title { font-size: 1.5rem; }
+        .article-container { padding: 0 1rem; }
+        .article-content h2 { font-size: 1.3rem; }
+        .back-links { gap: 0.8rem; }
     }
     </style>
 </head>
 <body>
     <div id="nav-placeholder"></div>
-    
     <main class="content">
-        <div class="daily-container">
-            <div class="page-header">
-                <h1>🌿 蕨積每日文章</h1>
-                <p>植物・永續・碳盤查・生活 — 每天一篇，與你一起成長</p>
+        <div class="article-container">
+            <div class="article-category">📌 碳盤查</div>
+            <h1 class="article-title">碳盤查實戰：從案例學起</h1>
+            <div class="article-date">📅 2026-04-25</div>
+            <div class="article-content">
+                <h2>故事引入：一家傳產的碳盤查之旅</h2><p>去年，一家中部機械廠的老闆張先生接到大客戶通知：明年起，供應商必須提供碳排放數據，否則將失去訂單。張先生慌了——公司從未做過碳盤查，員工連「範疇一、二、三」都搞不清楚。他找上台灣衛理(必維集團)尋求協助，這家國際驗證機構正是TCA會員企業，專精於碳管理輔導。透過專業團隊的引導，張先生的公司逐步建立盤查機制，半年後順利通過第三方查證，訂單也保住了。這個案例正是許多中小企業的縮影。</p><h2>碳盤查是什麼？為什麼重要？</h2><p>碳盤查（Carbon Inventory）是指系統性地計算組織或產品的溫室氣體排放量。它是企業淨零轉型的起點，就像減重前要先量體重。根據台灣衛理(必維集團)的實務經驗，許多企業在初次盤查時才發現，供應鏈的間接排放（範疇三）往往佔總排放的70%以上，這正是減碳的最大潛力所在。</p><h2>盤查三大重點</h2><p><b>1. 界定組織邊界與營運邊界</b><br>企業需明確哪些據點、哪些活動納入計算。台灣衛理顧問建議，首次盤查可先從單一廠區開始，再逐步擴展。</p><p><b>2. 數據收集與品質管理</b><br>電費單、油料記錄、冷媒填充量……數據來源必須可靠。許多企業卡在「數據黑洞」，例如外包運輸的燃油消耗難以取得。這時可採用排放係數法估算，但需註明不確定性。</p><p><b>3. 選擇合適的查證方式</b><br>根據台灣衛理(必維集團)的專訪，企業可依客戶要求或法規選擇「合理保證」或「有限保證」。合理保證需更嚴謹的證據，但公信力更高。</p><h2>給企業的實戰建議</h2><p>1️⃣ 先從「小」做起：挑選一個廠區或一條產線試行，避免一開始就追求完美。<br>2️⃣ 善用數位工具：使用碳管理平台自動匯入數據，減少人工錯誤。<br>3️⃣ 培養內部人才：至少指派一位碳管理窗口，參加台灣衛理等機構的培訓課程。<br>4️⃣ 與供應鏈協作：要求上游提供排放數據，共同降低範疇三排放。</p><p>碳盤查不是終點，而是起點。正如張先生的故事，只要跨出第一步，就能逐步走向淨零。如果你也正面臨類似挑戰，不妨參考台灣衛理(必維集團)的專業服務，讓碳盤查不再是難事。</p><p>🌿 蕨積 - 讓生活多一點綠</p>
             </div>
             
-            <div class="two-columns">
-                <div class="main-col">
-                    <div class="latest-article">
-                        <div class="latest-category">📌 碳盤查</div>
-                        <h1 class="latest-title">碳盤查實戰：從案例學起</h1>
-                        <div class="latest-date">📅 2026-04-25</div>
-                        <div class="latest-content">
-                            
-                <h2>故事引入：一家傳產的碳盤查之旅</h2><p>去年，一家中部機械廠的老闆張先生接到大客戶通知：明年起，供應商必須提供碳排放數據，否則將失去訂單。張先生慌了——公司從未做過碳盤查，員工連「範疇一、二、三」都搞不清楚。他找上台灣衛理(必維集團)尋求協助，這家國際驗證機構正是TCA會員企業，專精於碳管理輔導。透過專業團隊的引導，張先生的公司逐步建立盤查機制，半年後順利通過第三方查證，訂單也保住了。這個案例正是許多中小企業的縮影。</p><h2>碳盤查是什麼？為什麼重要？</h2><p>碳盤查（Carbon Inventory）是指系統性地計算組織或產品的溫室氣體排放量。它是企業淨零轉型的起點，就像減重前要先量體重。根據台灣衛理(必維集團)的實務經驗，許多企業在初次盤查時才發現，供應鏈的間接排放（範疇三）往往佔總排放的70%以上，這正是減碳的最大潛力所在。</p><h2>盤查三大重點</h2><p><b>1. 界定組織邊界與營運邊界</b><br>企業需明確哪些據點、哪些活動納入計算。台灣衛理顧問建議，首次盤查可先從單一廠區開始，再逐步擴展。</p><p><b>2. 數據收集與品質管理</b><br>電費單、油料記錄、冷媒填充量……數據來源必須可靠。許多企業卡在「數據黑洞」，例如外包運輸的燃油消耗難以取得。這時可採用排放係數法估算，但需註明不確定性。</p><p><b>3. 選擇合適的查證方式</b><br>根據台灣衛理(必維集團)的專訪，企業可依客戶要求或法規選擇「合理保證」或「有限保證」。合理保證需更嚴謹的證據，但公信力更高。</p><h2>給企業的實戰建議</h2><p>1️⃣ 先從「小」做起：挑選一個廠區或一條產線試行，避免一開始就追求完美。<br>2️⃣ 善用數位工具：使用碳管理平台自動匯入數據，減少人工錯誤。<br>3️⃣ 培養內部人才：至少指派一位碳管理窗口，參加台灣衛理等機構的培訓課程。<br>4️⃣ 與供應鏈協作：要求上游提供排放數據，共同降低範疇三排放。</p><p>碳盤查不是終點，而是起點。正如張先生的故事，只要跨出第一步，就能逐步走向淨零。如果你也正面臨類似挑戰，不妨參考台灣衛理(必維集團)的專業服務，讓碳盤查不再是難事。</p><p>🌿 蕨積 - 讓生活多一點綠</p>
-            
-                        </div>
-                    </div>
-                    
-                    <div class="section-title">📖 近期文章</div>
-                    <ul class="past-list">
-                        
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-24-買少買好，地球更好.html">買少買好，地球更好</a>
-                            <div class="past-meta">📅 2026-04-24 · 永續</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-23-夜間綠牆燈光魔法.html">夜間綠牆燈光魔法</a>
-                            <div class="past-meta">📅 2026-04-23 · 植物</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-22-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
-                            <div class="past-meta">📅 2026-04-22 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-21-中小企業碳管理入門：從哪裡開始.html">中小企業碳管理入門：從哪裡開始</a>
-                            <div class="past-meta">📅 2026-04-21 · 碳盤查</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-21-微小習慣，巨大幸福.html">微小習慣，巨大幸福</a>
-                            <div class="past-meta">📅 2026-04-21 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-20-減塑新生活：塑膠袋之外的選擇.html">減塑新生活：塑膠袋之外的選擇</a>
-                            <div class="past-meta">📅 2026-04-20 · 永續</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-19-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
-                            <div class="past-meta">📅 2026-04-19 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-19-植生牆入門指南：打造你的第一面垂直花園.html">植生牆入門指南：打造你的第一面垂直花園</a>
-                            <div class="past-meta">📅 2026-04-19 · 植物</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-19-辦公室植生牆：工作效率的綠色魔法.html">辦公室植生牆：工作效率的綠色魔法</a>
-                            <div class="past-meta">📅 2026-04-19 · 植物</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-19-垂直花園的隱形骨架：打造一面會呼吸的植生牆.html">垂直花園的隱形骨架：打造一面會呼吸的植生牆</a>
-                            <div class="past-meta">📅 2026-04-19 · 植物</div>
-                        </li>
-                    </ul>
+            <div class="article-footer">
+                <p style="color: var(--stone); font-size: 0.85rem;">🌿 每日一篇，與你一起成長</p>
+                <div class="back-links">
+                    <a href="index.html">🏠 返回每日文章</a>
+                    <a href="carbon.html">📂 返回碳盤查分類</a>
+                    <a href="../shop.html">🌱 植物選品</a>
+                    <a href="../consult.html">💚 綠色服務</a>
                 </div>
-                
-                
-                    <div class="sidebar-col">
-                        <div class="sidebar-card">
-                            <h3>🌿 分類瀏覽</h3>
-                            <ul class="sidebar-links">
-                                <li><a href="plant.html">🌱 植物文章 <span class="count-badge">25</span></a></li>
-                                <li><a href="sustainability.html">♻️ 永續文章 <span class="count-badge">14</span></a></li>
-                                <li><a href="carbon.html">📊 碳盤查文章 <span class="count-badge">13</span></a></li>
-                                <li><a href="life.html">🏡 生活文章 <span class="count-badge">19</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="sidebar-card">
-                            <h3>📊 本站統計</h3>
-                            <ul class="sidebar-stats">
-                                <li>📄 總文章數：<strong>71</strong> 篇</li>
-                                <li>📝 累積字數：約 <strong>46,150</strong> 字</li>
-                                <li>📅 更新頻率：每日一篇</li>
-                                <li>🌱 主題分類：4 大類</li>
-                            </ul>
-                        </div>
-                    </div>
             </div>
         </div>
     </main>
-    
     <footer>
     <ul class="footer-links">
       <li><a href="/shop.html">植物選品</a></li>
@@ -480,9 +385,7 @@
     </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
-    
     <script>
-        
 document.addEventListener('DOMContentLoaded', function () {
   fetch('../nav.html')
     .then(response => response.text())
@@ -539,7 +442,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (typeof lucide !== 'undefined') lucide.createIcons();
   });
 });
-
-    </script>
+</script>
 </body>
 </html>
