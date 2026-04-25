@@ -2,8 +2,14 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>蕨積每日文章 - 植物・永續・碳盤查・生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="為何廠房更綠，碳足跡卻降不下來？">
+    <meta name="article-summary" content="為何廠房更綠，碳足跡卻降不下來？">
+    <meta name="article-keypoints" content='["電力碳排放是企業碳盤查的隱形大戶", "綠電採購與憑證制度可能導致碳足跡計算盲點", "企業需從全生命週期角度進行碳管理"]'>
+    <meta name="article-category" content="碳盤查">
+    <meta name="article-date" content="2026-04-25">
+    <meta name="author" content="蕨積 FernBrom">
+    <title>減碳的電力陰影 - 蕨積每日文章</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -256,23 +262,12 @@
         flex-wrap: wrap;
       }
     }
-    .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .page-header { text-align: center; margin-bottom: 2rem; }
-    .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
-    .page-header p { color: var(--stone); margin-top: 0.5rem; }
-    
-    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
-    .main-col { flex: 3; min-width: 250px; }
-    .sidebar-col { flex: 1; min-width: 220px; }
-    
-    .latest-article {
-        background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    .article-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
-    .latest-category {
+    .article-category {
         display: inline-block;
         background: #1e6f5c;
         color: white;
@@ -281,196 +276,106 @@
         font-size: 0.8rem;
         margin-bottom: 1rem;
     }
-    .latest-title { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.5rem; }
-    .latest-date { color: var(--stone); margin-bottom: 1.5rem; font-size: 0.9rem; }
-    .latest-content {
-        line-height: 1.8;
-        font-size: 1rem;
-        color: #333;
-    }
-    .latest-content h2 {
-        font-size: 1.4rem;
-        margin: 1.2rem 0 0.8rem 0;
+    .article-title {
+        font-size: 2rem;
         color: var(--moss);
+        margin-bottom: 0.5rem;
+        font-family: 'Noto Serif TC', serif;
+        line-height: 1.3;
+    }
+    .article-date {
+        color: var(--stone);
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #e0d6cc;
+        padding-bottom: 1rem;
+    }
+    .article-content {
+        line-height: 1.8;
+        font-size: 1.05rem;
+    }
+    .article-content h2 {
+        font-size: 1.5rem;
+        margin: 1.5rem 0 0.8rem 0;
+        color: var(--moss);
+        font-family: 'Noto Serif TC', serif;
+        font-weight: 600;
         border-left: 4px solid #1e6f5c;
         padding-left: 1rem;
     }
-    .latest-content h3 {
+    .article-content h3 {
         font-size: 1.2rem;
-        margin: 1rem 0 0.5rem 0;
+        margin: 1.2rem 0 0.6rem 0;
         color: var(--fern);
     }
-    .latest-content p {
-        margin-bottom: 0.8rem;
+    .article-content p {
+        margin-bottom: 1rem;
     }
-    .latest-content ul, .latest-content ol {
-        margin: 0.8rem 0 0.8rem 1.5rem;
+    .article-content ul, .article-content ol {
+        margin: 1rem 0 1rem 2rem;
     }
-    .latest-content li {
+    .article-content li {
         margin-bottom: 0.3rem;
     }
-    
-    .section-title { font-size: 1.2rem; color: var(--moss); border-bottom: 2px solid #e0d6cc; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-    .past-list { list-style: none; }
-    .past-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0e8e0; }
-    .past-link { font-size: 1rem; font-weight: 500; color: var(--fern); text-decoration: none; display: block; }
-    .past-link:hover { text-decoration: underline; }
-    .past-meta { font-size: 0.75rem; color: #aaa; margin-top: 0.25rem; }
-    
-    .sidebar-card {
-        background: white;
-        border-radius: 16px;
-        padding: 1.2rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    .sidebar-card h3 {
-        font-size: 1rem;
-        color: var(--moss);
-        margin-bottom: 0.8rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid #e0d6cc;
-    }
-    .sidebar-links {
-        list-style: none;
-    }    .count-badge {
-        float: right;
-        background: #e8e0d8;
-        padding: 0.1rem 0.5rem;
-        border-radius: 20px;
-        font-size: 0.7rem;
-        color: #5a7a4a;
-    }
-    .sidebar-stats {
-        list-style: none;
-    }
-    .sidebar-stats li {
-        margin-bottom: 0.6rem;
-        font-size: 0.85rem;
-        color: var(--stone);
-    }
-    .sidebar-stats strong {
+    .article-content strong {
         color: var(--moss);
         font-weight: 600;
     }
-    
-    .sidebar-links li {
-        margin-bottom: 0.5rem;
+    .article-footer {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e0d6cc;
+        text-align: center;
     }
-    .sidebar-links a {
-        color: var(--stone);
-        text-decoration: none;
-        font-size: 0.85rem;
-        transition: color 0.2s;
+    .back-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin: 1rem 0;
     }
-    .sidebar-links a:hover {
+    .back-links a {
         color: var(--fern);
+        text-decoration: none;
+        font-size: 0.9rem;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        transition: background 0.2s;
+    }
+    .back-links a:hover {
+        background: #e8e0d8;
         text-decoration: underline;
     }
-    
     @media (max-width: 768px) {
-        .two-columns { flex-direction: column; }
-        .latest-title { font-size: 1.4rem; }
-        .daily-container { padding: 0 1rem; }
-        .latest-article { padding: 1rem; }
-        .latest-content h2 { font-size: 1.2rem; }
+        .article-title { font-size: 1.5rem; }
+        .article-container { padding: 0 1rem; }
+        .article-content h2 { font-size: 1.3rem; }
+        .back-links { gap: 0.8rem; }
     }
     </style>
 </head>
 <body>
     <div id="nav-placeholder"></div>
-    
     <main class="content">
-        <div class="daily-container">
-            <div class="page-header">
-                <h1>🌿 蕨積每日文章</h1>
-                <p>植物・永續・碳盤查・生活 — 每天一篇，與你一起成長</p>
+        <div class="article-container">
+            <div class="article-category">📌 碳盤查</div>
+            <h1 class="article-title">減碳的電力陰影</h1>
+            <div class="article-date">📅 2026-04-25</div>
+            <div class="article-content">
+                <h2>你的工廠變綠了，但碳足跡為何還在哭？</h2><p>最近看到一篇報導，標題是「揭開企業減碳的『電力陰影』：為何廠房更綠，碳足跡卻降不下來？」（出自《數位時代》2025年12月8日），這篇文章點出了一個讓許多企業頭痛的問題：明明換了節能設備、屋頂也鋪滿太陽能板，為什麼碳盤查結果還是紅字一片？</p><p>問題的關鍵就在於「電力陰影」。你可能不知道，企業在進行碳盤查時，除了直接排放的溫室氣體（比如工廠煙囪排出的二氧化碳），還必須計算「間接排放」——也就是購買的電力、蒸氣等能源所產生的碳排放。而這部分，往往占了企業碳足跡的六到七成！</p><p>舉例來說，一家電子製造廠雖然把廠房照明全換成LED，空調也升級為變頻系統，但它的主要用電來源還是傳統電網。電網的碳排放係數（每度電產生的二氧化碳）若沒有下降，企業的碳足跡自然降不下來。更慘的是，有些企業為了「漂綠」，買了便宜的綠電憑證，卻沒有實際使用再生能源，結果在碳盤查中被認定為「無效減量」。</p><h2>碳盤查的「電力陷阱」</h2><p>根據《數位時代》報導，許多企業在計算碳足跡時，只關注自己的廠房內排放，卻忽略了上游供應鏈和下游產品的排放。這種「只看自己家門口」的做法，就像只打掃客廳卻放任廚房堆滿垃圾。而電力碳排放正是這個「廚房」裡的最大問題。</p><p>要解決這個問題，企業必須做到三件事：第一，優先購買「有實際物理傳輸」的綠電，而不是只買憑證；第二，投資儲能設備或自建再生能源，減少對電網的依賴；第三，進行完整的「範疇三」碳盤查（包括供應商和產品使用階段），才能真正掌握碳足跡。</p><h2>從「電力陰影」到「陽光碳管理」</h2><p>碳盤查不是為了應付法規，而是幫助企業找到減碳的甜蜜點。就像《數位時代》那篇文章說的，只有揭開「電力陰影」，才能讓企業的減碳努力不再白費。下次當你看到某公司宣布「碳中和」時，不妨問一句：「你們的電力碳排放是怎麼算的？」</p><p>🌿 蕨積 - 讓生活多一點綠</p>
             </div>
             
-            <div class="two-columns">
-                <div class="main-col">
-                    <div class="latest-article">
-                        <div class="latest-category">📌 碳盤查</div>
-                        <h1 class="latest-title">減碳的電力陰影</h1>
-                        <div class="latest-date">📅 2026-04-25</div>
-                        <div class="latest-content">
-                            
-                <h2>你的工廠變綠了，但碳足跡為何還在哭？</h2><p>最近看到一篇報導，標題是「揭開企業減碳的『電力陰影』：為何廠房更綠，碳足跡卻降不下來？」（出自《數位時代》2025年12月8日），這篇文章點出了一個讓許多企業頭痛的問題：明明換了節能設備、屋頂也鋪滿太陽能板，為什麼碳盤查結果還是紅字一片？</p><p>問題的關鍵就在於「電力陰影」。你可能不知道，企業在進行碳盤查時，除了直接排放的溫室氣體（比如工廠煙囪排出的二氧化碳），還必須計算「間接排放」——也就是購買的電力、蒸氣等能源所產生的碳排放。而這部分，往往占了企業碳足跡的六到七成！</p><p>舉例來說，一家電子製造廠雖然把廠房照明全換成LED，空調也升級為變頻系統，但它的主要用電來源還是傳統電網。電網的碳排放係數（每度電產生的二氧化碳）若沒有下降，企業的碳足跡自然降不下來。更慘的是，有些企業為了「漂綠」，買了便宜的綠電憑證，卻沒有實際使用再生能源，結果在碳盤查中被認定為「無效減量」。</p><h2>碳盤查的「電力陷阱」</h2><p>根據《數位時代》報導，許多企業在計算碳足跡時，只關注自己的廠房內排放，卻忽略了上游供應鏈和下游產品的排放。這種「只看自己家門口」的做法，就像只打掃客廳卻放任廚房堆滿垃圾。而電力碳排放正是這個「廚房」裡的最大問題。</p><p>要解決這個問題，企業必須做到三件事：第一，優先購買「有實際物理傳輸」的綠電，而不是只買憑證；第二，投資儲能設備或自建再生能源，減少對電網的依賴；第三，進行完整的「範疇三」碳盤查（包括供應商和產品使用階段），才能真正掌握碳足跡。</p><h2>從「電力陰影」到「陽光碳管理」</h2><p>碳盤查不是為了應付法規，而是幫助企業找到減碳的甜蜜點。就像《數位時代》那篇文章說的，只有揭開「電力陰影」，才能讓企業的減碳努力不再白費。下次當你看到某公司宣布「碳中和」時，不妨問一句：「你們的電力碳排放是怎麼算的？」</p><p>🌿 蕨積 - 讓生活多一點綠</p>
-            
-                        </div>
-                    </div>
-                    
-                    <div class="section-title">📖 近期文章</div>
-                    <ul class="past-list">
-                        
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-24-買少買好，地球更好.html">買少買好，地球更好</a>
-                            <div class="past-meta">📅 2026-04-24 · 永續</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-23-夜間綠牆燈光魔法.html">夜間綠牆燈光魔法</a>
-                            <div class="past-meta">📅 2026-04-23 · 植物</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-22-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
-                            <div class="past-meta">📅 2026-04-22 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-21-中小企業碳管理入門：從哪裡開始.html">中小企業碳管理入門：從哪裡開始</a>
-                            <div class="past-meta">📅 2026-04-21 · 碳盤查</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-21-微小習慣，巨大幸福.html">微小習慣，巨大幸福</a>
-                            <div class="past-meta">📅 2026-04-21 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-20-減塑新生活：塑膠袋之外的選擇.html">減塑新生活：塑膠袋之外的選擇</a>
-                            <div class="past-meta">📅 2026-04-20 · 永續</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-19-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
-                            <div class="past-meta">📅 2026-04-19 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-19-植生牆入門指南：打造你的第一面垂直花園.html">植生牆入門指南：打造你的第一面垂直花園</a>
-                            <div class="past-meta">📅 2026-04-19 · 植物</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-19-辦公室植生牆：工作效率的綠色魔法.html">辦公室植生牆：工作效率的綠色魔法</a>
-                            <div class="past-meta">📅 2026-04-19 · 植物</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-19-垂直花園的隱形骨架：打造一面會呼吸的植生牆.html">垂直花園的隱形骨架：打造一面會呼吸的植生牆</a>
-                            <div class="past-meta">📅 2026-04-19 · 植物</div>
-                        </li>
-                    </ul>
+            <div class="article-footer">
+                <p style="color: var(--stone); font-size: 0.85rem;">🌿 每日一篇，與你一起成長</p>
+                <div class="back-links">
+                    <a href="index.html">🏠 返回每日文章</a>
+                    <a href="carbon.html">📂 返回碳盤查分類</a>
+                    <a href="../shop.html">🌱 植物選品</a>
+                    <a href="../consult.html">💚 綠色服務</a>
                 </div>
-                
-                
-                    <div class="sidebar-col">
-                        <div class="sidebar-card">
-                            <h3>🌿 分類瀏覽</h3>
-                            <ul class="sidebar-links">
-                                <li><a href="plant.html">🌱 植物文章 <span class="count-badge">25</span></a></li>
-                                <li><a href="sustainability.html">♻️ 永續文章 <span class="count-badge">14</span></a></li>
-                                <li><a href="carbon.html">📊 碳盤查文章 <span class="count-badge">13</span></a></li>
-                                <li><a href="life.html">🏡 生活文章 <span class="count-badge">19</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="sidebar-card">
-                            <h3>📊 本站統計</h3>
-                            <ul class="sidebar-stats">
-                                <li>📄 總文章數：<strong>71</strong> 篇</li>
-                                <li>📝 累積字數：約 <strong>46,150</strong> 字</li>
-                                <li>📅 更新頻率：每日一篇</li>
-                                <li>🌱 主題分類：4 大類</li>
-                            </ul>
-                        </div>
-                    </div>
             </div>
         </div>
     </main>
-    
     <footer>
     <ul class="footer-links">
       <li><a href="/shop.html">植物選品</a></li>
@@ -480,9 +385,7 @@
     </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
-    
     <script>
-        
 document.addEventListener('DOMContentLoaded', function () {
   fetch('../nav.html')
     .then(response => response.text())
@@ -539,7 +442,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (typeof lucide !== 'undefined') lucide.createIcons();
   });
 });
-
-    </script>
+</script>
 </body>
 </html>
