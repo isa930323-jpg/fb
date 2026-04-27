@@ -2,8 +2,14 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>蕨積每日文章 - 植物・永續・碳盤查・生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="用植物知識點亮生活，從書本到陽台。">
+    <meta name="article-summary" content="用植物知識點亮生活，從書本到陽台。">
+    <meta name="article-keypoints" content='["植物書單推薦與閱讀技巧", "從書中學到植物養護的實用知識", "將閱讀轉化為實際種植行動"]'>
+    <meta name="article-category" content="植物">
+    <meta name="article-date" content="2026-04-27">
+    <meta name="author" content="蕨積 FernBrom">
+    <title>植物書海：從閱讀到綠化 - 蕨積每日文章</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -256,23 +262,12 @@
         flex-wrap: wrap;
       }
     }
-    .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .page-header { text-align: center; margin-bottom: 2rem; }
-    .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
-    .page-header p { color: var(--stone); margin-top: 0.5rem; }
-    
-    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
-    .main-col { flex: 3; min-width: 250px; }
-    .sidebar-col { flex: 1; min-width: 220px; }
-    
-    .latest-article {
-        background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    .article-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
-    .latest-category {
+    .article-category {
         display: inline-block;
         background: #4a7c59;
         color: white;
@@ -281,208 +276,106 @@
         font-size: 0.8rem;
         margin-bottom: 1rem;
     }
-    .latest-title { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.5rem; }
-    .latest-date { color: var(--stone); margin-bottom: 1.5rem; font-size: 0.9rem; }
-    .latest-content {
-        line-height: 1.8;
-        font-size: 1rem;
-        color: #333;
-    }
-    .latest-content h2 {
-        font-size: 1.4rem;
-        margin: 1.2rem 0 0.8rem 0;
+    .article-title {
+        font-size: 2rem;
         color: var(--moss);
+        margin-bottom: 0.5rem;
+        font-family: 'Noto Serif TC', serif;
+        line-height: 1.3;
+    }
+    .article-date {
+        color: var(--stone);
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #e0d6cc;
+        padding-bottom: 1rem;
+    }
+    .article-content {
+        line-height: 1.8;
+        font-size: 1.05rem;
+    }
+    .article-content h2 {
+        font-size: 1.5rem;
+        margin: 1.5rem 0 0.8rem 0;
+        color: var(--moss);
+        font-family: 'Noto Serif TC', serif;
+        font-weight: 600;
         border-left: 4px solid #4a7c59;
         padding-left: 1rem;
     }
-    .latest-content h3 {
+    .article-content h3 {
         font-size: 1.2rem;
-        margin: 1rem 0 0.5rem 0;
+        margin: 1.2rem 0 0.6rem 0;
         color: var(--fern);
     }
-    .latest-content p {
-        margin-bottom: 0.8rem;
+    .article-content p {
+        margin-bottom: 1rem;
     }
-    .latest-content ul, .latest-content ol {
-        margin: 0.8rem 0 0.8rem 1.5rem;
+    .article-content ul, .article-content ol {
+        margin: 1rem 0 1rem 2rem;
     }
-    .latest-content li {
+    .article-content li {
         margin-bottom: 0.3rem;
     }
-    
-    .section-title { font-size: 1.2rem; color: var(--moss); border-bottom: 2px solid #e0d6cc; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-    .past-list { list-style: none; }
-    .past-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0e8e0; }
-    .past-link { font-size: 1rem; font-weight: 500; color: var(--fern); text-decoration: none; display: block; }
-    .past-link:hover { text-decoration: underline; }
-    .past-meta { font-size: 0.75rem; color: #aaa; margin-top: 0.25rem; }
-    
-    .sidebar-card {
-        background: white;
-        border-radius: 16px;
-        padding: 1.2rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    .sidebar-card h3 {
-        font-size: 1rem;
-        color: var(--moss);
-        margin-bottom: 0.8rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid #e0d6cc;
-    }
-    .sidebar-links {
-        list-style: none;
-    }    .count-badge {
-        float: right;
-        background: #e8e0d8;
-        padding: 0.1rem 0.5rem;
-        border-radius: 20px;
-        font-size: 0.7rem;
-        color: #5a7a4a;
-    }
-    .sidebar-stats {
-        list-style: none;
-    }
-    .sidebar-stats li {
-        margin-bottom: 0.6rem;
-        font-size: 0.85rem;
-        color: var(--stone);
-    }
-    .sidebar-stats strong {
+    .article-content strong {
         color: var(--moss);
         font-weight: 600;
     }
-    
-    .sidebar-links li {
-        margin-bottom: 0.5rem;
+    .article-footer {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e0d6cc;
+        text-align: center;
     }
-    .sidebar-links a {
-        color: var(--stone);
-        text-decoration: none;
-        font-size: 0.85rem;
-        transition: color 0.2s;
+    .back-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin: 1rem 0;
     }
-    .sidebar-links a:hover {
+    .back-links a {
         color: var(--fern);
+        text-decoration: none;
+        font-size: 0.9rem;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        transition: background 0.2s;
+    }
+    .back-links a:hover {
+        background: #e8e0d8;
         text-decoration: underline;
     }
-    
     @media (max-width: 768px) {
-        .two-columns { flex-direction: column; }
-        .latest-title { font-size: 1.4rem; }
-        .daily-container { padding: 0 1rem; }
-        .latest-article { padding: 1rem; }
-        .latest-content h2 { font-size: 1.2rem; }
+        .article-title { font-size: 1.5rem; }
+        .article-container { padding: 0 1rem; }
+        .article-content h2 { font-size: 1.3rem; }
+        .back-links { gap: 0.8rem; }
     }
     </style>
 </head>
 <body>
     <div id="nav-placeholder"></div>
-    
     <main class="content">
-        <div class="daily-container">
-            <div class="page-header">
-                <h1>🌿 蕨積每日文章</h1>
-                <p>植物・永續・碳盤查・生活 — 每天一篇，與你一起成長</p>
+        <div class="article-container">
+            <div class="article-category">📌 植物</div>
+            <h1 class="article-title">植物書海：從閱讀到綠化</h1>
+            <div class="article-date">📅 2026-04-27</div>
+            <div class="article-content">
+                <h2>小故事：一本書如何改變一個陽台</h2><p>去年春天，一位住在公寓的上班族，在圖書館偶然翻到一本《室內<a href="../shop.html">植物</a>圖鑑》。她原本只是覺得封面漂亮，沒想到讀完後，她開始在陽台種植薄荷、迷迭香和龜背芋。半年後，她的陽台變成一個微型綠洲，甚至開始分享扦插苗給鄰居。這個故事說明了：<a href="../shop.html">植物</a>書籍不只是知識的載體，更是行動的催化劑。</p><h2>為什麼<a href="../shop.html">植物</a>書值得一讀再讀？</h2><p><a href="../shop.html">植物</a>書籍的價值在於它們濃縮了園藝專家多年的經驗。例如，有些書會詳細說明不同<a href="../shop.html">植物</a>的光照需求、澆水頻率以及病蟲害防治方法。但更重要的是，這些書能幫助讀者建立一種「<a href="../shop.html">植物</a>思維」——理解<a href="../shop.html">植物</a>如何適應環境、如何與其他生物互動。這種思維能讓你在面對枯黃葉子時，不再只是焦慮，而是開始觀察、推理並解決問題。</p><p>此外，<a href="../shop.html">植物</a>書籍也提供了許多實用的<a href="../lifestyle.html">生活</a>智慧。比如，書中常提到「見幹見濕」的澆水原則，意思是等到土壤表層乾燥後再澆透水。這個簡單的原則能避免大多數室內<a href="../shop.html">植物</a>因澆水過多而爛根。但許多人忽略了季節變化對澆水頻率的影響——冬天<a href="../shop.html">植物</a>生長減緩，需水量更少。這些細微的知識差異，正是書籍能帶給讀者的深度。</p><h2>從書本到陽台：三步驟打造你的<a href="../shop.html">植物</a>角落</h2><p>第一步：選擇適合的入門書。建議從圖鑑類或養護指南開始，例如《新手種花100問》或《觀葉<a href="../shop.html">植物</a>栽培指南》。這類書通常圖片豐富，說明簡單明瞭，能快速建立基礎知識。</p><p>第二步：邊讀邊實作。讀到一個新技巧時，馬上在自家<a href="../shop.html">植物</a>上試驗。例如，書中說「虎尾蘭耐陰，但每兩週要轉盆均勻受光」，你可以設定手機提醒並記錄生長變化。這種互動式閱讀能加深記憶，也讓書本知識變成實際技能。</p><p>第三步：分享與交流。讀完一本好書後，可以寫讀書筆記或參加線上<a href="../shop.html">植物</a>社團討論。分享過程不僅能鞏固所學，還能從他人經驗中獲得新靈感。就像那位上班族，她的陽台後來成為社區的綠化示範點，啟發更多人開始種植。</p><h2>未來趨勢：<a href="../shop.html">植物</a>知識的數位化與社群化</h2><p>隨著社群媒體的普及，<a href="../shop.html">植物</a>書籍的內容正逐漸被短影片和貼文取代。但書籍仍有不可替代的優勢：系統性、深度和權威性。未來可能出現更多結合AR技術的<a href="../shop.html">植物</a>書，讀者掃描頁面就能看到<a href="../shop.html">植物</a>的3D生長動畫。同時，線上讀書會和<a href="../shop.html">植物</a>工作坊也會越來越流行，讓閱讀不再孤單。</p><p>總之，<a href="../shop.html">植物</a>書籍就像一座橋樑，連接著知識與行動。翻開一本書，就是打開一扇通往綠色<a href="../lifestyle.html">生活</a>的門。下次逛書店時，不妨在園藝區多停留一會兒，說不定你會找到改變陽台的那本書。</p><p>🌿 蕨積 - 讓<a href="../lifestyle.html">生活</a>多一點綠</p>
             </div>
             
-            <div class="two-columns">
-                <div class="main-col">
-                    <div class="latest-article">
-                        <div class="latest-category">📌 植物</div>
-                        <h1 class="latest-title">植物書海：從閱讀到綠化</h1>
-                        <div class="latest-date">📅 2026-04-27</div>
-                        <div class="latest-content">
-                            
-                <h2>小故事：一本書如何改變一個陽台</h2><p>去年春天，一位住在公寓的上班族，在圖書館偶然翻到一本《室內<a href="../shop.html">植物</a>圖鑑》。她原本只是覺得封面漂亮，沒想到讀完後，她開始在陽台種植薄荷、迷迭香和龜背芋。半年後，她的陽台變成一個微型綠洲，甚至開始分享扦插苗給鄰居。這個故事說明了：<a href="../shop.html">植物</a>書籍不只是知識的載體，更是行動的催化劑。</p><h2>為什麼<a href="../shop.html">植物</a>書值得一讀再讀？</h2><p><a href="../shop.html">植物</a>書籍的價值在於它們濃縮了園藝專家多年的經驗。例如，有些書會詳細說明不同<a href="../shop.html">植物</a>的光照需求、澆水頻率以及病蟲害防治方法。但更重要的是，這些書能幫助讀者建立一種「<a href="../shop.html">植物</a>思維」——理解<a href="../shop.html">植物</a>如何適應環境、如何與其他生物互動。這種思維能讓你在面對枯黃葉子時，不再只是焦慮，而是開始觀察、推理並解決問題。</p><p>此外，<a href="../shop.html">植物</a>書籍也提供了許多實用的<a href="../lifestyle.html">生活</a>智慧。比如，書中常提到「見幹見濕」的澆水原則，意思是等到土壤表層乾燥後再澆透水。這個簡單的原則能避免大多數室內<a href="../shop.html">植物</a>因澆水過多而爛根。但許多人忽略了季節變化對澆水頻率的影響——冬天<a href="../shop.html">植物</a>生長減緩，需水量更少。這些細微的知識差異，正是書籍能帶給讀者的深度。</p><h2>從書本到陽台：三步驟打造你的<a href="../shop.html">植物</a>角落</h2><p>第一步：選擇適合的入門書。建議從圖鑑類或養護指南開始，例如《新手種花100問》或《觀葉<a href="../shop.html">植物</a>栽培指南》。這類書通常圖片豐富，說明簡單明瞭，能快速建立基礎知識。</p><p>第二步：邊讀邊實作。讀到一個新技巧時，馬上在自家<a href="../shop.html">植物</a>上試驗。例如，書中說「虎尾蘭耐陰，但每兩週要轉盆均勻受光」，你可以設定手機提醒並記錄生長變化。這種互動式閱讀能加深記憶，也讓書本知識變成實際技能。</p><p>第三步：分享與交流。讀完一本好書後，可以寫讀書筆記或參加線上<a href="../shop.html">植物</a>社團討論。分享過程不僅能鞏固所學，還能從他人經驗中獲得新靈感。就像那位上班族，她的陽台後來成為社區的綠化示範點，啟發更多人開始種植。</p><h2>未來趨勢：<a href="../shop.html">植物</a>知識的數位化與社群化</h2><p>隨著社群媒體的普及，<a href="../shop.html">植物</a>書籍的內容正逐漸被短影片和貼文取代。但書籍仍有不可替代的優勢：系統性、深度和權威性。未來可能出現更多結合AR技術的<a href="../shop.html">植物</a>書，讀者掃描頁面就能看到<a href="../shop.html">植物</a>的3D生長動畫。同時，線上讀書會和<a href="../shop.html">植物</a>工作坊也會越來越流行，讓閱讀不再孤單。</p><p>總之，<a href="../shop.html">植物</a>書籍就像一座橋樑，連接著知識與行動。翻開一本書，就是打開一扇通往綠色<a href="../lifestyle.html">生活</a>的門。下次逛書店時，不妨在園藝區多停留一會兒，說不定你會找到改變陽台的那本書。</p><p>🌿 蕨積 - 讓<a href="../lifestyle.html">生活</a>多一點綠</p>
-            
-                        </div>
-                    </div>
-                    
-                    <div class="section-title">📖 近期文章</div>
-                    <ul class="past-list">
-                        
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-26-從軍艦整潔看生活態度.html">從軍艦整潔看生活態度</a>
-                            <div class="past-meta">📅 2026-04-26 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-25-碳盤查神器-隨插即用系統.html">碳盤查神器：隨插即用系統</a>
-                            <div class="past-meta">📅 2026-04-25 · 碳盤查</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-24-買少買好，地球更好.html">買少買好，地球更好</a>
-                            <div class="past-meta">📅 2026-04-24 · 永續</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-23-夜間綠牆燈光魔法.html">夜間綠牆燈光魔法</a>
-                            <div class="past-meta">📅 2026-04-23 · 植物</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-22-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
-                            <div class="past-meta">📅 2026-04-22 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-21-中小企業碳管理入門：從哪裡開始.html">中小企業碳管理入門：從哪裡開始</a>
-                            <div class="past-meta">📅 2026-04-21 · 碳盤查</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-21-微小習慣，巨大幸福.html">微小習慣，巨大幸福</a>
-                            <div class="past-meta">📅 2026-04-21 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-20-減塑新生活：塑膠袋之外的選擇.html">減塑新生活：塑膠袋之外的選擇</a>
-                            <div class="past-meta">📅 2026-04-20 · 永續</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-19-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
-                            <div class="past-meta">📅 2026-04-19 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-19-植生牆入門指南：打造你的第一面垂直花園.html">植生牆入門指南：打造你的第一面垂直花園</a>
-                            <div class="past-meta">📅 2026-04-19 · 植物</div>
-                        </li>
-                    </ul>
+            <div class="article-footer">
+                <p style="color: var(--stone); font-size: 0.85rem;">🌿 每日一篇，與你一起成長</p>
+                <div class="back-links">
+                    <a href="index.html">🏠 返回每日文章</a>
+                    <a href="plant.html">📂 返回植物分類</a>
+                    <a href="../shop.html">🌱 植物選品</a>
+                    <a href="../consult.html">💚 綠色服務</a>
                 </div>
-                
-                
-                    <div class="sidebar-col">
-                        <!-- 📧 訂閱卡片 -->
-                        <div class="sidebar-card subscribe-card" style="background: #e8f0e4;">
-                            <h3>📧 免費訂閱</h3>
-                            <p style="font-size: 0.8rem; color: var(--stone); margin-bottom: 0.8rem;">每日文章直送信箱</p>
-                            <form id="sidebar-subscribe-form">
-                                <input type="email" id="sidebar-email" placeholder="your@email.com" required style="width:100%; padding:0.6rem; border:1px solid #d0c8bc; border-radius:30px; margin-bottom:0.8rem; font-size:0.85rem; text-align:center;">
-                                <button type="submit" style="width:100%; background:var(--fern); color:white; border:none; padding:0.6rem; border-radius:30px; cursor:pointer; font-size:0.85rem; font-weight:500;">🌿 訂閱</button>
-                            </form>
-                            <div id="sidebar-subscribe-message" style="margin-top:0.8rem; font-size:0.7rem; text-align:center; display:none;"></div>
-                        </div>
-                        
-                        <div class="sidebar-card">
-                            <h3>🌿 分類瀏覽</h3>
-                            <ul class="sidebar-links">
-                                <li><a href="plant.html">🌱 植物文章 <span class="count-badge">26</span></a></li>
-                                <li><a href="sustainability.html">♻️ 永續文章 <span class="count-badge">14</span></a></li>
-                                <li><a href="carbon.html">📊 碳盤查文章 <span class="count-badge">13</span></a></li>
-                                <li><a href="life.html">🏡 生活文章 <span class="count-badge">20</span></a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="sidebar-card">
-                            <h3>📊 本站統計</h3>
-                            <ul class="sidebar-stats">
-                                <li>📄 總文章數：<strong>73</strong> 篇</li>
-                                <li>📝 累積字數：約 <strong>47,450</strong> 字</li>
-                                <li>📅 更新頻率：每日一篇</li>
-                                <li>🌱 主題分類：4 大類</li>
-                            </ul>
-                        </div>
-                    </div>
             </div>
         </div>
     </main>
-    
     <footer>
     <ul class="footer-links">
       <li><a href="/shop.html">植物選品</a></li>
@@ -492,9 +385,7 @@
     </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
-    
     <script>
-        
 document.addEventListener('DOMContentLoaded', function() {
   fetch('../nav.html')
     .then(response => response.text())
@@ -561,42 +452,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 });
-
-        
-        // 側邊欄訂閱功能（改用 URL 參數，可寫入 Sheet）
-// 側邊欄訂閱功能（簡化版）
-(function() {
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyb5SP8GCGdMDMniLfGcqHuvzrGw9XNp3JSS6l2dWLvb55ELVmJe0OlpmzVShJ3j7Pw/exec';
-    const sidebarForm = document.getElementById('sidebar-subscribe-form');
-    
-    if (sidebarForm) {
-        sidebarForm.onsubmit = function(e) {
-            e.preventDefault();
-            var email = document.getElementById('sidebar-email').value;
-            var messageDiv = document.getElementById('sidebar-subscribe-message');
-            
-            if (!email) return;
-            
-            messageDiv.style.display = 'block';
-            messageDiv.style.color = '#5a7a4a';
-            messageDiv.innerHTML = '📡 送出中...';
-            
-            var url = APPS_SCRIPT_URL + '?action=subscribe&name=讀者&email=' + encodeURIComponent(email);
-            
-            fetch(url, { method: 'POST', mode: 'no-cors' })
-                .then(function() {
-                    messageDiv.style.color = '#2c5e2e';
-                    messageDiv.innerHTML = '✅ 訂閱成功！';
-                    document.getElementById('sidebar-email').value = '';
-                    setTimeout(function() { messageDiv.style.display = 'none'; }, 3000);
-                })
-                .catch(function() {
-                    messageDiv.style.color = '#721c24';
-                    messageDiv.innerHTML = '❌ 送出失敗，請稍後再試。';
-                });
-        };
-    }
-})();
-    </script>
+</script>
 </body>
 </html>
