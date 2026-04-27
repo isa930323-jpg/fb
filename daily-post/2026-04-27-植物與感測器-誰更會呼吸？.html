@@ -2,8 +2,14 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>蕨積每日文章 - 植物・永續・碳盤查・生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="植物是天然的空氣感測器，但科技能超越嗎？">
+    <meta name="article-summary" content="植物是天然的空氣感測器，但科技能超越嗎？">
+    <meta name="article-keypoints" content='["植物透過氣孔感測空氣，即時反應污染", "科技感測器精準但缺乏生態整合", "兩者互補能打造更全面的監測系統"]'>
+    <meta name="article-category" content="植物">
+    <meta name="article-date" content="2026-04-27">
+    <meta name="author" content="蕨積 FernBrom">
+    <title>植物與感測器：誰更會呼吸？ - 蕨積每日文章</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -256,23 +262,12 @@
         flex-wrap: wrap;
       }
     }
-    .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .page-header { text-align: center; margin-bottom: 2rem; }
-    .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
-    .page-header p { color: var(--stone); margin-top: 0.5rem; }
-    
-    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
-    .main-col { flex: 3; min-width: 250px; }
-    .sidebar-col { flex: 1; min-width: 220px; }
-    
-    .latest-article {
-        background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    .article-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
-    .latest-category {
+    .article-category {
         display: inline-block;
         background: #4a7c59;
         color: white;
@@ -281,208 +276,106 @@
         font-size: 0.8rem;
         margin-bottom: 1rem;
     }
-    .latest-title { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.5rem; }
-    .latest-date { color: var(--stone); margin-bottom: 1.5rem; font-size: 0.9rem; }
-    .latest-content {
-        line-height: 1.8;
-        font-size: 1rem;
-        color: #333;
-    }
-    .latest-content h2 {
-        font-size: 1.4rem;
-        margin: 1.2rem 0 0.8rem 0;
+    .article-title {
+        font-size: 2rem;
         color: var(--moss);
+        margin-bottom: 0.5rem;
+        font-family: 'Noto Serif TC', serif;
+        line-height: 1.3;
+    }
+    .article-date {
+        color: var(--stone);
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #e0d6cc;
+        padding-bottom: 1rem;
+    }
+    .article-content {
+        line-height: 1.8;
+        font-size: 1.05rem;
+    }
+    .article-content h2 {
+        font-size: 1.5rem;
+        margin: 1.5rem 0 0.8rem 0;
+        color: var(--moss);
+        font-family: 'Noto Serif TC', serif;
+        font-weight: 600;
         border-left: 4px solid #4a7c59;
         padding-left: 1rem;
     }
-    .latest-content h3 {
+    .article-content h3 {
         font-size: 1.2rem;
-        margin: 1rem 0 0.5rem 0;
+        margin: 1.2rem 0 0.6rem 0;
         color: var(--fern);
     }
-    .latest-content p {
-        margin-bottom: 0.8rem;
+    .article-content p {
+        margin-bottom: 1rem;
     }
-    .latest-content ul, .latest-content ol {
-        margin: 0.8rem 0 0.8rem 1.5rem;
+    .article-content ul, .article-content ol {
+        margin: 1rem 0 1rem 2rem;
     }
-    .latest-content li {
+    .article-content li {
         margin-bottom: 0.3rem;
     }
-    
-    .section-title { font-size: 1.2rem; color: var(--moss); border-bottom: 2px solid #e0d6cc; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-    .past-list { list-style: none; }
-    .past-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0e8e0; }
-    .past-link { font-size: 1rem; font-weight: 500; color: var(--fern); text-decoration: none; display: block; }
-    .past-link:hover { text-decoration: underline; }
-    .past-meta { font-size: 0.75rem; color: #aaa; margin-top: 0.25rem; }
-    
-    .sidebar-card {
-        background: white;
-        border-radius: 16px;
-        padding: 1.2rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    .sidebar-card h3 {
-        font-size: 1rem;
-        color: var(--moss);
-        margin-bottom: 0.8rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid #e0d6cc;
-    }
-    .sidebar-links {
-        list-style: none;
-    }    .count-badge {
-        float: right;
-        background: #e8e0d8;
-        padding: 0.1rem 0.5rem;
-        border-radius: 20px;
-        font-size: 0.7rem;
-        color: #5a7a4a;
-    }
-    .sidebar-stats {
-        list-style: none;
-    }
-    .sidebar-stats li {
-        margin-bottom: 0.6rem;
-        font-size: 0.85rem;
-        color: var(--stone);
-    }
-    .sidebar-stats strong {
+    .article-content strong {
         color: var(--moss);
         font-weight: 600;
     }
-    
-    .sidebar-links li {
-        margin-bottom: 0.5rem;
+    .article-footer {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e0d6cc;
+        text-align: center;
     }
-    .sidebar-links a {
-        color: var(--stone);
-        text-decoration: none;
-        font-size: 0.85rem;
-        transition: color 0.2s;
+    .back-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin: 1rem 0;
     }
-    .sidebar-links a:hover {
+    .back-links a {
         color: var(--fern);
+        text-decoration: none;
+        font-size: 0.9rem;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        transition: background 0.2s;
+    }
+    .back-links a:hover {
+        background: #e8e0d8;
         text-decoration: underline;
     }
-    
     @media (max-width: 768px) {
-        .two-columns { flex-direction: column; }
-        .latest-title { font-size: 1.4rem; }
-        .daily-container { padding: 0 1rem; }
-        .latest-article { padding: 1rem; }
-        .latest-content h2 { font-size: 1.2rem; }
+        .article-title { font-size: 1.5rem; }
+        .article-container { padding: 0 1rem; }
+        .article-content h2 { font-size: 1.3rem; }
+        .back-links { gap: 0.8rem; }
     }
     </style>
 </head>
 <body>
     <div id="nav-placeholder"></div>
-    
     <main class="content">
-        <div class="daily-container">
-            <div class="page-header">
-                <h1>🌿 蕨積每日文章</h1>
-                <p>植物・永續・碳盤查・生活 — 每天一篇，與你一起成長</p>
+        <div class="article-container">
+            <div class="article-category">📌 植物</div>
+            <h1 class="article-title">植物與感測器：誰更會呼吸？</h1>
+            <div class="article-date">📅 2026-04-27</div>
+            <div class="article-content">
+                <h2>從一棵樹到一個感測器</h2><p>在都市的角落，一棵榕樹靜靜佇立。它的葉片佈滿氣孔，像成千上萬個微小的鼻子，日夜不停地嗅著空氣中的化學物質。當二氧化氮濃度升高，氣孔會微微關閉；當臭氧超標，葉片邊緣開始焦黃。<a href="../shop.html">植物</a>從不發出警報，但它們的身體就是最真實的空氣品質日記。</p><p>與此同時，在城市的另一頭，一台IQAir空氣感測器正在運作。它用雷射散射技術計算微粒濃度，用電化學感測器偵測有毒氣體，每分鐘更新一次數據，精準到ppb等級。它沒有生命，卻能告訴你此刻的空氣是否安全。</p><h2><a href="../shop.html">植物</a>的智慧 vs 科技的精密</h2><p><a href="../shop.html">植物</a>是數百萬年演化出的生物感測器。它們的氣孔開合、葉片變色、生長速率，都是對環境的綜合反應。例如，地衣對二氧化硫極度敏感，一旦空氣變差就會消失；而某些蕨類在重金屬污染區會累積毒素，成為天然的監測指標。這些反應是整體性的，反映的是長期累積的影響。</p><p>科技感測器則追求即時與量化。IQAir的裝置能區分PM2.5、PM10，甚至辨識花粉、黴菌孢子。它們的數據可以上傳雲端，繪製出城市空氣地圖。但缺點是：它們只測量特定參數，無法捕捉生態系統的整體健康。一台感測器不會告訴你土壤是否酸化，也不會預警生物多樣性的流失。</p><h2>誰才是更好的工具？</h2><p>這不是一場競爭，而是一場互補。<a href="../shop.html">植物</a>感測器適合長期監測與生態評估，它們的變化是環境變遷的縮影。科技感測器則適合短期的、高時空解析度的數據收集，幫助我們即時應對污染事件。例如，當<a href="../shop.html">植物</a>出現異常黃化時，你可以用便攜式感測器去確認污染物種類與濃度，進而找出污染源。</p><p>我認為，未來的趨勢是將兩者結合。在公園、行道樹上安裝低功耗感測器，同時記錄<a href="../shop.html">植物</a>的生理訊號（如葉綠素螢光、氣孔導度）與空氣數據。這樣既能獲得生態視角，又能得到精確數據。新加坡的「智慧國家」計畫已經在嘗試這類整合，利用樹木作為感測器載體，打造會呼吸的城市網絡。</p><h2>給你的行動建議</h2><p>如果你關心空氣品質，不妨從觀察一盆<a href="../shop.html">植物</a>開始。虎尾蘭、吊蘭、常春藤都是很好的室內空氣指標——當它們葉片出現斑點或枯萎，可能代表室內甲醛或VOCs超標。同時，你也可以添購一台家用的空氣感測器，對比<a href="../shop.html">植物</a>的反應與機器數據，你會更了解你所處的環境。</p><p>🌿 蕨積 - 讓<a href="../lifestyle.html">生活</a>多一點綠</p>
             </div>
             
-            <div class="two-columns">
-                <div class="main-col">
-                    <div class="latest-article">
-                        <div class="latest-category">📌 植物</div>
-                        <h1 class="latest-title">植物與感測器：誰更會呼吸？</h1>
-                        <div class="latest-date">📅 2026-04-27</div>
-                        <div class="latest-content">
-                            
-                <h2>從一棵樹到一個感測器</h2><p>在都市的角落，一棵榕樹靜靜佇立。它的葉片佈滿氣孔，像成千上萬個微小的鼻子，日夜不停地嗅著空氣中的化學物質。當二氧化氮濃度升高，氣孔會微微關閉；當臭氧超標，葉片邊緣開始焦黃。<a href="../shop.html">植物</a>從不發出警報，但它們的身體就是最真實的空氣品質日記。</p><p>與此同時，在城市的另一頭，一台IQAir空氣感測器正在運作。它用雷射散射技術計算微粒濃度，用電化學感測器偵測有毒氣體，每分鐘更新一次數據，精準到ppb等級。它沒有生命，卻能告訴你此刻的空氣是否安全。</p><h2><a href="../shop.html">植物</a>的智慧 vs 科技的精密</h2><p><a href="../shop.html">植物</a>是數百萬年演化出的生物感測器。它們的氣孔開合、葉片變色、生長速率，都是對環境的綜合反應。例如，地衣對二氧化硫極度敏感，一旦空氣變差就會消失；而某些蕨類在重金屬污染區會累積毒素，成為天然的監測指標。這些反應是整體性的，反映的是長期累積的影響。</p><p>科技感測器則追求即時與量化。IQAir的裝置能區分PM2.5、PM10，甚至辨識花粉、黴菌孢子。它們的數據可以上傳雲端，繪製出城市空氣地圖。但缺點是：它們只測量特定參數，無法捕捉生態系統的整體健康。一台感測器不會告訴你土壤是否酸化，也不會預警生物多樣性的流失。</p><h2>誰才是更好的工具？</h2><p>這不是一場競爭，而是一場互補。<a href="../shop.html">植物</a>感測器適合長期監測與生態評估，它們的變化是環境變遷的縮影。科技感測器則適合短期的、高時空解析度的數據收集，幫助我們即時應對污染事件。例如，當<a href="../shop.html">植物</a>出現異常黃化時，你可以用便攜式感測器去確認污染物種類與濃度，進而找出污染源。</p><p>我認為，未來的趨勢是將兩者結合。在公園、行道樹上安裝低功耗感測器，同時記錄<a href="../shop.html">植物</a>的生理訊號（如葉綠素螢光、氣孔導度）與空氣數據。這樣既能獲得生態視角，又能得到精確數據。新加坡的「智慧國家」計畫已經在嘗試這類整合，利用樹木作為感測器載體，打造會呼吸的城市網絡。</p><h2>給你的行動建議</h2><p>如果你關心空氣品質，不妨從觀察一盆<a href="../shop.html">植物</a>開始。虎尾蘭、吊蘭、常春藤都是很好的室內空氣指標——當它們葉片出現斑點或枯萎，可能代表室內甲醛或VOCs超標。同時，你也可以添購一台家用的空氣感測器，對比<a href="../shop.html">植物</a>的反應與機器數據，你會更了解你所處的環境。</p><p>🌿 蕨積 - 讓<a href="../lifestyle.html">生活</a>多一點綠</p>
-            
-                        </div>
-                    </div>
-                    
-                    <div class="section-title">📖 近期文章</div>
-                    <ul class="past-list">
-                        
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-26-從軍艦整潔看生活態度.html">從軍艦整潔看生活態度</a>
-                            <div class="past-meta">📅 2026-04-26 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-25-碳盤查神器-隨插即用系統.html">碳盤查神器：隨插即用系統</a>
-                            <div class="past-meta">📅 2026-04-25 · 碳盤查</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-24-買少買好，地球更好.html">買少買好，地球更好</a>
-                            <div class="past-meta">📅 2026-04-24 · 永續</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-23-夜間綠牆燈光魔法.html">夜間綠牆燈光魔法</a>
-                            <div class="past-meta">📅 2026-04-23 · 植物</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-22-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
-                            <div class="past-meta">📅 2026-04-22 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-21-中小企業碳管理入門：從哪裡開始.html">中小企業碳管理入門：從哪裡開始</a>
-                            <div class="past-meta">📅 2026-04-21 · 碳盤查</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-21-微小習慣，巨大幸福.html">微小習慣，巨大幸福</a>
-                            <div class="past-meta">📅 2026-04-21 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-20-減塑新生活：塑膠袋之外的選擇.html">減塑新生活：塑膠袋之外的選擇</a>
-                            <div class="past-meta">📅 2026-04-20 · 永續</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-19-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
-                            <div class="past-meta">📅 2026-04-19 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-19-植生牆入門指南：打造你的第一面垂直花園.html">植生牆入門指南：打造你的第一面垂直花園</a>
-                            <div class="past-meta">📅 2026-04-19 · 植物</div>
-                        </li>
-                    </ul>
+            <div class="article-footer">
+                <p style="color: var(--stone); font-size: 0.85rem;">🌿 每日一篇，與你一起成長</p>
+                <div class="back-links">
+                    <a href="index.html">🏠 返回每日文章</a>
+                    <a href="plant.html">📂 返回植物分類</a>
+                    <a href="../shop.html">🌱 植物選品</a>
+                    <a href="../consult.html">💚 綠色服務</a>
                 </div>
-                
-                
-                    <div class="sidebar-col">
-                        <!-- 📧 訂閱卡片 -->
-                        <div class="sidebar-card subscribe-card" style="background: #e8f0e4;">
-                            <h3>📧 免費訂閱</h3>
-                            <p style="font-size: 0.8rem; color: var(--stone); margin-bottom: 0.8rem;">每日文章直送信箱</p>
-                            <form id="sidebar-subscribe-form">
-                                <input type="email" id="sidebar-email" placeholder="your@email.com" required style="width:100%; padding:0.6rem; border:1px solid #d0c8bc; border-radius:30px; margin-bottom:0.8rem; font-size:0.85rem; text-align:center;">
-                                <button type="submit" style="width:100%; background:var(--fern); color:white; border:none; padding:0.6rem; border-radius:30px; cursor:pointer; font-size:0.85rem; font-weight:500;">🌿 訂閱</button>
-                            </form>
-                            <div id="sidebar-subscribe-message" style="margin-top:0.8rem; font-size:0.7rem; text-align:center; display:none;"></div>
-                        </div>
-                        
-                        <div class="sidebar-card">
-                            <h3>🌿 分類瀏覽</h3>
-                            <ul class="sidebar-links">
-                                <li><a href="plant.html">🌱 植物文章 <span class="count-badge">26</span></a></li>
-                                <li><a href="sustainability.html">♻️ 永續文章 <span class="count-badge">14</span></a></li>
-                                <li><a href="carbon.html">📊 碳盤查文章 <span class="count-badge">13</span></a></li>
-                                <li><a href="life.html">🏡 生活文章 <span class="count-badge">20</span></a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="sidebar-card">
-                            <h3>📊 本站統計</h3>
-                            <ul class="sidebar-stats">
-                                <li>📄 總文章數：<strong>73</strong> 篇</li>
-                                <li>📝 累積字數：約 <strong>47,450</strong> 字</li>
-                                <li>📅 更新頻率：每日一篇</li>
-                                <li>🌱 主題分類：4 大類</li>
-                            </ul>
-                        </div>
-                    </div>
             </div>
         </div>
     </main>
-    
     <footer>
     <ul class="footer-links">
       <li><a href="/shop.html">植物選品</a></li>
@@ -492,9 +385,7 @@
     </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
-    
     <script>
-        
 document.addEventListener('DOMContentLoaded', function() {
   fetch('../nav.html')
     .then(response => response.text())
@@ -561,53 +452,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 });
-
-        
-        // 側邊欄訂閱功能
-        (function() {
-            const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwH5X_4_arrGY5_BAbeO1-IdNYgFL4dnDWNnPzcVtsr7sJiGk5kNhDNQf9ssTGUcPx22A/exec';
-            const sidebarForm = document.getElementById('sidebar-subscribe-form');
-            
-            if (sidebarForm) {
-                sidebarForm.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    const email = document.getElementById('sidebar-email').value;
-                    const messageDiv = document.getElementById('sidebar-subscribe-message');
-                    
-                    if (!email) return;
-                    
-                    messageDiv.style.display = 'block';
-                    messageDiv.style.color = '#5a7a4a';
-                    messageDiv.innerHTML = '📡 送出中...';
-                    
-                    try {
-                        await fetch(APPS_SCRIPT_URL, {
-                            method: 'POST',
-                            mode: 'no-cors',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                action: 'subscribe',
-                                name: '讀者',
-                                email: email,
-                                preference: 'all'
-                            })
-                        });
-                        
-                        messageDiv.style.color = '#2c5e2e';
-                        messageDiv.innerHTML = '✅ 訂閱成功！';
-                        document.getElementById('sidebar-email').value = '';
-                        
-                        setTimeout(() => {
-                            messageDiv.style.display = 'none';
-                        }, 3000);
-                        
-                    } catch (error) {
-                        messageDiv.style.color = '#721c24';
-                        messageDiv.innerHTML = '❌ 送出失敗，請稍後再試。';
-                    }
-                });
-            }
-        })();
-    </script>
+</script>
 </body>
 </html>
