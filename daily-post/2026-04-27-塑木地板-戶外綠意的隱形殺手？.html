@@ -2,8 +2,14 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>蕨積每日文章 - 植物・永續・碳盤查・生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="塑木地板是環保救星還是生態陷阱？我的親身觀察">
+    <meta name="article-summary" content="塑木地板是環保救星還是生態陷阱？我的親身觀察">
+    <meta name="article-keypoints" content='["塑木地板藏有微塑膠污染，影響土壤生態", "選購時注意回收比例與添加劑，避免劣質品", "搭配植物設計，才能打造真正永續戶外空間"]'>
+    <meta name="article-category" content="植物">
+    <meta name="article-date" content="2026-04-27">
+    <meta name="author" content="蕨積 FernBrom">
+    <title>塑木地板：戶外綠意的隱形殺手？ - 蕨積每日文章</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -256,23 +262,12 @@
         flex-wrap: wrap;
       }
     }
-    .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .page-header { text-align: center; margin-bottom: 2rem; }
-    .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
-    .page-header p { color: var(--stone); margin-top: 0.5rem; }
-    
-    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
-    .main-col { flex: 3; min-width: 250px; }
-    .sidebar-col { flex: 1; min-width: 220px; }
-    
-    .latest-article {
-        background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    .article-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
-    .latest-category {
+    .article-category {
         display: inline-block;
         background: #4a7c59;
         color: white;
@@ -281,196 +276,106 @@
         font-size: 0.8rem;
         margin-bottom: 1rem;
     }
-    .latest-title { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.5rem; }
-    .latest-date { color: var(--stone); margin-bottom: 1.5rem; font-size: 0.9rem; }
-    .latest-content {
-        line-height: 1.8;
-        font-size: 1rem;
-        color: #333;
-    }
-    .latest-content h2 {
-        font-size: 1.4rem;
-        margin: 1.2rem 0 0.8rem 0;
+    .article-title {
+        font-size: 2rem;
         color: var(--moss);
+        margin-bottom: 0.5rem;
+        font-family: 'Noto Serif TC', serif;
+        line-height: 1.3;
+    }
+    .article-date {
+        color: var(--stone);
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #e0d6cc;
+        padding-bottom: 1rem;
+    }
+    .article-content {
+        line-height: 1.8;
+        font-size: 1.05rem;
+    }
+    .article-content h2 {
+        font-size: 1.5rem;
+        margin: 1.5rem 0 0.8rem 0;
+        color: var(--moss);
+        font-family: 'Noto Serif TC', serif;
+        font-weight: 600;
         border-left: 4px solid #4a7c59;
         padding-left: 1rem;
     }
-    .latest-content h3 {
+    .article-content h3 {
         font-size: 1.2rem;
-        margin: 1rem 0 0.5rem 0;
+        margin: 1.2rem 0 0.6rem 0;
         color: var(--fern);
     }
-    .latest-content p {
-        margin-bottom: 0.8rem;
+    .article-content p {
+        margin-bottom: 1rem;
     }
-    .latest-content ul, .latest-content ol {
-        margin: 0.8rem 0 0.8rem 1.5rem;
+    .article-content ul, .article-content ol {
+        margin: 1rem 0 1rem 2rem;
     }
-    .latest-content li {
+    .article-content li {
         margin-bottom: 0.3rem;
     }
-    
-    .section-title { font-size: 1.2rem; color: var(--moss); border-bottom: 2px solid #e0d6cc; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-    .past-list { list-style: none; }
-    .past-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0e8e0; }
-    .past-link { font-size: 1rem; font-weight: 500; color: var(--fern); text-decoration: none; display: block; }
-    .past-link:hover { text-decoration: underline; }
-    .past-meta { font-size: 0.75rem; color: #aaa; margin-top: 0.25rem; }
-    
-    .sidebar-card {
-        background: white;
-        border-radius: 16px;
-        padding: 1.2rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    .sidebar-card h3 {
-        font-size: 1rem;
-        color: var(--moss);
-        margin-bottom: 0.8rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid #e0d6cc;
-    }
-    .sidebar-links {
-        list-style: none;
-    }    .count-badge {
-        float: right;
-        background: #e8e0d8;
-        padding: 0.1rem 0.5rem;
-        border-radius: 20px;
-        font-size: 0.7rem;
-        color: #5a7a4a;
-    }
-    .sidebar-stats {
-        list-style: none;
-    }
-    .sidebar-stats li {
-        margin-bottom: 0.6rem;
-        font-size: 0.85rem;
-        color: var(--stone);
-    }
-    .sidebar-stats strong {
+    .article-content strong {
         color: var(--moss);
         font-weight: 600;
     }
-    
-    .sidebar-links li {
-        margin-bottom: 0.5rem;
+    .article-footer {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e0d6cc;
+        text-align: center;
     }
-    .sidebar-links a {
-        color: var(--stone);
-        text-decoration: none;
-        font-size: 0.85rem;
-        transition: color 0.2s;
+    .back-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin: 1rem 0;
     }
-    .sidebar-links a:hover {
+    .back-links a {
         color: var(--fern);
+        text-decoration: none;
+        font-size: 0.9rem;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        transition: background 0.2s;
+    }
+    .back-links a:hover {
+        background: #e8e0d8;
         text-decoration: underline;
     }
-    
     @media (max-width: 768px) {
-        .two-columns { flex-direction: column; }
-        .latest-title { font-size: 1.4rem; }
-        .daily-container { padding: 0 1rem; }
-        .latest-article { padding: 1rem; }
-        .latest-content h2 { font-size: 1.2rem; }
+        .article-title { font-size: 1.5rem; }
+        .article-container { padding: 0 1rem; }
+        .article-content h2 { font-size: 1.3rem; }
+        .back-links { gap: 0.8rem; }
     }
     </style>
 </head>
 <body>
     <div id="nav-placeholder"></div>
-    
     <main class="content">
-        <div class="daily-container">
-            <div class="page-header">
-                <h1>🌿 蕨積每日文章</h1>
-                <p>植物・永續・碳盤查・生活 — 每天一篇，與你一起成長</p>
+        <div class="article-container">
+            <div class="article-category">📌 植物</div>
+            <h1 class="article-title">塑木地板：戶外綠意的隱形殺手？</h1>
+            <div class="article-date">📅 2026-04-27</div>
+            <div class="article-content">
+                <h2>從一塊塑木地板說起</h2><p>去年夏天，我幫陽台換上了新的塑木地板。當時覺得它美觀、防水、不用維護，簡直是戶外空間的完美解答。直到幾個月後，我發現地板接縫處長出了青苔，而底下的土壤開始變得乾硬，蚯蚓也消失了。這讓我開始懷疑：塑木地板真的環保嗎？</p><h2>塑木的真相：是回收還是污染？</h2><p>新聞中提到塑木地板是「環保材質」，但我們得仔細看它的成分。塑木地板通常由回收塑膠（如HDPE）和木纖維混合而成，聽起來很美好。但問題在於：這些塑膠在陽光和雨水作用下，會釋放出微塑膠。根據研究，一塊塑木地板每年可能釋放數百萬個塑膠微粒，直接進入土壤和地下水。更糟的是，許多廠商為了降低成本，添加了化學穩定劑和顏料，這些物質對<a href="../shop.html">植物</a>和昆蟲有害。我親眼看到，陽台下的盆栽生長緩慢，葉子邊緣焦黃，可能就是微塑膠和化學物質的影響。</p><h2>我的觀點：別只看表面</h2><p>我認為，塑木地板不是不能用，但我們需要更嚴格的標準。首先，選擇回收比例高的產品，最好超過90%，避免使用原生塑膠。其次，注意添加劑的種類，有些歐盟認證的產品不含重金屬和鄰苯二甲酸酯。第三，設計時要考慮排水和通風，讓<a href="../shop.html">植物</a>和微生物能存活。例如，我在塑木地板下鋪了一層碎石和透水布，並留出縫隙種植耐陰<a href="../shop.html">植物</a>，這樣既美觀又能維持生態平衡。未來，我期待看到更多生物基塑木（如用甘蔗渣或稻殼替代木纖維）問世，真正實現循環經濟。</p><h2>給你的行動建議</h2><p>如果你也想鋪設塑木地板，這裡有幾個實用建議：</p><ul><li>先確認產品有環保標章（如台灣的環保標章或歐盟的CE標誌）</li><li>要求廠商提供微塑膠釋放測試報告</li><li>預留10%的面積種植原生<a href="../shop.html">植物</a>，形成微棲地</li><li>定期清潔，但避免使用化學清潔劑，用高壓水槍即可</li></ul><p>塑木地板可以是戶外空間的綠意夥伴，但前提是我們用對方法。別讓「環保」變成生態的隱形殺手。</p><p>🌿 蕨積 - 讓<a href="../lifestyle.html">生活</a>多一點綠</p>
             </div>
             
-            <div class="two-columns">
-                <div class="main-col">
-                    <div class="latest-article">
-                        <div class="latest-category">📌 植物</div>
-                        <h1 class="latest-title">塑木地板：戶外綠意的隱形殺手？</h1>
-                        <div class="latest-date">📅 2026-04-27</div>
-                        <div class="latest-content">
-                            
-                <h2>從一塊塑木地板說起</h2><p>去年夏天，我幫陽台換上了新的塑木地板。當時覺得它美觀、防水、不用維護，簡直是戶外空間的完美解答。直到幾個月後，我發現地板接縫處長出了青苔，而底下的土壤開始變得乾硬，蚯蚓也消失了。這讓我開始懷疑：塑木地板真的環保嗎？</p><h2>塑木的真相：是回收還是污染？</h2><p>新聞中提到塑木地板是「環保材質」，但我們得仔細看它的成分。塑木地板通常由回收塑膠（如HDPE）和木纖維混合而成，聽起來很美好。但問題在於：這些塑膠在陽光和雨水作用下，會釋放出微塑膠。根據研究，一塊塑木地板每年可能釋放數百萬個塑膠微粒，直接進入土壤和地下水。更糟的是，許多廠商為了降低成本，添加了化學穩定劑和顏料，這些物質對<a href="../shop.html">植物</a>和昆蟲有害。我親眼看到，陽台下的盆栽生長緩慢，葉子邊緣焦黃，可能就是微塑膠和化學物質的影響。</p><h2>我的觀點：別只看表面</h2><p>我認為，塑木地板不是不能用，但我們需要更嚴格的標準。首先，選擇回收比例高的產品，最好超過90%，避免使用原生塑膠。其次，注意添加劑的種類，有些歐盟認證的產品不含重金屬和鄰苯二甲酸酯。第三，設計時要考慮排水和通風，讓<a href="../shop.html">植物</a>和微生物能存活。例如，我在塑木地板下鋪了一層碎石和透水布，並留出縫隙種植耐陰<a href="../shop.html">植物</a>，這樣既美觀又能維持生態平衡。未來，我期待看到更多生物基塑木（如用甘蔗渣或稻殼替代木纖維）問世，真正實現循環經濟。</p><h2>給你的行動建議</h2><p>如果你也想鋪設塑木地板，這裡有幾個實用建議：</p><ul><li>先確認產品有環保標章（如台灣的環保標章或歐盟的CE標誌）</li><li>要求廠商提供微塑膠釋放測試報告</li><li>預留10%的面積種植原生<a href="../shop.html">植物</a>，形成微棲地</li><li>定期清潔，但避免使用化學清潔劑，用高壓水槍即可</li></ul><p>塑木地板可以是戶外空間的綠意夥伴，但前提是我們用對方法。別讓「環保」變成生態的隱形殺手。</p><p>🌿 蕨積 - 讓<a href="../lifestyle.html">生活</a>多一點綠</p>
-            
-                        </div>
-                    </div>
-                    
-                    <div class="section-title">📖 近期文章</div>
-                    <ul class="past-list">
-                        
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-26-從軍艦整潔看生活態度.html">從軍艦整潔看生活態度</a>
-                            <div class="past-meta">📅 2026-04-26 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-25-碳盤查神器-隨插即用系統.html">碳盤查神器：隨插即用系統</a>
-                            <div class="past-meta">📅 2026-04-25 · 碳盤查</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-24-買少買好，地球更好.html">買少買好，地球更好</a>
-                            <div class="past-meta">📅 2026-04-24 · 永續</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-23-夜間綠牆燈光魔法.html">夜間綠牆燈光魔法</a>
-                            <div class="past-meta">📅 2026-04-23 · 植物</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-22-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
-                            <div class="past-meta">📅 2026-04-22 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-21-中小企業碳管理入門：從哪裡開始.html">中小企業碳管理入門：從哪裡開始</a>
-                            <div class="past-meta">📅 2026-04-21 · 碳盤查</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-21-微小習慣，巨大幸福.html">微小習慣，巨大幸福</a>
-                            <div class="past-meta">📅 2026-04-21 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-20-減塑新生活：塑膠袋之外的選擇.html">減塑新生活：塑膠袋之外的選擇</a>
-                            <div class="past-meta">📅 2026-04-20 · 永續</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-19-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
-                            <div class="past-meta">📅 2026-04-19 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-19-植生牆入門指南：打造你的第一面垂直花園.html">植生牆入門指南：打造你的第一面垂直花園</a>
-                            <div class="past-meta">📅 2026-04-19 · 植物</div>
-                        </li>
-                    </ul>
+            <div class="article-footer">
+                <p style="color: var(--stone); font-size: 0.85rem;">🌿 每日一篇，與你一起成長</p>
+                <div class="back-links">
+                    <a href="index.html">🏠 返回每日文章</a>
+                    <a href="plant.html">📂 返回植物分類</a>
+                    <a href="../shop.html">🌱 植物選品</a>
+                    <a href="../consult.html">💚 綠色服務</a>
                 </div>
-                
-                
-                    <div class="sidebar-col">
-                        <div class="sidebar-card">
-                            <h3>🌿 分類瀏覽</h3>
-                            <ul class="sidebar-links">
-                                <li><a href="plant.html">🌱 植物文章 <span class="count-badge">26</span></a></li>
-                                <li><a href="sustainability.html">♻️ 永續文章 <span class="count-badge">14</span></a></li>
-                                <li><a href="carbon.html">📊 碳盤查文章 <span class="count-badge">13</span></a></li>
-                                <li><a href="life.html">🏡 生活文章 <span class="count-badge">20</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="sidebar-card">
-                            <h3>📊 本站統計</h3>
-                            <ul class="sidebar-stats">
-                                <li>📄 總文章數：<strong>73</strong> 篇</li>
-                                <li>📝 累積字數：約 <strong>47,450</strong> 字</li>
-                                <li>📅 更新頻率：每日一篇</li>
-                                <li>🌱 主題分類：4 大類</li>
-                            </ul>
-                        </div>
-                    </div>
             </div>
         </div>
     </main>
-    
     <footer>
     <ul class="footer-links">
       <li><a href="/shop.html">植物選品</a></li>
@@ -480,9 +385,7 @@
     </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
-    
     <script>
-        
 document.addEventListener('DOMContentLoaded', function() {
   fetch('../nav.html')
     .then(response => response.text())
@@ -549,7 +452,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 });
-
-    </script>
+</script>
 </body>
 </html>
