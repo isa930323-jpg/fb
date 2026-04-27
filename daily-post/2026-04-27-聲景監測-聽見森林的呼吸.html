@@ -2,8 +2,14 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>蕨積每日文章 - 植物・永續・碳盤查・生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="森林聲景如何揭示生態健康？科技與自然的對話。">
+    <meta name="article-summary" content="森林聲景如何揭示生態健康？科技與自然的對話。">
+    <meta name="article-keypoints" content='["聲景監測能捕捉生物多樣性與環境變化的線索", "傳統調查 vs. 聲景監測：被動式聆聽的優勢", "聲景數據可應用於森林管理與保育決策"]'>
+    <meta name="article-category" content="植物">
+    <meta name="article-date" content="2026-04-27">
+    <meta name="author" content="蕨積 FernBrom">
+    <title>聲景監測：聽見森林的呼吸 - 蕨積每日文章</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -256,23 +262,12 @@
         flex-wrap: wrap;
       }
     }
-    .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .page-header { text-align: center; margin-bottom: 2rem; }
-    .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
-    .page-header p { color: var(--stone); margin-top: 0.5rem; }
-    
-    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
-    .main-col { flex: 3; min-width: 250px; }
-    .sidebar-col { flex: 1; min-width: 220px; }
-    
-    .latest-article {
-        background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    .article-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
-    .latest-category {
+    .article-category {
         display: inline-block;
         background: #4a7c59;
         color: white;
@@ -281,208 +276,106 @@
         font-size: 0.8rem;
         margin-bottom: 1rem;
     }
-    .latest-title { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.5rem; }
-    .latest-date { color: var(--stone); margin-bottom: 1.5rem; font-size: 0.9rem; }
-    .latest-content {
-        line-height: 1.8;
-        font-size: 1rem;
-        color: #333;
-    }
-    .latest-content h2 {
-        font-size: 1.4rem;
-        margin: 1.2rem 0 0.8rem 0;
+    .article-title {
+        font-size: 2rem;
         color: var(--moss);
+        margin-bottom: 0.5rem;
+        font-family: 'Noto Serif TC', serif;
+        line-height: 1.3;
+    }
+    .article-date {
+        color: var(--stone);
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #e0d6cc;
+        padding-bottom: 1rem;
+    }
+    .article-content {
+        line-height: 1.8;
+        font-size: 1.05rem;
+    }
+    .article-content h2 {
+        font-size: 1.5rem;
+        margin: 1.5rem 0 0.8rem 0;
+        color: var(--moss);
+        font-family: 'Noto Serif TC', serif;
+        font-weight: 600;
         border-left: 4px solid #4a7c59;
         padding-left: 1rem;
     }
-    .latest-content h3 {
+    .article-content h3 {
         font-size: 1.2rem;
-        margin: 1rem 0 0.5rem 0;
+        margin: 1.2rem 0 0.6rem 0;
         color: var(--fern);
     }
-    .latest-content p {
-        margin-bottom: 0.8rem;
+    .article-content p {
+        margin-bottom: 1rem;
     }
-    .latest-content ul, .latest-content ol {
-        margin: 0.8rem 0 0.8rem 1.5rem;
+    .article-content ul, .article-content ol {
+        margin: 1rem 0 1rem 2rem;
     }
-    .latest-content li {
+    .article-content li {
         margin-bottom: 0.3rem;
     }
-    
-    .section-title { font-size: 1.2rem; color: var(--moss); border-bottom: 2px solid #e0d6cc; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-    .past-list { list-style: none; }
-    .past-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0e8e0; }
-    .past-link { font-size: 1rem; font-weight: 500; color: var(--fern); text-decoration: none; display: block; }
-    .past-link:hover { text-decoration: underline; }
-    .past-meta { font-size: 0.75rem; color: #aaa; margin-top: 0.25rem; }
-    
-    .sidebar-card {
-        background: white;
-        border-radius: 16px;
-        padding: 1.2rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    .sidebar-card h3 {
-        font-size: 1rem;
-        color: var(--moss);
-        margin-bottom: 0.8rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid #e0d6cc;
-    }
-    .sidebar-links {
-        list-style: none;
-    }    .count-badge {
-        float: right;
-        background: #e8e0d8;
-        padding: 0.1rem 0.5rem;
-        border-radius: 20px;
-        font-size: 0.7rem;
-        color: #5a7a4a;
-    }
-    .sidebar-stats {
-        list-style: none;
-    }
-    .sidebar-stats li {
-        margin-bottom: 0.6rem;
-        font-size: 0.85rem;
-        color: var(--stone);
-    }
-    .sidebar-stats strong {
+    .article-content strong {
         color: var(--moss);
         font-weight: 600;
     }
-    
-    .sidebar-links li {
-        margin-bottom: 0.5rem;
+    .article-footer {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e0d6cc;
+        text-align: center;
     }
-    .sidebar-links a {
-        color: var(--stone);
-        text-decoration: none;
-        font-size: 0.85rem;
-        transition: color 0.2s;
+    .back-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin: 1rem 0;
     }
-    .sidebar-links a:hover {
+    .back-links a {
         color: var(--fern);
+        text-decoration: none;
+        font-size: 0.9rem;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        transition: background 0.2s;
+    }
+    .back-links a:hover {
+        background: #e8e0d8;
         text-decoration: underline;
     }
-    
     @media (max-width: 768px) {
-        .two-columns { flex-direction: column; }
-        .latest-title { font-size: 1.4rem; }
-        .daily-container { padding: 0 1rem; }
-        .latest-article { padding: 1rem; }
-        .latest-content h2 { font-size: 1.2rem; }
+        .article-title { font-size: 1.5rem; }
+        .article-container { padding: 0 1rem; }
+        .article-content h2 { font-size: 1.3rem; }
+        .back-links { gap: 0.8rem; }
     }
     </style>
 </head>
 <body>
     <div id="nav-placeholder"></div>
-    
     <main class="content">
-        <div class="daily-container">
-            <div class="page-header">
-                <h1>🌿 蕨積每日文章</h1>
-                <p>植物・永續・碳盤查・生活 — 每天一篇，與你一起成長</p>
+        <div class="article-container">
+            <div class="article-category">📌 植物</div>
+            <h1 class="article-title">聲景監測：聽見森林的呼吸</h1>
+            <div class="article-date">📅 2026-04-27</div>
+            <div class="article-content">
+                <h2>從新聞談起：聲景監測的興起</h2><p>台中分署近期舉辦聲景監測調查訓練，象徵著台灣森林生態研究正從「目視」走向「聆聽」。這項技術利用自動錄音設備，長時間記錄森林中的聲音，包括鳥鳴、蟲叫、風吹樹葉，甚至人類活動的噪音。聲景監測不只是收集聲音，而是透過分析聲音的頻率、強度與時間模式，推斷生態系統的健康狀態。</p><h2>傳統生態調查 vs. 聲景監測</h2><p>傳統生態調查依賴專家實地踏查，記錄特定物種的出現與數量。這種方法精準但耗時耗力，且可能干擾動物行為。聲景監測則是被動式觀察，錄音設備可24小時運作，捕捉到人類難以察覺的細微聲音。例如，夜行性動物的活動、候鳥遷徙的短暫停留，都能被聲景記錄下來。此外，聲景監測能同時評估多個物種的活動，提供更全面的生態指標。</p><h2>聲景數據的應用與趨勢</h2><p>聲景監測的數據可用於多種目的：一是監測生物多樣性，透過分析聲音的豐富度與均勻度，評估物種組成；二是偵測環境變化，如森林砍伐或氣候變遷導致的聲音景觀改變；三是評估人類干擾，如觀光活動或噪音對野生動物的影響。未來，結合人工智慧的聲音辨識技術，聲景監測將能即時提供生態警報，協助管理單位快速應對。</p><h2>我的觀點：聲景是森林的「脈搏」</h2><p>聲景監測的價值在於將生態系統視為一個動態的「聲響體」，而非靜態的物種清單。每一種聲音都代表一個生態過程，從昆蟲的求偶到掠食者的獵捕，構成複雜的聲景網絡。然而，聲景監測並非萬能，它無法取代傳統調查的物種鑑定，也需克服環境噪音（如風聲、雨聲）的干擾。我認為，最好的做法是將聲景監測作為長期監測的基礎工具，搭配定期實地驗證，才能發揮最大效益。</p><h2>給讀者的行動建議</h2><p>無論是自然愛好者或林業管理者，都可以開始關注聲景監測的應用。你可以：1）參與公民科學計畫，協助錄製與分析森林聲音；2）在規劃登山或露營時，減少製造不必要噪音，保護野生動物的聽覺環境；3）支持林業單位導入聲景監測技術，作為森林健康管理的常規工具。聲景監測讓我們聽見森林的呼吸，也提醒我們，保護自然需要更細緻的傾聽。</p><p>🌿 蕨積 - 讓<a href="../lifestyle.html">生活</a>多一點綠</p>
             </div>
             
-            <div class="two-columns">
-                <div class="main-col">
-                    <div class="latest-article">
-                        <div class="latest-category">📌 植物</div>
-                        <h1 class="latest-title">聲景監測：聽見森林的呼吸</h1>
-                        <div class="latest-date">📅 2026-04-27</div>
-                        <div class="latest-content">
-                            
-                <h2>從新聞談起：聲景監測的興起</h2><p>台中分署近期舉辦聲景監測調查訓練，象徵著台灣森林生態研究正從「目視」走向「聆聽」。這項技術利用自動錄音設備，長時間記錄森林中的聲音，包括鳥鳴、蟲叫、風吹樹葉，甚至人類活動的噪音。聲景監測不只是收集聲音，而是透過分析聲音的頻率、強度與時間模式，推斷生態系統的健康狀態。</p><h2>傳統生態調查 vs. 聲景監測</h2><p>傳統生態調查依賴專家實地踏查，記錄特定物種的出現與數量。這種方法精準但耗時耗力，且可能干擾動物行為。聲景監測則是被動式觀察，錄音設備可24小時運作，捕捉到人類難以察覺的細微聲音。例如，夜行性動物的活動、候鳥遷徙的短暫停留，都能被聲景記錄下來。此外，聲景監測能同時評估多個物種的活動，提供更全面的生態指標。</p><h2>聲景數據的應用與趨勢</h2><p>聲景監測的數據可用於多種目的：一是監測生物多樣性，透過分析聲音的豐富度與均勻度，評估物種組成；二是偵測環境變化，如森林砍伐或氣候變遷導致的聲音景觀改變；三是評估人類干擾，如觀光活動或噪音對野生動物的影響。未來，結合人工智慧的聲音辨識技術，聲景監測將能即時提供生態警報，協助管理單位快速應對。</p><h2>我的觀點：聲景是森林的「脈搏」</h2><p>聲景監測的價值在於將生態系統視為一個動態的「聲響體」，而非靜態的物種清單。每一種聲音都代表一個生態過程，從昆蟲的求偶到掠食者的獵捕，構成複雜的聲景網絡。然而，聲景監測並非萬能，它無法取代傳統調查的物種鑑定，也需克服環境噪音（如風聲、雨聲）的干擾。我認為，最好的做法是將聲景監測作為長期監測的基礎工具，搭配定期實地驗證，才能發揮最大效益。</p><h2>給讀者的行動建議</h2><p>無論是自然愛好者或林業管理者，都可以開始關注聲景監測的應用。你可以：1）參與公民科學計畫，協助錄製與分析森林聲音；2）在規劃登山或露營時，減少製造不必要噪音，保護野生動物的聽覺環境；3）支持林業單位導入聲景監測技術，作為森林健康管理的常規工具。聲景監測讓我們聽見森林的呼吸，也提醒我們，保護自然需要更細緻的傾聽。</p><p>🌿 蕨積 - 讓<a href="../lifestyle.html">生活</a>多一點綠</p>
-            
-                        </div>
-                    </div>
-                    
-                    <div class="section-title">📖 近期文章</div>
-                    <ul class="past-list">
-                        
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-26-從軍艦整潔看生活態度.html">從軍艦整潔看生活態度</a>
-                            <div class="past-meta">📅 2026-04-26 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-25-碳盤查神器-隨插即用系統.html">碳盤查神器：隨插即用系統</a>
-                            <div class="past-meta">📅 2026-04-25 · 碳盤查</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-24-買少買好，地球更好.html">買少買好，地球更好</a>
-                            <div class="past-meta">📅 2026-04-24 · 永續</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-23-夜間綠牆燈光魔法.html">夜間綠牆燈光魔法</a>
-                            <div class="past-meta">📅 2026-04-23 · 植物</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-22-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
-                            <div class="past-meta">📅 2026-04-22 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-21-中小企業碳管理入門：從哪裡開始.html">中小企業碳管理入門：從哪裡開始</a>
-                            <div class="past-meta">📅 2026-04-21 · 碳盤查</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-21-微小習慣，巨大幸福.html">微小習慣，巨大幸福</a>
-                            <div class="past-meta">📅 2026-04-21 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-20-減塑新生活：塑膠袋之外的選擇.html">減塑新生活：塑膠袋之外的選擇</a>
-                            <div class="past-meta">📅 2026-04-20 · 永續</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-19-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a>
-                            <div class="past-meta">📅 2026-04-19 · 生活</div>
-                        </li>
-                        <li class="past-item">
-                            <a class="past-link" href="2026-04-19-植生牆入門指南：打造你的第一面垂直花園.html">植生牆入門指南：打造你的第一面垂直花園</a>
-                            <div class="past-meta">📅 2026-04-19 · 植物</div>
-                        </li>
-                    </ul>
+            <div class="article-footer">
+                <p style="color: var(--stone); font-size: 0.85rem;">🌿 每日一篇，與你一起成長</p>
+                <div class="back-links">
+                    <a href="index.html">🏠 返回每日文章</a>
+                    <a href="plant.html">📂 返回植物分類</a>
+                    <a href="../shop.html">🌱 植物選品</a>
+                    <a href="../consult.html">💚 綠色服務</a>
                 </div>
-                
-                
-                    <div class="sidebar-col">
-                        <!-- 📧 訂閱卡片 -->
-                        <div class="sidebar-card subscribe-card" style="background: #e8f0e4;">
-                            <h3>📧 免費訂閱</h3>
-                            <p style="font-size: 0.8rem; color: var(--stone); margin-bottom: 0.8rem;">每日文章直送信箱</p>
-                            <form id="sidebar-subscribe-form">
-                                <input type="email" id="sidebar-email" placeholder="your@email.com" required style="width:100%; padding:0.6rem; border:1px solid #d0c8bc; border-radius:30px; margin-bottom:0.8rem; font-size:0.85rem; text-align:center;">
-                                <button type="submit" style="width:100%; background:var(--fern); color:white; border:none; padding:0.6rem; border-radius:30px; cursor:pointer; font-size:0.85rem; font-weight:500;">🌿 訂閱</button>
-                            </form>
-                            <div id="sidebar-subscribe-message" style="margin-top:0.8rem; font-size:0.7rem; text-align:center; display:none;"></div>
-                        </div>
-                        
-                        <div class="sidebar-card">
-                            <h3>🌿 分類瀏覽</h3>
-                            <ul class="sidebar-links">
-                                <li><a href="plant.html">🌱 植物文章 <span class="count-badge">26</span></a></li>
-                                <li><a href="sustainability.html">♻️ 永續文章 <span class="count-badge">14</span></a></li>
-                                <li><a href="carbon.html">📊 碳盤查文章 <span class="count-badge">13</span></a></li>
-                                <li><a href="life.html">🏡 生活文章 <span class="count-badge">20</span></a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="sidebar-card">
-                            <h3>📊 本站統計</h3>
-                            <ul class="sidebar-stats">
-                                <li>📄 總文章數：<strong>73</strong> 篇</li>
-                                <li>📝 累積字數：約 <strong>47,450</strong> 字</li>
-                                <li>📅 更新頻率：每日一篇</li>
-                                <li>🌱 主題分類：4 大類</li>
-                            </ul>
-                        </div>
-                    </div>
             </div>
         </div>
     </main>
-    
     <footer>
     <ul class="footer-links">
       <li><a href="/shop.html">植物選品</a></li>
@@ -492,9 +385,7 @@
     </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
-    
     <script>
-        
 document.addEventListener('DOMContentLoaded', function() {
   fetch('../nav.html')
     .then(response => response.text())
@@ -561,53 +452,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 });
-
-        
-        // 側邊欄訂閱功能
-        (function() {
-            const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyb5SP8GCGdMDMniLfGcqHuvzrGw9XNp3JSS6l2dWLvb55ELVmJe0OlpmzVShJ3j7Pw/exec/exec';
-            const sidebarForm = document.getElementById('sidebar-subscribe-form');
-            
-            if (sidebarForm) {
-                sidebarForm.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    const email = document.getElementById('sidebar-email').value;
-                    const messageDiv = document.getElementById('sidebar-subscribe-message');
-                    
-                    if (!email) return;
-                    
-                    messageDiv.style.display = 'block';
-                    messageDiv.style.color = '#5a7a4a';
-                    messageDiv.innerHTML = '📡 送出中...';
-                    
-                    try {
-                        await fetch(APPS_SCRIPT_URL, {
-                            method: 'POST',
-                            mode: 'no-cors',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                action: 'subscribe',
-                                name: '讀者',
-                                email: email,
-                                preference: 'all'
-                            })
-                        });
-                        
-                        messageDiv.style.color = '#2c5e2e';
-                        messageDiv.innerHTML = '✅ 訂閱成功！';
-                        document.getElementById('sidebar-email').value = '';
-                        
-                        setTimeout(() => {
-                            messageDiv.style.display = 'none';
-                        }, 3000);
-                        
-                    } catch (error) {
-                        messageDiv.style.color = '#721c24';
-                        messageDiv.innerHTML = '❌ 送出失敗，請稍後再試。';
-                    }
-                });
-            }
-        })();
-    </script>
+</script>
 </body>
 </html>
