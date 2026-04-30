@@ -2,8 +2,14 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>蕨積每日文章 - 植物・永續・碳盤查・生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="從碳交易看小農生機，你的選擇決定未來。">
+    <meta name="article-summary" content="從碳交易看小農生機，你的選擇決定未來。">
+    <meta name="article-keypoints" content='["小農碳匯結合企業需求，創造雙贏", "氣候揭露驅動供應鏈綠色轉型", "個人消費可支持碳匯，實踐低碳生活"]'>
+    <meta name="article-category" content="生活">
+    <meta name="article-date" content="2026-04-30">
+    <meta name="author" content="蕨積 FernBrom">
+    <title>小農碳匯：綠色新幹線 - 蕨積每日文章</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -256,23 +262,12 @@
         flex-wrap: wrap;
       }
     }
-    .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .page-header { text-align: center; margin-bottom: 2rem; }
-    .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
-    .page-header p { color: var(--stone); margin-top: 0.5rem; }
-    
-    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
-    .main-col { flex: 3; min-width: 250px; }
-    .sidebar-col { flex: 1; min-width: 220px; }
-    
-    .latest-article {
-        background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    .article-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
-    .latest-category {
+    .article-category {
         display: inline-block;
         background: #b88b4a;
         color: white;
@@ -281,168 +276,106 @@
         font-size: 0.8rem;
         margin-bottom: 1rem;
     }
-    .latest-title { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.5rem; }
-    .latest-date { color: var(--stone); margin-bottom: 1.5rem; font-size: 0.9rem; }
-    .latest-content {
-        line-height: 1.8;
-        font-size: 1rem;
-        color: #333;
-    }
-    .latest-content h2 {
-        font-size: 1.4rem;
-        margin: 1.2rem 0 0.8rem 0;
+    .article-title {
+        font-size: 2rem;
         color: var(--moss);
+        margin-bottom: 0.5rem;
+        font-family: 'Noto Serif TC', serif;
+        line-height: 1.3;
+    }
+    .article-date {
+        color: var(--stone);
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #e0d6cc;
+        padding-bottom: 1rem;
+    }
+    .article-content {
+        line-height: 1.8;
+        font-size: 1.05rem;
+    }
+    .article-content h2 {
+        font-size: 1.5rem;
+        margin: 1.5rem 0 0.8rem 0;
+        color: var(--moss);
+        font-family: 'Noto Serif TC', serif;
+        font-weight: 600;
         border-left: 4px solid #b88b4a;
         padding-left: 1rem;
     }
-    .latest-content h3 {
+    .article-content h3 {
         font-size: 1.2rem;
-        margin: 1rem 0 0.5rem 0;
+        margin: 1.2rem 0 0.6rem 0;
         color: var(--fern);
     }
-    .latest-content p {
-        margin-bottom: 0.8rem;
+    .article-content p {
+        margin-bottom: 1rem;
     }
-    .latest-content ul, .latest-content ol {
-        margin: 0.8rem 0 0.8rem 1.5rem;
+    .article-content ul, .article-content ol {
+        margin: 1rem 0 1rem 2rem;
     }
-    .latest-content li {
+    .article-content li {
         margin-bottom: 0.3rem;
     }
-    
-    .section-title { font-size: 1.2rem; color: var(--moss); border-bottom: 2px solid #e0d6cc; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-    .past-list { list-style: none; }
-    .past-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0e8e0; }
-    .past-link { font-size: 1rem; font-weight: 500; color: var(--fern); text-decoration: none; display: block; }
-    .past-link:hover { text-decoration: underline; }
-    .past-meta { font-size: 0.75rem; color: #aaa; margin-top: 0.25rem; }
-    
-    .sidebar-card {
-        background: white;
-        border-radius: 16px;
-        padding: 1.2rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    .sidebar-card h3 {
-        font-size: 1rem;
-        color: var(--moss);
-        margin-bottom: 0.8rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid #e0d6cc;
-    }
-    .sidebar-links {
-        list-style: none;
-    }    .count-badge {
-        float: right;
-        background: #e8e0d8;
-        padding: 0.1rem 0.5rem;
-        border-radius: 20px;
-        font-size: 0.7rem;
-        color: #5a7a4a;
-    }
-    .sidebar-stats {
-        list-style: none;
-    }
-    .sidebar-stats li {
-        margin-bottom: 0.6rem;
-        font-size: 0.85rem;
-        color: var(--stone);
-    }
-    .sidebar-stats strong {
+    .article-content strong {
         color: var(--moss);
         font-weight: 600;
     }
-    
-    .sidebar-links li {
-        margin-bottom: 0.5rem;
+    .article-footer {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e0d6cc;
+        text-align: center;
     }
-    .sidebar-links a {
-        color: var(--stone);
-        text-decoration: none;
-        font-size: 0.85rem;
-        transition: color 0.2s;
+    .back-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin: 1rem 0;
     }
-    .sidebar-links a:hover {
+    .back-links a {
         color: var(--fern);
+        text-decoration: none;
+        font-size: 0.9rem;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        transition: background 0.2s;
+    }
+    .back-links a:hover {
+        background: #e8e0d8;
         text-decoration: underline;
     }
-    
     @media (max-width: 768px) {
-        .two-columns { flex-direction: column; }
-        .latest-title { font-size: 1.4rem; }
-        .daily-container { padding: 0 1rem; }
-        .latest-article { padding: 1rem; }
-        .latest-content h2 { font-size: 1.2rem; }
+        .article-title { font-size: 1.5rem; }
+        .article-container { padding: 0 1rem; }
+        .article-content h2 { font-size: 1.3rem; }
+        .back-links { gap: 0.8rem; }
     }
     </style>
 </head>
 <body>
     <div id="nav-placeholder"></div>
-    
     <main class="content">
-        <div class="daily-container">
-            <div class="page-header">
-                <h1>🌿 蕨積每日文章</h1>
-                <p>植物・永續・碳盤查・生活 — 每天一篇，與你一起成長</p>
+        <div class="article-container">
+            <div class="article-category">📌 生活</div>
+            <h1 class="article-title">小農碳匯：綠色新幹線</h1>
+            <div class="article-date">📅 2026-04-30</div>
+            <div class="article-content">
+                <h2>從一杯咖啡看<a href="../consult.html">碳足跡</a></h2><p>清晨，你走進熟悉的咖啡店，點了一杯拿鐵。店員熟練地操作機器，咖啡香彌漫。你可能不知道，這杯咖啡從種植到送入口中，背後承載著多少碳排放。而另一頭，台灣鄉間的農夫正彎腰插秧，他的稻田不僅產出糧食，還默默吸收大氣中的二氧化碳。最近立委提出的「綠色新幹線」計畫，正是要將這兩端串聯起來：讓企業收購小農的碳匯，並在氣候揭露報告中呈現。</p><h2>小農碳匯的潛力與困境</h2><p>小農碳匯指的是農田、果園、林地等農業生態系統透過有機耕作、植樹、水土保持等方式固定下來的碳。根據估算，台灣農業區每年可吸收數百萬噸二氧化碳。但問題是，小農缺乏資金和技術來量化這些碳匯，也無法直接參與碳交易市場。綠色新幹線的構想，就是由政府或第三方平台協助小農盤點碳匯，再媒合給需要抵減碳排放的企業。這不僅為小農增加收入，也讓企業在氣候揭露中有具體數據可循。</p><p>然而，實際運作面臨挑戰。碳匯計算需要專業認證，小農往往不具備相關知識；企業收購碳匯後，若後續監管不當，可能淪為漂綠工具。我認為，關鍵在於建立透明、可追溯的區塊鏈平台，讓每一噸碳匯的產生、交易、使用都有記錄。同時，政府應提供補助，訓練小農進行基礎<a href="../consult.html">碳盤查</a>，並簡化認證流程。</p><h2>氣候揭露：從自願到強制</h2><p>全球趨勢顯示，氣候揭露正從自願轉向強制。台灣金管會已要求上市櫃公司編製<a href="../consulting.html">永續</a>報告書，未來可能擴及中小企業。綠色新幹線正好能幫助企業取得在地的、高品質的碳匯，避免依賴國際碳權。對個人而言，這意味著我們的消費選擇能間接影響碳匯市場。例如，<a href="../shop.html">購買</a>標示「碳匯支持」的產品，等同於贊助小農護土固碳。</p><h2>行動建議：從餐桌到辦公室</h2><p>你可以這樣做：首先，選擇當季、在地食材，減少運輸碳排，同時支持小農。其次，關注企業的氣候揭露報告，優先選擇有具體減碳作為的品牌。最後，若有機會，參與社區支持型農業（CSA），直接與小農合作，甚至認養一小塊田地的碳匯。辦公室裡，可以推動綠色採購，要求供應商揭露<a href="../consult.html">碳足跡</a>，並將碳匯納入供應鏈管理。</p><h2>未來展望：綠色新幹線的蝴蝶效應</h2><p>我預測，未來五年內，小農碳匯將成為台灣碳市場的重要一環。綠色新幹線若能成功，不僅改善農業環境，還能促進城鄉對話。想像一下，你手上的咖啡杯，可能標示著「本產品<a href="../consult.html">碳足跡</a>已由花蓮稻農抵減」。那不僅是一杯飲料，更是一份對土地與農民的承諾。</p><p>🌿 蕨積 - 讓<a href="../lifestyle.html">生活</a>多一點綠</p>
             </div>
             
-            <div class="two-columns">
-                <div class="main-col">
-                    <div class="latest-article">
-                        <div class="latest-category">📌 生活</div>
-                        <h1 class="latest-title">小農碳匯：綠色新幹線</h1>
-                        <div class="latest-date">📅 2026-04-30</div>
-                        <div class="latest-content">
-                            
-                <h2>從一杯咖啡看<a href="../consult.html">碳足跡</a></h2><p>清晨，你走進熟悉的咖啡店，點了一杯拿鐵。店員熟練地操作機器，咖啡香彌漫。你可能不知道，這杯咖啡從種植到送入口中，背後承載著多少碳排放。而另一頭，台灣鄉間的農夫正彎腰插秧，他的稻田不僅產出糧食，還默默吸收大氣中的二氧化碳。最近立委提出的「綠色新幹線」計畫，正是要將這兩端串聯起來：讓企業收購小農的碳匯，並在氣候揭露報告中呈現。</p><h2>小農碳匯的潛力與困境</h2><p>小農碳匯指的是農田、果園、林地等農業生態系統透過有機耕作、植樹、水土保持等方式固定下來的碳。根據估算，台灣農業區每年可吸收數百萬噸二氧化碳。但問題是，小農缺乏資金和技術來量化這些碳匯，也無法直接參與碳交易市場。綠色新幹線的構想，就是由政府或第三方平台協助小農盤點碳匯，再媒合給需要抵減碳排放的企業。這不僅為小農增加收入，也讓企業在氣候揭露中有具體數據可循。</p><p>然而，實際運作面臨挑戰。碳匯計算需要專業認證，小農往往不具備相關知識；企業收購碳匯後，若後續監管不當，可能淪為漂綠工具。我認為，關鍵在於建立透明、可追溯的區塊鏈平台，讓每一噸碳匯的產生、交易、使用都有記錄。同時，政府應提供補助，訓練小農進行基礎<a href="../consult.html">碳盤查</a>，並簡化認證流程。</p><h2>氣候揭露：從自願到強制</h2><p>全球趨勢顯示，氣候揭露正從自願轉向強制。台灣金管會已要求上市櫃公司編製<a href="../consulting.html">永續</a>報告書，未來可能擴及中小企業。綠色新幹線正好能幫助企業取得在地的、高品質的碳匯，避免依賴國際碳權。對個人而言，這意味著我們的消費選擇能間接影響碳匯市場。例如，<a href="../shop.html">購買</a>標示「碳匯支持」的產品，等同於贊助小農護土固碳。</p><h2>行動建議：從餐桌到辦公室</h2><p>你可以這樣做：首先，選擇當季、在地食材，減少運輸碳排，同時支持小農。其次，關注企業的氣候揭露報告，優先選擇有具體減碳作為的品牌。最後，若有機會，參與社區支持型農業（CSA），直接與小農合作，甚至認養一小塊田地的碳匯。辦公室裡，可以推動綠色採購，要求供應商揭露<a href="../consult.html">碳足跡</a>，並將碳匯納入供應鏈管理。</p><h2>未來展望：綠色新幹線的蝴蝶效應</h2><p>我預測，未來五年內，小農碳匯將成為台灣碳市場的重要一環。綠色新幹線若能成功，不僅改善農業環境，還能促進城鄉對話。想像一下，你手上的咖啡杯，可能標示著「本產品<a href="../consult.html">碳足跡</a>已由花蓮稻農抵減」。那不僅是一杯飲料，更是一份對土地與農民的承諾。</p><p>🌿 蕨積 - 讓<a href="../lifestyle.html">生活</a>多一點綠</p>
-            
-                        </div>
-                    </div>
-                    
-                    <div class="section-title">📖 近期文章</div>
-                    <ul class="past-list">
-                        <li class="past-item"><span class="past-badge" style="display:none;">碳盤查</span><a class="past-link" href="2026-04-29-通勤減碳-租車業的綠色轉型.html">通勤減碳：租車業的綠色轉型</a><div class="past-meta">📅 2026-04-29 · 碳盤查</div></li><li class="past-item"><span class="past-badge" style="display:none;">永續</span><a class="past-link" href="2026-04-28-企業能源體檢-責任還是韌性？.html">企業能源體檢：責任還是韌性？</a><div class="past-meta">📅 2026-04-28 · 永續</div></li><li class="past-item"><span class="past-badge" style="display:none;">植物</span><a class="past-link" href="2026-04-27-植物書海-從閱讀到綠化.html">植物書海：從閱讀到綠化</a><div class="past-meta">📅 2026-04-27 · 植物</div></li><li class="past-item"><span class="past-badge" style="display:none;">生活</span><a class="past-link" href="2026-04-26-從軍艦整潔看生活態度.html">從軍艦整潔看生活態度</a><div class="past-meta">📅 2026-04-26 · 生活</div></li><li class="past-item"><span class="past-badge" style="display:none;">碳盤查</span><a class="past-link" href="2026-04-25-碳盤查神器-隨插即用系統.html">碳盤查神器：隨插即用系統</a><div class="past-meta">📅 2026-04-25 · 碳盤查</div></li><li class="past-item"><span class="past-badge" style="display:none;">永續</span><a class="past-link" href="2026-04-24-買少買好，地球更好.html">買少買好，地球更好</a><div class="past-meta">📅 2026-04-24 · 永續</div></li><li class="past-item"><span class="past-badge" style="display:none;">植物</span><a class="past-link" href="2026-04-23-夜間綠牆燈光魔法.html">夜間綠牆燈光魔法</a><div class="past-meta">📅 2026-04-23 · 植物</div></li><li class="past-item"><span class="past-badge" style="display:none;">生活</span><a class="past-link" href="2026-04-22-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a><div class="past-meta">📅 2026-04-22 · 生活</div></li><li class="past-item"><span class="past-badge" style="display:none;">碳盤查</span><a class="past-link" href="2026-04-21-中小企業碳管理入門：從哪裡開始.html">中小企業碳管理入門：從哪裡開始</a><div class="past-meta">📅 2026-04-21 · 碳盤查</div></li><li class="past-item"><span class="past-badge" style="display:none;">生活</span><a class="past-link" href="2026-04-21-微小習慣，巨大幸福.html">微小習慣，巨大幸福</a><div class="past-meta">📅 2026-04-21 · 生活</div></li>
-                    </ul>
+            <div class="article-footer">
+                <p style="color: var(--stone); font-size: 0.85rem;">🌿 每日一篇，與你一起成長</p>
+                <div class="back-links">
+                    <a href="index.html">🏠 返回每日文章</a>
+                    <a href="life.html">📂 返回生活分類</a>
+                    <a href="../shop.html">🌱 植物選品</a>
+                    <a href="../consult.html">💚 綠色服務</a>
                 </div>
-                
-                
-                    <div class="sidebar-col">
-                        <!-- 📧 訂閱卡片 -->
-                        <div class="sidebar-card subscribe-card" style="background: #e8f0e4;">
-                            <h3>📧 免費訂閱</h3>
-                            <p style="font-size: 0.8rem; color: var(--stone); margin-bottom: 0.8rem;">每日文章直送信箱</p>
-                            <form id="sidebar-subscribe-form">
-                                <input type="email" id="sidebar-email" placeholder="your@email.com" required style="width:100%; padding:0.6rem; border:1px solid #d0c8bc; border-radius:30px; margin-bottom:0.8rem; font-size:0.85rem; text-align:center;">
-                                <button type="submit" style="width:100%; background:var(--fern); color:white; border:none; padding:0.6rem; border-radius:30px; cursor:pointer; font-size:0.85rem; font-weight:500;">🌿 訂閱</button>
-                            </form>
-                            <div id="sidebar-subscribe-message" style="margin-top:0.8rem; font-size:0.7rem; text-align:center; display:none;"></div>
-                        </div>
-                        
-                        <div class="sidebar-card">
-                            <h3>🌿 分類瀏覽</h3>
-                            <ul class="sidebar-links">
-                                <li><a href="plant.html">🌱 植物文章 <span class="count-badge">26</span></a></li>
-                                <li><a href="sustainability.html">♻️ 永續文章 <span class="count-badge">15</span></a></li>
-                                <li><a href="carbon.html">📊 碳盤查文章 <span class="count-badge">14</span></a></li>
-                                <li><a href="life.html">🏡 生活文章 <span class="count-badge">21</span></a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="sidebar-card">
-                            <h3>📊 本站統計</h3>
-                            <ul class="sidebar-stats">
-                                <li>📄 總文章數：<strong>76</strong> 篇</li>
-                                <li>📝 累積字數：約 <strong>49,400</strong> 字</li>
-                                <li>📅 更新頻率：每日一篇</li>
-                                <li>🌱 主題分類：4 大類</li>
-                            </ul>
-                        </div>
-                    </div>
             </div>
         </div>
     </main>
-    
     <footer>
     <ul class="footer-links">
       <li><a href="/shop.html">植物選品</a></li>
@@ -452,9 +385,7 @@
     </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
-    
     <script>
-        
 document.addEventListener('DOMContentLoaded', function() {
   fetch('../nav.html')
     .then(response => response.text())
@@ -521,42 +452,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 });
-
-        
-        // 側邊欄訂閱功能（改用 URL 參數，可寫入 Sheet）
-// 側邊欄訂閱功能（簡化版）
-(function() {
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyb5SP8GCGdMDMniLfGcqHuvzrGw9XNp3JSS6l2dWLvb55ELVmJe0OlpmzVShJ3j7Pw/exec';
-    const sidebarForm = document.getElementById('sidebar-subscribe-form');
-    
-    if (sidebarForm) {
-        sidebarForm.onsubmit = function(e) {
-            e.preventDefault();
-            var email = document.getElementById('sidebar-email').value;
-            var messageDiv = document.getElementById('sidebar-subscribe-message');
-            
-            if (!email) return;
-            
-            messageDiv.style.display = 'block';
-            messageDiv.style.color = '#5a7a4a';
-            messageDiv.innerHTML = '📡 送出中...';
-            
-            var url = APPS_SCRIPT_URL + '?action=subscribe&name=讀者&email=' + encodeURIComponent(email);
-            
-            fetch(url, { method: 'POST', mode: 'no-cors' })
-                .then(function() {
-                    messageDiv.style.color = '#2c5e2e';
-                    messageDiv.innerHTML = '✅ 訂閱成功！';
-                    document.getElementById('sidebar-email').value = '';
-                    setTimeout(function() { messageDiv.style.display = 'none'; }, 3000);
-                })
-                .catch(function() {
-                    messageDiv.style.color = '#721c24';
-                    messageDiv.innerHTML = '❌ 送出失敗，請稍後再試。';
-                });
-        };
-    }
-})();
-    </script>
+</script>
 </body>
 </html>
