@@ -679,80 +679,87 @@
       initialReveals.forEach(function (el) { observer.observe(el); });
 
       if (typeof lucide !== 'undefined') lucide.createIcons();
-
-      // 載入最新文章（卡片樣式）
-      (function() {
-        fetch('/daily-post/')
-          .then(function(response) { return response.text(); })
-          .then(function(html) {
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(html, 'text/html');
-            var articles = doc.querySelectorAll('.past-item');
-            var htmlContent = '';
-            var catMap = {
-              '植物': '🌿 植物',
-              '永續': '♻️ 永續',
-              '碳盤查': '📊 碳盤查',
-              '生活': '🏡 生活'
-            };
-            for (var i = 0; i < Math.min(articles.length, 4); i++) {
-              var item = articles[i];
-              var linkEl = item.querySelector('.past-link');
-              var dateEl = item.querySelector('.past-meta');
-              var categoryBadge = item.querySelector('.past-badge');
-              
-              var category = '生活';
-              var categoryText = '🏡 生活';
-              if (categoryBadge) {
-                category = categoryBadge.textContent.trim();
-                categoryText = catMap[category] || category;
-              }
-              
-              var dateText = '';
-              if (dateEl) {
-                dateText = dateEl.textContent.replace('📅', '').trim();
-              }
-              
-              var href = '';
-              var title = '';
-              if (linkEl) {
-                href = linkEl.getAttribute('href');
-                title = linkEl.textContent;
-              }
-              
-              if (href && title) {
-                htmlContent += '<div class="post-card reveal">' +
-                  '<div class="post-category">' + categoryText + '</div>' +
-                  '<h3 class="post-title"><a href="/daily-post/' + href + '">' + title + '</a></h3>' +
-                  '<div class="post-date">📅 ' + dateText + '</div>' +
-                  '</div>';
-              }
-            }
-            var postList = document.getElementById('post-list');
-            if (postList) {
-              if (htmlContent === '') {
-                postList.innerHTML = '<div style="text-align:center; grid-column:1/-1; color:var(--stone);">📭 暫無文章</div>';
-              } else {
-                postList.innerHTML = htmlContent;
-              }
-            }
-            // 重要：重新觀察新產生的卡片
-            var newReveals = document.querySelectorAll('.latest-posts-section .reveal');
-            newReveals.forEach(function(el) {
-              if (el && !el.classList.contains('visible')) {
-                observer.observe(el);
-              }
-            });
-            if (typeof lucide !== 'undefined') lucide.createIcons();
-          })
-          .catch(function(err) {
-            console.error('無法載入文章:', err);
-            var postList = document.getElementById('post-list');
-            if (postList) {
-              postList.innerHTML = '<div style="text-align:center; grid-column:1/-1; color:var(--stone);">⚠️ 無法載入文章，請稍後再試</div>';
-            }
-          });
-      })();
+// 載入最新文章（卡片樣式）
+(function() {
+  fetch('/daily-post/')
+    .then(function(response) { return response.text(); })
+    .then(function(html) {
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(html, 'text/html');
+      var articles = doc.querySelectorAll('.past-item');
+      var htmlContent = '';
+      var catMap = {
+        '植物': '🌿 植物',
+        '永續': '♻️ 永續',
+        '碳盤查': '📊 碳盤查',
+        '生活': '🏡 生活'
+      };
+      
+      for (var i = 0; i < Math.min(articles.length, 4); i++) {
+        var item = articles[i];
+        var linkEl = item.querySelector('.past-link');
+        var dateEl = item.querySelector('.past-meta');
+        var categoryBadge = item.querySelector('.past-badge');
+        
+        var categoryText = '🏡 生活';  // 預設值
+        if (categoryBadge) {
+          var rawCategory = categoryBadge.textContent.trim();
+          // 提取中文部分（移除 emoji 和空格）
+          var chineseMatch = rawCategory.match(/[\u4e00-\u9fa5]+/);
+          var cleanCategory = chineseMatch ? chineseMatch[0] : rawCategory;
+          categoryText = catMap[cleanCategory] || rawCategory;
+        }
+        
+        var dateText = '';
+        if (dateEl) {
+          dateText = dateEl.textContent.replace('📅', '').trim();
+        }
+        
+        var href = '';
+        var title = '';
+        if (linkEl) {
+          href = linkEl.getAttribute('href');
+          title = linkEl.textContent;
+        }
+        
+        if (href && title) {
+          // ✅ 修正：href 已經包含路徑，不要再重複拼接 /daily-post/
+          htmlContent += '<div class="post-card reveal">' +
+            '<div class="post-category">' + categoryText + '</div>' +
+            '<h3 class="post-title"><a href="' + href + '">' + title + '</a></h3>' +
+            '<div class="post-date">📅 ' + dateText + '</div>' +
+            '</div>';
+        }
+      }
+      
+      var postList = document.getElementById('post-list');
+      if (postList) {
+        if (htmlContent === '') {
+          postList.innerHTML = '<div style="text-align:center; grid-column:1/-1; color:var(--stone);">📭 暫無文章</div>';
+        } else {
+          postList.innerHTML = htmlContent;
+        }
+      }
+      
+      // 重要：重新觀察新產生的卡片
+      var newReveals = document.querySelectorAll('.latest-posts-section .reveal');
+      newReveals.forEach(function(el) {
+        if (el && !el.classList.contains('visible')) {
+          observer.observe(el);
+        }
+      });
+      
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    })
+    .catch(function(err) {
+      console.error('無法載入文章:', err);
+      var postList = document.getElementById('post-list');
+      if (postList) {
+        postList.innerHTML = '<div style="text-align:center; grid-column:1/-1; color:var(--stone);">⚠️ 無法載入文章，請稍後再試</div>';
+      }
+    });
+})();
+     
     });
   </script>
   
