@@ -2,8 +2,14 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI每日文章 - 植物・永續・碳盤查・生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="全聯農業再生計畫，如何重新定義綠色消費？">
+    <meta name="article-summary" content="全聯農業再生計畫，如何重新定義綠色消費？">
+    <meta name="article-keypoints" content='["綠色消費從選購升級為參與農業再生", "企業ESG需結合供應鏈轉型而非單點活動", "消費者角色轉變：從被動購買到主動支持永續"]'>
+    <meta name="article-category" content="永續">
+    <meta name="article-date" content="2026-05-02">
+    <meta name="author" content="蕨積 FernBrom">
+    <title>永續消費的下一步：從全聯農業再生看見的可能 - AI每日文章</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -256,23 +262,12 @@
         flex-wrap: wrap;
       }
     }
-    .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .page-header { text-align: center; margin-bottom: 2rem; }
-    .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
-    .page-header p { color: var(--stone); margin-top: 0.5rem; }
-    
-    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
-    .main-col { flex: 3; min-width: 250px; }
-    .sidebar-col { flex: 1; min-width: 220px; }
-    
-    .latest-article {
-        background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    .article-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
-    .latest-category {
+    .article-category {
         display: inline-block;
         background: #2c7a4d;
         color: white;
@@ -281,168 +276,106 @@
         font-size: 0.8rem;
         margin-bottom: 1rem;
     }
-    .latest-title { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.5rem; }
-    .latest-date { color: var(--stone); margin-bottom: 1.5rem; font-size: 0.9rem; }
-    .latest-content {
-        line-height: 1.8;
-        font-size: 1rem;
-        color: #333;
-    }
-    .latest-content h2 {
-        font-size: 1.4rem;
-        margin: 1.2rem 0 0.8rem 0;
+    .article-title {
+        font-size: 2rem;
         color: var(--moss);
+        margin-bottom: 0.5rem;
+        font-family: 'Noto Serif TC', serif;
+        line-height: 1.3;
+    }
+    .article-date {
+        color: var(--stone);
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #e0d6cc;
+        padding-bottom: 1rem;
+    }
+    .article-content {
+        line-height: 1.8;
+        font-size: 1.05rem;
+    }
+    .article-content h2 {
+        font-size: 1.5rem;
+        margin: 1.5rem 0 0.8rem 0;
+        color: var(--moss);
+        font-family: 'Noto Serif TC', serif;
+        font-weight: 600;
         border-left: 4px solid #2c7a4d;
         padding-left: 1rem;
     }
-    .latest-content h3 {
+    .article-content h3 {
         font-size: 1.2rem;
-        margin: 1rem 0 0.5rem 0;
+        margin: 1.2rem 0 0.6rem 0;
         color: var(--fern);
     }
-    .latest-content p {
-        margin-bottom: 0.8rem;
+    .article-content p {
+        margin-bottom: 1rem;
     }
-    .latest-content ul, .latest-content ol {
-        margin: 0.8rem 0 0.8rem 1.5rem;
+    .article-content ul, .article-content ol {
+        margin: 1rem 0 1rem 2rem;
     }
-    .latest-content li {
+    .article-content li {
         margin-bottom: 0.3rem;
     }
-    
-    .section-title { font-size: 1.2rem; color: var(--moss); border-bottom: 2px solid #e0d6cc; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-    .past-list { list-style: none; }
-    .past-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0e8e0; }
-    .past-link { font-size: 1rem; font-weight: 500; color: var(--fern); text-decoration: none; display: block; }
-    .past-link:hover { text-decoration: underline; }
-    .past-meta { font-size: 0.75rem; color: #aaa; margin-top: 0.25rem; }
-    
-    .sidebar-card {
-        background: white;
-        border-radius: 16px;
-        padding: 1.2rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    .sidebar-card h3 {
-        font-size: 1rem;
-        color: var(--moss);
-        margin-bottom: 0.8rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid #e0d6cc;
-    }
-    .sidebar-links {
-        list-style: none;
-    }    .count-badge {
-        float: right;
-        background: #e8e0d8;
-        padding: 0.1rem 0.5rem;
-        border-radius: 20px;
-        font-size: 0.7rem;
-        color: #5a7a4a;
-    }
-    .sidebar-stats {
-        list-style: none;
-    }
-    .sidebar-stats li {
-        margin-bottom: 0.6rem;
-        font-size: 0.85rem;
-        color: var(--stone);
-    }
-    .sidebar-stats strong {
+    .article-content strong {
         color: var(--moss);
         font-weight: 600;
     }
-    
-    .sidebar-links li {
-        margin-bottom: 0.5rem;
+    .article-footer {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e0d6cc;
+        text-align: center;
     }
-    .sidebar-links a {
-        color: var(--stone);
-        text-decoration: none;
-        font-size: 0.85rem;
-        transition: color 0.2s;
+    .back-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin: 1rem 0;
     }
-    .sidebar-links a:hover {
+    .back-links a {
         color: var(--fern);
+        text-decoration: none;
+        font-size: 0.9rem;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        transition: background 0.2s;
+    }
+    .back-links a:hover {
+        background: #e8e0d8;
         text-decoration: underline;
     }
-    
     @media (max-width: 768px) {
-        .two-columns { flex-direction: column; }
-        .latest-title { font-size: 1.4rem; }
-        .daily-container { padding: 0 1rem; }
-        .latest-article { padding: 1rem; }
-        .latest-content h2 { font-size: 1.2rem; }
+        .article-title { font-size: 1.5rem; }
+        .article-container { padding: 0 1rem; }
+        .article-content h2 { font-size: 1.3rem; }
+        .back-links { gap: 0.8rem; }
     }
     </style>
 </head>
 <body>
     <div id="nav-placeholder"></div>
-    
     <main class="content">
-        <div class="daily-container">
-            <div class="page-header">
-                <h1>🌿 AI每日文章</h1>
-                <p>植物・永續・碳盤查・生活 — 每天一篇，與你一起成長</p>
+        <div class="article-container">
+            <div class="article-category">📌 永續</div>
+            <h1 class="article-title">永續消費的下一步：從全聯農業再生看見的可能</h1>
+            <div class="article-date">📅 2026-05-02</div>
+            <div class="article-content">
+                <h2>一、事件起點：全聯的農業再生宣言</h2><p>全聯近期宣布投入農業再生計畫，透過與農民合作、推廣友善耕作產品，試圖在零售端建立更<a href="../consulting.html">永續</a>的供應鏈。這不是單純的綠色商品上架，而是將「農業再生」概念植入消費日常。</p><h2>二、為何此時出現？背後的三股推力</h2><p>首先，消費者意識覺醒。過去綠色消費多停留在「買有機」或「選環保包裝」，但現在更多人想知道產品從哪裡來、如何生產。其次，企業<a href="../consulting.html">ESG</a>壓力。全聯作為通路龍頭，供應鏈碳排與環境影響成為風險管理重點。第三，農業困境需要新解方。台灣農地破碎化、從農人口老化，農業再生不僅是環保議題，更是產業存續問題。</p><h2>三、對個人與企業的影響</h2><p>對個人而言，綠色消費的選擇變得更具體。以往可能只認標章，現在可以透過通路選擇支持特定農法或產區。對企業來說，全聯的做法揭示了一個趨勢：未來的<a href="../consulting.html">ESG</a>不再是單點的公關活動，而是需要深入供應鏈、甚至改變商業模式。例如，全聯若不調整採購標準，農業再生口號將淪為空談。</p><h2>四、我的觀察：從「消費」到「參與」的轉變</h2><p>我認為，全聯的農業再生計畫值得肯定，但真正的考驗在於能否帶動消費者從「被動<a href="../shop.html">購買</a>」轉為「主動支持」。例如，當消費者願意為再生農業支付合理溢價，或主動了解產地故事，<a href="../consulting.html">永續</a>消費才具備長期動能。此外，農業再生不應只停留在「友善耕作」，更需包含土壤健康、水資源管理與生物多樣性。目前計畫缺乏具體的衡量指標，是未來可強化的方向。</p><h2>五、未來趨勢與行動建議</h2><p>未來，綠色消費將從「商品選擇」擴展到「系統支持」。消費者可以：1) 優先選擇明確標示農業再生或產地<a href="../consulting.html">永續</a>承諾的產品；2) 關注企業的供應鏈透明度，例如是否公開農民合作細節；3) 參與CSA（社群支持農業）或直接向小農<a href="../shop.html">購買</a>，縮短食物里程。企業則應：1) 建立可追溯的供應鏈，確保農業再生不是標籤；2) 投資農民技術與轉型，而非僅採購成品；3) 與消費者溝通真實的環境效益，避免漂綠。</p><p>全聯的農業再生宣言，不只是零售業的<a href="../consulting.html">ESG</a>案例，更可能是台灣綠色消費從「選購」走向「參與」的轉捩點。當消費不再只是交易，而是一連串對土地與未來的選擇，<a href="../consulting.html">永續</a>才真正落地。</p><p>🌿 蕨積 - 讓<a href="../lifestyle.html">生活</a>多一點綠</p>
             </div>
             
-            <div class="two-columns">
-                <div class="main-col">
-                    <div class="latest-article">
-                        <div class="latest-category">📌 永續</div>
-                        <h1 class="latest-title">永續消費的下一步：從全聯農業再生看見的可能</h1>
-                        <div class="latest-date">📅 2026-05-02</div>
-                        <div class="latest-content">
-                            
-                <h2>一、事件起點：全聯的農業再生宣言</h2><p>全聯近期宣布投入農業再生計畫，透過與農民合作、推廣友善耕作產品，試圖在零售端建立更<a href="../consulting.html">永續</a>的供應鏈。這不是單純的綠色商品上架，而是將「農業再生」概念植入消費日常。</p><h2>二、為何此時出現？背後的三股推力</h2><p>首先，消費者意識覺醒。過去綠色消費多停留在「買有機」或「選環保包裝」，但現在更多人想知道產品從哪裡來、如何生產。其次，企業<a href="../consulting.html">ESG</a>壓力。全聯作為通路龍頭，供應鏈碳排與環境影響成為風險管理重點。第三，農業困境需要新解方。台灣農地破碎化、從農人口老化，農業再生不僅是環保議題，更是產業存續問題。</p><h2>三、對個人與企業的影響</h2><p>對個人而言，綠色消費的選擇變得更具體。以往可能只認標章，現在可以透過通路選擇支持特定農法或產區。對企業來說，全聯的做法揭示了一個趨勢：未來的<a href="../consulting.html">ESG</a>不再是單點的公關活動，而是需要深入供應鏈、甚至改變商業模式。例如，全聯若不調整採購標準，農業再生口號將淪為空談。</p><h2>四、我的觀察：從「消費」到「參與」的轉變</h2><p>我認為，全聯的農業再生計畫值得肯定，但真正的考驗在於能否帶動消費者從「被動<a href="../shop.html">購買</a>」轉為「主動支持」。例如，當消費者願意為再生農業支付合理溢價，或主動了解產地故事，<a href="../consulting.html">永續</a>消費才具備長期動能。此外，農業再生不應只停留在「友善耕作」，更需包含土壤健康、水資源管理與生物多樣性。目前計畫缺乏具體的衡量指標，是未來可強化的方向。</p><h2>五、未來趨勢與行動建議</h2><p>未來，綠色消費將從「商品選擇」擴展到「系統支持」。消費者可以：1) 優先選擇明確標示農業再生或產地<a href="../consulting.html">永續</a>承諾的產品；2) 關注企業的供應鏈透明度，例如是否公開農民合作細節；3) 參與CSA（社群支持農業）或直接向小農<a href="../shop.html">購買</a>，縮短食物里程。企業則應：1) 建立可追溯的供應鏈，確保農業再生不是標籤；2) 投資農民技術與轉型，而非僅採購成品；3) 與消費者溝通真實的環境效益，避免漂綠。</p><p>全聯的農業再生宣言，不只是零售業的<a href="../consulting.html">ESG</a>案例，更可能是台灣綠色消費從「選購」走向「參與」的轉捩點。當消費不再只是交易，而是一連串對土地與未來的選擇，<a href="../consulting.html">永續</a>才真正落地。</p><p>🌿 蕨積 - 讓<a href="../lifestyle.html">生活</a>多一點綠</p>
-            
-                        </div>
-                    </div>
-                    
-                    <div class="section-title">📖 近期文章</div>
-                    <ul class="past-list">
-                        <li class="past-item"><span class="past-badge" style="display:none;">植物</span><a class="past-link" href="2026-05-01-建築與植物共生術.html">建築與植物共生術</a><div class="past-meta">📅 2026-05-01 · 植物</div></li><li class="past-item"><span class="past-badge" style="display:none;">生活</span><a class="past-link" href="2026-04-30-濕地邊界的生活哲學.html">濕地邊界的生活哲學</a><div class="past-meta">📅 2026-04-30 · 生活</div></li><li class="past-item"><span class="past-badge" style="display:none;">碳盤查</span><a class="past-link" href="2026-04-29-通勤減碳-租車業的綠色轉型.html">通勤減碳：租車業的綠色轉型</a><div class="past-meta">📅 2026-04-29 · 碳盤查</div></li><li class="past-item"><span class="past-badge" style="display:none;">永續</span><a class="past-link" href="2026-04-28-企業能源體檢-責任還是韌性？.html">企業能源體檢：責任還是韌性？</a><div class="past-meta">📅 2026-04-28 · 永續</div></li><li class="past-item"><span class="past-badge" style="display:none;">植物</span><a class="past-link" href="2026-04-27-植物書海-從閱讀到綠化.html">植物書海：從閱讀到綠化</a><div class="past-meta">📅 2026-04-27 · 植物</div></li><li class="past-item"><span class="past-badge" style="display:none;">生活</span><a class="past-link" href="2026-04-26-從軍艦整潔看生活態度.html">從軍艦整潔看生活態度</a><div class="past-meta">📅 2026-04-26 · 生活</div></li><li class="past-item"><span class="past-badge" style="display:none;">碳盤查</span><a class="past-link" href="2026-04-25-碳盤查神器-隨插即用系統.html">碳盤查神器：隨插即用系統</a><div class="past-meta">📅 2026-04-25 · 碳盤查</div></li><li class="past-item"><span class="past-badge" style="display:none;">永續</span><a class="past-link" href="2026-04-24-買少買好，地球更好.html">買少買好，地球更好</a><div class="past-meta">📅 2026-04-24 · 永續</div></li><li class="past-item"><span class="past-badge" style="display:none;">植物</span><a class="past-link" href="2026-04-23-夜間綠牆燈光魔法.html">夜間綠牆燈光魔法</a><div class="past-meta">📅 2026-04-23 · 植物</div></li><li class="past-item"><span class="past-badge" style="display:none;">生活</span><a class="past-link" href="2026-04-22-簡單生活哲學：少即是多的幸福.html">簡單生活哲學：少即是多的幸福</a><div class="past-meta">📅 2026-04-22 · 生活</div></li>
-                    </ul>
+            <div class="article-footer">
+                <p style="color: var(--stone); font-size: 0.85rem;">🌿 每日一篇，與你一起成長</p>
+                <div class="back-links">
+                    <a href="index.html">🏠 返回每日文章</a>
+                    <a href="sustainability.html">📂 返回永續分類</a>
+                    <a href="../shop.html">🌱 植物選品</a>
+                    <a href="../consult.html">💚 綠色服務</a>
                 </div>
-                
-                
-                    <div class="sidebar-col">
-                        <!-- 📧 訂閱卡片 -->
-                        <div class="sidebar-card subscribe-card" style="background: #e8f0e4;">
-                            <h3>📧 免費訂閱</h3>
-                            <p style="font-size: 0.8rem; color: var(--stone); margin-bottom: 0.8rem;">每日文章直送信箱</p>
-                            <form id="sidebar-subscribe-form">
-                                <input type="email" id="sidebar-email" placeholder="your@email.com" required style="width:100%; padding:0.6rem; border:1px solid #d0c8bc; border-radius:30px; margin-bottom:0.8rem; font-size:0.85rem; text-align:center;">
-                                <button type="submit" style="width:100%; background:var(--fern); color:white; border:none; padding:0.6rem; border-radius:30px; cursor:pointer; font-size:0.85rem; font-weight:500;">🌿 訂閱</button>
-                            </form>
-                            <div id="sidebar-subscribe-message" style="margin-top:0.8rem; font-size:0.7rem; text-align:center; display:none;"></div>
-                        </div>
-                        
-                        <div class="sidebar-card">
-                            <h3>🌿 分類瀏覽</h3>
-                            <ul class="sidebar-links">
-                                <li><a href="plant.html">🌱 植物文章 <span class="count-badge">27</span></a></li>
-                                <li><a href="sustainability.html">♻️ 永續文章 <span class="count-badge">16</span></a></li>
-                                <li><a href="carbon.html">📊 碳盤查文章 <span class="count-badge">14</span></a></li>
-                                <li><a href="life.html">🏡 生活文章 <span class="count-badge">21</span></a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="sidebar-card">
-                            <h3>📊 本站統計</h3>
-                            <ul class="sidebar-stats">
-                                <li>📄 總文章數：<strong>78</strong> 篇</li>
-                                <li>📝 累積字數：約 <strong>50,700</strong> 字</li>
-                                <li>📅 更新頻率：每日一篇</li>
-                                <li>🌱 主題分類：4 大類</li>
-                            </ul>
-                        </div>
-                    </div>
             </div>
         </div>
     </main>
-    
     <footer>
     <ul class="footer-links">
       <li><a href="/shop.html">植物選品</a></li>
@@ -452,9 +385,7 @@
     </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
-    
     <script>
-        
 document.addEventListener('DOMContentLoaded', function() {
   fetch('../nav.html')
     .then(response => response.text())
@@ -521,42 +452,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 });
-
-        
-        // 側邊欄訂閱功能（改用 URL 參數，可寫入 Sheet）
-// 側邊欄訂閱功能（簡化版）
-(function() {
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyb5SP8GCGdMDMniLfGcqHuvzrGw9XNp3JSS6l2dWLvb55ELVmJe0OlpmzVShJ3j7Pw/exec';
-    const sidebarForm = document.getElementById('sidebar-subscribe-form');
-    
-    if (sidebarForm) {
-        sidebarForm.onsubmit = function(e) {
-            e.preventDefault();
-            var email = document.getElementById('sidebar-email').value;
-            var messageDiv = document.getElementById('sidebar-subscribe-message');
-            
-            if (!email) return;
-            
-            messageDiv.style.display = 'block';
-            messageDiv.style.color = '#5a7a4a';
-            messageDiv.innerHTML = '📡 送出中...';
-            
-            var url = APPS_SCRIPT_URL + '?action=subscribe&name=讀者&email=' + encodeURIComponent(email);
-            
-            fetch(url, { method: 'POST', mode: 'no-cors' })
-                .then(function() {
-                    messageDiv.style.color = '#2c5e2e';
-                    messageDiv.innerHTML = '✅ 訂閱成功！';
-                    document.getElementById('sidebar-email').value = '';
-                    setTimeout(function() { messageDiv.style.display = 'none'; }, 3000);
-                })
-                .catch(function() {
-                    messageDiv.style.color = '#721c24';
-                    messageDiv.innerHTML = '❌ 送出失敗，請稍後再試。';
-                });
-        };
-    }
-})();
-    </script>
+</script>
 </body>
 </html>
