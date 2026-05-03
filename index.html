@@ -680,8 +680,8 @@ document.addEventListener('DOMContentLoaded', function() {
   
   if (typeof lucide !== 'undefined') lucide.createIcons();
 
-  // 載入最新文章（卡片樣式）
-  (function() {
+// 載入最新文章（卡片樣式）
+(function() {
     fetch('/daily-post/')
       .then(function(response) { return response.text(); })
       .then(function(html) {
@@ -723,9 +723,15 @@ document.addEventListener('DOMContentLoaded', function() {
           }
           
           if (href && title) {
+            // 🔧 修正連結：加上 /daily-post/ 前綴
+            var finalHref = href;
+            if (!href.startsWith('http') && !href.startsWith('/')) {
+                finalHref = '/daily-post/' + href;
+            }
+            
             htmlContent += '<div class="post-card reveal">' +
               '<div class="post-category">' + categoryText + '</div>' +
-              '<h3 class="post-title"><a href="' + href + '">' + title + '</a></h3>' +
+              '<h3 class="post-title"><a href="' + finalHref + '">' + title + '</a></h3>' +
               '<div class="post-date">📅 ' + dateText + '</div>' +
               '</div>';
           }
@@ -756,7 +762,7 @@ document.addEventListener('DOMContentLoaded', function() {
           postList.innerHTML = '<div style="text-align:center; grid-column:1/-1; color:var(--stone);">⚠️ 無法載入文章，請稍後再試</div>';
         }
       });
-  })();
+})();
 });
 </script>
   
