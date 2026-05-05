@@ -2,8 +2,14 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI每日文章 - 植物・永續・碳盤查・生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="從扎哈新作看建築與植物的未來關係">
+    <meta name="article-summary" content="從扎哈新作看建築與植物的未來關係">
+    <meta name="article-keypoints" content='["建築曲面設計為植物提供新載體", "植物選擇需配合建築微氣候", "垂直綠化應納入建築初始設計"]'>
+    <meta name="article-category" content="植物">
+    <meta name="article-date" content="2026-05-05">
+    <meta name="author" content="蕨積 FernBrom">
+    <title>花瓣建築與植物共生 - AI每日文章</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -256,23 +262,12 @@
         flex-wrap: wrap;
       }
     }
-    .daily-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    .page-header { text-align: center; margin-bottom: 2rem; }
-    .page-header h1 { color: var(--moss); font-size: 2rem; font-family: 'Noto Serif TC', serif; }
-    .page-header p { color: var(--stone); margin-top: 0.5rem; }
-    
-    .two-columns { display: flex; gap: 2rem; flex-wrap: wrap; }
-    .main-col { flex: 3; min-width: 250px; }
-    .sidebar-col { flex: 1; min-width: 220px; }
-    
-    .latest-article {
-        background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    .article-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
-    .latest-category {
+    .article-category {
         display: inline-block;
         background: #4a7c59;
         color: white;
@@ -281,168 +276,106 @@
         font-size: 0.8rem;
         margin-bottom: 1rem;
     }
-    .latest-title { font-size: 1.8rem; color: var(--moss); margin-bottom: 0.5rem; }
-    .latest-date { color: var(--stone); margin-bottom: 1.5rem; font-size: 0.9rem; }
-    .latest-content {
-        line-height: 1.8;
-        font-size: 1rem;
-        color: #333;
-    }
-    .latest-content h2 {
-        font-size: 1.4rem;
-        margin: 1.2rem 0 0.8rem 0;
+    .article-title {
+        font-size: 2rem;
         color: var(--moss);
+        margin-bottom: 0.5rem;
+        font-family: 'Noto Serif TC', serif;
+        line-height: 1.3;
+    }
+    .article-date {
+        color: var(--stone);
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #e0d6cc;
+        padding-bottom: 1rem;
+    }
+    .article-content {
+        line-height: 1.8;
+        font-size: 1.05rem;
+    }
+    .article-content h2 {
+        font-size: 1.5rem;
+        margin: 1.5rem 0 0.8rem 0;
+        color: var(--moss);
+        font-family: 'Noto Serif TC', serif;
+        font-weight: 600;
         border-left: 4px solid #4a7c59;
         padding-left: 1rem;
     }
-    .latest-content h3 {
+    .article-content h3 {
         font-size: 1.2rem;
-        margin: 1rem 0 0.5rem 0;
+        margin: 1.2rem 0 0.6rem 0;
         color: var(--fern);
     }
-    .latest-content p {
-        margin-bottom: 0.8rem;
+    .article-content p {
+        margin-bottom: 1rem;
     }
-    .latest-content ul, .latest-content ol {
-        margin: 0.8rem 0 0.8rem 1.5rem;
+    .article-content ul, .article-content ol {
+        margin: 1rem 0 1rem 2rem;
     }
-    .latest-content li {
+    .article-content li {
         margin-bottom: 0.3rem;
     }
-    
-    .section-title { font-size: 1.2rem; color: var(--moss); border-bottom: 2px solid #e0d6cc; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-    .past-list { list-style: none; }
-    .past-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0e8e0; }
-    .past-link { font-size: 1rem; font-weight: 500; color: var(--fern); text-decoration: none; display: block; }
-    .past-link:hover { text-decoration: underline; }
-    .past-meta { font-size: 0.75rem; color: #aaa; margin-top: 0.25rem; }
-    
-    .sidebar-card {
-        background: white;
-        border-radius: 16px;
-        padding: 1.2rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    .sidebar-card h3 {
-        font-size: 1rem;
-        color: var(--moss);
-        margin-bottom: 0.8rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid #e0d6cc;
-    }
-    .sidebar-links {
-        list-style: none;
-    }    .count-badge {
-        float: right;
-        background: #e8e0d8;
-        padding: 0.1rem 0.5rem;
-        border-radius: 20px;
-        font-size: 0.7rem;
-        color: #5a7a4a;
-    }
-    .sidebar-stats {
-        list-style: none;
-    }
-    .sidebar-stats li {
-        margin-bottom: 0.6rem;
-        font-size: 0.85rem;
-        color: var(--stone);
-    }
-    .sidebar-stats strong {
+    .article-content strong {
         color: var(--moss);
         font-weight: 600;
     }
-    
-    .sidebar-links li {
-        margin-bottom: 0.5rem;
+    .article-footer {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e0d6cc;
+        text-align: center;
     }
-    .sidebar-links a {
-        color: var(--stone);
-        text-decoration: none;
-        font-size: 0.85rem;
-        transition: color 0.2s;
+    .back-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin: 1rem 0;
     }
-    .sidebar-links a:hover {
+    .back-links a {
         color: var(--fern);
+        text-decoration: none;
+        font-size: 0.9rem;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        transition: background 0.2s;
+    }
+    .back-links a:hover {
+        background: #e8e0d8;
         text-decoration: underline;
     }
-    
     @media (max-width: 768px) {
-        .two-columns { flex-direction: column; }
-        .latest-title { font-size: 1.4rem; }
-        .daily-container { padding: 0 1rem; }
-        .latest-article { padding: 1rem; }
-        .latest-content h2 { font-size: 1.2rem; }
+        .article-title { font-size: 1.5rem; }
+        .article-container { padding: 0 1rem; }
+        .article-content h2 { font-size: 1.3rem; }
+        .back-links { gap: 0.8rem; }
     }
     </style>
 </head>
 <body>
     <div id="nav-placeholder"></div>
-    
     <main class="content">
-        <div class="daily-container">
-            <div class="page-header">
-                <h1>🌿 AI每日文章</h1>
-                <p>植物・永續・碳盤查・生活 — 每天一篇，與你一起成長</p>
+        <div class="article-container">
+            <div class="article-category">📌 植物</div>
+            <h1 class="article-title">花瓣建築與植物共生</h1>
+            <div class="article-date">📅 2026-05-05</div>
+            <div class="article-content">
+                <h2>花瓣造型下的<a href="../shop.html">植物</a>棲息地</h2><p>一位建築師站在香港九龍的街頭，仰望著扎哈·哈迪德建築師事務所的最新作品——國際門廊中心。其花瓣造型的曲面外牆，不僅重塑了天際線，更引發了他對建築與<a href="../shop.html">植物</a>關係的思考。他注意到，那些流暢的曲面並非只是美學宣言，而是可能成為<a href="../greenwall.html">垂直綠化</a>的新載體。</p><h2>曲面如何改變<a href="../shop.html">植物</a>生長條件？</h2><p>傳統綠牆多依附於平面外牆，但國際門廊中心的曲面設計創造了多變的日照與風流條件。朝南的曲面在午後會形成強烈熱輻射，而凹陷處則可能積聚濕氣。這意味著，若要在這些曲面上植栽，不能簡單地套用常見的綠牆<a href="../shop.html">植物</a>組合。例如，朝南曲面適合耐旱的龍舌蘭或景天屬<a href="../shop.html">植物</a>，而陰影區則可選用蕨類與苔蘚。此外，曲面弧度會影響灌溉水流，需要設計分區滴灌系統，避免積水或乾旱。</p><h2><a href="../shop.html">植物</a>選擇的系統性思考</h2><p>許多建築師在設計綠化時，僅考慮美觀而忽略<a href="../shop.html">植物</a>生態需求。但國際門廊中心的案例提醒我們，<a href="../shop.html">植物</a>應被視為建築表皮的主動參與者。例如，選擇落葉<a href="../shop.html">植物</a>可在夏季提供遮蔭、冬季讓陽光穿透，調節建築能耗。同時，本地原生<a href="../shop.html">植物</a>更能適應微氣候，且維護成本低。建議建築師在設計初期就與<a href="../shop.html">植物</a>學家合作，建立<a href="../shop.html">植物</a>品種庫，並透過模擬軟體預測不同曲面上的生長表現。</p><h2>從零星綠化到系統整合</h2><p>目前許多城市推廣綠建築，但常流於「點綴式」綠化——在屋頂或陽台擺幾盆<a href="../shop.html">植物</a>。國際門廊中心的設計顯示，真正的整合應將<a href="../shop.html">植物</a>納入結構系統。例如，曲面外牆可預留植栽槽，並與雨水回收、灌溉系統整合。這不僅提升生物多樣性，還能降低熱島效應。未來趨勢是「<a href="../shop.html">植物</a>建築」——建築不僅容納<a href="../shop.html">植物</a>，更與<a href="../shop.html">植物</a>共同演化。</p><h2>行動建議：從觀察開始</h2><p>若你正參與建築項目，不妨先觀察場地的日照、風向與濕度。接著，挑選3-5種適應性強的本地<a href="../shop.html">植物</a>進行試種，記錄其生長數據。最後，與結構工程師討論如何將植栽槽融入設計，確保荷載與防水安全。即使只是陽台小花園，也可採用模塊化種植盒，便於更換與維護。</p><p>🌿 蕨積 - 讓<a href="../lifestyle.html">生活</a>多一點綠</p>
             </div>
             
-            <div class="two-columns">
-                <div class="main-col">
-                    <div class="latest-article">
-                        <div class="latest-category">📌 植物</div>
-                        <h1 class="latest-title">花瓣建築與植物共生</h1>
-                        <div class="latest-date">📅 2026-05-05</div>
-                        <div class="latest-content">
-                            
-                <h2>花瓣造型下的<a href="../shop.html">植物</a>棲息地</h2><p>一位建築師站在香港九龍的街頭，仰望著扎哈·哈迪德建築師事務所的最新作品——國際門廊中心。其花瓣造型的曲面外牆，不僅重塑了天際線，更引發了他對建築與<a href="../shop.html">植物</a>關係的思考。他注意到，那些流暢的曲面並非只是美學宣言，而是可能成為<a href="../greenwall.html">垂直綠化</a>的新載體。</p><h2>曲面如何改變<a href="../shop.html">植物</a>生長條件？</h2><p>傳統綠牆多依附於平面外牆，但國際門廊中心的曲面設計創造了多變的日照與風流條件。朝南的曲面在午後會形成強烈熱輻射，而凹陷處則可能積聚濕氣。這意味著，若要在這些曲面上植栽，不能簡單地套用常見的綠牆<a href="../shop.html">植物</a>組合。例如，朝南曲面適合耐旱的龍舌蘭或景天屬<a href="../shop.html">植物</a>，而陰影區則可選用蕨類與苔蘚。此外，曲面弧度會影響灌溉水流，需要設計分區滴灌系統，避免積水或乾旱。</p><h2><a href="../shop.html">植物</a>選擇的系統性思考</h2><p>許多建築師在設計綠化時，僅考慮美觀而忽略<a href="../shop.html">植物</a>生態需求。但國際門廊中心的案例提醒我們，<a href="../shop.html">植物</a>應被視為建築表皮的主動參與者。例如，選擇落葉<a href="../shop.html">植物</a>可在夏季提供遮蔭、冬季讓陽光穿透，調節建築能耗。同時，本地原生<a href="../shop.html">植物</a>更能適應微氣候，且維護成本低。建議建築師在設計初期就與<a href="../shop.html">植物</a>學家合作，建立<a href="../shop.html">植物</a>品種庫，並透過模擬軟體預測不同曲面上的生長表現。</p><h2>從零星綠化到系統整合</h2><p>目前許多城市推廣綠建築，但常流於「點綴式」綠化——在屋頂或陽台擺幾盆<a href="../shop.html">植物</a>。國際門廊中心的設計顯示，真正的整合應將<a href="../shop.html">植物</a>納入結構系統。例如，曲面外牆可預留植栽槽，並與雨水回收、灌溉系統整合。這不僅提升生物多樣性，還能降低熱島效應。未來趨勢是「<a href="../shop.html">植物</a>建築」——建築不僅容納<a href="../shop.html">植物</a>，更與<a href="../shop.html">植物</a>共同演化。</p><h2>行動建議：從觀察開始</h2><p>若你正參與建築項目，不妨先觀察場地的日照、風向與濕度。接著，挑選3-5種適應性強的本地<a href="../shop.html">植物</a>進行試種，記錄其生長數據。最後，與結構工程師討論如何將植栽槽融入設計，確保荷載與防水安全。即使只是陽台小花園，也可採用模塊化種植盒，便於更換與維護。</p><p>🌿 蕨積 - 讓<a href="../lifestyle.html">生活</a>多一點綠</p>
-            
-                        </div>
-                    </div>
-                    
-                    <div class="section-title">📖 近期文章</div>
-                    <ul class="past-list">
-                        <li class="past-item"><span class="past-badge" style="display:none;">生活</span><a class="past-link" href="2026-05-04-逆轉人生-從球場到日常的韌性哲學.html">逆轉人生：從球場到日常的韌性哲學</a><div class="past-meta">📅 2026-05-04 · 生活</div></li><li class="past-item"><span class="past-badge" style="display:none;">碳盤查</span><a class="past-link" href="2026-05-03-碳盤查-AI算力如何重塑你的碳足跡？.html">碳盤查：AI算力如何重塑你的碳足跡？</a><div class="past-meta">📅 2026-05-03 · 碳盤查</div></li><li class="past-item"><span class="past-badge" style="display:none;">永續</span><a class="past-link" href="2026-05-02-永續消費的下一步-從全聯農業再生看見的可能.html">永續消費的下一步：從全聯農業再生看見的可能</a><div class="past-meta">📅 2026-05-02 · 永續</div></li><li class="past-item"><span class="past-badge" style="display:none;">植物</span><a class="past-link" href="2026-05-01-建築與植物共生術.html">建築與植物共生術</a><div class="past-meta">📅 2026-05-01 · 植物</div></li><li class="past-item"><span class="past-badge" style="display:none;">生活</span><a class="past-link" href="2026-04-30-濕地邊界的生活哲學.html">濕地邊界的生活哲學</a><div class="past-meta">📅 2026-04-30 · 生活</div></li><li class="past-item"><span class="past-badge" style="display:none;">碳盤查</span><a class="past-link" href="2026-04-29-通勤減碳-租車業的綠色轉型.html">通勤減碳：租車業的綠色轉型</a><div class="past-meta">📅 2026-04-29 · 碳盤查</div></li><li class="past-item"><span class="past-badge" style="display:none;">永續</span><a class="past-link" href="2026-04-28-企業能源體檢-責任還是韌性？.html">企業能源體檢：責任還是韌性？</a><div class="past-meta">📅 2026-04-28 · 永續</div></li><li class="past-item"><span class="past-badge" style="display:none;">植物</span><a class="past-link" href="2026-04-27-植物書海-從閱讀到綠化.html">植物書海：從閱讀到綠化</a><div class="past-meta">📅 2026-04-27 · 植物</div></li><li class="past-item"><span class="past-badge" style="display:none;">生活</span><a class="past-link" href="2026-04-26-從軍艦整潔看生活態度.html">從軍艦整潔看生活態度</a><div class="past-meta">📅 2026-04-26 · 生活</div></li><li class="past-item"><span class="past-badge" style="display:none;">碳盤查</span><a class="past-link" href="2026-04-25-碳盤查神器-隨插即用系統.html">碳盤查神器：隨插即用系統</a><div class="past-meta">📅 2026-04-25 · 碳盤查</div></li>
-                    </ul>
+            <div class="article-footer">
+                <p style="color: var(--stone); font-size: 0.85rem;">🌿 每日一篇，與你一起成長</p>
+                <div class="back-links">
+                    <a href="index.html">🏠 返回每日文章</a>
+                    <a href="plant.html">📂 返回植物分類</a>
+                    <a href="../shop.html">🌱 植物選品</a>
+                    <a href="../consult.html">💚 綠色服務</a>
                 </div>
-                
-                
-                    <div class="sidebar-col">
-                        <!-- 📧 訂閱卡片 -->
-                        <div class="sidebar-card subscribe-card" style="background: #e8f0e4;">
-                            <h3>📧 免費訂閱</h3>
-                            <p style="font-size: 0.8rem; color: var(--stone); margin-bottom: 0.8rem;">每日文章直送信箱</p>
-                            <form id="sidebar-subscribe-form">
-                                <input type="email" id="sidebar-email" placeholder="your@email.com" required style="width:100%; padding:0.6rem; border:1px solid #d0c8bc; border-radius:30px; margin-bottom:0.8rem; font-size:0.85rem; text-align:center;">
-                                <button type="submit" style="width:100%; background:var(--fern); color:white; border:none; padding:0.6rem; border-radius:30px; cursor:pointer; font-size:0.85rem; font-weight:500;">🌿 訂閱</button>
-                            </form>
-                            <div id="sidebar-subscribe-message" style="margin-top:0.8rem; font-size:0.7rem; text-align:center; display:none;"></div>
-                        </div>
-                        
-                        <div class="sidebar-card">
-                            <h3>🌿 分類瀏覽</h3>
-                            <ul class="sidebar-links">
-                                <li><a href="plant.html">🌱 植物文章 <span class="count-badge">28</span></a></li>
-                                <li><a href="sustainability.html">♻️ 永續文章 <span class="count-badge">16</span></a></li>
-                                <li><a href="carbon.html">📊 碳盤查文章 <span class="count-badge">15</span></a></li>
-                                <li><a href="life.html">🏡 生活文章 <span class="count-badge">22</span></a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="sidebar-card">
-                            <h3>📊 本站統計</h3>
-                            <ul class="sidebar-stats">
-                                <li>📄 總文章數：<strong>81</strong> 篇</li>
-                                <li>📝 累積字數：約 <strong>52,650</strong> 字</li>
-                                <li>📅 更新頻率：每日一篇</li>
-                                <li>🌱 主題分類：4 大類</li>
-                            </ul>
-                        </div>
-                    </div>
             </div>
         </div>
     </main>
-    
     <footer>
     <ul class="footer-links">
       <li><a href="/shop.html">植物選品</a></li>
@@ -452,9 +385,7 @@
     </ul>
     <p class="footer-copy">© 2026 蕨積 FernBrom . All rights reserved.</p>
   </footer>
-    
     <script>
-        
 document.addEventListener('DOMContentLoaded', function() {
   fetch('../nav.html')
     .then(response => response.text())
@@ -521,42 +452,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 });
-
-        
-        // 側邊欄訂閱功能（改用 URL 參數，可寫入 Sheet）
-// 側邊欄訂閱功能（簡化版）
-(function() {
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyb5SP8GCGdMDMniLfGcqHuvzrGw9XNp3JSS6l2dWLvb55ELVmJe0OlpmzVShJ3j7Pw/exec';
-    const sidebarForm = document.getElementById('sidebar-subscribe-form');
-    
-    if (sidebarForm) {
-        sidebarForm.onsubmit = function(e) {
-            e.preventDefault();
-            var email = document.getElementById('sidebar-email').value;
-            var messageDiv = document.getElementById('sidebar-subscribe-message');
-            
-            if (!email) return;
-            
-            messageDiv.style.display = 'block';
-            messageDiv.style.color = '#5a7a4a';
-            messageDiv.innerHTML = '📡 送出中...';
-            
-            var url = APPS_SCRIPT_URL + '?action=subscribe&name=讀者&email=' + encodeURIComponent(email);
-            
-            fetch(url, { method: 'POST', mode: 'no-cors' })
-                .then(function() {
-                    messageDiv.style.color = '#2c5e2e';
-                    messageDiv.innerHTML = '✅ 訂閱成功！';
-                    document.getElementById('sidebar-email').value = '';
-                    setTimeout(function() { messageDiv.style.display = 'none'; }, 3000);
-                })
-                .catch(function() {
-                    messageDiv.style.color = '#721c24';
-                    messageDiv.innerHTML = '❌ 送出失敗，請稍後再試。';
-                });
-        };
-    }
-})();
-    </script>
+</script>
 </body>
 </html>
